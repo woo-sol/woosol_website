@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Noto+Sans+KR:wght@400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', 'Noto+Sans+KR', sans-serif;
+            background-color: #ffffff;
+            color: #000;
+            margin: 0;
+            padding: 30px;
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        /* 1. 섬네일 이미지 크기 고정 */
+        .post-item {
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+            margin-bottom: 80px;
+        }
+        
+        .post-item:hover {
+            transform: translateY(-8px);
+        }
+
+        /* 고정 너비 규격 */
+        .w-sm { width: 200px; }
+        .w-md { width: 320px; }
+        .w-lg { width: 440px; }
+
+        .caption {
+            margin-top: 14px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        /* 하이퍼링크 스타일 */
+        a, .link {
+            color: #0000ff;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        #detail-view {
+            display: none;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 0.5px solid #eee; /* 아주 미세한 경계 */
+        }
+
+        /* 메뉴 스타일 */
+        .nav-item {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+            text-decoration: none;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: #000;
+            border-bottom: 2px solid #000;
+        }
+    </style>
+</head>
+<body class="md:p-10 lg:p-16">
+
+    <!-- 상단 네비바 -->
+    <header class="flex justify-between items-baseline mb-24 lg:mb-40">
+        <h1 class="text-3xl font-black tracking-tighter cursor-pointer" onclick="showIndex()">POS</h1>
+        <nav class="flex gap-6 md:gap-10">
+            <a href="#" class="nav-item active">PROJECTS</a>
+            <a href="#" class="nav-item">ABOUT</a>
+            <a href="#" class="nav-item">CONTACT</a>
+            <a href="#" class="nav-item">LIBRARY</a>
+        </nav>
+    </header>
+
+    <!-- 인덱스 갤러리: 2 & 3. 가로 유동배치 / 하단 정렬 -->
+    <main id="index-view" class="flex flex-wrap items-end gap-x-16 gap-y-4">
+        
+        <!-- 1. 카라바조 -->
+        <div class="post-item w-md" onclick="showDetail('카라바조의 의심하는 도마', 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Caravaggio_-_The_Incredulity_of_Saint_Thomas.jpg')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Caravaggio_-_The_Incredulity_of_Saint_Thomas.jpg" alt="">
+            <div class="caption">01. 카라바조의 의심하는 도마</div>
+        </div>
+
+        <!-- 2. 베르그송 -->
+        <div class="post-item w-sm" onclick="showDetail('베르그송의 원뿔모형', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bergson-cone.svg/800px-Bergson-cone.svg.png')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bergson-cone.svg/800px-Bergson-cone.svg.png" alt="">
+            <div class="caption">02. 베르그송의 원뿔모형</div>
+        </div>
+
+        <!-- 3. Roman du Roi -->
+        <div class="post-item w-lg" onclick="showDetail('시스템의 규정방식', 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Romain_du_Roi_A.png')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Romain_du_Roi_A.png" alt="">
+            <div class="caption">03. 시스템의 규정방식</div>
+        </div>
+
+        <!-- 4. 아즈텍 문양 -->
+        <div class="post-item w-md" onclick="showDetail('행복한 규격', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Stone_of_the_Sun_copy.jpg/800px-Stone_of_the_Sun_copy.jpg')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Stone_of_the_Sun_copy.jpg/800px-Stone_of_the_Sun_copy.jpg" alt="">
+            <div class="caption">04. 행복한 규격</div>
+        </div>
+
+        <!-- 5. 걷는 사람 GIF -->
+        <div class="post-item w-sm" onclick="showDetail('도시횡단 정의하기', 'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYxdXN4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxP5O9XmFm8/giphy.gif')">
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYxdXN4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxP5O9XmFm8/giphy.gif" alt="">
+            <div class="caption">05. 도시횡단 정의하기</div>
+        </div>
+
+        <!-- 6. 바벨 도서관 -->
+        <div class="post-item w-md" onclick="showDetail('보르헤스의 세계관', 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000&auto=format&fit=crop')">
+            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000&auto=format&fit=crop" alt="">
+            <div class="caption">06. 보르헤스의 세계관</div>
+        </div>
+
+        <!-- 7. 얼굴-넘어서 -->
+        <div class="post-item w-sm" onclick="showDetail('얼굴-넘어서', 'https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1000&auto=format&fit=crop')">
+            <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1000&auto=format&fit=crop" alt="">
+            <div class="caption">07. 얼굴-넘어서</div>
+        </div>
+
+        <!-- 8. 에릭 로메르 -->
+        <div class="post-item w-lg" onclick="showDetail('“나는 누군가를 사랑하게 되면, 그 사람의 취향까지도 사랑하게 돼요.”', 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000&auto=format&fit=crop')">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000&auto=format&fit=crop" alt="">
+            <div class="caption">08. 에릭 로메르: "나는 누군가를 사랑하게 되면..."</div>
+        </div>
+
+    </main>
+
+    <!-- 상세 페이지 -->
+    <article id="detail-view" class="max-w-[1200px] mx-auto">
+        <div class="mb-12">
+            <span class="link cursor-pointer text-[10px] font-black uppercase" onclick="showIndex()">← Return to Index</span>
+        </div>
+
+        <header class="mb-20">
+            <h2 id="detail-title" class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-12 italic leading-[0.8]">제목</h2>
+            
+            <div class="border-t-2 border-black pt-8 grid grid-cols-2 md:grid-cols-4 gap-10 uppercase font-bold text-[10px] tracking-widest">
+                <div>
+                    <span class="text-gray-400 block mb-2 underline">Status</span>
+                    <span>Archived</span>
+                </div>
+                <div>
+                    <span class="text-gray-400 block mb-2 underline">Typology</span>
+                    <span>Visual Research</span>
+                </div>
+                <div>
+                    <span class="text-gray-400 block mb-2 underline">Department</span>
+                    <span>POS Unit 01</span>
+                </div>
+                <div>
+                    <span class="text-gray-400 block mb-2 underline">Reference</span>
+                    <span>Ref_Archive_2024</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="content-body">
+            <div class="mb-24">
+                <img id="detail-img" src="" class="w-full h-auto border border-black" alt="">
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                <div class="lg:col-span-8 text-2xl md:text-3xl font-medium leading-[1.1] tracking-tight space-y-12">
+                    <p>
+                        이 페이지는 POS 아카이브의 개별 작업물을 상세히 기록합니다. 장식적인 요소를 배제하고, 이미지와 텍스트의 병치를 통해 프로젝트의 본질을 노출하는 Cooking Sections의 방법론을 따릅니다.
+                    </p>
+                    <p class="font-black border-l-8 border-black pl-8 py-4 uppercase text-xl">
+                        "Visual data as an evidence of thought."
+                    </p>
+                    <p class="text-lg md:text-xl text-gray-800 leading-relaxed">
+                        우리는 원본 소스가 가진 시각적 무게감을 존중합니다. 텍스트는 인위적인 여백 조절 없이 시스템 기본값에 가깝게 나열되며, 이는 디지털 환경에서의 날것(Raw) 그대로의 상태를 지향하는 브루탈리즘의 표현입니다.
+                    </p>
+                </div>
+                
+                <div class="lg:col-span-4 space-y-8">
+                    <div class="border-t border-black pt-6">
+                        <h4 class="font-black mb-4 uppercase text-[10px] tracking-widest text-gray-400">Collaborators</h4>
+                        <ul class="text-[12px] space-y-1 uppercase font-bold">
+                            <li>POS Archive Team</li>
+                            <li>Visual Research Lab</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-64 pb-20 border-t-2 border-black pt-10 flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+            <span>© POS 2024</span>
+            <span class="link cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Scroll to Top ↑</span>
+        </footer>
+    </article>
+
+    <script>
+        function showDetail(title, imgUrl) {
+            document.getElementById('index-view').style.display = 'none';
+            document.getElementById('detail-view').style.display = 'block';
+            document.getElementById('detail-title').innerText = title;
+            document.getElementById('detail-img').src = imgUrl;
+            window.scrollTo(0, 0);
+        }
+
+        function showIndex() {
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('index-view').style.display = 'flex';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
