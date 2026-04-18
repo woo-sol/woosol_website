@@ -1,228 +1,448 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Noto+Sans+KR:wght@400;700;900&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POS — Public Operating System</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300&family=Inter:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;700;900&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--blue:#0000ff;--header-h:52px;}
+body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;min-height:100vh;}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:2px;}
 
-        body {
-            font-family: 'Inter', 'Noto+Sans+KR', sans-serif;
-            background-color: #ffffff;
-            color: #000;
-            margin: 0;
-            padding: 30px;
-            line-height: 1.4;
-            word-break: keep-all;
-        }
+.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:#fff;display:flex;align-items:center;padding:0 28px;z-index:200;}
+.logo{font-family:'Outfit',sans-serif;font-weight:200;font-size:28px;letter-spacing:0.04em;cursor:pointer;user-select:none;flex-shrink:0;}
+.logo:hover{opacity:0.4;}
+.nav-rail{overflow:hidden;max-width:0;transition:max-width 0.38s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;}
+.nav-rail.open{max-width:600px;}
+.nav-item{font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:-0.01em;color:#999;white-space:nowrap;padding:0 20px;cursor:pointer;background:none;border:none;transition:color 0.1s;}
+.nav-item:hover,.nav-item.active{color:#000;}
+.nav-item.active{text-decoration:underline;text-underline-offset:3px;}
 
-        /* 1. 섬네일 이미지 크기 고정 */
-        .post-item {
-            cursor: pointer;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
-            margin-bottom: 80px;
-        }
-        
-        .post-item:hover {
-            transform: translateY(-8px);
-        }
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px;margin-left:auto;}
+.hamburger span{display:block;width:22px;height:1.5px;background:#000;}
+.mobile-menu{display:none;position:fixed;top:var(--header-h);left:0;right:0;background:#fff;border-bottom:1px solid #000;padding:16px 28px;z-index:190;flex-direction:column;}
+.mobile-menu.open{display:flex;}
+.mob-item{font-size:13px;font-weight:400;letter-spacing:-0.01em;color:#999;padding:12px 0;border-bottom:1px solid #eee;cursor:pointer;background:none;border-left:none;border-right:none;border-top:none;font-family:inherit;text-align:left;width:100%;}
+.mob-item:last-child{border-bottom:none;}
+.mob-item:hover,.mob-item.active{color:#000;}
+@media(max-width:480px){
+  .nav-rail{display:none !important;}
+  .logo{pointer-events:none;}
+  .hamburger{display:flex;}
+}
 
-        /* 고정 너비 규격 */
-        .w-sm { width: 200px; }
-        .w-md { width: 320px; }
-        .w-lg { width: 440px; }
+.site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 
-        .caption {
-            margin-top: 14px;
-            font-size: 11px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            text-align: left;
-            line-height: 1.2;
-        }
+/* GALLERY */
+.gallery{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;}
+.card{cursor:pointer;flex-shrink:0;transition:transform 0.22s ease;}
+.card:hover{transform:translateY(-6px);}
+.card-cap{margin-top:10px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;}
 
-        /* 하이퍼링크 스타일 */
-        a, .link {
-            color: #0000ff;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
+/* SECTIONS */
+.pg{display:none;}.pg.on{display:block;}
+.sec-head{margin-bottom:40px;border-bottom:2px solid #000;padding-bottom:18px;}
+.sec-title{font-size:clamp(26px,5vw,58px);font-weight:900;letter-spacing:-0.04em;line-height:0.88;font-style:italic;margin-bottom:10px;}
+.sec-desc{font-size:11px;color:#777;line-height:1.6;max-width:440px;}
+.tlist{list-style:none;}
+.tlist li{border-bottom:1px solid #eee;padding:14px 0;display:grid;grid-template-columns:34px 1fr 90px;gap:12px;align-items:baseline;}
+.tlist .num{font-size:9px;font-weight:700;color:#bbb;}
+.tlist .t-title{font-size:13px;font-weight:700;color:var(--blue);text-decoration:underline;cursor:pointer;}
+.tlist .t-meta{font-size:9px;color:#bbb;text-transform:uppercase;text-align:right;}
 
-        #detail-view {
-            display: none;
-        }
+/* DETAIL */
+#dv{display:none;}
+.d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
+.d-content{width:100%;}
+.d-img-main{width:100%;height:auto;display:block;margin-bottom:24px;}
+.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:9cm;column-count:5;column-gap:28px;}
+.d-text p{break-inside:avoid;}
+.d-text p+p{margin-top:14px;}
+.d-img-plate{column-span:all;width:100%;max-width:480px;display:block;margin:28px 0;}
+.wiki-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
+.d-related{margin-top:40px;}
+.d-related-label{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
+.rel-item{margin-bottom:8px;font-size:12px;}
+.r-sec{color:#bbb;font-size:9px;text-transform:uppercase;display:inline;margin-left:6px;}
+.back-btn{display:inline-block;margin-top:48px;cursor:pointer;opacity:0.6;transition:opacity 0.15s;}
+.back-btn:hover{opacity:1;}
 
-        img {
-            display: block;
-            width: 100%;
-            height: auto;
-            border: 0.5px solid #eee; /* 아주 미세한 경계 */
-        }
+/* ABOUT */
+.about-body{max-width:620px;font-size:clamp(13px,1.8vw,17px);line-height:1.65;letter-spacing:-0.01em;}
+.about-body p+p{margin-top:18px;}
 
-        /* 메뉴 스타일 */
-        .nav-item {
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #999;
-            text-decoration: none;
-        }
-        .nav-item:hover, .nav-item.active {
-            color: #000;
-            border-bottom: 2px solid #000;
-        }
-    </style>
+/* FABs */
+.fab{position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#000;color:#fff;border:none;font-size:22px;cursor:pointer;z-index:300;display:flex;align-items:center;justify-content:center;}
+.fab:hover{background:var(--blue);}
+.fab-edit{position:fixed;bottom:72px;right:24px;width:42px;height:42px;background:#000;border:none;cursor:pointer;z-index:300;align-items:center;justify-content:center;display:none;}
+.fab-edit:hover{background:var(--blue);}
+.fab-edit-dot{width:14px;height:14px;background:#fff;border-radius:50%;display:block;}
+
+/* OVERLAY + PANELS */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.25);z-index:250;}
+.ov.on{display:block;}
+.panel{display:none;position:fixed;top:0;right:0;width:min(460px,100vw);height:100vh;background:#fff;border-left:2px solid #000;z-index:300;overflow-y:auto;padding:28px;}
+.panel.on{display:block;}
+.ph{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;}
+.pc{background:none;border:none;font-size:20px;cursor:pointer;}
+.fl{margin-bottom:16px;}
+.fl label{display:block;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px;text-decoration:underline;}
+.fi,.fta,.fsel{width:100%;border:1px solid #000;padding:7px 9px;font-family:inherit;font-size:12px;background:#fff;outline:none;}
+.fi:focus,.fta:focus{border-color:var(--blue);}
+.fta{height:110px;resize:vertical;}
+.fbtn{background:#000;color:#fff;border:none;padding:10px 0;font-family:inherit;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;width:100%;margin-top:4px;}
+.fbtn:hover{background:var(--blue);}
+.hint{font-size:9px;color:#aaa;margin-top:4px;line-height:1.4;}
+.ok-msg{color:green;font-size:10px;margin-top:8px;display:none;}
+.err-msg{color:red;font-size:10px;margin-top:8px;display:none;}
+</style>
 </head>
-<body class="md:p-10 lg:p-16">
+<body>
 
-    <!-- 상단 네비바 -->
-    <header class="flex justify-between items-baseline mb-24 lg:mb-40">
-        <h1 class="text-3xl font-black tracking-tighter cursor-pointer" onclick="showIndex()">POS</h1>
-        <nav class="flex gap-6 md:gap-10">
-            <a href="#" class="nav-item active">PROJECTS</a>
-            <a href="#" class="nav-item">ABOUT</a>
-            <a href="#" class="nav-item">CONTACT</a>
-            <a href="#" class="nav-item">LIBRARY</a>
-        </nav>
-    </header>
+<header class="header">
+  <div class="logo" onclick="toggleMenu()">POS</div>
+  <nav class="nav-rail" id="nav-rail">
+    <button class="nav-item active" id="nv-개념들" onclick="go('개념들')">개념들</button>
+    <button class="nav-item" id="nv-도서관" onclick="go('도서관')">도서관</button>
+    <button class="nav-item" id="nv-건축언어" onclick="go('건축언어')">건축언어</button>
+    <button class="nav-item" id="nv-관계심화" onclick="go('관계심화')">관계심화</button>
+    <button class="nav-item" id="nv-about" onclick="go('about')" style="color:#ccc;font-size:11px;">About</button>
+  </nav>
+  <button class="hamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</header>
 
-    <!-- 인덱스 갤러리: 2 & 3. 가로 유동배치 / 하단 정렬 -->
-    <main id="index-view" class="flex flex-wrap items-end gap-x-16 gap-y-4">
-        
-        <!-- 1. 카라바조 -->
-        <div class="post-item w-md" onclick="showDetail('카라바조의 의심하는 도마', 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Caravaggio_-_The_Incredulity_of_Saint_Thomas.jpg')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Caravaggio_-_The_Incredulity_of_Saint_Thomas.jpg" alt="">
-            <div class="caption">01. 카라바조의 의심하는 도마</div>
-        </div>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mob-item active" id="mob-개념들" onclick="go('개념들')">개념들</button>
+  <button class="mob-item" id="mob-도서관" onclick="go('도서관')">도서관</button>
+  <button class="mob-item" id="mob-건축언어" onclick="go('건축언어')">건축언어</button>
+  <button class="mob-item" id="mob-관계심화" onclick="go('관계심화')">관계심화</button>
+  <button class="mob-item" id="mob-about" onclick="go('about')" style="color:#bbb;font-size:11px;">About</button>
+</div>
 
-        <!-- 2. 베르그송 -->
-        <div class="post-item w-sm" onclick="showDetail('베르그송의 원뿔모형', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bergson-cone.svg/800px-Bergson-cone.svg.png')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bergson-cone.svg/800px-Bergson-cone.svg.png" alt="">
-            <div class="caption">02. 베르그송의 원뿔모형</div>
-        </div>
+<main class="site-main">
+  <div id="pg-개념들" class="pg on"><div id="gallery" class="gallery"></div></div>
+  <div id="pg-도서관" class="pg">
+    <p style="font-size:14.6px;font-weight:400;">construction zone</p>
+  </div>
+  <div id="pg-건축언어" class="pg">
+    <p style="font-size:14.6px;font-weight:400;">construction zone</p>
+  </div>
+  <div id="pg-관계심화" class="pg">
+    <p style="font-size:14.6px;font-weight:400;">construction zone</p>
+  </div>
+  <div id="pg-about" class="pg">
+    <div class="d-content">
+      <h1 class="d-title"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;text-decoration:none;">Instagram</a></h1>
+    </div>
+  </div>
 
-        <!-- 3. Roman du Roi -->
-        <div class="post-item w-lg" onclick="showDetail('시스템의 규정방식', 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Romain_du_Roi_A.png')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Romain_du_Roi_A.png" alt="">
-            <div class="caption">03. 시스템의 규정방식</div>
-        </div>
+  <div id="dv">
+    <div class="d-content">
+      <h1 class="d-title" id="d-title"></h1>
+      <img id="d-img" class="d-img-main" src="" alt="" style="display:none;">
+      <div class="d-text" id="d-text"></div>
+      <div id="d-related-wrap" style="display:none;margin-top:40px;">
+        <div class="d-related-label">관련 게시물</div>
+        <div id="d-related"></div>
+      </div>
+      <span class="back-btn" onclick="closeDetail()">
+        <svg width="38" height="26" viewBox="0 0 38 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+    </div>
+  </div>
+</main>
 
-        <!-- 4. 아즈텍 문양 -->
-        <div class="post-item w-md" onclick="showDetail('행복한 규격', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Stone_of_the_Sun_copy.jpg/800px-Stone_of_the_Sun_copy.jpg')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Stone_of_the_Sun_copy.jpg/800px-Stone_of_the_Sun_copy.jpg" alt="">
-            <div class="caption">04. 행복한 규격</div>
-        </div>
+<!-- 새 게시물 FAB -->
+<button class="fab" onclick="toggleNewPanel()">+</button>
 
-        <!-- 5. 걷는 사람 GIF -->
-        <div class="post-item w-sm" onclick="showDetail('도시횡단 정의하기', 'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYxdXN4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxP5O9XmFm8/giphy.gif')">
-            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYxdXN4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4Znd4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKMGpxP5O9XmFm8/giphy.gif" alt="">
-            <div class="caption">05. 도시횡단 정의하기</div>
-        </div>
+<!-- 수정 FAB -->
+<button class="fab-edit" id="fab-edit" onclick="toggleEditPanel()">
+  <span class="fab-edit-dot"></span>
+</button>
 
-        <!-- 6. 바벨 도서관 -->
-        <div class="post-item w-md" onclick="showDetail('보르헤스의 세계관', 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000&auto=format&fit=crop')">
-            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000&auto=format&fit=crop" alt="">
-            <div class="caption">06. 보르헤스의 세계관</div>
-        </div>
+<div class="ov" id="ov" onclick="closeAllPanels()"></div>
 
-        <!-- 7. 얼굴-넘어서 -->
-        <div class="post-item w-sm" onclick="showDetail('얼굴-넘어서', 'https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1000&auto=format&fit=crop')">
-            <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1000&auto=format&fit=crop" alt="">
-            <div class="caption">07. 얼굴-넘어서</div>
-        </div>
+<!-- 새 게시물 패널 -->
+<div class="panel" id="new-panel">
+  <div class="ph"><span>게시물 올리기</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
+  <div id="npw-sc">
+    <div class="fl"><label>비밀번호</label><input type="password" class="fi" id="npw-in" placeholder="••••••" onkeydown="if(event.key==='Enter')checkNewPw()"></div>
+    <button class="fbtn" onclick="checkNewPw()">확인</button>
+    <p id="npw-err" class="err-msg">비밀번호가 틀렸습니다.</p>
+  </div>
+  <div id="nf" style="display:none">
+    <div class="fl"><label>제목</label><input type="text" class="fi" id="f-title" placeholder="게시물 제목"></div>
+    <div class="fl"><label>섹션</label><select class="fsel fi" id="f-sec"><option>개념들</option><option>도서관</option><option>건축언어</option><option>관계심화</option></select></div>
+    <div class="fl"><label>이미지 URL</label><input type="text" class="fi" id="f-img" placeholder="https://..."></div>
+    <div class="fl"><label>본문</label><textarea class="fta" id="f-body" placeholder="[[단어]] 형식으로 위키 링크 생성"></textarea><div class="hint">[[image:0]] = 도판 삽입</div></div>
+    <div class="fl"><label>태그 (쉼표 구분)</label><input type="text" class="fi" id="f-tags"></div>
+    <div class="fl"><label>날짜</label><input type="text" class="fi" id="f-date" placeholder="2024.05"></div>
+    <button class="fbtn" onclick="submitNewPost()">게시하기</button>
+    <p id="nf-ok" class="ok-msg">✓ 등록되었습니다.</p>
+  </div>
+</div>
 
-        <!-- 8. 에릭 로메르 -->
-        <div class="post-item w-lg" onclick="showDetail('“나는 누군가를 사랑하게 되면, 그 사람의 취향까지도 사랑하게 돼요.”', 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000&auto=format&fit=crop')">
-            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000&auto=format&fit=crop" alt="">
-            <div class="caption">08. 에릭 로메르: "나는 누군가를 사랑하게 되면..."</div>
-        </div>
+<!-- 수정 패널 -->
+<div class="panel" id="edit-panel">
+  <div class="ph"><span>게시물 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
+  <div id="epw-sc">
+    <div class="fl"><label>비밀번호</label><input type="password" class="fi" id="epw-in" placeholder="••••••" onkeydown="if(event.key==='Enter')checkEditPw()"></div>
+    <button class="fbtn" onclick="checkEditPw()">확인</button>
+    <p id="epw-err" class="err-msg">비밀번호가 틀렸습니다.</p>
+  </div>
+  <div id="ef" style="display:none">
+    <div class="fl"><label>제목</label><input type="text" class="fi" id="e-title"></div>
+    <div class="fl"><label>섹션</label><select class="fsel fi" id="e-sec"><option>개념들</option><option>도서관</option><option>건축언어</option><option>관계심화</option></select></div>
+    <div class="fl"><label>이미지 URL</label><input type="text" class="fi" id="e-img"></div>
+    <div class="fl"><label>본문</label><textarea class="fta" id="e-body" style="height:200px;"></textarea><div class="hint">[[단어]] = 위키 링크, [[image:0]] = 도판</div></div>
+    <div class="fl"><label>태그 (쉼표 구분)</label><input type="text" class="fi" id="e-tags"></div>
+    <div class="fl"><label>날짜</label><input type="text" class="fi" id="e-date"></div>
+    <button class="fbtn" onclick="submitEdit()">수정 완료</button>
+    <p id="ef-ok" class="ok-msg">✓ 수정되었습니다.</p>
+  </div>
+</div>
 
-    </main>
+<script>
+const PW = 'pos2024';
+let newUnlocked = false, editUnlocked = false;
+let cur = '개념들', menuOpen = false, mobileMenuOpen = false;
+let currentId = null;
 
-    <!-- 상세 페이지 -->
-    <article id="detail-view" class="max-w-[1200px] mx-auto">
-        <div class="mb-12">
-            <span class="link cursor-pointer text-[10px] font-black uppercase" onclick="showIndex()">← Return to Index</span>
-        </div>
+const posts = [
+  {
+    id:1, title:'카라바조의 의심하는 도마', w:200, h:250, sec:'개념들',
+    img:'https://upload.wikimedia.org/wikipedia/commons/e/e0/Caravaggio_-_The_Incredulity_of_Saint_Thomas.jpg',
+    plates:['https://upload.wikimedia.org/wikipedia/commons/e/e0/Caravaggio_-_The_Incredulity_of_Saint_Thomas.jpg'],
+    body:`카라바조의 〈의심하는 도마〉(1601–1602)는 시각과 촉각의 위계를 근본적으로 전복시키는 작품이다. 화면 중앙에서 도마의 손가락은 예수의 옆구리 상처 속으로 천천히 밀려 들어간다. 이 순간은 단순한 신체 접촉이 아니라, 인식론적 사건이다.
 
-        <header class="mb-20">
-            <h2 id="detail-title" class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-12 italic leading-[0.8]">제목</h2>
-            
-            <div class="border-t-2 border-black pt-8 grid grid-cols-2 md:grid-cols-4 gap-10 uppercase font-bold text-[10px] tracking-widest">
-                <div>
-                    <span class="text-gray-400 block mb-2 underline">Status</span>
-                    <span>Archived</span>
-                </div>
-                <div>
-                    <span class="text-gray-400 block mb-2 underline">Typology</span>
-                    <span>Visual Research</span>
-                </div>
-                <div>
-                    <span class="text-gray-400 block mb-2 underline">Department</span>
-                    <span>POS Unit 01</span>
-                </div>
-                <div>
-                    <span class="text-gray-400 block mb-2 underline">Reference</span>
-                    <span>Ref_Archive_2024</span>
-                </div>
-            </div>
-        </header>
+서양 철학의 오랜 전통에서 시각은 진리에 가장 가까운 감각으로 여겨져 왔다. 플라톤의 동굴 비유에서 태양은 이데아의 은유였고, 계몽주의는 스스로를 '빛의 시대'라 불렀다. 보는 것은 곧 아는 것이었다. 그러나 카라바조는 이 도판에서 다른 주장을 펼친다. 도마는 보고도 믿지 않는다. 그는 만져야만 믿는다.
 
-        <section class="content-body">
-            <div class="mb-24">
-                <img id="detail-img" src="" class="w-full h-auto border border-black" alt="">
-            </div>
+[[image:0]]
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-                <div class="lg:col-span-8 text-2xl md:text-3xl font-medium leading-[1.1] tracking-tight space-y-12">
-                    <p>
-                        이 페이지는 POS 아카이브의 개별 작업물을 상세히 기록합니다. 장식적인 요소를 배제하고, 이미지와 텍스트의 병치를 통해 프로젝트의 본질을 노출하는 Cooking Sections의 방법론을 따릅니다.
-                    </p>
-                    <p class="font-black border-l-8 border-black pl-8 py-4 uppercase text-xl">
-                        "Visual data as an evidence of thought."
-                    </p>
-                    <p class="text-lg md:text-xl text-gray-800 leading-relaxed">
-                        우리는 원본 소스가 가진 시각적 무게감을 존중합니다. 텍스트는 인위적인 여백 조절 없이 시스템 기본값에 가깝게 나열되며, 이는 디지털 환경에서의 날것(Raw) 그대로의 상태를 지향하는 브루탈리즘의 표현입니다.
-                    </p>
-                </div>
-                
-                <div class="lg:col-span-4 space-y-8">
-                    <div class="border-t border-black pt-6">
-                        <h4 class="font-black mb-4 uppercase text-[10px] tracking-widest text-gray-400">Collaborators</h4>
-                        <ul class="text-[12px] space-y-1 uppercase font-bold">
-                            <li>POS Archive Team</li>
-                            <li>Visual Research Lab</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+여기서 작동하는 것은 [[촉각의 인식론]]이다. 손가락 끝이 상처의 가장자리를 더듬는 그 순간, 지식은 눈이 아니라 피부를 통해 확인된다. 카라바조는 이 장면을 극도의 사실주의로 묘사한다. 인물들의 주름진 이마, 거친 손마디, 땀에 젖은 천. 이 육체성은 신성한 사건을 지상으로 끌어내리는 동시에, 오히려 그 진실성을 강화한다.
 
-        <footer class="mt-64 pb-20 border-t-2 border-black pt-10 flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
-            <span>© POS 2024</span>
-            <span class="link cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Scroll to Top ↑</span>
-        </footer>
-    </article>
+[[촉각]]은 언제나 [[시각]]보다 늦게 도착하고, 더 가까이에서 작동한다. 눈은 거리를 필요로 하지만 손은 밀착을 요구한다. 카라바조가 선택한 것은 밀착의 진실이다. 300년 뒤 [[발터 벤야민]]이 아우라의 몰락을 논하며 '가까이 끌어당기려는 욕망'을 언급했을 때, 그는 어쩌면 이 작품을 떠올리고 있었는지도 모른다.`,
+    tags:['촉각','시각','바로크','인식론'], date:'2024.01', type:'Visual Research', status:'Archived'
+  },
+  { id:2, title:'베르그송의 원뿔모형', w:250, h:200, sec:'개념들', img:'', plates:[], body:'[[앙리 베르그송]]의 원뿔 모형은 [[기억]]과 [[지각]]의 관계를 도식화한다.\n\n이 도식이 흥미로운 것은 [[시간]]을 공간적 형상으로 번역한다는 점이다.', tags:['베르그송','기억','시간','도식'], date:'2024.02', type:'Philosophical Diagram', status:'Archived' },
+  { id:3, title:'시스템의 규정방식', w:280, h:178, sec:'개념들', img:'', plates:[], body:'루이 14세의 명령으로 제작된 Romain du Roi는 최초로 수학적 격자 위에 설계된 [[타이포그래피]]다.\n\n[[시스템]]이 형태를 규정한다는 원칙은 오늘날의 디자인 시스템에도 그대로 관통한다.', tags:['타이포그래피','시스템','역사','격자'], date:'2024.02', type:'Type History', status:'Archived' },
+  { id:4, title:'행복한 규격', w:220, h:227, sec:'개념들', img:'', plates:[], body:'[[아즈텍 태양석]]은 우주론과 달력과 조각이 하나의 평면 위에 중첩된 시각물이다.\n\n규격은 단순한 표준화의 도구가 아니라, 세계를 조직하는 방식 그 자체다.', tags:['아즈텍','우주론','달력','규격'], date:'2024.03', type:'Visual Archive', status:'Archived' },
+  { id:5, title:'도시횡단 정의하기', w:178, h:281, sec:'개념들', img:'', plates:[], body:'걷는다는 것은 도시를 읽는 행위다.\n\n드리프트(dérive), 즉 표류는 [[기 드보르]]가 정의한 도시 체험의 방법론이다.', tags:['도시','보행','드리프트','상황주의'], date:'2024.03', type:'Urban Research', status:'Archived' },
+  { id:6, title:'보르헤스의 세계관', w:260, h:192, sec:'도서관', img:'', plates:[], body:'[[호르헤 루이스 보르헤스]]의 〈바벨의 도서관〉(1941)은 무한과 질서와 우연이 교차하는 공간을 서술한다.', tags:['보르헤스','도서관','아카이브','무한'], date:'2024.03', type:'Literary Reference', status:'Archived' },
+  { id:7, title:'얼굴-넘어서', w:192, h:260, sec:'건축언어', img:'', plates:[], body:'파사드(facade), 즉 건물의 외면이라는 단어 자체가 얼굴(face)에서 파생되었다는 사실은 단순한 어원 이상의 함의를 갖는다.', tags:['레비나스','타자','파사드','얼굴'], date:'2024.04', type:'Philosophical Text', status:'Archived' },
+  { id:8, title:'에릭 로메르의 고백', w:270, h:185, sec:'관계심화', img:'', plates:[], body:'"나는 누군가를 사랑하게 되면, 그 사람의 취향까지도 사랑하게 돼요."\n\n[[에릭 로메르]]의 이 고백은 [[취향]]이 단순한 선호가 아니라 관계의 언어임을 드러낸다.', tags:['로메르','취향','사랑','관계'], date:'2024.04', type:'Film Note', status:'Archived' },
+];
 
-    <script>
-        function showDetail(title, imgUrl) {
-            document.getElementById('index-view').style.display = 'none';
-            document.getElementById('detail-view').style.display = 'block';
-            document.getElementById('detail-title').innerText = title;
-            document.getElementById('detail-img').src = imgUrl;
-            window.scrollTo(0, 0);
-        }
+// ── NAV ──
+function toggleMenu() {
+  menuOpen = !menuOpen;
+  document.getElementById('nav-rail').classList.toggle('open', menuOpen);
+}
+function toggleMobileMenu() {
+  mobileMenuOpen = !mobileMenuOpen;
+  document.getElementById('mobile-menu').classList.toggle('open', mobileMenuOpen);
+}
+function closeMobileMenu() {
+  mobileMenuOpen = false;
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+function go(sec) {
+  closeMobileMenu();
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
+  document.getElementById('dv').style.display = 'none';
+  document.getElementById('fab-edit').style.display = 'none';
+  document.querySelectorAll('.nav-item,.mob-item').forEach(n => n.classList.remove('active'));
+  const nv = document.getElementById('nv-' + sec); if (nv) nv.classList.add('active');
+  const mob = document.getElementById('mob-' + sec); if (mob) mob.classList.add('active');
+  cur = sec;
+  const pg = document.getElementById('pg-' + sec);
+  if (pg) { pg.classList.add('on'); render(sec); }
+  window.scrollTo(0, 0);
+}
+function render(sec) {
+  if (sec === '개념들') renderGallery();
+  else renderList(sec, sec === '도서관' ? 'lib-list' : sec === '건축언어' ? 'arch-list' : 'rel-list');
+}
 
-        function showIndex() {
-            document.getElementById('detail-view').style.display = 'none';
-            document.getElementById('index-view').style.display = 'flex';
-            window.scrollTo(0, 0);
-        }
-    </script>
+// ── GALLERY ──
+function renderGallery() {
+  const g = document.getElementById('gallery');
+  g.innerHTML = posts.filter(p => p.sec === '개념들').map(p => {
+    const thumb = p.img
+      ? `<img src="${p.img}" style="width:${p.w}px;height:${p.h}px;object-fit:cover;display:block;" alt="${p.title}">`
+      : `<div style="width:${p.w}px;height:${p.h}px;background:#d9d9d9;"></div>`;
+    return `<div class="card" onclick="showDetail(${p.id})">${thumb}<div class="card-cap">${p.title}</div></div>`;
+  }).join('');
+}
+function renderList(sec, cid) {
+  const el = document.getElementById(cid);
+  const items = posts.filter(p => p.sec === sec);
+  if (!items.length) { el.innerHTML = '<li style="padding:20px 0;font-size:11px;color:#bbb;">게시물이 없습니다.</li>'; return; }
+  el.innerHTML = items.map((p, i) => `<li>
+    <span class="num">${String(i+1).padStart(2,'0')}</span>
+    <span class="t-title" onclick="showDetail(${p.id})">${p.title}</span>
+    <span class="t-meta">${p.date||'—'}</span>
+  </li>`).join('');
+}
+
+// ── DETAIL ──
+function showDetail(postId) {
+  const p = posts.find(x => x.id === postId);
+  if (!p) return;
+  currentId = postId;
+  document.querySelectorAll('.pg').forEach(x => x.classList.remove('on'));
+  const dv = document.getElementById('dv');
+  dv.style.display = 'block';
+  document.getElementById('fab-edit').style.display = 'flex';
+  document.getElementById('d-title').textContent = p.title;
+  const img = document.getElementById('d-img');
+  if (p.img) { img.src = p.img; img.style.display = 'block'; } else { img.style.display = 'none'; }
+  document.getElementById('d-text').innerHTML = wikiRender(p.body || '', p.plates || []);
+  const tags = p.tags || [];
+  const rel = posts.filter(x => x.id !== postId && x.tags && x.tags.some(t => tags.includes(t))).slice(0, 5);
+  const wrap = document.getElementById('d-related-wrap');
+  if (rel.length) {
+    wrap.style.display = 'block';
+    document.getElementById('d-related').innerHTML = rel.map(r =>
+      `<div class="rel-item"><span class="wiki-link" onclick="showDetail(${r.id})">${r.title}</span><span class="r-sec">${r.sec}</span></div>`
+    ).join('');
+  } else { wrap.style.display = 'none'; }
+  window.scrollTo(0, 0);
+}
+function closeDetail() {
+  document.getElementById('dv').style.display = 'none';
+  document.getElementById('fab-edit').style.display = 'none';
+  currentId = null;
+  go(cur);
+}
+function wikiRender(text, plates) {
+  const html = text
+    .replace(/\[\[image:(\d+)\]\]/g, (_, i) => {
+      const url = (plates || [])[parseInt(i)];
+      return url
+        ? `</p><img class="d-img-plate" src="${url}" alt="도판"><p>`
+        : `</p><div style="width:100%;max-width:480px;height:220px;background:#d9d9d9;margin:28px 0;column-span:all;"></div><p>`;
+    })
+    .replace(/\[\[(.+?)\]\]/g, (_, w) => {
+      const t = posts.find(p => p.title.includes(w) || (p.tags && p.tags.includes(w)));
+      return t
+        ? `<span class="wiki-link" onclick="showDetail(${t.id})">${w}</span>`
+        : `<span class="wiki-link" style="cursor:default;">${w}</span>`;
+    })
+    .replace(/\n\n/g, '</p><p style="margin-top:14px;">')
+    .replace(/\n/g, '<br>');
+  return `<p>${html}</p>`;
+}
+
+// ── PANELS ──
+function closeAllPanels() {
+  document.getElementById('new-panel').classList.remove('on');
+  document.getElementById('edit-panel').classList.remove('on');
+  document.getElementById('ov').classList.remove('on');
+}
+function toggleNewPanel() {
+  const isOpen = document.getElementById('new-panel').classList.contains('on');
+  closeAllPanels();
+  if (!isOpen) {
+    document.getElementById('new-panel').classList.add('on');
+    document.getElementById('ov').classList.add('on');
+    document.getElementById('npw-sc').style.display = newUnlocked ? 'none' : 'block';
+    document.getElementById('nf').style.display = newUnlocked ? 'block' : 'none';
+  }
+}
+function checkNewPw() {
+  if (document.getElementById('npw-in').value === PW) {
+    newUnlocked = true;
+    document.getElementById('npw-sc').style.display = 'none';
+    document.getElementById('nf').style.display = 'block';
+    document.getElementById('npw-err').style.display = 'none';
+  } else {
+    document.getElementById('npw-err').style.display = 'block';
+    document.getElementById('npw-in').value = '';
+  }
+}
+function submitNewPost() {
+  const title = document.getElementById('f-title').value.trim();
+  if (!title) { alert('제목을 입력해주세요.'); return; }
+  const raw = document.getElementById('f-tags').value;
+  const sec = document.getElementById('f-sec').value;
+  posts.push({
+    id: Date.now(), title, w: 220, h: 220,
+    img: document.getElementById('f-img').value.trim(), plates: [], sec,
+    body: document.getElementById('f-body').value.trim(),
+    tags: raw ? raw.split(',').map(t => t.trim()).filter(Boolean) : [],
+    date: document.getElementById('f-date').value.trim() || '',
+    type: 'Visual Research', status: 'Published'
+  });
+  ['f-title','f-img','f-body','f-tags','f-date'].forEach(fid => document.getElementById(fid).value = '');
+  document.getElementById('nf-ok').style.display = 'block';
+  setTimeout(() => document.getElementById('nf-ok').style.display = 'none', 2500);
+  closeAllPanels();
+  go(sec);
+}
+
+// ── EDIT ──
+function toggleEditPanel() {
+  const isOpen = document.getElementById('edit-panel').classList.contains('on');
+  closeAllPanels();
+  if (!isOpen) {
+    document.getElementById('edit-panel').classList.add('on');
+    document.getElementById('ov').classList.add('on');
+    if (editUnlocked) { fillEditForm(); }
+    else {
+      document.getElementById('epw-sc').style.display = 'block';
+      document.getElementById('ef').style.display = 'none';
+    }
+  }
+}
+function checkEditPw() {
+  if (document.getElementById('epw-in').value === PW) {
+    editUnlocked = true;
+    document.getElementById('epw-sc').style.display = 'none';
+    document.getElementById('epw-err').style.display = 'none';
+    fillEditForm();
+  } else {
+    document.getElementById('epw-err').style.display = 'block';
+    document.getElementById('epw-in').value = '';
+  }
+}
+function fillEditForm() {
+  const p = posts.find(x => x.id === currentId);
+  if (!p) return;
+  document.getElementById('ef').style.display = 'block';
+  document.getElementById('epw-sc').style.display = 'none';
+  document.getElementById('e-title').value = p.title;
+  document.getElementById('e-sec').value = p.sec;
+  document.getElementById('e-img').value = p.img || '';
+  document.getElementById('e-body').value = p.body || '';
+  document.getElementById('e-tags').value = (p.tags || []).join(', ');
+  document.getElementById('e-date').value = p.date || '';
+}
+function submitEdit() {
+  const p = posts.find(x => x.id === currentId);
+  if (!p) return;
+  p.title = document.getElementById('e-title').value.trim();
+  p.sec   = document.getElementById('e-sec').value;
+  p.img   = document.getElementById('e-img').value.trim();
+  p.body  = document.getElementById('e-body').value.trim();
+  const raw = document.getElementById('e-tags').value;
+  p.tags  = raw ? raw.split(',').map(t => t.trim()).filter(Boolean) : [];
+  p.date  = document.getElementById('e-date').value.trim();
+  document.getElementById('ef-ok').style.display = 'block';
+  setTimeout(() => document.getElementById('ef-ok').style.display = 'none', 2500);
+  closeAllPanels();
+  showDetail(currentId);
+}
+
+renderGallery();
+</script>
 </body>
 </html>
