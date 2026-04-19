@@ -130,7 +130,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="nav-right">
     <span class="nickname-tag" id="nav-nickname" style="display:none;"></span>
     <button class="logout-btn" id="nav-logout" style="display:none;" onclick="logout()">로그아웃</button>
-    <button class="nav-item" id="nav-admin-btn" style="display:none;font-size:11px;color:#bbb;" onclick="go('admin')">관리</button>
+
   </div>
   <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
 </header>
@@ -183,6 +183,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <div class="d-content">
       <h1 class="d-title" id="d-title"></h1>
       <div class="d-text" id="d-text"></div>
+      <p id="d-author" style="font-size:11px;color:#bbb;margin-top:28px;letter-spacing:-0.01em;"></p>
       <div id="d-rel-wrap" style="display:none;margin-top:40px;">
         <div class="rel-label">관련 게시물</div>
         <div id="d-related"></div>
@@ -293,7 +294,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 // ════════════════════════════════
 const SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I'; // ← anon key 입력
-const ADMIN_EMAIL = 'woosol1138@naver.com'; // ← 관리자 이메일 입력 (관리 탭 접근용)
+const ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL'; // ← 관리자 이메일 입력 (관리 탭 접근용)
 // ════════════════════════════════
 
 let posts = [], cur = '개념들', mobileOpen = false;
@@ -378,23 +379,33 @@ async function loadProfile(uid) {
   try {
     const res = await fetch(`${SUPA_URL}/rest/v1/profiles?id=eq.${uid}&select=nickname,email`, { headers: SH(authToken) });
     const rows = await res.json();
-    authNickname = rows[0]?.nickname || authUser?.email || '';
-  } catch(e) { authNickname = ''; }
+    if (rows[0]?.nickname) {
+      authNickname = rows[0].nickname;
+    } else {
+      // 프로필 없으면 user_metadata에서 가져와서 생성
+      const nick = authUser?.user_metadata?.nickname || '';
+      authNickname = nick || authUser?.email || '';
+      if (nick) {
+        await fetch(`${SUPA_URL}/rest/v1/profiles`, {
+          method: 'POST',
+          headers: { ...SH(authToken), 'Prefer': 'return=minimal' },
+          body: JSON.stringify({ id: uid, nickname: nick, email: authUser?.email })
+        });
+      }
+    }
+  } catch(e) { authNickname = authUser?.user_metadata?.nickname || authUser?.email || ''; }
 }
 
 function updateNavAuth() {
   const nick = document.getElementById('nav-nickname');
   const logout = document.getElementById('nav-logout');
-  const adminBtn = document.getElementById('nav-admin-btn');
   if (authUser) {
     nick.textContent = authNickname;
     nick.style.display = 'block';
     logout.style.display = 'block';
-    if (authUser.email === ADMIN_EMAIL) adminBtn.style.display = 'block';
   } else {
     nick.style.display = 'none';
     logout.style.display = 'none';
-    adminBtn.style.display = 'none';
   }
 }
 
@@ -543,6 +554,7 @@ function showDetail(postId) {
   document.getElementById('dv').style.display = 'block';
   if (authUser) document.getElementById('fab-edit').style.display = 'flex';
   document.getElementById('d-title').textContent = p.title;
+  document.getElementById('d-author').textContent = p.author_nickname ? p.author_nickname : '';
   document.getElementById('d-text').innerHTML = wikiRender(p.body || '');
   const tags = p.tags || [];
   const rel = posts.filter(x => x.id !== postId && x.tags && x.tags.some(t => tags.includes(t))).slice(0, 5);
@@ -663,7 +675,8 @@ async function submitNewPost() {
     const img = await resolveImg(document.getElementById('f-img-file'), document.getElementById('f-img'));
     const sec = img ? '개념들' : '단어들';
     const saved = await dbInsert({ title, sec, img: img || null, plates: [], w: 220, h: 220,
-      body: document.getElementById('f-body').value.trim(), tags: [], date: '', type: 'Visual Research', status: 'Published' });
+      body: document.getElementById('f-body').value.trim(), tags: [], date: '',
+      type: 'Visual Research', status: 'Published', author_nickname: authNickname || '' });
     if (saved) { posts.push(saved); renderGallery(); renderDanuh(); }
     ['f-title','f-img'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('f-body').value = '';
