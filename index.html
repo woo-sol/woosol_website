@@ -10,7 +10,6 @@
 :root{--blue:#0000ff;--header-h:52px;}
 body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;min-height:100vh;}
 
-/* HEADER */
 .header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:#fff;display:flex;align-items:center;padding:0 28px;z-index:200;}
 .logo{font-family:'Outfit',sans-serif;font-weight:200;font-size:28px;letter-spacing:0.04em;cursor:pointer;user-select:none;flex-shrink:0;}
 .logo:hover{opacity:0.4;}
@@ -19,11 +18,10 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .nav-item:hover,.nav-item.active{color:#000;}
 .nav-item.active{text-decoration:underline;text-underline-offset:3px;}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:16px;}
-.nickname-tag{font-size:11px;font-weight:400;color:#999;letter-spacing:-0.01em;}
+.nickname-tag{font-size:11px;color:#999;letter-spacing:-0.01em;}
 .logout-btn{font-size:11px;color:#bbb;cursor:pointer;background:none;border:none;font-family:inherit;padding:0;}
 .logout-btn:hover{color:#000;}
 
-/* HAMBURGER */
 .hamburger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;}
 .hamburger span{display:block;width:22px;height:1.5px;background:#000;}
 .mobile-menu{display:none;position:fixed;top:var(--header-h);left:0;right:0;background:#fff;border-bottom:1px solid #000;padding:16px 28px;z-index:190;flex-direction:column;}
@@ -33,28 +31,27 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .mob-item:hover,.mob-item.active{color:#000;}
 @media(max-width:600px){.nav-bar{display:none;}.hamburger{display:flex;}}
 
-/* MAIN */
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 .pg{display:none;}.pg.on{display:block;}
 
-/* GALLERY */
+/* GALLERY — natural ratio */
 .gallery{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;}
 .card{cursor:pointer;flex-shrink:0;transition:transform 0.22s ease;}
 .card:hover{transform:translateY(-6px);}
+.card img{display:block;height:260px;width:auto;}
+.card-thumb-ph{height:260px;width:180px;background:#d9d9d9;}
 .card-cap{margin-top:10px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;}
 .danuh-entry{cursor:pointer;flex-shrink:0;display:flex;align-items:flex-end;}
 .danuh-entry:hover .card-cap{text-decoration:underline;}
 
-/* 단어들 */
+/* 단어들 — no lines, tight spacing */
 .danuh-list{list-style:none;}
-.danuh-list li{padding:12px 0;border-bottom:1px solid #eee;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
+.danuh-list li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;}
 .danuh-list li:hover{color:var(--blue);}
 
-/* ABOUT */
 .about-body{max-width:600px;font-size:14.6px;font-weight:400;line-height:1.6;letter-spacing:-0.01em;}
 .about-body p+p{margin-top:14px;}
 
-/* DETAIL */
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
 .d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:9cm;column-count:5;column-gap:28px;}
@@ -66,21 +63,14 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .r-sec{color:#bbb;font-size:9px;text-transform:uppercase;display:inline;margin-left:6px;}
 .back-btn{display:inline-block;margin-top:48px;cursor:pointer;opacity:0.6;transition:opacity 0.15s;}
 .back-btn:hover{opacity:1;}
+.d-author{font-size:11px;color:#bbb;margin-top:28px;letter-spacing:-0.01em;}
 
-/* ADMIN */
-.admin-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:16px;}
-.admin-table th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#999;border-bottom:1px solid #000;padding:8px 0;}
-.admin-table td{padding:10px 0;border-bottom:1px solid #eee;font-size:13px;vertical-align:middle;}
-.admin-table td:first-child{font-weight:700;}
-
-/* FABs */
 .fab{position:fixed;bottom:24px;right:24px;width:22px;height:22px;background:#000;border:none;cursor:pointer;z-index:300;display:block;}
 .fab:hover{background:var(--blue);}
 .fab-edit{position:fixed;bottom:58px;right:24px;width:22px;height:22px;background:none;border:none;cursor:pointer;z-index:300;display:none;padding:0;}
 .fab-edit-inner{width:22px;height:22px;background:#000;border-radius:50%;display:block;transition:background 0.15s;}
 .fab-edit:hover .fab-edit-inner{background:var(--blue);}
 
-/* OVERLAY + PANELS */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.18);z-index:250;}
 .ov.on{display:block;}
 .panel{display:none;position:fixed;top:0;right:0;width:min(500px,100vw);height:100vh;background:#fff;border-left:1px solid #000;z-index:300;overflow-y:auto;padding:28px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
@@ -96,17 +86,16 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .fbtn:hover{background:var(--blue);}
 .fbtn.sec{background:#fff;color:#000;border:1px solid #000;margin-top:8px;}
 .fbtn.sec:hover{background:#f0f0f0;}
-.toolbar{display:flex;gap:8px;margin-top:6px;}
-.tbtn{background:none;border:1px solid #ccc;padding:4px 10px;font-family:inherit;font-size:12px;cursor:pointer;color:#555;}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.tbtn{background:none;border:1px solid #ccc;padding:4px 10px;font-family:inherit;font-size:12px;cursor:pointer;color:#555;white-space:nowrap;line-height:1.4;}
 .tbtn:hover{border-color:#000;color:#000;}
+.tbtn.bold{font-weight:700;}
+.tbtn.italic{font-style:italic;}
 .ok-msg{color:green;font-size:13px;margin-top:8px;display:none;}
 .err-msg{color:red;font-size:13px;margin-top:8px;display:none;}
-.info-msg{color:#888;font-size:12px;margin-top:8px;line-height:1.5;}
 .thumb-row{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
-.divider{border:none;border-top:1px solid #eee;margin:20px 0;}
 .loading{font-size:12px;color:#bbb;padding:20px 0;}
 
-/* DEAD-END */
 .deadend{display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);}
 .deadend.on{display:flex;}
 .deadend-box{background:#fff;border:1px solid #000;padding:28px 32px;font-size:14.6px;font-weight:400;max-width:260px;width:90%;}
@@ -125,12 +114,10 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <button class="nav-item" id="nv-도서관" onclick="go('도서관')">도서관</button>
     <button class="nav-item" id="nv-건축언어" onclick="go('건축언어')">건축언어</button>
     <button class="nav-item" id="nv-관계심화" onclick="go('관계심화')">관계심화</button>
-    <button class="nav-item" id="nv-about" onclick="go('about')" style="color:#ccc;font-size:11px;">About</button>
   </nav>
   <div class="nav-right">
     <span class="nickname-tag" id="nav-nickname" style="display:none;"></span>
     <button class="logout-btn" id="nav-logout" style="display:none;" onclick="logout()">로그아웃</button>
-
   </div>
   <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
 </header>
@@ -140,7 +127,6 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="mob-item" id="mob-도서관" onclick="go('도서관')">도서관</button>
   <button class="mob-item" id="mob-건축언어" onclick="go('건축언어')">건축언어</button>
   <button class="mob-item" id="mob-관계심화" onclick="go('관계심화')">관계심화</button>
-  <button class="mob-item" id="mob-about" onclick="go('about')" style="color:#bbb;font-size:11px;">About</button>
 </div>
 
 <main class="site-main">
@@ -165,32 +151,15 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     </div>
   </div>
 
-  <div id="pg-about" class="pg">
-    <div class="d-content">
-      <h1 class="d-title"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;text-decoration:none;">Instagram</a></h1>
-    </div>
-  </div>
-
-  <!-- 관리자 페이지 -->
-  <div id="pg-admin" class="pg">
-    <h1 class="d-title">회원 관리</h1>
-    <p style="font-size:12px;color:#bbb;margin-bottom:8px;">회원 탈퇴는 Supabase 대시보드 → Authentication → Users 에서 처리하세요.</p>
-    <div id="admin-content"><p class="loading">불러오는 중...</p></div>
-  </div>
-
-  <!-- Detail -->
   <div id="dv">
     <div class="d-content">
       <h1 class="d-title" id="d-title"></h1>
       <div class="d-text" id="d-text"></div>
-      <p id="d-author" style="font-size:11px;color:#bbb;margin-top:28px;letter-spacing:-0.01em;"></p>
+      <p class="d-author" id="d-author"></p>
       <div id="d-rel-wrap" style="display:none;margin-top:40px;">
         <div class="rel-label">관련 게시물</div>
         <div id="d-related"></div>
       </div>
-      <span class="back-btn" onclick="closeDetail()">
-        <svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </span>
     </div>
   </div>
 </main>
@@ -200,7 +169,6 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 
 <div class="ov" id="ov" onclick="closeAllPanels()"></div>
 
-<!-- 막다른 길 -->
 <div class="deadend" id="deadend">
   <div class="deadend-box">
     <div class="deadend-msg">막다른 길입니다.</div>
@@ -251,12 +219,15 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
   <div class="fl">
     <label>본문</label>
-    <textarea class="fta" id="f-body" placeholder="텍스트를 입력하세요.&#10;[[단어]]로 위키 링크, 이미지 삽입 버튼으로 도판 추가."></textarea>
+    <textarea class="fta" id="f-body" placeholder="텍스트를 입력하세요."></textarea>
     <div class="toolbar">
-      <button class="tbtn" onclick="insertWikiLink('f-body')">[[위키링크]]</button>
-      <button class="tbtn" onclick="triggerImg('f-body','f-img-ins')">이미지 삽입</button>
+      <button class="tbtn" onclick="insertWiki('f-body')">[[위키링크]]</button>
+      <button class="tbtn" onclick="insertImgUrl('f-body')">URL이미지</button>
+      <button class="tbtn bold" onclick="insertFormat('f-body','bold')">볼드</button>
+      <button class="tbtn italic" onclick="insertFormat('f-body','italic')">이탤릭</button>
+      <button class="tbtn" onclick="triggerFileImg('f-body','f-img-ins')">파일이미지</button>
     </div>
-    <input type="file" id="f-img-ins" accept="image/*" style="display:none;" onchange="handleImgIns(this)">
+    <input type="file" id="f-img-ins" accept="image/*" style="display:none;" onchange="handleFileImg(this,'f-body')">
   </div>
   <button class="fbtn" id="nf-submit" onclick="submitNewPost()">게시하기</button>
   <p id="nf-ok" class="ok-msg">✓ 등록되었습니다.</p>
@@ -266,52 +237,48 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 <!-- 수정 패널 -->
 <div class="panel" id="edit-panel">
   <div class="ph"><span>게시물 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
-  <div id="ef">
-    <div class="fl"><label>제목</label><input type="text" class="fi" id="e-title"></div>
-    <div class="fl">
-      <label>썸네일 이미지</label>
-      <div class="thumb-row">
-        <input type="text" class="fi" id="e-img" placeholder="URL (https://...)">
-        <input type="file" id="e-img-file" accept="image/*" style="font-size:12px;">
-      </div>
+  <div class="fl"><label>제목</label><input type="text" class="fi" id="e-title"></div>
+  <div class="fl">
+    <label>썸네일 이미지</label>
+    <div class="thumb-row">
+      <input type="text" class="fi" id="e-img" placeholder="URL (https://...)">
+      <input type="file" id="e-img-file" accept="image/*" style="font-size:12px;">
     </div>
-    <div class="fl">
-      <label>본문</label>
-      <textarea class="fta" id="e-body" style="min-height:260px;"></textarea>
-      <div class="toolbar">
-        <button class="tbtn" onclick="insertWikiLink('e-body')">[[위키링크]]</button>
-        <button class="tbtn" onclick="triggerImg('e-body','e-img-ins')">이미지 삽입</button>
-      </div>
-      <input type="file" id="e-img-ins" accept="image/*" style="display:none;" onchange="handleImgIns(this)">
-    </div>
-    <button class="fbtn" onclick="submitEdit()">수정 완료</button>
-    <p id="ef-ok" class="ok-msg">✓ 수정되었습니다.</p>
-    <p id="ef-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
   </div>
+  <div class="fl">
+    <label>본문</label>
+    <textarea class="fta" id="e-body" style="min-height:260px;"></textarea>
+    <div class="toolbar">
+      <button class="tbtn" onclick="insertWiki('e-body')">[[위키링크]]</button>
+      <button class="tbtn" onclick="insertImgUrl('e-body')">URL이미지</button>
+      <button class="tbtn bold" onclick="insertFormat('e-body','bold')">볼드</button>
+      <button class="tbtn italic" onclick="insertFormat('e-body','italic')">이탤릭</button>
+      <button class="tbtn" onclick="triggerFileImg('e-body','e-img-ins')">파일이미지</button>
+    </div>
+    <input type="file" id="e-img-ins" accept="image/*" style="display:none;" onchange="handleFileImg(this,'e-body')">
+  </div>
+  <button class="fbtn" onclick="submitEdit()">수정 완료</button>
+  <p id="ef-ok" class="ok-msg">✓ 수정되었습니다.</p>
+  <p id="ef-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
 
 <script>
 // ════════════════════════════════
 const SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
-const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I'; // ← anon key 입력
-const ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL'; // ← 관리자 이메일 입력 (관리 탭 접근용)
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
 // ════════════════════════════════
 
 let posts = [], cur = '개념들', mobileOpen = false;
 let currentId = null, pendingTitle = null, pendingEdit = false;
 let authToken = null, authUser = null, authNickname = null;
+const pasteAttached = new WeakSet();
 
-// token 저장 (배포 환경에서 localStorage 사용)
 function saveToken(t) { authToken = t; try { localStorage.setItem('pos_token', t); } catch(e){} }
 function loadToken() { try { return localStorage.getItem('pos_token'); } catch(e){ return null; } }
 function clearToken() { authToken = null; try { localStorage.removeItem('pos_token'); } catch(e){} }
 
-/* ── SUPABASE HELPERS ── */
-const SH = (tok) => ({
-  'apikey': SUPA_KEY,
-  'Authorization': `Bearer ${tok || SUPA_KEY}`,
-  'Content-Type': 'application/json'
-});
+/* ── SUPABASE ── */
+const SH = (tok) => ({ 'apikey': SUPA_KEY, 'Authorization': `Bearer ${tok || SUPA_KEY}`, 'Content-Type': 'application/json' });
 
 async function dbLoad() {
   try {
@@ -324,8 +291,7 @@ async function dbLoad() {
 
 async function dbInsert(post) {
   const res = await fetch(`${SUPA_URL}/rest/v1/posts`, {
-    method: 'POST',
-    headers: { ...SH(authToken), 'Prefer': 'return=representation' },
+    method: 'POST', headers: { ...SH(authToken), 'Prefer': 'return=representation' },
     body: JSON.stringify(post)
   });
   if (!res.ok) throw new Error(await res.text());
@@ -363,50 +329,37 @@ function readB64(file) {
 
 /* ── AUTH ── */
 async function initAuth() {
-  const t = loadToken();
-  if (!t) return;
+  const t = loadToken(); if (!t) return;
   try {
     const res = await fetch(`${SUPA_URL}/auth/v1/user`, { headers: SH(t) });
     if (!res.ok) { clearToken(); return; }
-    const user = await res.json();
-    authToken = t; authUser = user;
-    await loadProfile(user.id);
+    authToken = t; authUser = await res.json();
+    await loadProfile(authUser.id);
     updateNavAuth();
   } catch(e) { clearToken(); }
 }
 
 async function loadProfile(uid) {
   try {
-    const res = await fetch(`${SUPA_URL}/rest/v1/profiles?id=eq.${uid}&select=nickname,email`, { headers: SH(authToken) });
+    const res = await fetch(`${SUPA_URL}/rest/v1/profiles?id=eq.${uid}&select=nickname`, { headers: SH(authToken) });
     const rows = await res.json();
-    if (rows[0]?.nickname) {
-      authNickname = rows[0].nickname;
-    } else {
-      // 프로필 없으면 user_metadata에서 가져와서 생성
-      const nick = authUser?.user_metadata?.nickname || '';
-      authNickname = nick || authUser?.email || '';
-      if (nick) {
-        await fetch(`${SUPA_URL}/rest/v1/profiles`, {
-          method: 'POST',
-          headers: { ...SH(authToken), 'Prefer': 'return=minimal' },
-          body: JSON.stringify({ id: uid, nickname: nick, email: authUser?.email })
-        });
-      }
+    if (rows[0]?.nickname) { authNickname = rows[0].nickname; return; }
+    const nick = authUser?.user_metadata?.nickname || '';
+    authNickname = nick || authUser?.email || '';
+    if (nick) {
+      await fetch(`${SUPA_URL}/rest/v1/profiles`, {
+        method: 'POST', headers: { ...SH(authToken), 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ id: uid, nickname: nick, email: authUser?.email })
+      });
     }
   } catch(e) { authNickname = authUser?.user_metadata?.nickname || authUser?.email || ''; }
 }
 
 function updateNavAuth() {
   const nick = document.getElementById('nav-nickname');
-  const logout = document.getElementById('nav-logout');
-  if (authUser) {
-    nick.textContent = authNickname;
-    nick.style.display = 'block';
-    logout.style.display = 'block';
-  } else {
-    nick.style.display = 'none';
-    logout.style.display = 'none';
-  }
+  const lo = document.getElementById('nav-logout');
+  if (authUser) { nick.textContent = authNickname; nick.style.display = 'block'; lo.style.display = 'block'; }
+  else { nick.style.display = 'none'; lo.style.display = 'none'; }
 }
 
 async function doLogin() {
@@ -416,24 +369,17 @@ async function doLogin() {
   err.style.display = 'none';
   try {
     const res = await fetch(`${SUPA_URL}/auth/v1/token?grant_type=password`, {
-      method: 'POST',
-      headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password: pw })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error_description || data.msg || '로그인 실패');
-    saveToken(data.access_token);
-    authUser = data.user;
-    await loadProfile(authUser.id);
-    updateNavAuth();
+    saveToken(data.access_token); authUser = data.user;
+    await loadProfile(authUser.id); updateNavAuth();
     closeAllPanels();
-    // 로그인 후 대기 중인 작업 처리
     if (pendingEdit) { pendingEdit = false; openEditPanel(); }
-    else if (pendingTitle !== null) openNewPanel();
-    else openNewPanel();
-  } catch(e) {
-    err.textContent = e.message; err.style.display = 'block';
-  }
+    else { openNewPanel(); }
+  } catch(e) { err.textContent = e.message; err.style.display = 'block'; }
 }
 
 async function doSignup() {
@@ -445,45 +391,36 @@ async function doSignup() {
   if (!nick) { err.textContent = '별명을 입력해주세요.'; err.style.display = 'block'; return; }
   try {
     const res = await fetch(`${SUPA_URL}/auth/v1/signup`, {
-      method: 'POST',
-      headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password: pw, data: { nickname: nick } })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error_description || data.msg || '가입 실패');
-    // 프로필 저장 (이메일 인증 후 토큰 있을 때 시도)
     if (data.access_token) {
       await fetch(`${SUPA_URL}/rest/v1/profiles`, {
-        method: 'POST',
-        headers: { ...SH(data.access_token), 'Prefer': 'return=minimal' },
+        method: 'POST', headers: { ...SH(data.access_token), 'Prefer': 'return=minimal' },
         body: JSON.stringify({ id: data.user.id, nickname: nick, email })
       });
     }
     document.getElementById('signup-form').style.display = 'none';
     document.getElementById('signup-done').style.display = 'block';
-  } catch(e) {
-    err.textContent = e.message; err.style.display = 'block';
-  }
+  } catch(e) { err.textContent = e.message; err.style.display = 'block'; }
 }
 
 async function logout() {
-  try {
-    await fetch(`${SUPA_URL}/auth/v1/logout`, { method: 'POST', headers: SH(authToken) });
-  } catch(e) {}
-  clearToken(); authToken = null; authUser = null; authNickname = null;
-  updateNavAuth();
+  try { await fetch(`${SUPA_URL}/auth/v1/logout`, { method: 'POST', headers: SH(authToken) }); } catch(e) {}
+  clearToken(); authUser = null; authNickname = null; updateNavAuth();
   document.getElementById('fab-edit').style.display = 'none';
 }
 
-/* ── WRITE / EDIT GATE ── */
+/* ── WRITE/EDIT GATE ── */
 function onWriteClick() {
-  if (!authUser) { showPanel('login-panel'); }
-  else { openNewPanel(); }
+  if (!authUser) showPanel('login-panel');
+  else openNewPanel();
 }
-
 function onEditClick() {
   if (!authUser) { pendingEdit = true; showPanel('login-panel'); }
-  else { openEditPanel(); }
+  else openEditPanel();
 }
 
 /* ── NAV ── */
@@ -501,36 +438,17 @@ function go(sec) {
   cur = sec;
   const pg = document.getElementById('pg-' + sec);
   if (pg) pg.classList.add('on');
-  if (sec === 'admin') loadAdminUsers();
   window.scrollTo(0, 0);
-}
-
-/* ── ADMIN ── */
-async function loadAdminUsers() {
-  const el = document.getElementById('admin-content');
-  try {
-    const res = await fetch(`${SUPA_URL}/rest/v1/profiles?select=nickname,email,created_at&order=created_at.asc`, { headers: SH(authToken) });
-    const rows = await res.json();
-    if (!rows.length) { el.innerHTML = '<p style="font-size:13px;color:#bbb;">회원이 없습니다.</p>'; return; }
-    el.innerHTML = `<table class="admin-table">
-      <tr><th>별명</th><th>이메일</th><th>가입일</th></tr>
-      ${rows.map(r => `<tr>
-        <td>${r.nickname || '—'}</td>
-        <td>${r.email || '—'}</td>
-        <td style="color:#bbb;font-size:11px;">${r.created_at ? r.created_at.slice(0,10) : '—'}</td>
-      </tr>`).join('')}
-    </table>`;
-  } catch(e) { el.innerHTML = '<p class="err-msg" style="display:block;">불러오기 실패</p>'; }
 }
 
 /* ── GALLERY ── */
 function renderGallery() {
   const g = document.getElementById('gallery');
   const items = posts.filter(p => p.sec === '개념들' && p.img);
-  const danuhCount = posts.filter(p => p.sec === '단어들' || !p.img).length;
+  const danuhCount = posts.filter(p => p.sec === '단어들' || (!p.img)).length;
   let html = items.map(p =>
     `<div class="card" onclick="showDetail(${p.id})">
-      <img src="${p.img}" style="width:${p.w||220}px;height:${p.h||220}px;object-fit:cover;display:block;" alt="${p.title}">
+      <img src="${p.img}" alt="${p.title}" loading="lazy">
       <div class="card-cap">${p.title}</div>
     </div>`
   ).join('');
@@ -541,7 +459,7 @@ function renderGallery() {
 
 function renderDanuh() {
   const el = document.getElementById('danuh-list');
-  const items = posts.filter(p => p.sec === '단어들' || (!p.img && p.sec !== '개념들'));
+  const items = posts.filter(p => p.sec === '단어들' || !p.img);
   if (!items.length) { el.innerHTML = '<li style="color:#bbb;cursor:default;">게시물이 없습니다.</li>'; return; }
   el.innerHTML = items.map(p => `<li onclick="showDetail(${p.id})">${p.title}</li>`).join('');
 }
@@ -554,8 +472,9 @@ function showDetail(postId) {
   document.getElementById('dv').style.display = 'block';
   if (authUser) document.getElementById('fab-edit').style.display = 'flex';
   document.getElementById('d-title').textContent = p.title;
-  document.getElementById('d-author').textContent = p.author_nickname ? p.author_nickname : '';
-  document.getElementById('d-text').innerHTML = wikiRender(p.body || '');
+  const backSvg = `<span class="back-btn" onclick="closeDetail()" style="display:inline-block;margin-top:48px;"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>`;
+  document.getElementById('d-text').innerHTML = wikiRender(p.body || '') + backSvg;
+  document.getElementById('d-author').textContent = p.author_nickname || '';
   const tags = p.tags || [];
   const rel = posts.filter(x => x.id !== postId && x.tags && x.tags.some(t => tags.includes(t))).slice(0, 5);
   const wrap = document.getElementById('d-rel-wrap');
@@ -577,6 +496,8 @@ function closeDetail() {
 function wikiRender(text) {
   const html = text
     .replace(/\[\[img:([^\]]+)\]\]/g, (_, url) => `</p><img class="d-img-plate" src="${url}" alt=""><p>`)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(/\[\[(.+?)\]\]/g, (_, w) => {
       const t = posts.find(p => p.title.includes(w) || (p.tags && p.tags.includes(w)));
       return t
@@ -594,7 +515,7 @@ document.addEventListener('click', e => {
 });
 
 /* ── TOOLBAR ── */
-function insertWikiLink(taId) {
+function insertWiki(taId) {
   const ta = document.getElementById(taId);
   const s = ta.selectionStart, e = ta.selectionEnd;
   const sel = ta.value.slice(s, e);
@@ -604,29 +525,50 @@ function insertWikiLink(taId) {
   ta.focus();
 }
 
-let imgInsTarget = '';
-function triggerImg(taId, fileId) {
-  imgInsTarget = taId;
-  document.getElementById(fileId).click();
+function insertImgUrl(taId) {
+  const ta = document.getElementById(taId);
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const ins = `[[img:]]`;
+  ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e);
+  ta.selectionStart = ta.selectionEnd = s + 6; // 커서를 ]] 앞에 위치
+  ta.focus();
 }
 
-async function handleImgIns(input) {
+function insertFormat(taId, type) {
+  const ta = document.getElementById(taId);
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.slice(s, e);
+  const m = type === 'bold' ? '**' : '*';
+  const ins = sel ? `${m}${sel}${m}` : `${m}${m}`;
+  ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e);
+  ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + m.length;
+  ta.focus();
+}
+
+let fileImgTarget = '';
+function triggerFileImg(taId, fileId) {
+  fileImgTarget = taId;
+  document.getElementById(fileId).click();
+}
+async function handleFileImg(input, taId) {
   const f = input.files[0]; if (!f) return;
-  const ta = document.getElementById(imgInsTarget);
+  const ta = document.getElementById(fileImgTarget || taId);
   const s = ta.selectionStart;
-  const placeholder = `\n[[img:업로드 중...]]\n`;
-  ta.value = ta.value.slice(0, s) + placeholder + ta.value.slice(s);
+  const ph = `\n[[img:업로드 중...]]\n`;
+  ta.value = ta.value.slice(0, s) + ph + ta.value.slice(s);
   const url = await uploadImg(f) || await readB64(f);
   ta.value = ta.value.replace('[[img:업로드 중...]]', `[[img:${url}]]`);
   input.value = '';
 }
 
+/* ── PASTE FIX (no duplicate listeners) ── */
 function addPaste(id) {
-  const el = document.getElementById(id); if (!el) return;
+  const el = document.getElementById(id); if (!el || pasteAttached.has(el)) return;
+  pasteAttached.add(el);
   el.addEventListener('paste', e => {
     e.preventDefault();
     const text = (e.clipboardData || window.clipboardData).getData('text/plain');
-    const norm = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+    const norm = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
     const s = el.selectionStart, end = el.selectionEnd;
     el.value = el.value.slice(0, s) + norm + el.value.slice(end);
     el.selectionStart = el.selectionEnd = s + norm.length;
@@ -674,9 +616,12 @@ async function submitNewPost() {
   try {
     const img = await resolveImg(document.getElementById('f-img-file'), document.getElementById('f-img'));
     const sec = img ? '개념들' : '단어들';
-    const saved = await dbInsert({ title, sec, img: img || null, plates: [], w: 220, h: 220,
-      body: document.getElementById('f-body').value.trim(), tags: [], date: '',
-      type: 'Visual Research', status: 'Published', author_nickname: authNickname || '' });
+    const saved = await dbInsert({
+      title, sec, img: img || null, plates: [], w: 220, h: 220,
+      body: document.getElementById('f-body').value.trim(),
+      tags: [], date: '', type: 'Visual Research', status: 'Published',
+      author_nickname: authNickname || ''
+    });
     if (saved) { posts.push(saved); renderGallery(); renderDanuh(); }
     ['f-title','f-img'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('f-body').value = '';
@@ -695,8 +640,11 @@ async function submitEdit() {
   const p = posts.find(x => x.id === currentId); if (!p) return;
   try {
     const img = await resolveImg(document.getElementById('e-img-file'), document.getElementById('e-img')) || p.img;
-    const patch = { title: document.getElementById('e-title').value.trim(),
-      img, sec: img ? '개념들' : '단어들', body: document.getElementById('e-body').value.trim() };
+    const patch = {
+      title: document.getElementById('e-title').value.trim(),
+      img, sec: img ? '개념들' : '단어들',
+      body: document.getElementById('e-body').value.trim()
+    };
     await dbUpdate(p.id, patch);
     Object.assign(p, patch);
     renderGallery(); renderDanuh();
@@ -709,7 +657,6 @@ async function submitEdit() {
   }
 }
 
-// 초기화
 initAuth().then(() => dbLoad());
 </script>
 </body>
