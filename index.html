@@ -2,14 +2,29 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POS — Public Operating System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>공공운영체제 POS — Public Operating System</title>
+<meta name="description" content="공공운영체제 POS. 디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.">
+<meta name="keywords" content="POS, p-o-s, 공공운영체제, public operating system, 디자인, 시각언어, 아카이브">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://p-o-s.kr">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="공공운영체제 POS">
+<meta property="og:title" content="공공운영체제 POS">
+<meta property="og:description" content="디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.">
+<meta property="og:url" content="https://p-o-s.kr">
+<meta property="og:image" content="https://p-o-s.kr/og-image.png">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="공공운영체제 POS">
+<meta name="twitter:description" content="디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.">
+<meta name="twitter:image" content="https://p-o-s.kr/og-image.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"공공운영체제 POS","alternateName":["POS","p-o-s","Public Operating System"],"url":"https://p-o-s.kr","description":"디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.","inLanguage":"ko"}</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300&family=Inter:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;700;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--blue:#0000ff;--header-h:52px;}
 body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;min-height:100vh;}
-
 .header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:#fff;display:flex;align-items:center;padding:0 28px;z-index:200;}
 .logo{font-family:'Outfit',sans-serif;font-weight:200;font-size:28px;letter-spacing:0.04em;cursor:pointer;user-select:none;flex-shrink:0;}
 .logo:hover{opacity:0.4;}
@@ -21,7 +36,6 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .nickname-tag{font-size:11px;color:#999;letter-spacing:-0.01em;}
 .logout-btn{font-size:11px;color:#bbb;cursor:pointer;background:none;border:none;font-family:inherit;padding:0;}
 .logout-btn:hover{color:#000;}
-
 .hamburger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;}
 .hamburger span{display:block;width:22px;height:1.5px;background:#000;}
 .mobile-menu{display:none;position:fixed;top:var(--header-h);left:0;right:0;background:#fff;border-bottom:1px solid #000;padding:16px 28px;z-index:190;flex-direction:column;}
@@ -30,47 +44,36 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .mob-item:last-child{border-bottom:none;}
 .mob-item:hover,.mob-item.active{color:#000;}
 @media(max-width:600px){.nav-bar{display:none;}.hamburger{display:flex;}}
-
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 .pg{display:none;}.pg.on{display:block;}
-
-/* GALLERY — natural ratio */
 .gallery{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;}
 .card{cursor:pointer;flex-shrink:0;transition:transform 0.22s ease;}
 .card:hover{transform:translateY(-6px);}
-.card img{display:block;height:260px;width:auto;}
-.card-thumb-ph{height:260px;width:180px;background:#d9d9d9;}
+.card img{display:block;object-fit:cover;}
 .card-cap{margin-top:10px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;}
-.danuh-entry{cursor:pointer;flex-shrink:0;display:flex;align-items:flex-end;}
-.danuh-entry:hover .card-cap{text-decoration:underline;}
-
-/* 단어들 — no lines, tight spacing */
-.danuh-list{list-style:none;}
-.danuh-list li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;}
-.danuh-list li:hover{color:var(--blue);}
-
+.danuh-cols{column-width:9cm;column-count:5;column-gap:28px;margin-top:80px;list-style:none;}
+.danuh-cols li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;break-inside:avoid;}
+.danuh-cols li:hover{color:var(--blue);}
 .about-body{max-width:600px;font-size:14.6px;font-weight:400;line-height:1.6;letter-spacing:-0.01em;}
 .about-body p+p{margin-top:14px;}
-
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
 .d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:9cm;column-count:5;column-gap:28px;}
 .d-text p{break-inside:avoid;}.d-text p+p{margin-top:14px;}
 .d-img-plate{width:100%;height:auto;display:block;margin:24px 0;}
 .wiki-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
+.ext-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
 .rel-label{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
 .rel-item{margin-bottom:8px;font-size:12px;}
 .r-sec{color:#bbb;font-size:9px;text-transform:uppercase;display:inline;margin-left:6px;}
 .back-btn{display:inline-block;margin-top:48px;cursor:pointer;opacity:0.6;transition:opacity 0.15s;}
 .back-btn:hover{opacity:1;}
-.d-author{font-size:11px;color:#bbb;margin-top:28px;letter-spacing:-0.01em;}
-
+.d-author{font-size:14.6px;color:#000;margin-top:28px;letter-spacing:-0.01em;font-weight:400;}
 .fab{position:fixed;bottom:24px;right:24px;width:22px;height:22px;background:#000;border:none;cursor:pointer;z-index:300;display:block;}
 .fab:hover{background:var(--blue);}
 .fab-edit{position:fixed;bottom:58px;right:24px;width:22px;height:22px;background:none;border:none;cursor:pointer;z-index:300;display:none;padding:0;}
 .fab-edit-inner{width:22px;height:22px;background:#000;border-radius:50%;display:block;transition:background 0.15s;}
 .fab-edit:hover .fab-edit-inner{background:var(--blue);}
-
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.18);z-index:250;}
 .ov.on{display:block;}
 .panel{display:none;position:fixed;top:0;right:0;width:min(500px,100vw);height:100vh;background:#fff;border-left:1px solid #000;z-index:300;overflow-y:auto;padding:28px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
@@ -89,20 +92,19 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
 .tbtn{background:none;border:1px solid #ccc;padding:4px 10px;font-family:inherit;font-size:12px;cursor:pointer;color:#555;white-space:nowrap;line-height:1.4;}
 .tbtn:hover{border-color:#000;color:#000;}
-.tbtn.bold{font-weight:700;}
-.tbtn.italic{font-style:italic;}
+.tbtn.bold{font-weight:700;}.tbtn.italic{font-style:italic;}
 .ok-msg{color:green;font-size:13px;margin-top:8px;display:none;}
 .err-msg{color:red;font-size:13px;margin-top:8px;display:none;}
 .thumb-row{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
 .loading{font-size:12px;color:#bbb;padding:20px 0;}
-
 .deadend{display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);}
 .deadend.on{display:flex;}
-.deadend-box{background:#fff;border:1px solid #000;padding:28px 32px;font-size:14.6px;font-weight:400;max-width:260px;width:90%;}
+.deadend-box{background:#fff;border:1px solid #000;padding:28px 32px;font-size:14.6px;font-weight:400;max-width:280px;width:90%;}
 .deadend-msg{margin-bottom:18px;}
-.deadend-btns{display:flex;gap:16px;}
-.deadend-build{font-size:14.6px;color:var(--blue);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit;padding:0;}
-.deadend-close{font-size:14.6px;color:#bbb;cursor:pointer;background:none;border:none;font-family:inherit;padding:0;}
+.deadend-btns{display:flex;gap:16px;flex-wrap:wrap;}
+.de-btn{font-size:14.6px;cursor:pointer;background:none;border:none;font-family:inherit;padding:0;}
+.de-btn.blue{color:var(--blue);text-decoration:underline;}
+.de-btn.gray{color:#bbb;}
 </style>
 </head>
 <body>
@@ -130,18 +132,12 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 </div>
 
 <main class="site-main">
-  <div id="pg-개념들" class="pg on"><div id="gallery" class="gallery"><p class="loading">불러오는 중...</p></div></div>
-
-  <div id="pg-단어들" class="pg">
-    <ul class="danuh-list" id="danuh-list"></ul>
-    <span class="back-btn" onclick="go('개념들')" style="display:inline-block;margin-top:40px;">
-      <svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </span>
+  <div id="pg-개념들" class="pg on">
+    <div id="gallery" class="gallery"><p class="loading">불러오는 중...</p></div>
+    <ul class="danuh-cols" id="danuh-list"></ul>
   </div>
-
   <div id="pg-도서관" class="pg"><p style="font-size:14.6px;">construction zone</p></div>
   <div id="pg-건축언어" class="pg"><p style="font-size:14.6px;">construction zone</p></div>
-
   <div id="pg-관계심화" class="pg">
     <div class="about-body">
       <p>POS는 공공 운영체제로 디자인의 공공 활동을 통해 담론을 실천합니다. 동시대에 생산되는 상징기호로서의 시각이미지와 담론들을 매개하면서, 새로운 언어를 실험하고 공공에게 있어서 디자인의 의미와 개념을 점검합니다.</p>
@@ -150,7 +146,6 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
       <p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>
     </div>
   </div>
-
   <div id="dv">
     <div class="d-content">
       <h1 class="d-title" id="d-title"></h1>
@@ -166,20 +161,30 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 
 <button class="fab" onclick="onWriteClick()"></button>
 <button class="fab-edit" id="fab-edit" onclick="onEditClick()"><span class="fab-edit-inner"></span></button>
-
 <div class="ov" id="ov" onclick="closeAllPanels()"></div>
 
 <div class="deadend" id="deadend">
   <div class="deadend-box">
-    <div class="deadend-msg">막다른 길입니다.</div>
-    <div class="deadend-btns">
-      <button class="deadend-build" onclick="deadendBuild()">길짓기</button>
-      <button class="deadend-close" onclick="closeDeadend()">닫기</button>
+    <div id="de-main">
+      <div class="deadend-msg">막다른 길입니다.</div>
+      <div class="deadend-btns">
+        <button class="de-btn blue" onclick="deadendBuild()">길짓기</button>
+        <button class="de-btn blue" onclick="deadendExit()">출구</button>
+        <button class="de-btn gray" onclick="closeDeadend()">닫기</button>
+      </div>
+    </div>
+    <div id="de-exit" style="display:none;">
+      <div class="deadend-msg">외부 링크 연결</div>
+      <input type="text" class="fi" id="de-url" placeholder="https://..." style="margin-bottom:12px;">
+      <div class="deadend-btns">
+        <button class="de-btn blue" onclick="saveExit()">연결하기</button>
+        <button class="de-btn gray" onclick="showDeMain()">취소</button>
+      </div>
+      <p id="de-err" style="color:red;font-size:12px;margin-top:8px;display:none;"></p>
     </div>
   </div>
 </div>
 
-<!-- 로그인 패널 -->
 <div class="panel" id="login-panel">
   <div class="ph"><span>로그인</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>이메일</label><input type="email" class="fi" id="li-email" placeholder="이메일"></div>
@@ -189,7 +194,6 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="li-err" class="err-msg"></p>
 </div>
 
-<!-- 회원가입 패널 -->
 <div class="panel" id="signup-panel">
   <div class="ph"><span>회원가입</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div id="signup-form">
@@ -206,7 +210,6 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
 </div>
 
-<!-- 새 게시물 패널 -->
 <div class="panel" id="new-panel">
   <div class="ph"><span>게시물 올리기</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="f-title" placeholder="게시물 제목"></div>
@@ -227,14 +230,13 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
       <button class="tbtn italic" onclick="insertFormat('f-body','italic')">이탤릭</button>
       <button class="tbtn" onclick="triggerFileImg('f-body','f-img-ins')">파일이미지</button>
     </div>
-    <input type="file" id="f-img-ins" accept="image/*" style="display:none;" onchange="handleFileImg(this,'f-body')">
+    <input type="file" id="f-img-ins" accept="image/*" style="display:none;" onchange="handleFileImg(this)">
   </div>
   <button class="fbtn" id="nf-submit" onclick="submitNewPost()">게시하기</button>
   <p id="nf-ok" class="ok-msg">✓ 등록되었습니다.</p>
   <p id="nf-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
 
-<!-- 수정 패널 -->
 <div class="panel" id="edit-panel">
   <div class="ph"><span>게시물 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="e-title"></div>
@@ -255,7 +257,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
       <button class="tbtn italic" onclick="insertFormat('e-body','italic')">이탤릭</button>
       <button class="tbtn" onclick="triggerFileImg('e-body','e-img-ins')">파일이미지</button>
     </div>
-    <input type="file" id="e-img-ins" accept="image/*" style="display:none;" onchange="handleFileImg(this,'e-body')">
+    <input type="file" id="e-img-ins" accept="image/*" style="display:none;" onchange="handleFileImg(this)">
   </div>
   <button class="fbtn" onclick="submitEdit()">수정 완료</button>
   <p id="ef-ok" class="ok-msg">✓ 수정되었습니다.</p>
@@ -263,35 +265,53 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 </div>
 
 <script>
-// ════════════════════════════════
 const SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
-// ════════════════════════════════
+const ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL_HERE';
+const TARGET_AREA = 220 * 220;
 
 let posts = [], cur = '개념들', mobileOpen = false;
 let currentId = null, pendingTitle = null, pendingEdit = false;
 let authToken = null, authUser = null, authNickname = null;
 const pasteAttached = new WeakSet();
 
-function saveToken(t) { authToken = t; try { localStorage.setItem('pos_token', t); } catch(e){} }
-function loadToken() { try { return localStorage.getItem('pos_token'); } catch(e){ return null; } }
-function clearToken() { authToken = null; try { localStorage.removeItem('pos_token'); } catch(e){} }
-
-/* ── SUPABASE ── */
+function saveToken(t) { authToken = t; try { localStorage.setItem('pos_token', t); } catch(e) {} }
+function loadToken() { try { return localStorage.getItem('pos_token'); } catch(e) { return null; } }
+function clearToken() { authToken = null; try { localStorage.removeItem('pos_token'); } catch(e) {} }
+function safePush(state, url) { try { history.pushState(state, '', url); } catch(e) {} }
 const SH = (tok) => ({ 'apikey': SUPA_KEY, 'Authorization': `Bearer ${tok || SUPA_KEY}`, 'Content-Type': 'application/json' });
+
+function setMeta(title, desc, img) {
+  document.title = title ? title + ' — POS' : '공공운영체제 POS';
+  const s = (sel, val) => { const el = document.querySelector(sel); if (el) el.setAttribute('content', val); };
+  s('meta[property="og:title"]', title || '공공운영체제 POS');
+  s('meta[property="og:description"]', desc || '디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
+  s('meta[name="description"]', desc || '공공운영체제 POS. 디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
+  s('meta[name="twitter:title"]', title || '공공운영체제 POS');
+  s('meta[name="twitter:description"]', desc || '디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
+  if (img) { s('meta[property="og:image"]', img); s('meta[name="twitter:image"]', img); }
+}
+
+function setThumbSize(img) {
+  const r = img.naturalWidth / img.naturalHeight;
+  img.style.width = Math.round(Math.sqrt(TARGET_AREA * r)) + 'px';
+  img.style.height = Math.round(Math.sqrt(TARGET_AREA / r)) + 'px';
+}
 
 async function dbLoad() {
   try {
-    const res = await fetch(`${SUPA_URL}/rest/v1/posts?order=created_at.asc`, { headers: SH() });
+    const res = await fetch(SUPA_URL + '/rest/v1/posts?order=created_at.asc', { headers: SH() });
     posts = await res.json();
     if (!Array.isArray(posts)) posts = [];
   } catch(e) { posts = []; }
-  renderGallery(); renderDanuh();
+  renderGallery();
+  renderDanuh();
 }
 
 async function dbInsert(post) {
-  const res = await fetch(`${SUPA_URL}/rest/v1/posts`, {
-    method: 'POST', headers: { ...SH(authToken), 'Prefer': 'return=representation' },
+  const res = await fetch(SUPA_URL + '/rest/v1/posts', {
+    method: 'POST',
+    headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=representation' }),
     body: JSON.stringify(post)
   });
   if (!res.ok) throw new Error(await res.text());
@@ -300,40 +320,45 @@ async function dbInsert(post) {
 }
 
 async function dbUpdate(id, patch) {
-  const res = await fetch(`${SUPA_URL}/rest/v1/posts?id=eq.${id}`, {
+  const res = await fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, {
     method: 'PATCH', headers: SH(authToken), body: JSON.stringify(patch)
   });
   if (!res.ok) throw new Error(await res.text());
 }
 
 async function uploadImg(file) {
-  const path = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;
-  const res = await fetch(`${SUPA_URL}/storage/v1/object/pos-images/${path}`, {
+  const path = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  const res = await fetch(SUPA_URL + '/storage/v1/object/pos-images/' + path, {
     method: 'POST',
-    headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${authToken}`, 'Content-Type': file.type },
+    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + authToken, 'Content-Type': file.type },
     body: file
   });
   if (!res.ok) return null;
-  return `${SUPA_URL}/storage/v1/object/public/pos-images/${path}`;
+  return SUPA_URL + '/storage/v1/object/public/pos-images/' + path;
 }
 
 async function resolveImg(fileInput, urlInput) {
-  const f = fileInput?.files[0];
+  const f = fileInput && fileInput.files[0];
   if (f) { const u = await uploadImg(f); if (u) return u; return await readB64(f); }
-  return urlInput?.value.trim() || null;
+  return urlInput ? urlInput.value.trim() || null : null;
 }
 
 function readB64(file) {
-  return new Promise(r => { const fr = new FileReader(); fr.onload = e => r(e.target.result); fr.readAsDataURL(file); });
+  return new Promise(function(resolve) {
+    const fr = new FileReader();
+    fr.onload = function(e) { resolve(e.target.result); };
+    fr.readAsDataURL(file);
+  });
 }
 
-/* ── AUTH ── */
 async function initAuth() {
-  const t = loadToken(); if (!t) return;
+  const t = loadToken();
+  if (!t) return;
   try {
-    const res = await fetch(`${SUPA_URL}/auth/v1/user`, { headers: SH(t) });
+    const res = await fetch(SUPA_URL + '/auth/v1/user', { headers: SH(t) });
     if (!res.ok) { clearToken(); return; }
-    authToken = t; authUser = await res.json();
+    authToken = t;
+    authUser = await res.json();
     await loadProfile(authUser.id);
     updateNavAuth();
   } catch(e) { clearToken(); }
@@ -341,25 +366,41 @@ async function initAuth() {
 
 async function loadProfile(uid) {
   try {
-    const res = await fetch(`${SUPA_URL}/rest/v1/profiles?id=eq.${uid}&select=nickname`, { headers: SH(authToken) });
+    const res = await fetch(SUPA_URL + '/rest/v1/profiles?id=eq.' + uid + '&select=nickname', { headers: SH(authToken) });
     const rows = await res.json();
-    if (rows[0]?.nickname) { authNickname = rows[0].nickname; return; }
-    const nick = authUser?.user_metadata?.nickname || '';
-    authNickname = nick || authUser?.email || '';
+    if (rows[0] && rows[0].nickname) { authNickname = rows[0].nickname; return; }
+    const nick = (authUser && authUser.user_metadata && authUser.user_metadata.nickname) || '';
+    authNickname = nick || (authUser && authUser.email) || '';
     if (nick) {
-      await fetch(`${SUPA_URL}/rest/v1/profiles`, {
-        method: 'POST', headers: { ...SH(authToken), 'Prefer': 'return=minimal' },
-        body: JSON.stringify({ id: uid, nickname: nick, email: authUser?.email })
+      await fetch(SUPA_URL + '/rest/v1/profiles', {
+        method: 'POST',
+        headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=minimal' }),
+        body: JSON.stringify({ id: uid, nickname: nick, email: authUser && authUser.email })
       });
     }
-  } catch(e) { authNickname = authUser?.user_metadata?.nickname || authUser?.email || ''; }
+  } catch(e) {
+    authNickname = (authUser && authUser.user_metadata && authUser.user_metadata.nickname) || (authUser && authUser.email) || '';
+  }
 }
 
 function updateNavAuth() {
   const nick = document.getElementById('nav-nickname');
   const lo = document.getElementById('nav-logout');
-  if (authUser) { nick.textContent = authNickname; nick.style.display = 'block'; lo.style.display = 'block'; }
-  else { nick.style.display = 'none'; lo.style.display = 'none'; }
+  if (authUser) {
+    nick.textContent = authNickname;
+    nick.style.display = 'block';
+    lo.style.display = 'block';
+  } else {
+    nick.style.display = 'none';
+    lo.style.display = 'none';
+  }
+}
+
+function isAdmin() { return authUser && authUser.email === ADMIN_EMAIL; }
+function canEdit(post) {
+  if (!authUser || !post) return false;
+  if (isAdmin()) return true;
+  return post.author_nickname && post.author_nickname === authNickname;
 }
 
 async function doLogin() {
@@ -368,17 +409,19 @@ async function doLogin() {
   const err = document.getElementById('li-err');
   err.style.display = 'none';
   try {
-    const res = await fetch(`${SUPA_URL}/auth/v1/token?grant_type=password`, {
-      method: 'POST', headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password: pw })
+    const res = await fetch(SUPA_URL + '/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, password: pw })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error_description || data.msg || '로그인 실패');
-    saveToken(data.access_token); authUser = data.user;
-    await loadProfile(authUser.id); updateNavAuth();
+    saveToken(data.access_token);
+    authUser = data.user;
+    await loadProfile(authUser.id);
+    updateNavAuth();
     closeAllPanels();
-    if (pendingEdit) { pendingEdit = false; openEditPanel(); }
-    else { openNewPanel(); }
+    if (pendingEdit) { pendingEdit = false; openEditPanel(); } else openNewPanel();
   } catch(e) { err.textContent = e.message; err.style.display = 'block'; }
 }
 
@@ -390,16 +433,18 @@ async function doSignup() {
   err.style.display = 'none';
   if (!nick) { err.textContent = '별명을 입력해주세요.'; err.style.display = 'block'; return; }
   try {
-    const res = await fetch(`${SUPA_URL}/auth/v1/signup`, {
-      method: 'POST', headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password: pw, data: { nickname: nick } })
+    const res = await fetch(SUPA_URL + '/auth/v1/signup', {
+      method: 'POST',
+      headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, password: pw, data: { nickname: nick } })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error_description || data.msg || '가입 실패');
     if (data.access_token) {
-      await fetch(`${SUPA_URL}/rest/v1/profiles`, {
-        method: 'POST', headers: { ...SH(data.access_token), 'Prefer': 'return=minimal' },
-        body: JSON.stringify({ id: data.user.id, nickname: nick, email })
+      await fetch(SUPA_URL + '/rest/v1/profiles', {
+        method: 'POST',
+        headers: Object.assign({}, SH(data.access_token), { 'Prefer': 'return=minimal' }),
+        body: JSON.stringify({ id: data.user.id, nickname: nick, email: email })
       });
     }
     document.getElementById('signup-form').style.display = 'none';
@@ -408,118 +453,136 @@ async function doSignup() {
 }
 
 async function logout() {
-  try { await fetch(`${SUPA_URL}/auth/v1/logout`, { method: 'POST', headers: SH(authToken) }); } catch(e) {}
-  clearToken(); authUser = null; authNickname = null; updateNavAuth();
+  try { await fetch(SUPA_URL + '/auth/v1/logout', { method: 'POST', headers: SH(authToken) }); } catch(e) {}
+  clearToken();
+  authUser = null;
+  authNickname = null;
+  updateNavAuth();
   document.getElementById('fab-edit').style.display = 'none';
 }
 
-/* ── WRITE/EDIT GATE ── */
-function onWriteClick() {
-  if (!authUser) showPanel('login-panel');
-  else openNewPanel();
-}
+function onWriteClick() { if (!authUser) showPanel('login-panel'); else openNewPanel(); }
 function onEditClick() {
-  if (!authUser) { pendingEdit = true; showPanel('login-panel'); }
-  else openEditPanel();
+  const p = posts.find(function(x) { return x.id === currentId; });
+  if (!authUser) { pendingEdit = true; showPanel('login-panel'); return; }
+  if (!canEdit(p)) { alert('본인이 작성한 게시물만 수정할 수 있습니다.'); return; }
+  openEditPanel();
 }
 
-/* ── NAV ── */
 function toggleMobile() { mobileOpen = !mobileOpen; document.getElementById('mobile-menu').classList.toggle('open', mobileOpen); }
 function closeMobile() { mobileOpen = false; document.getElementById('mobile-menu').classList.remove('open'); }
 
-function go(sec) {
+function go(sec, pushState) {
+  if (pushState === undefined) pushState = true;
   closeMobile();
-  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.pg').forEach(function(p) { p.classList.remove('on'); });
   document.getElementById('dv').style.display = 'none';
   document.getElementById('fab-edit').style.display = 'none';
-  document.querySelectorAll('.nav-item,.mob-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.nav-item,.mob-item').forEach(function(n) { n.classList.remove('active'); });
   const nv = document.getElementById('nv-' + sec); if (nv) nv.classList.add('active');
   const mob = document.getElementById('mob-' + sec); if (mob) mob.classList.add('active');
   cur = sec;
-  const pg = document.getElementById('pg-' + sec);
-  if (pg) pg.classList.add('on');
+  const pg = document.getElementById('pg-' + sec); if (pg) pg.classList.add('on');
+  if (pushState) {
+    const url = sec === '개념들' ? '/' : '/' + encodeURIComponent(sec);
+    safePush({ type: 'sec', sec: sec }, url);
+    setMeta('', '', '');
+  }
   window.scrollTo(0, 0);
 }
 
-/* ── GALLERY ── */
 function renderGallery() {
   const g = document.getElementById('gallery');
-  const items = posts.filter(p => p.sec === '개념들' && p.img);
-  const danuhCount = posts.filter(p => p.sec === '단어들' || (!p.img)).length;
-  let html = items.map(p =>
-    `<div class="card" onclick="showDetail(${p.id})">
-      <img src="${p.img}" alt="${p.title}" loading="lazy">
-      <div class="card-cap">${p.title}</div>
-    </div>`
-  ).join('');
-  if (danuhCount > 0) html += `<div class="danuh-entry" onclick="go('단어들')"><div class="card-cap" style="color:#999;">단어들...</div></div>`;
+  const items = posts.filter(function(p) { return p.sec === '개념들' && p.img; });
+  let html = items.map(function(p) {
+    return '<div class="card" onclick="showDetail(' + p.id + ')">' +
+      '<img src="' + p.img + '" alt="' + p.title + '" loading="lazy" onload="setThumbSize(this)">' +
+      '<div class="card-cap">' + p.title + '</div></div>';
+  }).join('');
   if (!html) html = '<p class="loading">게시물이 없습니다.</p>';
   g.innerHTML = html;
 }
 
 function renderDanuh() {
   const el = document.getElementById('danuh-list');
-  const items = posts.filter(p => p.sec === '단어들' || !p.img);
-  if (!items.length) { el.innerHTML = '<li style="color:#bbb;cursor:default;">게시물이 없습니다.</li>'; return; }
-  el.innerHTML = items.map(p => `<li onclick="showDetail(${p.id})">${p.title}</li>`).join('');
+  const items = posts.filter(function(p) { return p.sec === '단어들' || (!p.img && p.sec !== 'link' && p.sec !== '개념들'); });
+  el.innerHTML = items.map(function(p) { return '<li onclick="showDetail(' + p.id + ')">' + p.title + '</li>'; }).join('');
 }
 
-/* ── DETAIL ── */
-function showDetail(postId) {
-  const p = posts.find(x => x.id === postId); if (!p) return;
+function showDetail(postId, pushState) {
+  if (pushState === undefined) pushState = true;
+  const p = posts.find(function(x) { return x.id === postId; });
+  if (!p) return;
   currentId = postId;
-  document.querySelectorAll('.pg').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('.pg').forEach(function(x) { x.classList.remove('on'); });
   document.getElementById('dv').style.display = 'block';
-  if (authUser) document.getElementById('fab-edit').style.display = 'flex';
+  document.getElementById('fab-edit').style.display = canEdit(p) ? 'flex' : 'none';
   document.getElementById('d-title').textContent = p.title;
-  const backSvg = `<span class="back-btn" onclick="closeDetail()" style="display:inline-block;margin-top:48px;"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>`;
+  const backSvg = '<span class="back-btn" onclick="closeDetail()" style="display:inline-block;margin-top:48px;"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
   document.getElementById('d-text').innerHTML = wikiRender(p.body || '') + backSvg;
   document.getElementById('d-author').textContent = p.author_nickname || '';
   const tags = p.tags || [];
-  const rel = posts.filter(x => x.id !== postId && x.tags && x.tags.some(t => tags.includes(t))).slice(0, 5);
+  const rel = posts.filter(function(x) { return x.id !== postId && x.tags && x.tags.some(function(t) { return tags.includes(t); }); }).slice(0, 5);
   const wrap = document.getElementById('d-rel-wrap');
   if (rel.length) {
     wrap.style.display = 'block';
-    document.getElementById('d-related').innerHTML = rel.map(r =>
-      `<div class="rel-item"><span class="wiki-link" onclick="showDetail(${r.id})">${r.title}</span><span class="r-sec">${r.sec}</span></div>`
-    ).join('');
-  } else wrap.style.display = 'none';
+    document.getElementById('d-related').innerHTML = rel.map(function(r) {
+      return '<div class="rel-item"><span class="wiki-link" onclick="showDetail(' + r.id + ')">' + r.title + '</span><span class="r-sec">' + r.sec + '</span></div>';
+    }).join('');
+  } else { wrap.style.display = 'none'; }
+  if (pushState) {
+    safePush({ type: 'post', id: postId }, '/' + encodeURIComponent(p.title));
+    const desc = p.body ? p.body.replace(/\[\[.*?\]\]/g, '').slice(0, 120).trim() + '…' : '';
+    setMeta(p.title, desc, p.img || '');
+  }
   window.scrollTo(0, 0);
 }
 
-function closeDetail() {
+function closeDetail(pushState) {
+  if (pushState === undefined) pushState = true;
   document.getElementById('dv').style.display = 'none';
   document.getElementById('fab-edit').style.display = 'none';
-  currentId = null; go(cur);
+  currentId = null;
+  go(cur, pushState);
 }
+
+window.addEventListener('popstate', function(e) {
+  const st = e.state;
+  if (!st) { go('개념들', false); return; }
+  if (st.type === 'post') showDetail(st.id, false);
+  else if (st.type === 'sec') go(st.sec, false);
+  else go('개념들', false);
+});
 
 function wikiRender(text) {
-  const html = text
-    .replace(/\[\[img:([^\]]+)\]\]/g, (_, url) => `</p><img class="d-img-plate" src="${url}" alt=""><p>`)
+  let html = text
+    .replace(/\[\[img:([^\]]+)\]\]/g, function(_, url) { return '</p><img class="d-img-plate" src="' + url + '" alt=""><p>'; })
+    .replace(/\[\[(.+?)\]\]/g, function(_, w) {
+      const t = posts.find(function(p) { return p.title === w || (p.tags && p.tags.includes(w)); });
+      if (t) {
+        if (t.external_url) return '<span class="ext-link" onclick="window.open(\'' + t.external_url.replace(/'/g, "\\'") + '\',\'_blank\')">' + w + ' ↗</span>';
+        if (t.sec !== 'link') return '<span class="wiki-link" onclick="showDetail(' + t.id + ')">' + w + '</span>';
+      }
+      return '<span class="wiki-link dead-link" data-word="' + w.replace(/"/g, '&quot;') + '">' + w + '</span>';
+    })
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-    .replace(/\[\[(.+?)\]\]/g, (_, w) => {
-      const t = posts.find(p => p.title.includes(w) || (p.tags && p.tags.includes(w)));
-      return t
-        ? `<span class="wiki-link" onclick="showDetail(${t.id})">${w}</span>`
-        : `<span class="wiki-link dead-link" data-word="${w.replace(/"/g,'&quot;')}">${w}</span>`;
-    })
     .replace(/\n\n/g, '</p><p style="margin-top:14px;">')
     .replace(/\n/g, '<br>');
-  return `<p>${html}</p>`;
+  html = '<p>' + html + '</p>';
+  html = html.replace(/<p[^>]*>\s*<\/p>/g, '');
+  return html;
 }
 
-document.addEventListener('click', e => {
+document.addEventListener('click', function(e) {
   const el = e.target.closest('.dead-link');
   if (el) openDeadend(el.dataset.word);
 });
 
-/* ── TOOLBAR ── */
 function insertWiki(taId) {
   const ta = document.getElementById(taId);
-  const s = ta.selectionStart, e = ta.selectionEnd;
-  const sel = ta.value.slice(s, e);
-  const ins = sel ? `[[${sel}]]` : `[[]]`;
+  const s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e);
+  const ins = sel ? '[[' + sel + ']]' : '[[]]';
   ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e);
   ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + 2;
   ta.focus();
@@ -528,44 +591,39 @@ function insertWiki(taId) {
 function insertImgUrl(taId) {
   const ta = document.getElementById(taId);
   const s = ta.selectionStart, e = ta.selectionEnd;
-  const ins = `[[img:]]`;
-  ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e);
-  ta.selectionStart = ta.selectionEnd = s + 6; // 커서를 ]] 앞에 위치
+  ta.value = ta.value.slice(0, s) + '[[img:]]' + ta.value.slice(e);
+  ta.selectionStart = ta.selectionEnd = s + 6;
   ta.focus();
 }
 
 function insertFormat(taId, type) {
   const ta = document.getElementById(taId);
-  const s = ta.selectionStart, e = ta.selectionEnd;
-  const sel = ta.value.slice(s, e);
+  const s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e);
   const m = type === 'bold' ? '**' : '*';
-  const ins = sel ? `${m}${sel}${m}` : `${m}${m}`;
+  const ins = sel ? m + sel + m : m + m;
   ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e);
   ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + m.length;
   ta.focus();
 }
 
 let fileImgTarget = '';
-function triggerFileImg(taId, fileId) {
-  fileImgTarget = taId;
-  document.getElementById(fileId).click();
-}
-async function handleFileImg(input, taId) {
+function triggerFileImg(taId, fileId) { fileImgTarget = taId; document.getElementById(fileId).click(); }
+
+async function handleFileImg(input) {
   const f = input.files[0]; if (!f) return;
-  const ta = document.getElementById(fileImgTarget || taId);
+  const ta = document.getElementById(fileImgTarget);
   const s = ta.selectionStart;
-  const ph = `\n[[img:업로드 중...]]\n`;
-  ta.value = ta.value.slice(0, s) + ph + ta.value.slice(s);
+  ta.value = ta.value.slice(0, s) + '\n[[img:업로드 중...]]\n' + ta.value.slice(s);
   const url = await uploadImg(f) || await readB64(f);
-  ta.value = ta.value.replace('[[img:업로드 중...]]', `[[img:${url}]]`);
+  ta.value = ta.value.replace('[[img:업로드 중...]]', '[[img:' + url + ']]');
   input.value = '';
 }
 
-/* ── PASTE FIX (no duplicate listeners) ── */
 function addPaste(id) {
-  const el = document.getElementById(id); if (!el || pasteAttached.has(el)) return;
+  const el = document.getElementById(id);
+  if (!el || pasteAttached.has(el)) return;
   pasteAttached.add(el);
-  el.addEventListener('paste', e => {
+  el.addEventListener('paste', function(e) {
     e.preventDefault();
     const text = (e.clipboardData || window.clipboardData).getData('text/plain');
     const norm = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
@@ -575,16 +633,40 @@ function addPaste(id) {
   });
 }
 
-/* ── DEAD-END ── */
 let deadendWord = '';
-function openDeadend(w) { deadendWord = w; document.getElementById('deadend').classList.add('on'); }
-function closeDeadend() { document.getElementById('deadend').classList.remove('on'); }
+function openDeadend(w) { deadendWord = w; showDeMain(); document.getElementById('deadend').classList.add('on'); }
+function closeDeadend() { document.getElementById('deadend').classList.remove('on'); showDeMain(); }
+function showDeMain() { document.getElementById('de-main').style.display = 'block'; document.getElementById('de-exit').style.display = 'none'; }
 function deadendBuild() { closeDeadend(); pendingTitle = deadendWord; onWriteClick(); }
+function deadendExit() {
+  if (!authUser) { closeDeadend(); showPanel('login-panel'); return; }
+  document.getElementById('de-main').style.display = 'none';
+  document.getElementById('de-exit').style.display = 'block';
+  document.getElementById('de-url').value = '';
+  document.getElementById('de-err').style.display = 'none';
+  setTimeout(function() { document.getElementById('de-url').focus(); }, 50);
+}
 
-/* ── PANELS ── */
-const PANELS = ['login-panel','signup-panel','new-panel','edit-panel'];
+async function saveExit() {
+  const url = document.getElementById('de-url').value.trim();
+  if (!url) return;
+  const err = document.getElementById('de-err');
+  err.style.display = 'none';
+  try {
+    const existing = posts.find(function(p) { return p.title === deadendWord && p.sec === 'link'; });
+    if (existing) { await dbUpdate(existing.id, { external_url: url }); existing.external_url = url; }
+    else {
+      const saved = await dbInsert({ title: deadendWord, sec: 'link', img: null, plates: [], w: 0, h: 0, body: '', tags: [], date: '', type: 'Link', status: 'Published', external_url: url, author_nickname: authNickname || '' });
+      if (saved) posts.push(saved);
+    }
+    closeDeadend();
+    if (currentId) showDetail(currentId, false);
+  } catch(e) { err.textContent = '저장 실패'; err.style.display = 'block'; }
+}
+
+const PANELS = ['login-panel', 'signup-panel', 'new-panel', 'edit-panel'];
 function closeAllPanels() {
-  PANELS.forEach(id => document.getElementById(id).classList.remove('on'));
+  PANELS.forEach(function(id) { document.getElementById(id).classList.remove('on'); });
   document.getElementById('ov').classList.remove('on');
 }
 function showPanel(id) {
@@ -592,15 +674,14 @@ function showPanel(id) {
   document.getElementById(id).classList.add('on');
   document.getElementById('ov').classList.add('on');
 }
-
 function openNewPanel() {
   showPanel('new-panel');
   addPaste('f-body');
   if (pendingTitle) { document.getElementById('f-title').value = pendingTitle; pendingTitle = null; }
 }
-
 function openEditPanel() {
-  const p = posts.find(x => x.id === currentId); if (!p) return;
+  const p = posts.find(function(x) { return x.id === currentId; });
+  if (!p) return;
   showPanel('edit-panel');
   addPaste('e-body');
   document.getElementById('e-title').value = p.title;
@@ -616,48 +697,41 @@ async function submitNewPost() {
   try {
     const img = await resolveImg(document.getElementById('f-img-file'), document.getElementById('f-img'));
     const sec = img ? '개념들' : '단어들';
-    const saved = await dbInsert({
-      title, sec, img: img || null, plates: [], w: 220, h: 220,
-      body: document.getElementById('f-body').value.trim(),
-      tags: [], date: '', type: 'Visual Research', status: 'Published',
-      author_nickname: authNickname || ''
-    });
+    const saved = await dbInsert({ title: title, sec: sec, img: img || null, plates: [], w: 220, h: 220, body: document.getElementById('f-body').value.trim(), tags: [], date: '', type: 'Visual Research', status: 'Published', author_nickname: authNickname || '' });
     if (saved) { posts.push(saved); renderGallery(); renderDanuh(); }
-    ['f-title','f-img'].forEach(id => document.getElementById(id).value = '');
+    ['f-title', 'f-img'].forEach(function(id) { document.getElementById(id).value = ''; });
     document.getElementById('f-body').value = '';
     document.getElementById('f-img-file').value = '';
     document.getElementById('nf-ok').style.display = 'block';
-    setTimeout(() => document.getElementById('nf-ok').style.display = 'none', 2500);
+    setTimeout(function() { document.getElementById('nf-ok').style.display = 'none'; }, 2500);
     closeAllPanels(); go(sec);
   } catch(e) {
     document.getElementById('nf-err').style.display = 'block';
-    setTimeout(() => document.getElementById('nf-err').style.display = 'none', 3000);
+    setTimeout(function() { document.getElementById('nf-err').style.display = 'none'; }, 3000);
   }
   btn.textContent = '게시하기'; btn.disabled = false;
 }
 
 async function submitEdit() {
-  const p = posts.find(x => x.id === currentId); if (!p) return;
+  const p = posts.find(function(x) { return x.id === currentId; });
+  if (!p) return;
+  if (!canEdit(p)) { alert('수정 권한이 없습니다.'); return; }
   try {
     const img = await resolveImg(document.getElementById('e-img-file'), document.getElementById('e-img')) || p.img;
-    const patch = {
-      title: document.getElementById('e-title').value.trim(),
-      img, sec: img ? '개념들' : '단어들',
-      body: document.getElementById('e-body').value.trim()
-    };
+    const patch = { title: document.getElementById('e-title').value.trim(), img: img, sec: img ? '개념들' : '단어들', body: document.getElementById('e-body').value.trim() };
     await dbUpdate(p.id, patch);
     Object.assign(p, patch);
     renderGallery(); renderDanuh();
     document.getElementById('ef-ok').style.display = 'block';
-    setTimeout(() => document.getElementById('ef-ok').style.display = 'none', 2500);
-    closeAllPanels(); showDetail(currentId);
+    setTimeout(function() { document.getElementById('ef-ok').style.display = 'none'; }, 2500);
+    closeAllPanels(); showDetail(currentId, false);
   } catch(e) {
     document.getElementById('ef-err').style.display = 'block';
-    setTimeout(() => document.getElementById('ef-err').style.display = 'none', 3000);
+    setTimeout(function() { document.getElementById('ef-err').style.display = 'none'; }, 3000);
   }
 }
 
-initAuth().then(() => dbLoad());
+initAuth().then(function() { dbLoad(); });
 </script>
 </body>
 </html>
