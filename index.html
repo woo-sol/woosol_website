@@ -68,7 +68,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .r-sec{color:#bbb;font-size:9px;text-transform:uppercase;display:inline;margin-left:6px;}
 .back-btn{display:inline-block;margin-top:48px;cursor:pointer;opacity:0.6;transition:opacity 0.15s;}
 .back-btn:hover{opacity:1;}
-.d-author{font-size:14.6px;color:#000;margin-top:28px;letter-spacing:-0.01em;font-weight:400;}
+.d-author{font-size:11px;color:#bbb;margin-top:28px;letter-spacing:-0.01em;font-weight:400;}
 .fab{position:fixed;bottom:24px;right:24px;width:22px;height:22px;background:#000;border:none;cursor:pointer;z-index:300;display:block;}
 .fab:hover{background:var(--blue);}
 .fab-edit{position:fixed;bottom:58px;right:24px;width:22px;height:22px;background:none;border:none;cursor:pointer;z-index:300;display:none;padding:0;}
@@ -89,6 +89,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .fbtn:hover{background:var(--blue);}
 .fbtn.sec{background:#fff;color:#000;border:1px solid #000;margin-top:8px;}
 .fbtn.sec:hover{background:#f0f0f0;}
+.fbtn.del{background:#fff;color:#bbb;border:1px solid #ddd;margin-top:8px;}
+.fbtn.del:hover{color:#f00;border-color:#f00;}
 .toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
 .tbtn{background:none;border:1px solid #ccc;padding:4px 10px;font-family:inherit;font-size:12px;cursor:pointer;color:#555;white-space:nowrap;line-height:1.4;}
 .tbtn:hover{border-color:#000;color:#000;}
@@ -147,14 +149,12 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     </div>
   </div>
   <div id="dv">
-    <div class="d-content">
-      <h1 class="d-title" id="d-title"></h1>
-      <div class="d-text" id="d-text"></div>
-      <p class="d-author" id="d-author"></p>
-      <div id="d-rel-wrap" style="display:none;margin-top:40px;">
-        <div class="rel-label">관련 게시물</div>
-        <div id="d-related"></div>
-      </div>
+    <h1 class="d-title" id="d-title"></h1>
+    <div class="d-text" id="d-text"></div>
+    <p class="d-author" id="d-author"></p>
+    <div id="d-rel-wrap" style="display:none;margin-top:40px;">
+      <div class="rel-label">관련 게시물</div>
+      <div id="d-related"></div>
     </div>
   </div>
 </main>
@@ -260,30 +260,42 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <input type="file" id="e-img-ins" accept="image/*" style="display:none;" onchange="handleFileImg(this)">
   </div>
   <button class="fbtn" onclick="submitEdit()">수정 완료</button>
+  <button class="fbtn del" onclick="deletePost()">삭제</button>
   <p id="ef-ok" class="ok-msg">✓ 수정되었습니다.</p>
   <p id="ef-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
 
 <script>
-const SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
-const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
-const ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL_HERE';
-const TARGET_AREA = 220 * 220;
+var SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
+var ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL_HERE';
+var TARGET_AREA = 220 * 220;
 
-let posts = [], cur = '개념들', mobileOpen = false;
-let currentId = null, pendingTitle = null, pendingEdit = false;
-let authToken = null, authUser = null, authNickname = null;
-const pasteAttached = new WeakSet();
+var posts = [];
+var cur = '개념들';
+var mobileOpen = false;
+var currentId = null;
+var pendingTitle = null;
+var pendingEdit = false;
+var authToken = null;
+var authUser = null;
+var authNickname = null;
+var pasteAttached = [];
+var fileImgTarget = '';
+var deadendWord = '';
 
 function saveToken(t) { authToken = t; try { localStorage.setItem('pos_token', t); } catch(e) {} }
 function loadToken() { try { return localStorage.getItem('pos_token'); } catch(e) { return null; } }
 function clearToken() { authToken = null; try { localStorage.removeItem('pos_token'); } catch(e) {} }
 function safePush(state, url) { try { history.pushState(state, '', url); } catch(e) {} }
-const SH = (tok) => ({ 'apikey': SUPA_KEY, 'Authorization': `Bearer ${tok || SUPA_KEY}`, 'Content-Type': 'application/json' });
+
+function SH(tok) {
+  return { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + (tok || SUPA_KEY), 'Content-Type': 'application/json' };
+}
 
 function setMeta(title, desc, img) {
   document.title = title ? title + ' — POS' : '공공운영체제 POS';
-  const s = (sel, val) => { const el = document.querySelector(sel); if (el) el.setAttribute('content', val); };
+  function s(sel, val) { var el = document.querySelector(sel); if (el) el.setAttribute('content', val); }
   s('meta[property="og:title"]', title || '공공운영체제 POS');
   s('meta[property="og:description"]', desc || '디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
   s('meta[name="description"]', desc || '공공운영체제 POS. 디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
@@ -293,107 +305,119 @@ function setMeta(title, desc, img) {
 }
 
 function setThumbSize(img) {
-  const r = img.naturalWidth / img.naturalHeight;
+  var r = img.naturalWidth / img.naturalHeight;
   img.style.width = Math.round(Math.sqrt(TARGET_AREA * r)) + 'px';
   img.style.height = Math.round(Math.sqrt(TARGET_AREA / r)) + 'px';
 }
 
-async function dbLoad() {
-  try {
-    const res = await fetch(SUPA_URL + '/rest/v1/posts?order=created_at.asc', { headers: SH() });
-    posts = await res.json();
-    if (!Array.isArray(posts)) posts = [];
-  } catch(e) { posts = []; }
-  renderGallery();
-  renderDanuh();
+function dbLoad() {
+  fetch(SUPA_URL + '/rest/v1/posts?order=created_at.asc', { headers: SH() })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      posts = Array.isArray(data) ? data : [];
+      renderGallery();
+      renderDanuh();
+    })
+    .catch(function() { posts = []; renderGallery(); renderDanuh(); });
 }
 
-async function dbInsert(post) {
-  const res = await fetch(SUPA_URL + '/rest/v1/posts', {
+function dbInsert(post) {
+  return fetch(SUPA_URL + '/rest/v1/posts', {
     method: 'POST',
     headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=representation' }),
     body: JSON.stringify(post)
-  });
-  if (!res.ok) throw new Error(await res.text());
-  const rows = await res.json();
-  return Array.isArray(rows) ? rows[0] : null;
+  }).then(function(r) {
+    if (!r.ok) throw new Error('insert failed');
+    return r.json();
+  }).then(function(rows) { return Array.isArray(rows) ? rows[0] : null; });
 }
 
-async function dbUpdate(id, patch) {
-  const res = await fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, {
+function dbUpdate(id, patch) {
+  return fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, {
     method: 'PATCH', headers: SH(authToken), body: JSON.stringify(patch)
-  });
-  if (!res.ok) throw new Error(await res.text());
+  }).then(function(r) { if (!r.ok) throw new Error('update failed'); });
 }
 
-async function uploadImg(file) {
-  const path = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const res = await fetch(SUPA_URL + '/storage/v1/object/pos-images/' + path, {
+function dbDelete(id) {
+  return fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, {
+    method: 'DELETE', headers: SH(authToken)
+  }).then(function(r) { if (!r.ok) throw new Error('delete failed'); });
+}
+
+function uploadImg(file) {
+  var path = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  return fetch(SUPA_URL + '/storage/v1/object/pos-images/' + path, {
     method: 'POST',
     headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + authToken, 'Content-Type': file.type },
     body: file
+  }).then(function(r) {
+    if (!r.ok) return null;
+    return SUPA_URL + '/storage/v1/object/public/pos-images/' + path;
   });
-  if (!res.ok) return null;
-  return SUPA_URL + '/storage/v1/object/public/pos-images/' + path;
-}
-
-async function resolveImg(fileInput, urlInput) {
-  const f = fileInput && fileInput.files[0];
-  if (f) { const u = await uploadImg(f); if (u) return u; return await readB64(f); }
-  return urlInput ? urlInput.value.trim() || null : null;
 }
 
 function readB64(file) {
   return new Promise(function(resolve) {
-    const fr = new FileReader();
+    var fr = new FileReader();
     fr.onload = function(e) { resolve(e.target.result); };
     fr.readAsDataURL(file);
   });
 }
 
-async function initAuth() {
-  const t = loadToken();
-  if (!t) return;
-  try {
-    const res = await fetch(SUPA_URL + '/auth/v1/user', { headers: SH(t) });
-    if (!res.ok) { clearToken(); return; }
-    authToken = t;
-    authUser = await res.json();
-    await loadProfile(authUser.id);
-    updateNavAuth();
-  } catch(e) { clearToken(); }
+function resolveImg(fileInput, urlInput) {
+  var f = fileInput && fileInput.files && fileInput.files[0];
+  if (f) {
+    return uploadImg(f).then(function(u) {
+      if (u) return u;
+      return readB64(f);
+    });
+  }
+  return Promise.resolve(urlInput && urlInput.value.trim() || null);
 }
 
-async function loadProfile(uid) {
-  try {
-    const res = await fetch(SUPA_URL + '/rest/v1/profiles?id=eq.' + uid + '&select=nickname', { headers: SH(authToken) });
-    const rows = await res.json();
-    if (rows[0] && rows[0].nickname) { authNickname = rows[0].nickname; return; }
-    const nick = (authUser && authUser.user_metadata && authUser.user_metadata.nickname) || '';
-    authNickname = nick || (authUser && authUser.email) || '';
-    if (nick) {
-      await fetch(SUPA_URL + '/rest/v1/profiles', {
-        method: 'POST',
-        headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=minimal' }),
-        body: JSON.stringify({ id: uid, nickname: nick, email: authUser && authUser.email })
-      });
-    }
-  } catch(e) {
-    authNickname = (authUser && authUser.user_metadata && authUser.user_metadata.nickname) || (authUser && authUser.email) || '';
-  }
+function initAuth() {
+  var t = loadToken();
+  if (!t) return;
+  fetch(SUPA_URL + '/auth/v1/user', { headers: SH(t) })
+    .then(function(r) {
+      if (!r.ok) { clearToken(); return null; }
+      return r.json();
+    })
+    .then(function(user) {
+      if (!user) return;
+      authToken = t;
+      authUser = user;
+      return loadProfile(user.id);
+    })
+    .then(function() { updateNavAuth(); })
+    .catch(function() { clearToken(); });
+}
+
+function loadProfile(uid) {
+  return fetch(SUPA_URL + '/rest/v1/profiles?id=eq.' + uid + '&select=nickname', { headers: SH(authToken) })
+    .then(function(r) { return r.json(); })
+    .then(function(rows) {
+      if (rows && rows[0] && rows[0].nickname) { authNickname = rows[0].nickname; return; }
+      var nick = authUser && authUser.user_metadata && authUser.user_metadata.nickname || '';
+      authNickname = nick || (authUser && authUser.email) || '';
+      if (nick) {
+        return fetch(SUPA_URL + '/rest/v1/profiles', {
+          method: 'POST',
+          headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=minimal' }),
+          body: JSON.stringify({ id: uid, nickname: nick, email: authUser && authUser.email })
+        });
+      }
+    })
+    .catch(function() {
+      authNickname = authUser && authUser.user_metadata && authUser.user_metadata.nickname || (authUser && authUser.email) || '';
+    });
 }
 
 function updateNavAuth() {
-  const nick = document.getElementById('nav-nickname');
-  const lo = document.getElementById('nav-logout');
-  if (authUser) {
-    nick.textContent = authNickname;
-    nick.style.display = 'block';
-    lo.style.display = 'block';
-  } else {
-    nick.style.display = 'none';
-    lo.style.display = 'none';
-  }
+  var nick = document.getElementById('nav-nickname');
+  var lo = document.getElementById('nav-logout');
+  if (authUser) { nick.textContent = authNickname; nick.style.display = 'block'; lo.style.display = 'block'; }
+  else { nick.style.display = 'none'; lo.style.display = 'none'; }
 }
 
 function isAdmin() { return authUser && authUser.email === ADMIN_EMAIL; }
@@ -403,67 +427,63 @@ function canEdit(post) {
   return post.author_nickname && post.author_nickname === authNickname;
 }
 
-async function doLogin() {
-  const email = document.getElementById('li-email').value.trim();
-  const pw = document.getElementById('li-pw').value;
-  const err = document.getElementById('li-err');
+function doLogin() {
+  var email = document.getElementById('li-email').value.trim();
+  var pw = document.getElementById('li-pw').value;
+  var err = document.getElementById('li-err');
   err.style.display = 'none';
-  try {
-    const res = await fetch(SUPA_URL + '/auth/v1/token?grant_type=password', {
-      method: 'POST',
-      headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, password: pw })
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error_description || data.msg || '로그인 실패');
-    saveToken(data.access_token);
-    authUser = data.user;
-    await loadProfile(authUser.id);
-    updateNavAuth();
-    closeAllPanels();
+  fetch(SUPA_URL + '/auth/v1/token?grant_type=password', {
+    method: 'POST',
+    headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, password: pw })
+  }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+  .then(function(res) {
+    if (!res.ok) throw new Error(res.d.error_description || res.d.msg || '로그인 실패');
+    saveToken(res.d.access_token);
+    authUser = res.d.user;
+    return loadProfile(authUser.id);
+  }).then(function() {
+    updateNavAuth(); closeAllPanels();
     if (pendingEdit) { pendingEdit = false; openEditPanel(); } else openNewPanel();
-  } catch(e) { err.textContent = e.message; err.style.display = 'block'; }
+  }).catch(function(e) { err.textContent = e.message; err.style.display = 'block'; });
 }
 
-async function doSignup() {
-  const nick = document.getElementById('su-nick').value.trim();
-  const email = document.getElementById('su-email').value.trim();
-  const pw = document.getElementById('su-pw').value;
-  const err = document.getElementById('su-err');
+function doSignup() {
+  var nick = document.getElementById('su-nick').value.trim();
+  var email = document.getElementById('su-email').value.trim();
+  var pw = document.getElementById('su-pw').value;
+  var err = document.getElementById('su-err');
   err.style.display = 'none';
   if (!nick) { err.textContent = '별명을 입력해주세요.'; err.style.display = 'block'; return; }
-  try {
-    const res = await fetch(SUPA_URL + '/auth/v1/signup', {
-      method: 'POST',
-      headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, password: pw, data: { nickname: nick } })
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error_description || data.msg || '가입 실패');
-    if (data.access_token) {
-      await fetch(SUPA_URL + '/rest/v1/profiles', {
+  fetch(SUPA_URL + '/auth/v1/signup', {
+    method: 'POST',
+    headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, password: pw, data: { nickname: nick } })
+  }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+  .then(function(res) {
+    if (!res.ok) throw new Error(res.d.error_description || res.d.msg || '가입 실패');
+    if (res.d.access_token) {
+      return fetch(SUPA_URL + '/rest/v1/profiles', {
         method: 'POST',
-        headers: Object.assign({}, SH(data.access_token), { 'Prefer': 'return=minimal' }),
-        body: JSON.stringify({ id: data.user.id, nickname: nick, email: email })
+        headers: Object.assign({}, SH(res.d.access_token), { 'Prefer': 'return=minimal' }),
+        body: JSON.stringify({ id: res.d.user.id, nickname: nick, email: email })
       });
     }
+  }).then(function() {
     document.getElementById('signup-form').style.display = 'none';
     document.getElementById('signup-done').style.display = 'block';
-  } catch(e) { err.textContent = e.message; err.style.display = 'block'; }
+  }).catch(function(e) { err.textContent = e.message; err.style.display = 'block'; });
 }
 
-async function logout() {
-  try { await fetch(SUPA_URL + '/auth/v1/logout', { method: 'POST', headers: SH(authToken) }); } catch(e) {}
-  clearToken();
-  authUser = null;
-  authNickname = null;
-  updateNavAuth();
+function logout() {
+  fetch(SUPA_URL + '/auth/v1/logout', { method: 'POST', headers: SH(authToken) }).catch(function() {});
+  clearToken(); authUser = null; authNickname = null; updateNavAuth();
   document.getElementById('fab-edit').style.display = 'none';
 }
 
 function onWriteClick() { if (!authUser) showPanel('login-panel'); else openNewPanel(); }
 function onEditClick() {
-  const p = posts.find(function(x) { return x.id === currentId; });
+  var p = posts.filter(function(x) { return x.id === currentId; })[0];
   if (!authUser) { pendingEdit = true; showPanel('login-panel'); return; }
   if (!canEdit(p)) { alert('본인이 작성한 게시물만 수정할 수 있습니다.'); return; }
   openEditPanel();
@@ -472,19 +492,19 @@ function onEditClick() {
 function toggleMobile() { mobileOpen = !mobileOpen; document.getElementById('mobile-menu').classList.toggle('open', mobileOpen); }
 function closeMobile() { mobileOpen = false; document.getElementById('mobile-menu').classList.remove('open'); }
 
-function go(sec, pushState) {
-  if (pushState === undefined) pushState = true;
+function go(sec, doPush) {
+  if (doPush === undefined) doPush = true;
   closeMobile();
   document.querySelectorAll('.pg').forEach(function(p) { p.classList.remove('on'); });
   document.getElementById('dv').style.display = 'none';
   document.getElementById('fab-edit').style.display = 'none';
   document.querySelectorAll('.nav-item,.mob-item').forEach(function(n) { n.classList.remove('active'); });
-  const nv = document.getElementById('nv-' + sec); if (nv) nv.classList.add('active');
-  const mob = document.getElementById('mob-' + sec); if (mob) mob.classList.add('active');
+  var nv = document.getElementById('nv-' + sec); if (nv) nv.classList.add('active');
+  var mob = document.getElementById('mob-' + sec); if (mob) mob.classList.add('active');
   cur = sec;
-  const pg = document.getElementById('pg-' + sec); if (pg) pg.classList.add('on');
-  if (pushState) {
-    const url = sec === '개념들' ? '/' : '/' + encodeURIComponent(sec);
+  var pg = document.getElementById('pg-' + sec); if (pg) pg.classList.add('on');
+  if (doPush) {
+    var url = sec === '개념들' ? '/' : '/' + encodeURIComponent(sec);
     safePush({ type: 'sec', sec: sec }, url);
     setMeta('', '', '');
   }
@@ -492,62 +512,60 @@ function go(sec, pushState) {
 }
 
 function renderGallery() {
-  const g = document.getElementById('gallery');
-  const items = posts.filter(function(p) { return p.sec === '개념들' && p.img; });
-  let html = items.map(function(p) {
-    return '<div class="card" onclick="showDetail(' + p.id + ')">' +
-      '<img src="' + p.img + '" alt="' + p.title + '" loading="lazy" onload="setThumbSize(this)">' +
-      '<div class="card-cap">' + p.title + '</div></div>';
+  var g = document.getElementById('gallery');
+  var items = posts.filter(function(p) { return p.sec === '개념들' && p.img; });
+  var html = items.map(function(p) {
+    return '<div class="card" onclick="showDetail(' + p.id + ')"><img src="' + p.img + '" alt="' + p.title + '" loading="lazy" onload="setThumbSize(this)"><div class="card-cap">' + p.title + '</div></div>';
   }).join('');
   if (!html) html = '<p class="loading">게시물이 없습니다.</p>';
   g.innerHTML = html;
 }
 
 function renderDanuh() {
-  const el = document.getElementById('danuh-list');
-  const items = posts.filter(function(p) { return p.sec === '단어들' || (!p.img && p.sec !== 'link' && p.sec !== '개념들'); });
+  var el = document.getElementById('danuh-list');
+  var items = posts.filter(function(p) { return p.sec === '단어들' || (!p.img && p.sec !== 'link' && p.sec !== '개념들'); });
   el.innerHTML = items.map(function(p) { return '<li onclick="showDetail(' + p.id + ')">' + p.title + '</li>'; }).join('');
 }
 
-function showDetail(postId, pushState) {
-  if (pushState === undefined) pushState = true;
-  const p = posts.find(function(x) { return x.id === postId; });
+function showDetail(postId, doPush) {
+  if (doPush === undefined) doPush = true;
+  var p = posts.filter(function(x) { return x.id === postId; })[0];
   if (!p) return;
   currentId = postId;
   document.querySelectorAll('.pg').forEach(function(x) { x.classList.remove('on'); });
   document.getElementById('dv').style.display = 'block';
   document.getElementById('fab-edit').style.display = canEdit(p) ? 'flex' : 'none';
   document.getElementById('d-title').textContent = p.title;
-  const backSvg = '<span class="back-btn" onclick="closeDetail()" style="display:inline-block;margin-top:48px;"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
+  var backSvg = '<span class="back-btn" onclick="closeDetail()" style="display:inline-block;margin-top:48px;"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
   document.getElementById('d-text').innerHTML = wikiRender(p.body || '') + backSvg;
   document.getElementById('d-author').textContent = p.author_nickname || '';
-  const tags = p.tags || [];
-  const rel = posts.filter(function(x) { return x.id !== postId && x.tags && x.tags.some(function(t) { return tags.includes(t); }); }).slice(0, 5);
-  const wrap = document.getElementById('d-rel-wrap');
+  var tags = p.tags || [];
+  var rel = posts.filter(function(x) { return x.id !== postId && x.tags && x.tags.some(function(t) { return tags.indexOf(t) >= 0; }); }).slice(0, 5);
+  var wrap = document.getElementById('d-rel-wrap');
   if (rel.length) {
     wrap.style.display = 'block';
     document.getElementById('d-related').innerHTML = rel.map(function(r) {
       return '<div class="rel-item"><span class="wiki-link" onclick="showDetail(' + r.id + ')">' + r.title + '</span><span class="r-sec">' + r.sec + '</span></div>';
     }).join('');
   } else { wrap.style.display = 'none'; }
-  if (pushState) {
+  if (doPush) {
     safePush({ type: 'post', id: postId }, '/' + encodeURIComponent(p.title));
-    const desc = p.body ? p.body.replace(/\[\[.*?\]\]/g, '').slice(0, 120).trim() + '…' : '';
+    var desc = p.body ? p.body.replace(/\[\[.*?\]\]/g, '').slice(0, 120).trim() + '…' : '';
     setMeta(p.title, desc, p.img || '');
   }
   window.scrollTo(0, 0);
 }
 
-function closeDetail(pushState) {
-  if (pushState === undefined) pushState = true;
+function closeDetail(doPush) {
+  if (doPush === undefined) doPush = true;
   document.getElementById('dv').style.display = 'none';
   document.getElementById('fab-edit').style.display = 'none';
   currentId = null;
-  go(cur, pushState);
+  go(cur, doPush);
 }
 
 window.addEventListener('popstate', function(e) {
-  const st = e.state;
+  var st = e.state;
   if (!st) { go('개념들', false); return; }
   if (st.type === 'post') showDetail(st.id, false);
   else if (st.type === 'sec') go(st.sec, false);
@@ -555,12 +573,15 @@ window.addEventListener('popstate', function(e) {
 });
 
 function wikiRender(text) {
-  let html = text
+  var html = text
     .replace(/\[\[img:([^\]]+)\]\]/g, function(_, url) { return '</p><img class="d-img-plate" src="' + url + '" alt=""><p>'; })
     .replace(/\[\[(.+?)\]\]/g, function(_, w) {
-      const t = posts.find(function(p) { return p.title === w || (p.tags && p.tags.includes(w)); });
+      var t = null;
+      for (var i = 0; i < posts.length; i++) {
+        if (posts[i].title === w || (posts[i].tags && posts[i].tags.indexOf(w) >= 0)) { t = posts[i]; break; }
+      }
       if (t) {
-        if (t.external_url) return '<span class="ext-link" onclick="window.open(\'' + t.external_url.replace(/'/g, "\\'") + '\',\'_blank\')">' + w + ' ↗</span>';
+        if (t.external_url) return '<span class="ext-link" onclick="window.open(\'' + t.external_url.replace(/\'/g, "\\'") + '\',\'_blank\')">' + w + ' ↗</span>';
         if (t.sec !== 'link') return '<span class="wiki-link" onclick="showDetail(' + t.id + ')">' + w + '</span>';
       }
       return '<span class="wiki-link dead-link" data-word="' + w.replace(/"/g, '&quot;') + '">' + w + '</span>';
@@ -575,65 +596,63 @@ function wikiRender(text) {
 }
 
 document.addEventListener('click', function(e) {
-  const el = e.target.closest('.dead-link');
-  if (el) openDeadend(el.dataset.word);
+  var el = e.target.closest && e.target.closest('.dead-link');
+  if (el) openDeadend(el.getAttribute('data-word'));
 });
 
 function insertWiki(taId) {
-  const ta = document.getElementById(taId);
-  const s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e);
-  const ins = sel ? '[[' + sel + ']]' : '[[]]';
+  var ta = document.getElementById(taId);
+  var s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e);
+  var ins = sel ? '[[' + sel + ']]' : '[[]]';
   ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e);
   ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + 2;
   ta.focus();
 }
-
 function insertImgUrl(taId) {
-  const ta = document.getElementById(taId);
-  const s = ta.selectionStart, e = ta.selectionEnd;
+  var ta = document.getElementById(taId);
+  var s = ta.selectionStart, e = ta.selectionEnd;
   ta.value = ta.value.slice(0, s) + '[[img:]]' + ta.value.slice(e);
   ta.selectionStart = ta.selectionEnd = s + 6;
   ta.focus();
 }
-
 function insertFormat(taId, type) {
-  const ta = document.getElementById(taId);
-  const s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e);
-  const m = type === 'bold' ? '**' : '*';
-  const ins = sel ? m + sel + m : m + m;
+  var ta = document.getElementById(taId);
+  var s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e);
+  var m = type === 'bold' ? '**' : '*';
+  var ins = sel ? m + sel + m : m + m;
   ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e);
   ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + m.length;
   ta.focus();
 }
-
-let fileImgTarget = '';
 function triggerFileImg(taId, fileId) { fileImgTarget = taId; document.getElementById(fileId).click(); }
-
-async function handleFileImg(input) {
-  const f = input.files[0]; if (!f) return;
-  const ta = document.getElementById(fileImgTarget);
-  const s = ta.selectionStart;
+function handleFileImg(input) {
+  var f = input.files[0]; if (!f) return;
+  var ta = document.getElementById(fileImgTarget);
+  var s = ta.selectionStart;
   ta.value = ta.value.slice(0, s) + '\n[[img:업로드 중...]]\n' + ta.value.slice(s);
-  const url = await uploadImg(f) || await readB64(f);
-  ta.value = ta.value.replace('[[img:업로드 중...]]', '[[img:' + url + ']]');
+  var placeholder = ta.value;
+  uploadImg(f).then(function(url) {
+    if (!url) return readB64(f).then(function(b) { return b; });
+    return url;
+  }).then(function(url) {
+    ta.value = ta.value.replace('[[img:업로드 중...]]', '[[img:' + url + ']]');
+  });
   input.value = '';
 }
-
 function addPaste(id) {
-  const el = document.getElementById(id);
-  if (!el || pasteAttached.has(el)) return;
-  pasteAttached.add(el);
+  var el = document.getElementById(id);
+  if (!el || pasteAttached.indexOf(id) >= 0) return;
+  pasteAttached.push(id);
   el.addEventListener('paste', function(e) {
     e.preventDefault();
-    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
-    const norm = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-    const s = el.selectionStart, end = el.selectionEnd;
+    var text = (e.clipboardData || window.clipboardData).getData('text/plain');
+    var norm = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+    var s = el.selectionStart, end = el.selectionEnd;
     el.value = el.value.slice(0, s) + norm + el.value.slice(end);
     el.selectionStart = el.selectionEnd = s + norm.length;
   });
 }
 
-let deadendWord = '';
 function openDeadend(w) { deadendWord = w; showDeMain(); document.getElementById('deadend').classList.add('on'); }
 function closeDeadend() { document.getElementById('deadend').classList.remove('on'); showDeMain(); }
 function showDeMain() { document.getElementById('de-main').style.display = 'block'; document.getElementById('de-exit').style.display = 'none'; }
@@ -646,25 +665,27 @@ function deadendExit() {
   document.getElementById('de-err').style.display = 'none';
   setTimeout(function() { document.getElementById('de-url').focus(); }, 50);
 }
-
-async function saveExit() {
-  const url = document.getElementById('de-url').value.trim();
+function saveExit() {
+  var url = document.getElementById('de-url').value.trim();
   if (!url) return;
-  const err = document.getElementById('de-err');
+  var err = document.getElementById('de-err');
   err.style.display = 'none';
-  try {
-    const existing = posts.find(function(p) { return p.title === deadendWord && p.sec === 'link'; });
-    if (existing) { await dbUpdate(existing.id, { external_url: url }); existing.external_url = url; }
-    else {
-      const saved = await dbInsert({ title: deadendWord, sec: 'link', img: null, plates: [], w: 0, h: 0, body: '', tags: [], date: '', type: 'Link', status: 'Published', external_url: url, author_nickname: authNickname || '' });
-      if (saved) posts.push(saved);
-    }
+  var existing = null;
+  for (var i = 0; i < posts.length; i++) { if (posts[i].title === deadendWord && posts[i].sec === 'link') { existing = posts[i]; break; } }
+  var p;
+  if (existing) {
+    p = dbUpdate(existing.id, { external_url: url }).then(function() { existing.external_url = url; });
+  } else {
+    p = dbInsert({ title: deadendWord, sec: 'link', img: null, plates: [], w: 0, h: 0, body: '', tags: [], date: '', type: 'Link', status: 'Published', external_url: url, author_nickname: authNickname || '' })
+      .then(function(saved) { if (saved) posts.push(saved); });
+  }
+  p.then(function() {
     closeDeadend();
     if (currentId) showDetail(currentId, false);
-  } catch(e) { err.textContent = '저장 실패'; err.style.display = 'block'; }
+  }).catch(function() { err.textContent = '저장 실패'; err.style.display = 'block'; });
 }
 
-const PANELS = ['login-panel', 'signup-panel', 'new-panel', 'edit-panel'];
+var PANELS = ['login-panel', 'signup-panel', 'new-panel', 'edit-panel'];
 function closeAllPanels() {
   PANELS.forEach(function(id) { document.getElementById(id).classList.remove('on'); });
   document.getElementById('ov').classList.remove('on');
@@ -675,63 +696,85 @@ function showPanel(id) {
   document.getElementById('ov').classList.add('on');
 }
 function openNewPanel() {
-  showPanel('new-panel');
-  addPaste('f-body');
+  showPanel('new-panel'); addPaste('f-body');
   if (pendingTitle) { document.getElementById('f-title').value = pendingTitle; pendingTitle = null; }
 }
 function openEditPanel() {
-  const p = posts.find(function(x) { return x.id === currentId; });
+  var p = posts.filter(function(x) { return x.id === currentId; })[0];
   if (!p) return;
-  showPanel('edit-panel');
-  addPaste('e-body');
+  showPanel('edit-panel'); addPaste('e-body');
   document.getElementById('e-title').value = p.title;
-  document.getElementById('e-img').value = (p.img && !p.img.startsWith('data:')) ? p.img : '';
+  document.getElementById('e-img').value = (p.img && p.img.indexOf('data:') !== 0) ? p.img : '';
   document.getElementById('e-body').value = p.body || '';
 }
 
-async function submitNewPost() {
-  const title = document.getElementById('f-title').value.trim();
+function submitNewPost() {
+  var title = document.getElementById('f-title').value.trim();
   if (!title) { alert('제목을 입력해주세요.'); return; }
-  const btn = document.getElementById('nf-submit');
+  var btn = document.getElementById('nf-submit');
   btn.textContent = '저장 중...'; btn.disabled = true;
-  try {
-    const img = await resolveImg(document.getElementById('f-img-file'), document.getElementById('f-img'));
-    const sec = img ? '개념들' : '단어들';
-    const saved = await dbInsert({ title: title, sec: sec, img: img || null, plates: [], w: 220, h: 220, body: document.getElementById('f-body').value.trim(), tags: [], date: '', type: 'Visual Research', status: 'Published', author_nickname: authNickname || '' });
-    if (saved) { posts.push(saved); renderGallery(); renderDanuh(); }
-    ['f-title', 'f-img'].forEach(function(id) { document.getElementById(id).value = ''; });
-    document.getElementById('f-body').value = '';
-    document.getElementById('f-img-file').value = '';
-    document.getElementById('nf-ok').style.display = 'block';
-    setTimeout(function() { document.getElementById('nf-ok').style.display = 'none'; }, 2500);
-    closeAllPanels(); go(sec);
-  } catch(e) {
-    document.getElementById('nf-err').style.display = 'block';
-    setTimeout(function() { document.getElementById('nf-err').style.display = 'none'; }, 3000);
-  }
-  btn.textContent = '게시하기'; btn.disabled = false;
+  resolveImg(document.getElementById('f-img-file'), document.getElementById('f-img'))
+    .then(function(img) {
+      var sec = img ? '개념들' : '단어들';
+      return dbInsert({ title: title, sec: sec, img: img || null, plates: [], w: 220, h: 220, body: document.getElementById('f-body').value.trim(), tags: [], date: '', type: 'Visual Research', status: 'Published', author_nickname: authNickname || '' })
+        .then(function(saved) {
+          if (saved) { posts.push(saved); renderGallery(); renderDanuh(); }
+          document.getElementById('f-title').value = '';
+          document.getElementById('f-img').value = '';
+          document.getElementById('f-body').value = '';
+          document.getElementById('f-img-file').value = '';
+          document.getElementById('nf-ok').style.display = 'block';
+          setTimeout(function() { document.getElementById('nf-ok').style.display = 'none'; }, 2500);
+          closeAllPanels(); go('개념들');
+        });
+    })
+    .catch(function() {
+      document.getElementById('nf-err').style.display = 'block';
+      setTimeout(function() { document.getElementById('nf-err').style.display = 'none'; }, 3000);
+    })
+    .then(function() { btn.textContent = '게시하기'; btn.disabled = false; });
 }
 
-async function submitEdit() {
-  const p = posts.find(function(x) { return x.id === currentId; });
-  if (!p) return;
-  if (!canEdit(p)) { alert('수정 권한이 없습니다.'); return; }
-  try {
-    const img = await resolveImg(document.getElementById('e-img-file'), document.getElementById('e-img')) || p.img;
-    const patch = { title: document.getElementById('e-title').value.trim(), img: img, sec: img ? '개념들' : '단어들', body: document.getElementById('e-body').value.trim() };
-    await dbUpdate(p.id, patch);
-    Object.assign(p, patch);
-    renderGallery(); renderDanuh();
-    document.getElementById('ef-ok').style.display = 'block';
-    setTimeout(function() { document.getElementById('ef-ok').style.display = 'none'; }, 2500);
-    closeAllPanels(); showDetail(currentId, false);
-  } catch(e) {
-    document.getElementById('ef-err').style.display = 'block';
-    setTimeout(function() { document.getElementById('ef-err').style.display = 'none'; }, 3000);
-  }
+function submitEdit() {
+  var p = posts.filter(function(x) { return x.id === currentId; })[0];
+  if (!p || !canEdit(p)) { alert('수정 권한이 없습니다.'); return; }
+  resolveImg(document.getElementById('e-img-file'), document.getElementById('e-img'))
+    .then(function(img) {
+      var finalImg = img || p.img;
+      var patch = { title: document.getElementById('e-title').value.trim(), img: finalImg, sec: finalImg ? '개념들' : '단어들', body: document.getElementById('e-body').value.trim() };
+      return dbUpdate(p.id, patch).then(function() {
+        Object.assign(p, patch);
+        renderGallery(); renderDanuh();
+        document.getElementById('ef-ok').style.display = 'block';
+        setTimeout(function() { document.getElementById('ef-ok').style.display = 'none'; }, 2500);
+        closeAllPanels(); showDetail(currentId, false);
+      });
+    })
+    .catch(function() {
+      document.getElementById('ef-err').style.display = 'block';
+      setTimeout(function() { document.getElementById('ef-err').style.display = 'none'; }, 3000);
+    });
 }
 
-initAuth().then(function() { dbLoad(); });
+function deletePost() {
+  if (!confirm('정말 삭제하시겠습니까?')) return;
+  var p = posts.filter(function(x) { return x.id === currentId; })[0];
+  if (!p || !canEdit(p)) { alert('삭제 권한이 없습니다.'); return; }
+  dbDelete(currentId)
+    .then(function() {
+      posts = posts.filter(function(x) { return x.id !== currentId; });
+      renderGallery(); renderDanuh();
+      closeAllPanels();
+      currentId = null;
+      document.getElementById('dv').style.display = 'none';
+      document.getElementById('fab-edit').style.display = 'none';
+      go('개념들');
+    })
+    .catch(function() { alert('삭제 실패. 다시 시도해주세요.'); });
+}
+
+initAuth();
+dbLoad();
 </script>
 </body>
 </html>
