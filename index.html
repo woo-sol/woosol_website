@@ -49,6 +49,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 @media(max-width:480px){.gallery{gap:20px 16px;}.card{width:calc(50% - 8px);}.card img{width:100% !important;height:auto !important;}}
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 .pg{display:none;}.pg.on{display:block;}
+
+/* GALLERY */
 .gallery{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;}
 .card{cursor:pointer;flex-shrink:0;transition:transform 0.22s ease;}
 .card:hover{transform:translateY(-6px);}
@@ -57,8 +59,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .danuh-cols{column-width:9cm;column-count:5;column-gap:28px;margin-top:80px;list-style:none;}
 .danuh-cols li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;break-inside:avoid;}
 .danuh-cols li:hover{color:var(--blue);}
-.about-body{max-width:600px;font-size:14.6px;font-weight:400;line-height:1.6;letter-spacing:-0.01em;}
-.about-body p+p{margin-top:14px;}
+
+/* DETAIL */
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
 .d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:9cm;column-count:5;column-gap:28px;}
@@ -72,11 +74,37 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .back-btn{display:inline-block;margin-top:48px;cursor:pointer;opacity:0.6;transition:opacity 0.15s;}
 .back-btn:hover{opacity:1;}
 .d-author{font-size:11px;color:#bbb;margin-top:28px;letter-spacing:-0.01em;font-weight:400;}
+
+/* ABOUT */
+.about-body{max-width:600px;font-size:14.6px;font-weight:400;line-height:1.6;letter-spacing:-0.01em;}
+.about-body p+p{margin-top:14px;}
+
+/* LIBRARY */
+.lib-cat{margin-bottom:52px;}
+.lib-cat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#999;margin-bottom:14px;}
+.lib-books{display:flex;flex-wrap:wrap;gap:10px;min-height:44px;}
+.book-card{border:1px solid #000;padding:10px 16px;cursor:pointer;user-select:none;min-width:120px;max-width:260px;transition:background 0.1s;position:relative;}
+.book-card:hover{background:#f8f8f8;}
+.book-card.drag-over{background:#ebebff;border-color:var(--blue);}
+.book-card.dragging{opacity:0.35;}
+.book-title{font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
+.book-expand{margin-top:10px;font-size:12px;color:#444;line-height:1.6;}
+.book-expand-author{font-size:11px;color:#999;margin-top:6px;}
+.cat-drop-zone{width:100%;padding:12px 16px;border:1px dashed #ddd;font-size:11px;color:#ccc;text-align:center;margin-top:4px;}
+.cat-drop-zone.drag-over{background:#ebebff;border-color:var(--blue);}
+.cat-btn{border:1px solid #ccc;padding:5px 14px;font-size:13px;cursor:pointer;background:#fff;font-family:inherit;margin-right:6px;margin-bottom:6px;letter-spacing:-0.01em;}
+.cat-btn.active{border-color:#000;background:#000;color:#fff;}
+
+/* FABs */
 .fab{position:fixed;bottom:24px;right:24px;width:22px;height:22px;background:#000;border:none;cursor:pointer;z-index:300;display:block;}
 .fab:hover{background:var(--blue);}
 .fab-edit{position:fixed;bottom:58px;right:24px;width:22px;height:22px;background:none;border:none;cursor:pointer;z-index:300;display:none;padding:0;}
 .fab-edit-inner{width:22px;height:22px;background:#000;border-radius:50%;display:block;transition:background 0.15s;}
 .fab-edit:hover .fab-edit-inner{background:var(--blue);}
+.fab-book{position:fixed;bottom:24px;right:24px;width:36px;height:36px;background:#000;border:none;cursor:pointer;z-index:300;display:none;align-items:center;justify-content:center;}
+.fab-book:hover{background:var(--blue);}
+
+/* PANELS */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.18);z-index:250;}
 .ov.on{display:block;}
 .panel{display:none;position:fixed;top:0;right:0;width:min(500px,100vw);height:100vh;background:#fff;border-left:1px solid #000;z-index:300;overflow-y:auto;padding:28px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
@@ -102,6 +130,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .err-msg{color:red;font-size:13px;margin-top:8px;display:none;}
 .thumb-row{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
 .loading{font-size:12px;color:#bbb;padding:20px 0;}
+
+/* DEAD-END */
 .deadend{display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);}
 .deadend.on{display:flex;}
 .deadend-box{background:#fff;border:1px solid #000;padding:28px 32px;font-size:14.6px;font-weight:400;max-width:280px;width:90%;}
@@ -141,8 +171,13 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <div id="gallery" class="gallery"><p class="loading">불러오는 중...</p></div>
     <ul class="danuh-cols" id="danuh-list"></ul>
   </div>
-  <div id="pg-도서관" class="pg"><p style="font-size:14.6px;">construction zone</p></div>
+
+  <div id="pg-도서관" class="pg">
+    <div id="lib-cats"></div>
+  </div>
+
   <div id="pg-건축언어" class="pg"><p style="font-size:14.6px;">construction zone</p></div>
+
   <div id="pg-관계심화" class="pg">
     <div class="about-body">
       <p>POS는 공공 운영체제로 디자인의 공공 활동을 통해 담론을 실천합니다. 동시대에 생산되는 상징기호로서의 시각이미지와 담론들을 매개하면서, 새로운 언어를 실험하고 공공에게 있어서 디자인의 의미와 개념을 점검합니다.</p>
@@ -151,6 +186,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
       <p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>
     </div>
   </div>
+
   <div id="dv">
     <h1 class="d-title" id="d-title"></h1>
     <div class="d-text" id="d-text"></div>
@@ -162,10 +198,23 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
 </main>
 
-<button class="fab" onclick="onWriteClick()"></button>
+<!-- Posts FAB -->
+<button class="fab" id="fab-write" onclick="onWriteClick()"></button>
 <button class="fab-edit" id="fab-edit" onclick="onEditClick()"><span class="fab-edit-inner"></span></button>
+
+<!-- Book FAB -->
+<button class="fab-book" id="fab-book" onclick="onBookClick()">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+    <rect x="4" y="2" width="12" height="16" rx="1" stroke="white" stroke-width="1.5"/>
+    <line x1="7" y1="6" x2="13" y2="6" stroke="white" stroke-width="1.2"/>
+    <line x1="7" y1="9" x2="13" y2="9" stroke="white" stroke-width="1.2"/>
+    <line x1="7" y1="12" x2="11" y2="12" stroke="white" stroke-width="1.2"/>
+  </svg>
+</button>
+
 <div class="ov" id="ov" onclick="closeAllPanels()"></div>
 
+<!-- Dead-end -->
 <div class="deadend" id="deadend">
   <div class="deadend-box">
     <div id="de-main">
@@ -188,6 +237,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
 </div>
 
+<!-- Login -->
 <div class="panel" id="login-panel">
   <div class="ph"><span>로그인</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>이메일</label><input type="email" class="fi" id="li-email" placeholder="이메일"></div>
@@ -197,6 +247,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="li-err" class="err-msg"></p>
 </div>
 
+<!-- Signup -->
 <div class="panel" id="signup-panel">
   <div class="ph"><span>회원가입</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div id="signup-form">
@@ -213,6 +264,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
 </div>
 
+<!-- New Post -->
 <div class="panel" id="new-panel">
   <div class="ph"><span>게시물 올리기</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="f-title" placeholder="게시물 제목"></div>
@@ -240,6 +292,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="nf-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
 
+<!-- Edit Post -->
 <div class="panel" id="edit-panel">
   <div class="ph"><span>게시물 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="e-title"></div>
@@ -268,13 +321,34 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="ef-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
 
+<!-- Book Panel -->
+<div class="panel" id="book-panel">
+  <div class="ph"><span>도서 등록</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
+  <div class="fl"><label>제목</label><input type="text" class="fi" id="b-title" placeholder="책 제목"></div>
+  <div class="fl"><label>저자</label><input type="text" class="fi" id="b-author" placeholder="저자명"></div>
+  <div class="fl"><label>소개</label><textarea class="fta" id="b-desc" style="min-height:120px;" placeholder="책 소개"></textarea></div>
+  <div class="fl">
+    <label>카테고리</label>
+    <div style="margin-top:6px;">
+      <button class="cat-btn active" id="bcat-역사" onclick="selectBookCat('역사')">역사</button>
+      <button class="cat-btn" id="bcat-디자인" onclick="selectBookCat('디자인')">디자인</button>
+      <button class="cat-btn" id="bcat-미술" onclick="selectBookCat('미술')">미술</button>
+    </div>
+  </div>
+  <button class="fbtn" onclick="submitBook()">등록하기</button>
+  <p id="b-ok" class="ok-msg">✓ 등록되었습니다.</p>
+  <p id="b-err" class="err-msg">저장 실패.</p>
+</div>
+
 <script>
 var SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
 var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
 var ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL_HERE';
 var TARGET_AREA = 220 * 220;
+var CATS = ['역사', '디자인', '미술'];
 
 var posts = [];
+var books = [];
 var cur = '개념들';
 var savedScrollY = 0;
 var mobileOpen = false;
@@ -287,6 +361,16 @@ var authNickname = null;
 var pasteAttached = [];
 var fileImgTarget = '';
 var deadendWord = '';
+var newBookCat = '역사';
+var expandedBooks = {};
+var dragSrcId = null;
+var touchDragId = null;
+var touchTimer = null;
+var touchDragClone = null;
+var isDragging = false;
+var touchStartX = 0;
+var touchStartY = 0;
+var lastTapBook = {};
 
 function saveToken(t) { authToken = t; try { localStorage.setItem('pos_token', t); } catch(e) {} }
 function loadToken() { try { return localStorage.getItem('pos_token'); } catch(e) { return null; } }
@@ -315,89 +399,71 @@ function setThumbSize(img) {
   img.style.height = Math.round(Math.sqrt(TARGET_AREA / r)) + 'px';
 }
 
+/* ── DB ── */
 function dbLoad() {
   fetch(SUPA_URL + '/rest/v1/posts?order=created_at.asc', { headers: SH() })
     .then(function(r) { return r.json(); })
-    .then(function(data) {
-      posts = Array.isArray(data) ? data : [];
-      renderGallery();
-      renderDanuh();
-    })
+    .then(function(data) { posts = Array.isArray(data) ? data : []; renderGallery(); renderDanuh(); })
     .catch(function() { posts = []; renderGallery(); renderDanuh(); });
 }
-
 function dbInsert(post) {
   return fetch(SUPA_URL + '/rest/v1/posts', {
-    method: 'POST',
-    headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=representation' }),
-    body: JSON.stringify(post)
-  }).then(function(r) {
-    if (!r.ok) throw new Error('insert failed');
-    return r.json();
-  }).then(function(rows) { return Array.isArray(rows) ? rows[0] : null; });
+    method: 'POST', headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=representation' }), body: JSON.stringify(post)
+  }).then(function(r) { if (!r.ok) throw new Error(); return r.json(); }).then(function(rows) { return Array.isArray(rows) ? rows[0] : null; });
 }
-
 function dbUpdate(id, patch) {
-  return fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, {
-    method: 'PATCH', headers: SH(authToken), body: JSON.stringify(patch)
-  }).then(function(r) { if (!r.ok) throw new Error('update failed'); });
+  return fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, { method: 'PATCH', headers: SH(authToken), body: JSON.stringify(patch) })
+    .then(function(r) { if (!r.ok) throw new Error(); });
 }
-
 function dbDelete(id) {
-  return fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, {
-    method: 'DELETE', headers: SH(authToken)
-  }).then(function(r) { if (!r.ok) throw new Error('delete failed'); });
+  return fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, { method: 'DELETE', headers: SH(authToken) })
+    .then(function(r) { if (!r.ok) throw new Error(); });
+}
+function dbLoadBooks() {
+  fetch(SUPA_URL + '/rest/v1/books?order=order_index.asc', { headers: SH() })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      books = Array.isArray(data) ? data : [];
+      if (cur === '도서관') renderLibrary();
+    })
+    .catch(function() { books = []; });
+}
+function dbInsertBook(book) {
+  return fetch(SUPA_URL + '/rest/v1/books', {
+    method: 'POST', headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=representation' }), body: JSON.stringify(book)
+  }).then(function(r) { if (!r.ok) throw new Error(); return r.json(); }).then(function(rows) { return Array.isArray(rows) ? rows[0] : null; });
+}
+function dbUpdateBook(id, patch) {
+  fetch(SUPA_URL + '/rest/v1/books?id=eq.' + id, { method: 'PATCH', headers: SH(authToken), body: JSON.stringify(patch) });
 }
 
 function uploadImg(file) {
   var path = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
   return fetch(SUPA_URL + '/storage/v1/object/pos-images/' + path, {
-    method: 'POST',
-    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + authToken, 'Content-Type': file.type },
-    body: file
+    method: 'POST', headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + authToken, 'Content-Type': file.type }, body: file
   }).then(function(r) {
     if (!r.ok) return null;
     return SUPA_URL + '/storage/v1/object/public/pos-images/' + path;
   });
 }
-
 function readB64(file) {
-  return new Promise(function(resolve) {
-    var fr = new FileReader();
-    fr.onload = function(e) { resolve(e.target.result); };
-    fr.readAsDataURL(file);
-  });
+  return new Promise(function(resolve) { var fr = new FileReader(); fr.onload = function(e) { resolve(e.target.result); }; fr.readAsDataURL(file); });
 }
-
 function resolveImg(fileInput, urlInput) {
   var f = fileInput && fileInput.files && fileInput.files[0];
-  if (f) {
-    return uploadImg(f).then(function(u) {
-      if (u) return u;
-      return readB64(f);
-    });
-  }
+  if (f) { return uploadImg(f).then(function(u) { return u || readB64(f); }); }
   return Promise.resolve(urlInput && urlInput.value.trim() || null);
 }
 
+/* ── AUTH ── */
 function initAuth() {
-  var t = loadToken();
-  if (!t) return;
+  var t = loadToken(); if (!t) return;
   fetch(SUPA_URL + '/auth/v1/user', { headers: SH(t) })
-    .then(function(r) {
-      if (!r.ok) { clearToken(); return null; }
-      return r.json();
-    })
-    .then(function(user) {
-      if (!user) return;
-      authToken = t;
-      authUser = user;
-      return loadProfile(user.id);
-    })
+    .then(function(r) { if (!r.ok) { clearToken(); return null; } return r.json(); })
+    .then(function(user) { if (!user) return; authToken = t; authUser = user; return loadProfile(user.id); })
     .then(function() { updateNavAuth(); })
     .catch(function() { clearToken(); });
 }
-
 function loadProfile(uid) {
   return fetch(SUPA_URL + '/rest/v1/profiles?id=eq.' + uid + '&select=nickname', { headers: SH(authToken) })
     .then(function(r) { return r.json(); })
@@ -405,95 +471,66 @@ function loadProfile(uid) {
       if (rows && rows[0] && rows[0].nickname) { authNickname = rows[0].nickname; return; }
       var nick = authUser && authUser.user_metadata && authUser.user_metadata.nickname || '';
       authNickname = nick || (authUser && authUser.email) || '';
-      if (nick) {
-        return fetch(SUPA_URL + '/rest/v1/profiles', {
-          method: 'POST',
-          headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=minimal' }),
-          body: JSON.stringify({ id: uid, nickname: nick, email: authUser && authUser.email })
-        });
-      }
+      if (nick) fetch(SUPA_URL + '/rest/v1/profiles', { method: 'POST', headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=minimal' }), body: JSON.stringify({ id: uid, nickname: nick, email: authUser && authUser.email }) });
     })
-    .catch(function() {
-      authNickname = authUser && authUser.user_metadata && authUser.user_metadata.nickname || (authUser && authUser.email) || '';
-    });
+    .catch(function() { authNickname = (authUser && authUser.user_metadata && authUser.user_metadata.nickname) || (authUser && authUser.email) || ''; });
 }
-
 function updateNavAuth() {
-  var nick = document.getElementById('nav-nickname');
-  var lo = document.getElementById('nav-logout');
+  var nick = document.getElementById('nav-nickname'), lo = document.getElementById('nav-logout');
   if (authUser) { nick.textContent = authNickname; nick.style.display = 'block'; lo.style.display = 'block'; }
   else { nick.style.display = 'none'; lo.style.display = 'none'; }
 }
-
 function isAdmin() { return authUser && authUser.email === ADMIN_EMAIL; }
-function canEdit(post) {
-  if (!authUser || !post) return false;
-  if (isAdmin()) return true;
-  return post.author_nickname && post.author_nickname === authNickname;
-}
+function canEdit(post) { if (!authUser || !post) return false; if (isAdmin()) return true; return post.author_nickname && post.author_nickname === authNickname; }
 
 function doLogin() {
   var email = document.getElementById('li-email').value.trim();
   var pw = document.getElementById('li-pw').value;
-  var err = document.getElementById('li-err');
-  err.style.display = 'none';
-  fetch(SUPA_URL + '/auth/v1/token?grant_type=password', {
-    method: 'POST',
-    headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, password: pw })
-  }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
-  .then(function(res) {
-    if (!res.ok) throw new Error(res.d.error_description || res.d.msg || '로그인 실패');
-    saveToken(res.d.access_token);
-    authUser = res.d.user;
-    return loadProfile(authUser.id);
-  }).then(function() {
-    updateNavAuth(); closeAllPanels();
-    if (pendingEdit) { pendingEdit = false; openEditPanel(); } else openNewPanel();
-  }).catch(function(e) { err.textContent = e.message; err.style.display = 'block'; });
+  var err = document.getElementById('li-err'); err.style.display = 'none';
+  fetch(SUPA_URL + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, password: pw }) })
+    .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+    .then(function(res) {
+      if (!res.ok) throw new Error(res.d.error_description || res.d.msg || '로그인 실패');
+      saveToken(res.d.access_token); authUser = res.d.user;
+      return loadProfile(authUser.id);
+    })
+    .then(function() {
+      updateNavAuth(); closeAllPanels();
+      if (pendingEdit) { pendingEdit = false; openEditPanel(); } else openNewPanel();
+    })
+    .catch(function(e) { err.textContent = e.message; err.style.display = 'block'; });
 }
-
 function doSignup() {
   var nick = document.getElementById('su-nick').value.trim();
   var email = document.getElementById('su-email').value.trim();
   var pw = document.getElementById('su-pw').value;
-  var err = document.getElementById('su-err');
-  err.style.display = 'none';
+  var err = document.getElementById('su-err'); err.style.display = 'none';
   if (!nick) { err.textContent = '별명을 입력해주세요.'; err.style.display = 'block'; return; }
-  fetch(SUPA_URL + '/auth/v1/signup', {
-    method: 'POST',
-    headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, password: pw, data: { nickname: nick } })
-  }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
-  .then(function(res) {
-    if (!res.ok) throw new Error(res.d.error_description || res.d.msg || '가입 실패');
-    if (res.d.access_token) {
-      return fetch(SUPA_URL + '/rest/v1/profiles', {
-        method: 'POST',
-        headers: Object.assign({}, SH(res.d.access_token), { 'Prefer': 'return=minimal' }),
-        body: JSON.stringify({ id: res.d.user.id, nickname: nick, email: email })
-      });
-    }
-  }).then(function() {
-    document.getElementById('signup-form').style.display = 'none';
-    document.getElementById('signup-done').style.display = 'block';
-  }).catch(function(e) { err.textContent = e.message; err.style.display = 'block'; });
+  fetch(SUPA_URL + '/auth/v1/signup', { method: 'POST', headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, password: pw, data: { nickname: nick } }) })
+    .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+    .then(function(res) {
+      if (!res.ok) throw new Error(res.d.error_description || res.d.msg || '가입 실패');
+      if (res.d.access_token) fetch(SUPA_URL + '/rest/v1/profiles', { method: 'POST', headers: Object.assign({}, SH(res.d.access_token), { 'Prefer': 'return=minimal' }), body: JSON.stringify({ id: res.d.user.id, nickname: nick, email: email }) });
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('signup-done').style.display = 'block';
+    })
+    .catch(function(e) { err.textContent = e.message; err.style.display = 'block'; });
 }
-
 function logout() {
   fetch(SUPA_URL + '/auth/v1/logout', { method: 'POST', headers: SH(authToken) }).catch(function() {});
   clearToken(); authUser = null; authNickname = null; updateNavAuth();
   document.getElementById('fab-edit').style.display = 'none';
 }
 
+/* ── NAV ── */
 function onWriteClick() { if (!authUser) showPanel('login-panel'); else openNewPanel(); }
 function onEditClick() {
-  var p = posts.filter(function(x) { return x.id === currentId; })[0];
+  var p = null; for (var i = 0; i < posts.length; i++) { if (posts[i].id === currentId) { p = posts[i]; break; } }
   if (!authUser) { pendingEdit = true; showPanel('login-panel'); return; }
   if (!canEdit(p)) { alert('본인이 작성한 게시물만 수정할 수 있습니다.'); return; }
   openEditPanel();
 }
-
+function onBookClick() { if (!authUser) showPanel('login-panel'); else showPanel('book-panel'); }
 function toggleMobile() { mobileOpen = !mobileOpen; document.getElementById('mobile-menu').classList.toggle('open', mobileOpen); }
 function closeMobile() { mobileOpen = false; document.getElementById('mobile-menu').classList.remove('open'); }
 
@@ -503,19 +540,19 @@ function go(sec, doPush) {
   document.querySelectorAll('.pg').forEach(function(p) { p.classList.remove('on'); });
   document.getElementById('dv').style.display = 'none';
   document.getElementById('fab-edit').style.display = 'none';
+  document.getElementById('fab-write').style.display = sec === '도서관' ? 'none' : 'block';
+  document.getElementById('fab-book').style.display = sec === '도서관' ? 'flex' : 'none';
   document.querySelectorAll('.nav-item,.mob-item').forEach(function(n) { n.classList.remove('active'); });
   var nv = document.getElementById('nv-' + sec); if (nv) nv.classList.add('active');
   var mob = document.getElementById('mob-' + sec); if (mob) mob.classList.add('active');
   cur = sec;
   var pg = document.getElementById('pg-' + sec); if (pg) pg.classList.add('on');
-  if (doPush) {
-    var url = sec === '개념들' ? '/' : '/' + encodeURIComponent(sec);
-    safePush({ type: 'sec', sec: sec }, url);
-    setMeta('', '', '');
-  }
+  if (sec === '도서관') renderLibrary();
+  if (doPush) { safePush({ type: 'sec', sec: sec }, sec === '개념들' ? '/' : '/' + encodeURIComponent(sec)); setMeta('', '', ''); }
   window.scrollTo(0, 0);
 }
 
+/* ── GALLERY ── */
 function renderGallery() {
   var g = document.getElementById('gallery');
   var items = posts.filter(function(p) { return p.sec === '개념들' && p.img; });
@@ -525,21 +562,23 @@ function renderGallery() {
   if (!html) html = '<p class="loading">게시물이 없습니다.</p>';
   g.innerHTML = html;
 }
-
 function renderDanuh() {
   var el = document.getElementById('danuh-list');
   var items = posts.filter(function(p) { return p.sec === '단어들' || (!p.img && p.sec !== 'link' && p.sec !== '개념들'); });
   el.innerHTML = items.map(function(p) { return '<li onclick="showDetail(' + p.id + ')">' + p.title + '</li>'; }).join('');
 }
 
+/* ── DETAIL ── */
 function showDetail(postId, doPush) {
   if (doPush === undefined) doPush = true;
-  var p = posts.filter(function(x) { return x.id === postId; })[0];
+  var p = null; for (var i = 0; i < posts.length; i++) { if (posts[i].id === postId) { p = posts[i]; break; } }
   if (!p) return;
   currentId = postId;
   savedScrollY = window.scrollY;
   document.querySelectorAll('.pg').forEach(function(x) { x.classList.remove('on'); });
   document.getElementById('dv').style.display = 'block';
+  document.getElementById('fab-write').style.display = 'none';
+  document.getElementById('fab-book').style.display = 'none';
   document.getElementById('fab-edit').style.display = canEdit(p) ? 'flex' : 'none';
   document.getElementById('d-title').textContent = p.title;
   var backSvg = '<span class="back-btn" onclick="closeDetail()" style="display:inline-block;margin-top:48px;"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
@@ -548,21 +587,12 @@ function showDetail(postId, doPush) {
   var tags = p.tags || [];
   var rel = posts.filter(function(x) { return x.id !== postId && x.tags && x.tags.some(function(t) { return tags.indexOf(t) >= 0; }); }).slice(0, 5);
   var wrap = document.getElementById('d-rel-wrap');
-  if (rel.length) {
-    wrap.style.display = 'block';
-    document.getElementById('d-related').innerHTML = rel.map(function(r) {
-      return '<div class="rel-item"><span class="wiki-link" onclick="showDetail(' + r.id + ')">' + r.title + '</span><span class="r-sec">' + r.sec + '</span></div>';
-    }).join('');
-  } else { wrap.style.display = 'none'; }
-  if (doPush) {
-    safePush({ type: 'post', id: postId }, '/' + encodeURIComponent(p.title));
-    var desc = p.body ? p.body.replace(/\[\[.*?\]\]/g, '').slice(0, 120).trim() + '…' : '';
-    setMeta(p.title, desc, p.img || '');
-  }
+  if (rel.length) { wrap.style.display = 'block'; document.getElementById('d-related').innerHTML = rel.map(function(r) { return '<div class="rel-item"><span class="wiki-link" onclick="showDetail(' + r.id + ')">' + r.title + '</span><span class="r-sec">' + r.sec + '</span></div>'; }).join(''); }
+  else wrap.style.display = 'none';
+  if (doPush) { safePush({ type: 'post', id: postId }, '/' + encodeURIComponent(p.title)); var desc = p.body ? p.body.replace(/\[\[.*?\]\]/g, '').slice(0, 120).trim() + '…' : ''; setMeta(p.title, desc, p.img || ''); }
   window.scrollTo(0, 0);
   setTimeout(function() { window.scrollTo(0, 0); }, 50);
 }
-
 function closeDetail(doPush) {
   if (doPush === undefined) doPush = true;
   document.getElementById('dv').style.display = 'none';
@@ -571,7 +601,6 @@ function closeDetail(doPush) {
   go(cur, doPush);
   setTimeout(function() { window.scrollTo(0, savedScrollY); }, 0);
 }
-
 window.addEventListener('popstate', function(e) {
   var st = e.state;
   if (!st) { go('개념들', false); return; }
@@ -580,14 +609,13 @@ window.addEventListener('popstate', function(e) {
   else go('개념들', false);
 });
 
+/* ── WIKI RENDER ── */
 function wikiRender(text) {
   var html = text
     .replace(/\[\[img:([^\]]+)\]\]/g, function(_, url) { return '</p><img class="d-img-plate" src="' + url + '" alt=""><p>'; })
     .replace(/\[\[(.+?)\]\]/g, function(_, w) {
       var t = null;
-      for (var i = 0; i < posts.length; i++) {
-        if (posts[i].title === w || (posts[i].tags && posts[i].tags.indexOf(w) >= 0)) { t = posts[i]; break; }
-      }
+      for (var i = 0; i < posts.length; i++) { if (posts[i].title === w || (posts[i].tags && posts[i].tags.indexOf(w) >= 0)) { t = posts[i]; break; } }
       if (t) {
         if (t.external_url) return '<span class="ext-link" onclick="window.open(\'' + t.external_url.replace(/\'/g, "\\'") + '\',\'_blank\')">' + w + ' ↗</span>';
         if (t.sec !== 'link') return '<span class="wiki-link" onclick="showDetail(' + t.id + ')">' + w + '</span>';
@@ -602,187 +630,283 @@ function wikiRender(text) {
   html = html.replace(/<p[^>]*>\s*<\/p>/g, '');
   return html;
 }
+document.addEventListener('click', function(e) { var el = e.target.closest && e.target.closest('.dead-link'); if (el) openDeadend(el.getAttribute('data-word')); });
 
-document.addEventListener('click', function(e) {
-  var el = e.target.closest && e.target.closest('.dead-link');
-  if (el) openDeadend(el.getAttribute('data-word'));
-});
+/* ── LIBRARY ── */
+function renderLibrary() {
+  var el = document.getElementById('lib-cats'); if (!el) return;
+  var html = '';
+  for (var c = 0; c < CATS.length; c++) {
+    var cat = CATS[c];
+    var catBooks = books.filter(function(b) { return b.category === cat; });
+    catBooks.sort(function(a, b) { return a.order_index - b.order_index; });
+    html += '<div class="lib-cat" data-cat="' + cat + '" ondragover="onCatDragOver(event)" ondrop="onCatDrop(event,\'' + cat + '\')">';
+    html += '<div class="lib-cat-label">' + cat + '</div>';
+    html += '<div class="lib-books">';
+    for (var i = 0; i < catBooks.length; i++) {
+      var b = catBooks[i];
+      var exp = expandedBooks[b.id];
+      html += '<div class="book-card' + (exp ? ' expanded' : '') + '" data-book-id="' + b.id + '" draggable="true"';
+      html += ' ondragstart="onBookDragStart(event,' + b.id + ')"';
+      html += ' ondragover="onBookDragOver(event)"';
+      html += ' ondragleave="onBookDragLeave(event)"';
+      html += ' ondrop="onBookDrop(event,' + b.id + ')"';
+      html += ' ondragend="onDragEnd()"';
+      html += ' ondblclick="toggleBook(' + b.id + ')"';
+      html += ' ontouchstart="onBookTouchStart(event,' + b.id + ')"';
+      html += ' ontouchmove="onBookTouchMove(event)"';
+      html += ' ontouchend="onBookTouchEnd(event)">';
+      html += '<div class="book-title">' + b.title + '</div>';
+      if (exp) {
+        if (b.description) html += '<div class="book-expand">' + b.description + '</div>';
+        if (b.author) html += '<div class="book-expand-author">' + b.author + '</div>';
+      }
+      html += '</div>';
+    }
+    if (catBooks.length === 0) {
+      html += '<div class="cat-drop-zone" ondragover="onCatDragOver(event)" ondrop="onCatDrop(event,\'' + cat + '\')">여기에 책을 드래그하세요</div>';
+    }
+    html += '</div></div>';
+  }
+  el.innerHTML = html;
+}
 
-function insertWiki(taId) {
-  var ta = document.getElementById(taId);
-  var s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e);
-  var ins = sel ? '[[' + sel + ']]' : '[[]]';
-  ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e);
-  ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + 2;
-  ta.focus();
+function toggleBook(id) { expandedBooks[id] = !expandedBooks[id]; renderLibrary(); }
+
+/* Desktop drag */
+function onBookDragStart(e, id) {
+  dragSrcId = id;
+  e.dataTransfer.effectAllowed = 'move';
+  setTimeout(function() { var el = document.querySelector('[data-book-id="' + id + '"]'); if (el) el.classList.add('dragging'); }, 0);
 }
-function insertImgUrl(taId) {
-  var ta = document.getElementById(taId);
-  var s = ta.selectionStart, e = ta.selectionEnd;
-  ta.value = ta.value.slice(0, s) + '[[img:]]' + ta.value.slice(e);
-  ta.selectionStart = ta.selectionEnd = s + 6;
-  ta.focus();
+function onBookDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function onBookDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+function onBookDrop(e, targetId) {
+  e.preventDefault(); e.stopPropagation();
+  document.querySelectorAll('.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
+  if (dragSrcId && dragSrcId !== targetId) performBookDrop(dragSrcId, targetId, null);
+  dragSrcId = null;
 }
-function insertFormat(taId, type) {
-  var ta = document.getElementById(taId);
-  var s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e);
-  var m = type === 'bold' ? '**' : '*';
-  var ins = sel ? m + sel + m : m + m;
-  ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e);
-  ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + m.length;
-  ta.focus();
+function onCatDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function onCatDrop(e, cat) {
+  e.preventDefault();
+  document.querySelectorAll('.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
+  if (dragSrcId) performBookDrop(dragSrcId, null, cat);
+  dragSrcId = null;
 }
+function onDragEnd() {
+  document.querySelectorAll('.dragging,.drag-over').forEach(function(el) { el.classList.remove('dragging'); el.classList.remove('drag-over'); });
+  dragSrcId = null;
+}
+
+function findIdx(arr, fn) { for (var i = 0; i < arr.length; i++) { if (fn(arr[i])) return i; } return -1; }
+
+function performBookDrop(srcId, targetId, targetCat) {
+  var srcBook = null, targetBook = null;
+  for (var i = 0; i < books.length; i++) {
+    if (books[i].id === srcId) srcBook = books[i];
+    if (targetId && books[i].id === targetId) targetBook = books[i];
+  }
+  if (!srcBook) return;
+  if (targetBook) {
+    var srcCat = srcBook.category, tgtCat = targetBook.category;
+    if (srcCat === tgtCat) {
+      var catBooks = books.filter(function(b) { return b.category === srcCat; });
+      catBooks.sort(function(a, b) { return a.order_index - b.order_index; });
+      var si = findIdx(catBooks, function(b) { return b.id === srcId; });
+      var ti = findIdx(catBooks, function(b) { return b.id === targetId; });
+      catBooks.splice(si, 1); catBooks.splice(ti, 0, srcBook);
+      catBooks.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { order_index: idx }); });
+    } else {
+      var srcCatBooks = books.filter(function(b) { return b.category === srcCat; });
+      srcCatBooks.sort(function(a, b) { return a.order_index - b.order_index; });
+      var tgtCatBooks = books.filter(function(b) { return b.category === tgtCat; });
+      tgtCatBooks.sort(function(a, b) { return a.order_index - b.order_index; });
+      srcCatBooks = srcCatBooks.filter(function(b) { return b.id !== srcId; });
+      srcCatBooks.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { order_index: idx }); });
+      var ti2 = findIdx(tgtCatBooks, function(b) { return b.id === targetId; });
+      srcBook.category = tgtCat; tgtCatBooks.splice(ti2, 0, srcBook);
+      tgtCatBooks.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { category: b.category, order_index: idx }); });
+    }
+  } else if (targetCat && targetCat !== srcBook.category) {
+    var oldCat = srcBook.category;
+    var oldCatBooks = books.filter(function(b) { return b.category === oldCat && b.id !== srcId; });
+    oldCatBooks.sort(function(a, b) { return a.order_index - b.order_index; });
+    oldCatBooks.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { order_index: idx }); });
+    var newCatBooks = books.filter(function(b) { return b.category === targetCat; });
+    srcBook.category = targetCat; srcBook.order_index = newCatBooks.length;
+    dbUpdateBook(srcBook.id, { category: targetCat, order_index: srcBook.order_index });
+  }
+  renderLibrary();
+}
+
+/* Touch drag */
+function onBookTouchStart(e, id) {
+  var touch = e.touches[0];
+  touchStartX = touch.clientX; touchStartY = touch.clientY;
+  var now = Date.now();
+  if (lastTapBook[id] && now - lastTapBook[id] < 400) { toggleBook(id); lastTapBook[id] = 0; return; }
+  lastTapBook[id] = now;
+  touchTimer = setTimeout(function() {
+    isDragging = true; touchDragId = id;
+    var el = e.currentTarget;
+    touchDragClone = el.cloneNode(true);
+    touchDragClone.style.cssText = 'position:fixed;opacity:0.75;pointer-events:none;z-index:9999;width:' + el.offsetWidth + 'px;left:' + (touch.clientX - el.offsetWidth / 2) + 'px;top:' + (touch.clientY - 40) + 'px;background:#fff;border:1px solid #000;padding:10px 16px;';
+    document.body.appendChild(touchDragClone);
+    el.style.opacity = '0.3';
+  }, 600);
+}
+function onBookTouchMove(e) {
+  if (!isDragging) {
+    var touch = e.touches[0];
+    if (Math.abs(touch.clientX - touchStartX) > 8 || Math.abs(touch.clientY - touchStartY) > 8) clearTimeout(touchTimer);
+    return;
+  }
+  e.preventDefault();
+  var touch = e.touches[0];
+  var w = touchDragClone.offsetWidth;
+  touchDragClone.style.left = (touch.clientX - w / 2) + 'px';
+  touchDragClone.style.top = (touch.clientY - 40) + 'px';
+}
+function onBookTouchEnd(e) {
+  clearTimeout(touchTimer);
+  if (!isDragging) return;
+  var touch = e.changedTouches[0];
+  touchDragClone.style.display = 'none';
+  var targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (touchDragClone && touchDragClone.parentNode) touchDragClone.parentNode.removeChild(touchDragClone);
+  touchDragClone = null;
+  var srcEl = document.querySelector('[data-book-id="' + touchDragId + '"]');
+  if (srcEl) srcEl.style.opacity = '';
+  if (targetEl) {
+    var bookEl = targetEl.closest && targetEl.closest('[data-book-id]');
+    var catEl = targetEl.closest && targetEl.closest('[data-cat]');
+    if (bookEl) { var tid = parseInt(bookEl.getAttribute('data-book-id')); if (tid !== touchDragId) performBookDrop(touchDragId, tid, null); }
+    else if (catEl) performBookDrop(touchDragId, null, catEl.getAttribute('data-cat'));
+  }
+  isDragging = false; touchDragId = null;
+}
+
+/* Book panel */
+function selectBookCat(cat) {
+  newBookCat = cat;
+  for (var i = 0; i < CATS.length; i++) {
+    var btn = document.getElementById('bcat-' + CATS[i]);
+    if (btn) btn.className = CATS[i] === cat ? 'cat-btn active' : 'cat-btn';
+  }
+}
+function submitBook() {
+  var title = document.getElementById('b-title').value.trim();
+  if (!title) { alert('제목을 입력해주세요.'); return; }
+  var tgtCount = books.filter(function(b) { return b.category === newBookCat; }).length;
+  dbInsertBook({ title: title, author: document.getElementById('b-author').value.trim(), description: document.getElementById('b-desc').value.trim(), category: newBookCat, order_index: tgtCount })
+    .then(function(saved) {
+      if (saved) books.push(saved);
+      document.getElementById('b-title').value = ''; document.getElementById('b-author').value = ''; document.getElementById('b-desc').value = '';
+      document.getElementById('b-ok').style.display = 'block';
+      setTimeout(function() { document.getElementById('b-ok').style.display = 'none'; }, 2500);
+      closeAllPanels(); renderLibrary();
+    })
+    .catch(function() {
+      document.getElementById('b-err').style.display = 'block';
+      setTimeout(function() { document.getElementById('b-err').style.display = 'none'; }, 3000);
+    });
+}
+
+/* ── TOOLBAR ── */
+function insertWiki(taId) { var ta = document.getElementById(taId); var s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e); var ins = sel ? '[[' + sel + ']]' : '[[]]'; ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + 2; ta.focus(); }
+function insertImgUrl(taId) { var ta = document.getElementById(taId); var s = ta.selectionStart, e = ta.selectionEnd; ta.value = ta.value.slice(0, s) + '[[img:]]' + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = s + 6; ta.focus(); }
+function insertFormat(taId, type) { var ta = document.getElementById(taId); var s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e); var m = type === 'bold' ? '**' : '*'; var ins = sel ? m + sel + m : m + m; ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + m.length; ta.focus(); }
 function triggerFileImg(taId, fileId) { fileImgTarget = taId; document.getElementById(fileId).click(); }
 function handleFileImg(input) {
   var f = input.files[0]; if (!f) return;
-  var ta = document.getElementById(fileImgTarget);
-  var s = ta.selectionStart;
+  var ta = document.getElementById(fileImgTarget); var s = ta.selectionStart;
   ta.value = ta.value.slice(0, s) + '\n[[img:업로드 중...]]\n' + ta.value.slice(s);
-  var placeholder = ta.value;
-  uploadImg(f).then(function(url) {
-    if (!url) return readB64(f).then(function(b) { return b; });
-    return url;
-  }).then(function(url) {
-    ta.value = ta.value.replace('[[img:업로드 중...]]', '[[img:' + url + ']]');
-  });
+  uploadImg(f).then(function(url) { return url || readB64(f); }).then(function(url) { ta.value = ta.value.replace('[[img:업로드 중...]]', '[[img:' + url + ']]'); });
   input.value = '';
 }
 function addPaste(id) {
-  var el = document.getElementById(id);
-  if (!el || pasteAttached.indexOf(id) >= 0) return;
+  var el = document.getElementById(id); if (!el || pasteAttached.indexOf(id) >= 0) return;
   pasteAttached.push(id);
-  el.addEventListener('paste', function(e) {
-    e.preventDefault();
-    var text = (e.clipboardData || window.clipboardData).getData('text/plain');
-    var norm = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-    var s = el.selectionStart, end = el.selectionEnd;
-    el.value = el.value.slice(0, s) + norm + el.value.slice(end);
-    el.selectionStart = el.selectionEnd = s + norm.length;
-  });
+  el.addEventListener('paste', function(e) { e.preventDefault(); var text = (e.clipboardData || window.clipboardData).getData('text/plain'); var norm = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n'); var s = el.selectionStart, end = el.selectionEnd; el.value = el.value.slice(0, s) + norm + el.value.slice(end); el.selectionStart = el.selectionEnd = s + norm.length; });
 }
 
+/* ── DEAD-END ── */
 function openDeadend(w) { deadendWord = w; showDeMain(); document.getElementById('deadend').classList.add('on'); }
 function closeDeadend() { document.getElementById('deadend').classList.remove('on'); showDeMain(); }
 function showDeMain() { document.getElementById('de-main').style.display = 'block'; document.getElementById('de-exit').style.display = 'none'; }
 function deadendBuild() { closeDeadend(); pendingTitle = deadendWord; onWriteClick(); }
 function deadendExit() {
   if (!authUser) { closeDeadend(); showPanel('login-panel'); return; }
-  document.getElementById('de-main').style.display = 'none';
-  document.getElementById('de-exit').style.display = 'block';
-  document.getElementById('de-url').value = '';
-  document.getElementById('de-err').style.display = 'none';
+  document.getElementById('de-main').style.display = 'none'; document.getElementById('de-exit').style.display = 'block';
+  document.getElementById('de-url').value = ''; document.getElementById('de-err').style.display = 'none';
   setTimeout(function() { document.getElementById('de-url').focus(); }, 50);
 }
 function saveExit() {
-  var url = document.getElementById('de-url').value.trim();
-  if (!url) return;
-  var err = document.getElementById('de-err');
-  err.style.display = 'none';
-  var existing = null;
-  for (var i = 0; i < posts.length; i++) { if (posts[i].title === deadendWord && posts[i].sec === 'link') { existing = posts[i]; break; } }
+  var url = document.getElementById('de-url').value.trim(); if (!url) return;
+  var err = document.getElementById('de-err'); err.style.display = 'none';
+  var existing = null; for (var i = 0; i < posts.length; i++) { if (posts[i].title === deadendWord && posts[i].sec === 'link') { existing = posts[i]; break; } }
   var p;
-  if (existing) {
-    p = dbUpdate(existing.id, { external_url: url }).then(function() { existing.external_url = url; });
-  } else {
-    p = dbInsert({ title: deadendWord, sec: 'link', img: null, plates: [], w: 0, h: 0, body: '', tags: [], date: '', type: 'Link', status: 'Published', external_url: url, author_nickname: authNickname || '' })
-      .then(function(saved) { if (saved) posts.push(saved); });
-  }
-  p.then(function() {
-    closeDeadend();
-    if (currentId) showDetail(currentId, false);
-  }).catch(function() { err.textContent = '저장 실패'; err.style.display = 'block'; });
+  if (existing) { p = dbUpdate(existing.id, { external_url: url }).then(function() { existing.external_url = url; }); }
+  else { p = dbInsert({ title: deadendWord, sec: 'link', img: null, plates: [], w: 0, h: 0, body: '', tags: [], date: '', type: 'Link', status: 'Published', external_url: url, author_nickname: authNickname || '' }).then(function(saved) { if (saved) posts.push(saved); }); }
+  p.then(function() { closeDeadend(); if (currentId) showDetail(currentId, false); }).catch(function() { err.textContent = '저장 실패'; err.style.display = 'block'; });
 }
 
-var PANELS = ['login-panel', 'signup-panel', 'new-panel', 'edit-panel'];
-function closeAllPanels() {
-  PANELS.forEach(function(id) { document.getElementById(id).classList.remove('on'); });
-  document.getElementById('ov').classList.remove('on');
-}
-function showPanel(id) {
-  closeAllPanels();
-  document.getElementById(id).classList.add('on');
-  document.getElementById('ov').classList.add('on');
-}
-function openNewPanel() {
-  showPanel('new-panel'); addPaste('f-body');
-  if (pendingTitle) { document.getElementById('f-title').value = pendingTitle; pendingTitle = null; }
-}
+/* ── PANELS ── */
+var PANELS = ['login-panel', 'signup-panel', 'new-panel', 'edit-panel', 'book-panel'];
+function closeAllPanels() { PANELS.forEach(function(id) { document.getElementById(id).classList.remove('on'); }); document.getElementById('ov').classList.remove('on'); }
+function showPanel(id) { closeAllPanels(); document.getElementById(id).classList.add('on'); document.getElementById('ov').classList.add('on'); }
+function openNewPanel() { showPanel('new-panel'); addPaste('f-body'); if (pendingTitle) { document.getElementById('f-title').value = pendingTitle; pendingTitle = null; } }
 function openEditPanel() {
-  var p = posts.filter(function(x) { return x.id === currentId; })[0];
+  var p = null; for (var i = 0; i < posts.length; i++) { if (posts[i].id === currentId) { p = posts[i]; break; } }
   if (!p) return;
   showPanel('edit-panel'); addPaste('e-body');
   document.getElementById('e-title').value = p.title;
   document.getElementById('e-img').value = (p.img && p.img.indexOf('data:') !== 0) ? p.img : '';
   document.getElementById('e-body').value = p.body || '';
 }
-
 function submitNewPost() {
-  var title = document.getElementById('f-title').value.trim();
-  if (!title) { alert('제목을 입력해주세요.'); return; }
-  var btn = document.getElementById('nf-submit');
-  btn.textContent = '저장 중...'; btn.disabled = true;
-  resolveImg(document.getElementById('f-img-file'), document.getElementById('f-img'))
-    .then(function(img) {
-      var sec = img ? '개념들' : '단어들';
-      return dbInsert({ title: title, sec: sec, img: img || null, plates: [], w: 220, h: 220, body: document.getElementById('f-body').value.trim(), tags: [], date: '', type: 'Visual Research', status: 'Published', author_nickname: authNickname || '' })
-        .then(function(saved) {
-          if (saved) { posts.push(saved); renderGallery(); renderDanuh(); }
-          document.getElementById('f-title').value = '';
-          document.getElementById('f-img').value = '';
-          document.getElementById('f-body').value = '';
-          document.getElementById('f-img-file').value = '';
-          document.getElementById('nf-ok').style.display = 'block';
-          setTimeout(function() { document.getElementById('nf-ok').style.display = 'none'; }, 2500);
-          closeAllPanels(); go('개념들');
-        });
-    })
-    .catch(function() {
-      document.getElementById('nf-err').style.display = 'block';
-      setTimeout(function() { document.getElementById('nf-err').style.display = 'none'; }, 3000);
-    })
-    .then(function() { btn.textContent = '게시하기'; btn.disabled = false; });
-}
-
-function submitEdit() {
-  var p = posts.filter(function(x) { return x.id === currentId; })[0];
-  if (!p || !canEdit(p)) { alert('수정 권한이 없습니다.'); return; }
-  resolveImg(document.getElementById('e-img-file'), document.getElementById('e-img'))
-    .then(function(img) {
-      var finalImg = img || p.img;
-      var patch = { title: document.getElementById('e-title').value.trim(), img: finalImg, sec: finalImg ? '개념들' : '단어들', body: document.getElementById('e-body').value.trim() };
-      return dbUpdate(p.id, patch).then(function() {
-        Object.assign(p, patch);
-        renderGallery(); renderDanuh();
-        document.getElementById('ef-ok').style.display = 'block';
-        setTimeout(function() { document.getElementById('ef-ok').style.display = 'none'; }, 2500);
-        closeAllPanels(); showDetail(currentId, false);
-      });
-    })
-    .catch(function() {
-      document.getElementById('ef-err').style.display = 'block';
-      setTimeout(function() { document.getElementById('ef-err').style.display = 'none'; }, 3000);
+  var title = document.getElementById('f-title').value.trim(); if (!title) { alert('제목을 입력해주세요.'); return; }
+  var btn = document.getElementById('nf-submit'); btn.textContent = '저장 중...'; btn.disabled = true;
+  resolveImg(document.getElementById('f-img-file'), document.getElementById('f-img')).then(function(img) {
+    var sec = img ? '개념들' : '단어들';
+    return dbInsert({ title: title, sec: sec, img: img || null, plates: [], w: 220, h: 220, body: document.getElementById('f-body').value.trim(), tags: [], date: '', type: 'Visual Research', status: 'Published', author_nickname: authNickname || '' }).then(function(saved) {
+      if (saved) { posts.push(saved); renderGallery(); renderDanuh(); }
+      document.getElementById('f-title').value = ''; document.getElementById('f-img').value = ''; document.getElementById('f-body').value = ''; document.getElementById('f-img-file').value = '';
+      document.getElementById('nf-ok').style.display = 'block'; setTimeout(function() { document.getElementById('nf-ok').style.display = 'none'; }, 2500);
+      closeAllPanels(); go('개념들');
     });
+  }).catch(function() { document.getElementById('nf-err').style.display = 'block'; setTimeout(function() { document.getElementById('nf-err').style.display = 'none'; }, 3000); })
+  .then(function() { btn.textContent = '게시하기'; btn.disabled = false; });
 }
-
+function submitEdit() {
+  var p = null; for (var i = 0; i < posts.length; i++) { if (posts[i].id === currentId) { p = posts[i]; break; } }
+  if (!p || !canEdit(p)) { alert('수정 권한이 없습니다.'); return; }
+  resolveImg(document.getElementById('e-img-file'), document.getElementById('e-img')).then(function(img) {
+    var finalImg = img || p.img;
+    var patch = { title: document.getElementById('e-title').value.trim(), img: finalImg, sec: finalImg ? '개념들' : '단어들', body: document.getElementById('e-body').value.trim() };
+    return dbUpdate(p.id, patch).then(function() {
+      Object.assign(p, patch); renderGallery(); renderDanuh();
+      document.getElementById('ef-ok').style.display = 'block'; setTimeout(function() { document.getElementById('ef-ok').style.display = 'none'; }, 2500);
+      closeAllPanels(); showDetail(currentId, false);
+    });
+  }).catch(function() { document.getElementById('ef-err').style.display = 'block'; setTimeout(function() { document.getElementById('ef-err').style.display = 'none'; }, 3000); });
+}
 function deletePost() {
   if (!confirm('정말 삭제하시겠습니까?')) return;
-  var p = posts.filter(function(x) { return x.id === currentId; })[0];
+  var p = null; for (var i = 0; i < posts.length; i++) { if (posts[i].id === currentId) { p = posts[i]; break; } }
   if (!p || !canEdit(p)) { alert('삭제 권한이 없습니다.'); return; }
-  dbDelete(currentId)
-    .then(function() {
-      posts = posts.filter(function(x) { return x.id !== currentId; });
-      renderGallery(); renderDanuh();
-      closeAllPanels();
-      currentId = null;
-      document.getElementById('dv').style.display = 'none';
-      document.getElementById('fab-edit').style.display = 'none';
-      go('개념들');
-    })
-    .catch(function() { alert('삭제 실패. 다시 시도해주세요.'); });
+  dbDelete(currentId).then(function() {
+    posts = posts.filter(function(x) { return x.id !== currentId; });
+    renderGallery(); renderDanuh(); closeAllPanels();
+    currentId = null; document.getElementById('dv').style.display = 'none'; document.getElementById('fab-edit').style.display = 'none';
+    go('개념들');
+  }).catch(function() { alert('삭제 실패. 다시 시도해주세요.'); });
 }
 
 initAuth();
 dbLoad();
+dbLoadBooks();
 </script>
 </body>
 </html>
