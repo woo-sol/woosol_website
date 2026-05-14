@@ -8,6 +8,8 @@
 <meta name="keywords" content="POS, p-o-s, 공공운영체제, public operating system, 디자인, 시각언어, 아카이브">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://p-o-s.kr">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="공공운영체제 POS">
 <meta property="og:title" content="공공운영체제 POS">
@@ -44,6 +46,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .mob-item:last-child{border-bottom:none;}
 .mob-item:hover,.mob-item.active{color:#000;}
 @media(max-width:600px){.nav-bar{display:none;}.hamburger{display:flex;}}
+@media(max-width:480px){.card img,.card-cap{width:calc(50vw - 42px) !important;}.card img{height:auto !important;}.gallery{gap:20px 20px;}}
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 .pg{display:none;}.pg.on{display:block;}
 .gallery{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;}
@@ -267,12 +270,13 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 
 <script>
 var SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
-var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
+var SUPA_KEY = 'YOUR_ANON_KEY_HERE';
 var ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL_HERE';
 var TARGET_AREA = 220 * 220;
 
 var posts = [];
 var cur = '개념들';
+var savedScrollY = 0;
 var mobileOpen = false;
 var currentId = null;
 var pendingTitle = null;
@@ -532,6 +536,7 @@ function showDetail(postId, doPush) {
   var p = posts.filter(function(x) { return x.id === postId; })[0];
   if (!p) return;
   currentId = postId;
+  savedScrollY = window.scrollY;
   document.querySelectorAll('.pg').forEach(function(x) { x.classList.remove('on'); });
   document.getElementById('dv').style.display = 'block';
   document.getElementById('fab-edit').style.display = canEdit(p) ? 'flex' : 'none';
@@ -562,6 +567,7 @@ function closeDetail(doPush) {
   document.getElementById('fab-edit').style.display = 'none';
   currentId = null;
   go(cur, doPush);
+  setTimeout(function() { window.scrollTo(0, savedScrollY); }, 0);
 }
 
 window.addEventListener('popstate', function(e) {
