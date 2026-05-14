@@ -46,7 +46,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .mob-item:last-child{border-bottom:none;}
 .mob-item:hover,.mob-item.active{color:#000;}
 @media(max-width:600px){.nav-bar{display:none;}.hamburger{display:flex;}}
-@media(max-width:480px){.card img,.card-cap{width:calc(50vw - 42px) !important;}.card img{height:auto !important;}.gallery{gap:20px 20px;}}
+@media(max-width:480px){.gallery{gap:20px 16px;}.card{width:calc(50% - 8px);}.card img{width:100% !important;height:auto !important;}}
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 .pg{display:none;}.pg.on{display:block;}
 .gallery{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;}
@@ -270,7 +270,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 
 <script>
 var SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
-var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
+var SUPA_KEY = 'YOUR_ANON_KEY_HERE';
 var ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL_HERE';
 var TARGET_AREA = 220 * 220;
 
@@ -309,6 +309,7 @@ function setMeta(title, desc, img) {
 }
 
 function setThumbSize(img) {
+  if (window.innerWidth <= 480) { img.style.width = '100%'; img.style.height = 'auto'; return; }
   var r = img.naturalWidth / img.naturalHeight;
   img.style.width = Math.round(Math.sqrt(TARGET_AREA * r)) + 'px';
   img.style.height = Math.round(Math.sqrt(TARGET_AREA / r)) + 'px';
@@ -559,6 +560,7 @@ function showDetail(postId, doPush) {
     setMeta(p.title, desc, p.img || '');
   }
   window.scrollTo(0, 0);
+  setTimeout(function() { window.scrollTo(0, 0); }, 50);
 }
 
 function closeDetail(doPush) {
