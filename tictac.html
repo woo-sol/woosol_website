@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>긍정과 부정의 틱택토</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      color: #111;
+    }
+
+    .wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1rem;
+      gap: 1.8rem;
+    }
+
+    .game-title {
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      color: #111;
+    }
+
+    /* ── 보드 ── */
+    .board-area {
+      position: relative;
+      width: 330px;
+      height: 330px;
+      flex-shrink: 0;
+    }
+
+    .cells-grid {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 110px);
+      grid-template-rows: repeat(3, 110px);
+      z-index: 1;
+    }
+
+    .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.1s;
+      overflow: hidden;
+    }
+
+    .cell:hover:not(.taken) { background: rgba(0,0,0,0.03); }
+    .cell.taken { cursor: default; }
+
+    .cell-word {
+      font-weight: 500;
+      text-align: center;
+      user-select: none;
+      padding: 0 5px;
+      line-height: 1.3;
+    }
+
+    .cell-word.o { color: #111; }
+    .cell-word.x { color: #888; }
+
+    .cell-word.fresh {
+      animation: pop 0.22s ease;
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.75); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* SVG 그리드 선 */
+    .board-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* ── 버튼 ── */
+    .reset-btn {
+      display: inline-block;
+      background: #ffffff;
+      color: #111111;
+      border: 1.5px solid #111111;
+      border-radius: 0;
+      padding: 9px 28px;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: inherit;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      text-decoration: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .reset-btn:hover { background: #f5f5f5; }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="game-title">긍정과 부정의 틱택토</div>
+
+  <div class="board-area">
+    <div class="cells-grid" id="board"></div>
+    <svg class="board-svg" viewBox="0 0 330 330" xmlns="http://www.w3.org/2000/svg">
+      <line x1="110" y1="8"   x2="110" y2="322" stroke="#111" stroke-width="1.8"/>
+      <line x1="220" y1="8"   x2="220" y2="322" stroke="#111" stroke-width="1.8"/>
+      <line x1="8"   y1="110" x2="322" y2="110" stroke="#111" stroke-width="1.8"/>
+      <line x1="8"   y1="220" x2="322" y2="220" stroke="#111" stroke-width="1.8"/>
+    </svg>
+  </div>
+
+  <button class="reset-btn" onclick="resetGame()">다시 시작</button>
+</div>
+
+<script>
+  // ── 조합 사전 ──────────────────────────────────────────────
+  const TWO = {
+    OO: { p: ['정말',        '그렇다']    },
+    XX: { p: ['절대',        '아니다']    },
+    OX: { p: ['사실이',      '아니다']    },
+    XO: { p: ['거짓이',      '맞다']      },
+  };
+
+  const THREE = {
+    OOO: { p: ['그것은',     '정말',      '사실이다']  },
+    XXX: { p: ['아니다',     '절대',      '거짓이다']  },
+    OOX: { p: ['그것은',     '사실이',    '아니다']    },
+    XXO: { p: ['거짓이',     '절대',      '맞다']      },
+    OXX: { p: ['그것은',     '절대',      '아니다']    },
+    XOO: { p: ['그렇지않은', '것이',      '맞다']      },
+    XOX: { p: ['그렇지',     '않은 것이', '아니다']    },
+    OXO: { p: ['그것은',     '거짓이',    '맞다']      },
+  };
+
+  const LINES = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+
+  const GREOTEUN_ALTS = ['말하자면', '그렇지만', '그래도', '다시말해'];
+
+  let board = Array(9).fill(null);
+  let gameOver = false, playerTurn = true, lastCell = -1;
+
+  // ── 폰트 크기 ────────────────────────────────────────────
+  function fontSize(text) {
+    const len = text.replace(/\s/g, '').length;
+    if (len >= 6) return '12px';
+    if (len >= 5) return '14px';
+    return '17px';
+  }
+
+  // ── 각 칸 텍스트 계산 ────────────────────────────────────
+  function computeTexts() {
+    const texts = board.map(v => v === 'O' ? '그렇다' : v === 'X' ? '아니다' : '');
+    const covered = new Set();
+    const comboPrev = {};
+
+    // 3칸 콤보 우선
+    for (const line of LINES) {
+      if (line.every(i => board[i])) {
+        const key = line.map(i => board[i]).join('');
+        const combo = THREE[key];
+        if (combo) {
+          line.forEach((ci, pos) => {
+            texts[ci] = combo.p[pos];
+            if (pos > 0) comboPrev[ci] = line[pos - 1];
+          });
+          line.forEach(i => covered.add(i));
+        }
+      }
+    }
+
+    // 인접 2칸 콤보
+    for (const line of LINES) {
+      for (let s = 0; s < 2; s++) {
+        const pair = [line[s], line[s + 1]];
+        if (pair.every(i => board[i]) && !pair.some(i => covered.has(i))) {
+          const key = pair.map(i => board[i]).join('');
+          const combo = TWO[key];
+          if (combo) {
+            pair.forEach((ci, pos) => {
+              texts[ci] = combo.p[pos];
+              if (pos > 0) comboPrev[ci] = pair[pos - 1];
+            });
+            pair.forEach(i => covered.add(i));
+            break;
+          }
+        }
+      }
+    }
+
+    // 중복 단어 대체
+    const seen = {};
+    for (let i = 0; i < 9; i++) {
+      if (!board[i]) continue;
+      const t = texts[i];
+      seen[t] = (seen[t] || 0) + 1;
+      if (seen[t] > 1) {
+        if (t === '그것은') {
+          texts[i] = GREOTEUN_ALTS[(seen[t] - 2) % GREOTEUN_ALTS.length];
+        } else if (t === '맞다') {
+          texts[i] = '옳다';
+          if (comboPrev[i] !== undefined) texts[comboPrev[i]] = '사실임이';
+        } else if (t === '아니다') {
+          texts[i] = '틀리다';
+          if (comboPrev[i] !== undefined) texts[comboPrev[i]] = '사실과';
+        }
+      }
+    }
+
+    return texts;
+  }
+
+  // ── 렌더 ─────────────────────────────────────────────────
+  function renderBoard() {
+    const texts = computeTexts();
+    const el = document.getElementById('board');
+    el.innerHTML = '';
+    board.forEach((v, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'cell' + (v ? ' taken' : '');
+      cell.onclick = () => playerMove(i);
+      if (v) {
+        const w = document.createElement('div');
+        w.className = ['cell-word', v === 'O' ? 'o' : 'x', i === lastCell ? 'fresh' : '']
+                        .filter(Boolean).join(' ');
+        w.style.fontSize = fontSize(texts[i]);
+        w.textContent = texts[i];
+        cell.appendChild(w);
+      }
+      el.appendChild(cell);
+    });
+  }
+
+  // ── 승패 판정 ─────────────────────────────────────────────
+  function checkWin(b) {
+    for (const line of LINES) {
+      const [a, c, d] = line;
+      if (b[a] && b[a] === b[c] && b[a] === b[d]) return line;
+    }
+    return null;
+  }
+
+  // ── AI (난이도 완화: 42% 랜덤) ───────────────────────────
+  function minimax(b, depth, isMax) {
+    const w = checkWin(b);
+    if (w) return b[w[0]] === 'X' ? 10 - depth : depth - 10;
+    if (b.every(c => c)) return 0;
+    let best = isMax ? -Infinity : Infinity;
+    for (let i = 0; i < 9; i++) {
+      if (!b[i]) {
+        b[i] = isMax ? 'X' : 'O';
+        const s = minimax(b, depth + 1, !isMax);
+        b[i] = null;
+        best = isMax ? Math.max(best, s) : Math.min(best, s);
+      }
+    }
+    return best;
+  }
+
+  function aiMove() {
+    const empty = board.map((v, i) => v ? null : i).filter(i => i !== null);
+    if (!empty.length) return;
+
+    let move;
+    if (Math.random() < 0.42) {
+      // 랜덤 수
+      move = empty[Math.floor(Math.random() * empty.length)];
+    } else {
+      // 최선의 수
+      let best = -Infinity, b = [...board];
+      for (const i of empty) {
+        b[i] = 'X';
+        const s = minimax(b, 0, false);
+        b[i] = null;
+        if (s > best) { best = s; move = i; }
+      }
+    }
+
+    board[move] = 'X';
+    lastCell = move;
+    renderBoard();
+    if (checkWin(board) || board.every(c => c)) { gameOver = true; return; }
+    playerTurn = true;
+  }
+
+  // ── 플레이어 ─────────────────────────────────────────────
+  function playerMove(i) {
+    if (gameOver || !playerTurn || board[i]) return;
+    board[i] = 'O';
+    lastCell = i;
+    renderBoard();
+    if (checkWin(board) || board.every(c => c)) { gameOver = true; return; }
+    playerTurn = false;
+    setTimeout(aiMove, 420);
+  }
+
+  // ── 리셋 ─────────────────────────────────────────────────
+  function resetGame() {
+    board = Array(9).fill(null);
+    gameOver = false;
+    playerTurn = true;
+    lastCell = -1;
+    renderBoard();
+  }
+
+  renderBoard();
+</script>
+
+</body>
+</html>
