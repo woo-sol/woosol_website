@@ -449,7 +449,11 @@ function setMeta(title, desc, img) {
 }
 
 function setThumbSize(img) {
-  if (window.innerWidth <= 480) return;
+  if (window.innerWidth <= 480) {
+    img.style.width = '';
+    img.style.height = '';
+    return;
+  }
   var r = img.naturalWidth / img.naturalHeight;
   var h = 260;
   img.style.height = h + 'px';
