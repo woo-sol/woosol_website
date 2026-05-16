@@ -670,27 +670,25 @@ function renderGallery() {
   var html = '';
 
   if (editMode) {
-    // Edit mode: show manage cats + posts with cat selector
-    html += '<div style="width:100%;margin-bottom:20px;">';
+    html += '<div style="width:100%;margin-bottom:20px;flex-basis:100%;">';
     html += '<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
     html += '</div>';
-    // Uncategorized
     var uncatItems = galItems.filter(function(p) { return !p.pos_cat; });
-    uncatItems.forEach(function(p) { html += buildCardHtml(p, true); });
-    // Each category
+    if (uncatItems.length) {
+      uncatItems.forEach(function(p) { html += buildCardHtml(p, true); });
+    }
     postCats.forEach(function(cat) {
       var catItems = galItems.filter(function(p) { return p.pos_cat === cat.name; });
-      html += '<div class="gal-cat-header" style="width:100%;">' + cat.name + '</div>';
+      html += '<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">' + cat.name + '</div>';
       catItems.forEach(function(p) { html += buildCardHtml(p, true); });
     });
   } else {
-    // Normal mode: group by category
     var uncatItems2 = galItems.filter(function(p) { return !p.pos_cat || !findIn(postCats, function(c) { return c.name === p.pos_cat; }); });
     uncatItems2.forEach(function(p) { html += buildCardHtml(p, false); });
     postCats.forEach(function(cat) {
       var catItems = galItems.filter(function(p) { return p.pos_cat === cat.name; });
       if (!catItems.length) return;
-      html += '<div class="gal-cat-header" style="width:100%;">' + cat.name + '</div>';
+      html += '<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">' + cat.name + '</div>';
       catItems.forEach(function(p) { html += buildCardHtml(p, false); });
     });
   }
