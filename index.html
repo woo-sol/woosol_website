@@ -151,6 +151,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="nav-right">
     <span class="nickname-tag" id="nav-nickname" style="display:none;"></span>
     <button class="logout-btn" id="nav-logout" style="display:none;" onclick="logout()">로그아웃</button>
+    <button class="logout-btn" id="nav-login" style="display:block;" onclick="showPanel('login-panel')">로그인</button>
   </div>
   <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
 </header>
@@ -339,6 +340,7 @@ var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 var ADMIN_EMAIL = 'YOUR_ADMIN_EMAIL_HERE';
 var TARGET_AREA = 220 * 220;
 
+
 /* ── STATE ── */
 var posts = [];
 var books = [];
@@ -475,9 +477,19 @@ function loadProfile(uid) {
     .catch(function() { authNickname = (authUser && authUser.user_metadata && authUser.user_metadata.nickname) || (authUser && authUser.email) || ''; });
 }
 function updateNavAuth() {
-  var nick = document.getElementById('nav-nickname'), lo = document.getElementById('nav-logout');
-  if (authUser) { nick.textContent = authNickname; nick.style.display = 'block'; lo.style.display = 'block'; }
-  else { nick.style.display = 'none'; lo.style.display = 'none'; }
+  var nick = document.getElementById('nav-nickname');
+  var lo = document.getElementById('nav-logout');
+  var li = document.getElementById('nav-login');
+  if (authUser) {
+    nick.textContent = authNickname;
+    nick.style.display = 'block';
+    lo.style.display = 'block';
+    li.style.display = 'none';
+  } else {
+    nick.style.display = 'none';
+    lo.style.display = 'none';
+    li.style.display = 'block';
+  }
 }
 function isAdmin() { return authUser && authUser.email === ADMIN_EMAIL; }
 function canEdit(post) { if (!authUser || !post) return false; if (isAdmin()) return true; return post.author_nickname && post.author_nickname === authNickname; }
