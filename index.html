@@ -449,7 +449,11 @@ function setMeta(title, desc, img) {
 }
 
 function setThumbSize(img) {
-  if (window.innerWidth <= 480) { img.style.width = '100%'; img.style.height = 'auto'; return; }
+  if (window.innerWidth <= 480) {
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    return;
+  }
   var r = img.naturalWidth / img.naturalHeight;
   img.style.width = Math.round(Math.sqrt(TARGET_AREA * r)) + 'px';
   img.style.height = Math.round(Math.sqrt(TARGET_AREA / r)) + 'px';
