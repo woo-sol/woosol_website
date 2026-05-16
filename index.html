@@ -55,13 +55,21 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .card:hover{transform:translateY(-6px);}
 .card img{display:block;object-fit:cover;}
 .card-cap{margin-top:10px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;}
-.gal-cat-header{width:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:48px;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
-.gal-cat-header:first-child{margin-top:0;}
-.gal-cat-edit-btn{font-size:11px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;}
-.gal-cat-edit-btn:hover{color:#000;}
-.card-edit-cat{font-size:11px;color:#bbb;margin-top:4px;cursor:pointer;display:none;}
-.edit-mode .card-edit-cat{display:block;}
-.edit-mode .card:hover{transform:none;}
+/* Text card in edit mode */
+.card-text{border:1px solid #eee;padding:10px 14px;background:#fafafa;cursor:grab;min-width:120px;}
+.card-text:hover{transform:none;background:#f0f0f0;}
+.card-text .card-cap{margin-top:0;}
+/* Gallery edit drag */
+.card.dragging{opacity:0.3;transform:none;}
+.gal-cat-drop{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;min-height:80px;border:1px dashed #ddd;padding:16px;transition:background 0.15s,border-color 0.15s;width:100%;}
+.gal-cat-drop.drag-over{background:#ebebff;border-color:var(--blue);}
+.gal-cat-drop:empty::before{content:'여기에 드래그하세요';font-size:12px;color:#ccc;line-height:80px;}
+.gal-cat-section{flex-basis:100%;}
+.gal-cat-edit-header{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.gal-cat-edit-name{font-size:14.6px;font-weight:700;}
+.gal-cat-del-btn{font-size:11px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;}
+.gal-cat-del-btn:hover{color:#f00;}
+
 .danuh-cols{column-width:9cm;column-count:5;column-gap:28px;margin-top:80px;list-style:none;}
 .danuh-cols li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;break-inside:avoid;}
 .danuh-cols li:hover{color:var(--blue);}
@@ -80,29 +88,44 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .rel-label{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
 .rel-item{margin-bottom:8px;font-size:12px;}
 .r-sec{color:#bbb;font-size:9px;text-transform:uppercase;display:inline;margin-left:6px;}
-.back-btn{display:inline-block;margin-top:48px;cursor:pointer;opacity:0.6;transition:opacity 0.15s;}
+.back-btn{display:inline-block;margin-top:40px;cursor:pointer;opacity:0.6;transition:opacity 0.15s;}
 .back-btn:hover{opacity:1;}
-.subdocs-block{margin-top:32px;padding-top:16px;border-top:1px solid #eee;}
-.subdocs-label{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;}
-.subdoc-link{font-size:14.6px;display:block;margin-bottom:4px;}
+
+/* 틀 (Template) - parent doc subdocs: above back btn, no separator, no label */
+.subdocs-inline{margin-top:24px;margin-bottom:0;display:flex;flex-wrap:wrap;gap:8px 28px;align-items:flex-start;}
+.subdoc-inline-link{font-size:14.6px;cursor:pointer;color:#000;text-decoration:none;letter-spacing:-0.01em;}
+.subdoc-inline-link:hover{color:var(--blue);}
+
+/* 틀 (Template) - child doc: parent template box at top */
+.template-box{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:1px solid #000;background:#fff;padding:5px 12px;font-size:12px;letter-spacing:-0.01em;margin-bottom:20px;}
+.tpl-box-name{font-weight:700;cursor:pointer;}
+.tpl-box-name:hover{color:var(--blue);}
+.tpl-box-sibling{cursor:pointer;color:#444;}
+.tpl-box-sibling:hover{color:var(--blue);}
+.tpl-box-sep{color:#ccc;}
+
 .fn-block{margin-top:32px;padding-top:12px;border-top:1px solid #000;}
 .fn-item{font-size:11px;color:#444;margin-bottom:4px;line-height:1.5;}
 
-/* LIBRARY */
-.lib-cats{display:flex;flex-wrap:wrap;gap:48px 64px;align-items:flex-start;}
-.lib-cat{min-width:180px;}
+/* LIBRARY - vertical layout */
+.lib-cats{display:flex;flex-direction:column;gap:40px;}
+.lib-cat-group{display:flex;flex-direction:column;gap:16px;}
+.lib-cat{width:100%;}
 .lib-cat-label{font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .lib-cat-edit-btn{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline;}
 .lib-cat-edit-btn:hover{color:#000;}
-.lib-sub-cat{margin-left:18px;margin-top:24px;}
+/* subcategory - indented */
+.lib-sub-cat{margin-left:32px;}
 .lib-sub-label{font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
 .lib-sub-label::before{content:'ㄴ ';color:#bbb;font-weight:400;}
 .lib-books{display:flex;flex-wrap:wrap;gap:6px 8px;min-height:32px;}
-.book-card{padding:6px 12px;cursor:pointer;user-select:none;min-width:100px;max-width:240px;border:1px solid transparent;transition:background 0.1s;}
+.book-card{padding:6px 12px;cursor:pointer;user-select:none;min-width:100px;max-width:240px;border:1px solid transparent;transition:background 0.1s;position:relative;}
 .book-card:hover{background:#f8f8f8;}
 .book-card.expanded{border-color:#000;}
 .book-card.drag-over{background:#ebebff;border-color:var(--blue);}
 .book-card.dragging{opacity:0.35;}
+.book-card.drag-before{border-left:2px solid var(--blue)!important;}
+.book-card.drag-after{border-right:2px solid var(--blue)!important;}
 .book-title{font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
 .book-expand{margin-top:8px;font-size:12px;color:#444;line-height:1.6;}
 .book-expand-author{font-size:11px;color:#999;margin-top:4px;}
@@ -113,26 +136,32 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .cat-btn{border:1px solid #ccc;padding:5px 14px;font-size:13px;cursor:pointer;background:#fff;font-family:inherit;margin-right:6px;margin-bottom:6px;letter-spacing:-0.01em;}
 .cat-btn.active{border-color:#000;background:#000;color:#fff;}
 
-/* FABs */
-.fab{position:fixed;bottom:24px;right:24px;width:22px;height:22px;background:#000;border:none;cursor:pointer;z-index:300;display:block;}
+/* FAB STACK — all buttons 22x22, vertical stack */
+.fab-stack{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:8px;z-index:300;align-items:center;}
+/* Primary square write button */
+.fab{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:block;flex-shrink:0;}
 .fab:hover{background:var(--blue);}
-.fab-edit{position:fixed;bottom:58px;right:24px;width:22px;height:22px;background:none;border:none;cursor:pointer;z-index:300;display:none;padding:0;}
-.fab-edit-inner{width:22px;height:22px;background:#000;border-radius:50%;display:block;transition:background 0.15s;}
-.fab-edit:hover .fab-edit-inner{background:var(--blue);}
-.fab-book{position:fixed;bottom:24px;right:24px;width:36px;height:36px;background:#000;border:none;cursor:pointer;z-index:300;display:none;align-items:center;justify-content:center;}
-.fab-book:hover{background:var(--blue);}
-.fab-cat{position:fixed;bottom:70px;right:24px;width:36px;height:36px;background:#000;border:none;cursor:pointer;z-index:300;display:none;align-items:center;justify-content:center;color:#fff;font-size:20px;line-height:1;}
-.fab-cat:hover{background:var(--blue);}
-.fab-donut{position:fixed;bottom:24px;right:58px;width:36px;height:36px;background:#000;border:none;cursor:pointer;z-index:300;display:none;align-items:center;justify-content:center;}
-.fab-donut:hover{background:var(--blue);}
-.fab-done{position:fixed;bottom:24px;right:58px;background:#000;color:#fff;border:none;cursor:pointer;z-index:300;display:none;align-items:center;justify-content:center;font-size:12px;font-family:inherit;padding:0 12px;height:36px;letter-spacing:-0.01em;}
-.fab-done:hover{background:var(--blue);}
+/* Ring/donut button (edit mode toggle) */
+.fab-ring{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;padding:0;}
+.fab-ring:hover{background:var(--blue);}
+/* Icon button (book, cat) */
+.fab-icon{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;padding:0;}
+.fab-icon:hover{background:var(--blue);}
+/* Done button */
+.fab-done-btn{background:#000;color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:11px;font-family:inherit;padding:0 10px;height:22px;letter-spacing:-0.01em;white-space:nowrap;flex-shrink:0;}
+.fab-done-btn:hover{background:var(--blue);}
+/* Edit (pencil circle) - shown in detail view */
+.fab-edit{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;padding:0;}
+.fab-edit:hover{background:var(--blue);}
 
 /* PANELS */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.18);z-index:250;}
 .ov.on{display:block;}
 .panel{display:none;position:fixed;top:0;right:0;width:min(500px,100vw);height:100vh;background:#fff;border-left:1px solid #000;z-index:300;overflow-y:auto;padding:28px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
 .panel.on{display:block;}
+/* Panel resize handle */
+.resize-handle{position:absolute;left:0;top:0;bottom:0;width:6px;cursor:ew-resize;z-index:10;transition:background 0.1s;}
+.resize-handle:hover{background:rgba(0,0,255,0.08);}
 .ph{font-size:14.6px;font-weight:400;letter-spacing:-0.01em;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;}
 .pc{background:none;border:none;font-size:20px;cursor:pointer;font-family:inherit;}
 .fl{margin-bottom:16px;}
@@ -206,11 +235,17 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
       <p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>
     </div>
   </div>
+  <!-- DETAIL VIEW — restructured for 틀 layout -->
   <div id="dv">
+    <!-- Child doc: parent template box (shown at top when this doc is inside a template) -->
+    <div id="d-template-box" class="template-box" style="display:none;"></div>
     <h1 class="d-title" id="d-title"></h1>
     <div class="d-text" id="d-text"></div>
-    <p class="d-author" id="d-author"></p>
+    <!-- Parent doc: subdocs shown here (below body, above back btn, no separator, no label) -->
     <div id="d-subdocs" style="display:none;"></div>
+    <!-- Back button -->
+    <div id="d-back"></div>
+    <p class="d-author" id="d-author"></p>
     <div id="d-rel-wrap" style="display:none;margin-top:40px;">
       <div class="rel-label">관련 게시물</div>
       <div id="d-related"></div>
@@ -218,17 +253,36 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
 </main>
 
-<!-- FABs -->
-<button class="fab" id="fab-write" onclick="onWriteClick()"></button>
-<button class="fab-edit" id="fab-edit" onclick="onEditClick()"><span class="fab-edit-inner"></span></button>
-<button class="fab-book" id="fab-book" onclick="onBookClick()">
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="4" y="2" width="12" height="16" rx="1" stroke="white" stroke-width="1.5"/><line x1="7" y1="6" x2="13" y2="6" stroke="white" stroke-width="1.2"/><line x1="7" y1="9" x2="13" y2="9" stroke="white" stroke-width="1.2"/><line x1="7" y1="12" x2="11" y2="12" stroke="white" stroke-width="1.2"/></svg>
-</button>
-<button class="fab-cat" id="fab-cat" onclick="onLibCatAdd()">+</button>
-<button class="fab-donut" id="fab-donut" onclick="enterEditMode()">
-  <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="white" stroke-width="3"/><circle cx="11" cy="11" r="3" fill="white"/></svg>
-</button>
-<button class="fab-done" id="fab-done" onclick="exitEditMode()">완료</button>
+<!-- FAB STACK — vertical, bottom-right. flex-direction:column so last child = lowest -->
+<!-- Stack order (top to bottom visually): cat > book > lib-toggle > donut > write > edit -->
+<div class="fab-stack" id="fab-stack">
+  <!-- Edit (detail view, pencil circle) — shown lowest when visible -->
+  <button class="fab-edit" id="fab-edit" onclick="onEditClick()" title="수정">
+    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="1" y1="10" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="7" y1="1" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="10" y1="1" x2="10" y2="4" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+  </button>
+  <!-- Write button (square, always shown in 개념들) -->
+  <button class="fab" id="fab-write" onclick="onWriteClick()" title="글쓰기"></button>
+  <!-- Donut/ring — 개념들 edit mode toggle (admin only) -->
+  <button class="fab-ring" id="fab-donut" onclick="enterEditMode()" title="편집모드">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="3.2" fill="none"/>
+    </svg>
+  </button>
+  <!-- Library edit mode toggle (admin only) -->
+  <button class="fab-ring" id="fab-lib-toggle" onclick="enterLibEditMode()" title="도서관 수정모드">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="3.2" fill="none"/>
+    </svg>
+  </button>
+  <!-- Book add (도서관 edit mode) -->
+  <button class="fab-icon" id="fab-book" onclick="onBookClick()" title="도서 등록">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="2" y="1" width="9" height="11" rx="0.5" stroke="white" stroke-width="1.3"/><line x1="4" y1="4" x2="9" y2="4" stroke="white" stroke-width="1"/><line x1="4" y1="6.5" x2="9" y2="6.5" stroke="white" stroke-width="1"/><line x1="4" y1="9" x2="7" y2="9" stroke="white" stroke-width="1"/></svg>
+  </button>
+  <!-- Cat add (도서관 edit mode) -->
+  <button class="fab-icon" id="fab-cat" onclick="onLibCatAdd()" title="카테고리 추가" style="font-size:16px;line-height:1;color:white;">+</button>
+  <!-- Done button (edit modes) -->
+  <button class="fab-done-btn" id="fab-done" onclick="exitActiveEditMode()">완료</button>
+</div>
 
 <div class="ov" id="ov" onclick="closeAllPanels()"></div>
 
@@ -245,7 +299,9 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
 </div>
 
+<!-- PANELS (all get resize handles) -->
 <div class="panel" id="login-panel">
+  <div class="resize-handle"></div>
   <div class="ph"><span>로그인</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>이메일</label><input type="email" class="fi" id="li-email" placeholder="이메일"></div>
   <div class="fl"><label>비밀번호</label><input type="password" class="fi" id="li-pw" placeholder="비밀번호" onkeydown="if(event.key==='Enter')doLogin()"></div>
@@ -254,6 +310,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="li-err" class="err-msg"></p>
 </div>
 <div class="panel" id="signup-panel">
+  <div class="resize-handle"></div>
   <div class="ph"><span>회원가입</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div id="signup-form">
     <div class="fl"><label>별명</label><input type="text" class="fi" id="su-nick" placeholder="별명"></div>
@@ -270,6 +327,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 </div>
 
 <div class="panel" id="new-panel">
+  <div class="resize-handle"></div>
   <div class="ph"><span>게시물 올리기</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="f-title" placeholder="게시물 제목"></div>
   <div class="fl">
@@ -308,6 +366,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 </div>
 
 <div class="panel" id="edit-panel">
+  <div class="resize-handle"></div>
   <div class="ph"><span>게시물 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="e-title"></div>
   <div class="fl">
@@ -347,6 +406,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 </div>
 
 <div class="panel" id="book-panel">
+  <div class="resize-handle"></div>
   <div class="ph"><span>도서 등록</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="b-title" placeholder="책 제목"></div>
   <div class="fl"><label>저자</label><input type="text" class="fi" id="b-author" placeholder="저자명"></div>
@@ -357,6 +417,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 </div>
 
 <div class="panel" id="book-edit-panel">
+  <div class="resize-handle"></div>
   <div class="ph"><span>도서 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="be-title"></div>
   <div class="fl"><label>저자</label><input type="text" class="fi" id="be-author"></div>
@@ -368,6 +429,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 </div>
 
 <div class="panel" id="lib-cat-panel">
+  <div class="resize-handle"></div>
   <div class="ph"><span id="lib-cat-panel-title">카테고리 추가</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>카테고리 이름</label><input type="text" class="fi" id="lc-name" placeholder="카테고리 이름"></div>
   <div class="fl">
@@ -382,6 +444,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 </div>
 
 <div class="panel" id="post-cat-panel">
+  <div class="resize-handle"></div>
   <div class="ph"><span>개념들 카테고리 관리</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div id="post-cats-list" style="margin-bottom:16px;"></div>
   <div class="fl"><label>새 카테고리</label><input type="text" class="fi" id="pc-name" placeholder="카테고리 이름"></div>
@@ -400,6 +463,7 @@ var books = [];
 var libCats = [];
 var postCats = [];
 var editMode = false;
+var libEditMode = false;
 var cur = '개념들';
 var savedScrollY = 0;
 var mobileOpen = false;
@@ -418,6 +482,7 @@ var editingBookId = null;
 var editBookCat = '';
 var editingLibCatId = null;
 var dragSrcId = null;
+var galDragSrcId = null;
 var isDragging = false;
 var touchDragId = null;
 var touchTimer = null;
@@ -427,6 +492,36 @@ var touchStartY = 0;
 var lastTapBook = {};
 var newSubDocs = [];
 var editSubDocs = [];
+
+/* ── PANEL RESIZE ── */
+var isResizingPanel = false;
+var resizeStartX = 0;
+var resizeStartW = 0;
+var resizingPanel = null;
+
+document.addEventListener('mousedown', function(e) {
+  if (!e.target.classList.contains('resize-handle')) return;
+  isResizingPanel = true;
+  resizingPanel = e.target.parentElement;
+  resizeStartX = e.clientX;
+  resizeStartW = resizingPanel.offsetWidth;
+  document.body.style.cursor = 'ew-resize';
+  document.body.style.userSelect = 'none';
+  e.preventDefault();
+});
+document.addEventListener('mousemove', function(e) {
+  if (!isResizingPanel) return;
+  var dx = resizeStartX - e.clientX; // drag left = wider
+  var newW = Math.max(320, Math.min(window.innerWidth - 40, resizeStartW + dx));
+  resizingPanel.style.width = newW + 'px';
+});
+document.addEventListener('mouseup', function() {
+  if (!isResizingPanel) return;
+  isResizingPanel = false;
+  resizingPanel = null;
+  document.body.style.cursor = '';
+  document.body.style.userSelect = '';
+});
 
 function SH(tok) { return { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + (tok || SUPA_KEY), 'Content-Type': 'application/json' }; }
 function saveToken(t) { authToken = t; try { localStorage.setItem('pos_token', t); } catch(e) {} }
@@ -449,16 +544,13 @@ function setMeta(title, desc, img) {
 }
 
 function setThumbSize(img) {
-  if (window.innerWidth <= 480) {
-    img.style.cssText = '';
-    return;
-  }
+  if (window.innerWidth <= 480) { img.style.cssText = ''; return; }
   var r = img.naturalWidth / img.naturalHeight;
   img.style.height = '260px';
   img.style.width = Math.round(260 * r) + 'px';
 }
 
-/* ── SETTINGS (categories) ── */
+/* ── SETTINGS ── */
 function loadSettings() {
   fetch(SUPA_URL + '/rest/v1/pos_settings?key=in.(lib_cats,post_cats)', { headers: SH() })
     .then(function(r) { return r.json(); })
@@ -478,7 +570,6 @@ function loadSettings() {
       libCats = [{id:'cat-1',name:'역사',parentId:null,order:0},{id:'cat-2',name:'디자인',parentId:null,order:1},{id:'cat-3',name:'미술',parentId:null,order:2}];
     });
 }
-
 function saveSetting(key, value) {
   if (!authToken) return;
   fetch(SUPA_URL + '/rest/v1/pos_settings', {
@@ -542,7 +633,7 @@ function initAuth() {
   fetch(SUPA_URL + '/auth/v1/user', { headers: SH(t) })
     .then(function(r) { if (!r.ok) { clearToken(); return null; } return r.json(); })
     .then(function(user) { if (!user) return; authToken = t; authUser = user; return loadProfile(user.id); })
-    .then(function() { updateNavAuth(); })
+    .then(function() { updateNavAuth(); updateFabsForAuth(); })
     .catch(function() { clearToken(); });
 }
 function loadProfile(uid) {
@@ -561,8 +652,53 @@ function updateNavAuth() {
   if (authUser) { nick.textContent = authNickname; nick.style.display = 'block'; lo.style.display = 'block'; li.style.display = 'none'; }
   else { nick.style.display = 'none'; lo.style.display = 'none'; li.style.display = 'block'; }
 }
+function updateFabsForAuth() {
+  // Re-apply fab visibility after auth state change
+  manageFabs();
+}
 function isAdmin() { return authUser && authUser.email === ADMIN_EMAIL; }
 function canEdit(post) { if (!authUser || !post) return false; if (isAdmin()) return true; return post.author_nickname && post.author_nickname === authNickname; }
+
+/* ── FAB MANAGEMENT ── */
+function manageFabs() {
+  var fbWrite = document.getElementById('fab-write');
+  var fbDonut = document.getElementById('fab-donut');
+  var fbLibToggle = document.getElementById('fab-lib-toggle');
+  var fbBook = document.getElementById('fab-book');
+  var fbCat = document.getElementById('fab-cat');
+  var fbDone = document.getElementById('fab-done');
+  var fbEdit = document.getElementById('fab-edit');
+  // Hide all first
+  fbWrite.style.display = 'none';
+  fbDonut.style.display = 'none';
+  fbLibToggle.style.display = 'none';
+  fbBook.style.display = 'none';
+  fbCat.style.display = 'none';
+  fbDone.style.display = 'none';
+  fbEdit.style.display = 'none';
+
+  if (document.getElementById('dv').style.display === 'block') {
+    // Detail view - fab-edit handled separately in showDetail()
+    return;
+  }
+  if (cur === '개념들') {
+    if (editMode) {
+      fbDone.style.display = 'flex';
+    } else {
+      fbWrite.style.display = 'block';
+      if (isAdmin()) fbDonut.style.display = 'flex';
+    }
+  } else if (cur === '도서관') {
+    if (libEditMode) {
+      fbDone.style.display = 'flex';
+      fbBook.style.display = 'flex';
+      fbCat.style.display = 'flex';
+    } else {
+      if (isAdmin()) fbLibToggle.style.display = 'flex';
+    }
+  }
+}
+
 function doLogin() {
   var email = document.getElementById('li-email').value.trim(), pw = document.getElementById('li-pw').value;
   var err = document.getElementById('li-err'); err.style.display = 'none';
@@ -572,7 +708,10 @@ function doLogin() {
       if (!res.ok) throw new Error(res.d.error_description || res.d.msg || '로그인 실패');
       saveToken(res.d.access_token); authUser = res.d.user; return loadProfile(authUser.id);
     })
-    .then(function() { updateNavAuth(); closeAllPanels(); if (pendingEdit) { pendingEdit = false; openEditPanel(); } else openNewPanel(); })
+    .then(function() {
+      updateNavAuth(); manageFabs(); closeAllPanels();
+      if (pendingEdit) { pendingEdit = false; openEditPanel(); } else openNewPanel();
+    })
     .catch(function(e) { err.textContent = e.message; err.style.display = 'block'; });
 }
 function doSignup() {
@@ -591,8 +730,7 @@ function doSignup() {
 }
 function logout() {
   fetch(SUPA_URL + '/auth/v1/logout', { method: 'POST', headers: SH(authToken) }).catch(function() {});
-  clearToken(); authUser = null; authNickname = null; updateNavAuth();
-  document.getElementById('fab-edit').style.display = 'none';
+  clearToken(); authUser = null; authNickname = null; updateNavAuth(); manageFabs();
 }
 
 /* ── NAV ── */
@@ -607,11 +745,11 @@ function onBookClick() {
   if (!authUser) { showPanel('login-panel'); return; }
   var rootCats = libCats.filter(function(c) { return !c.parentId; });
   if (!newBookCat && rootCats.length) newBookCat = rootCats[0].name;
-  renderBtnGroup('book-cat-btns', libCats, newBookCat, function(name) { newBookCat = name; renderBtnGroup('book-cat-btns', libCats, newBookCat, null); });
+  renderBtnGroup('book-cat-btns', libCats, newBookCat, null);
   showPanel('book-panel');
 }
 function onLibCatAdd() {
-  if (!authUser) { showPanel('login-panel'); return; }
+  if (!isAdmin()) return;
   editingLibCatId = null;
   document.getElementById('lib-cat-panel-title').textContent = '카테고리 추가';
   document.getElementById('lc-name').value = '';
@@ -626,91 +764,159 @@ function go(sec, doPush) {
   if (doPush === undefined) doPush = true;
   closeMobile();
   if (editMode) exitEditMode();
+  if (libEditMode) exitLibEditMode();
   document.querySelectorAll('.pg').forEach(function(p) { p.classList.remove('on'); });
   document.getElementById('dv').style.display = 'none';
-  document.getElementById('fab-edit').style.display = 'none';
-  document.getElementById('fab-write').style.display = sec === '도서관' ? 'none' : 'block';
-  document.getElementById('fab-book').style.display = sec === '도서관' ? 'flex' : 'none';
-  document.getElementById('fab-cat').style.display = sec === '도서관' ? 'flex' : 'none';
-  document.getElementById('fab-donut').style.display = sec === '개념들' ? 'flex' : 'none';
-  document.getElementById('fab-done').style.display = 'none';
   document.querySelectorAll('.nav-item,.mob-item').forEach(function(n) { n.classList.remove('active'); });
   var nv = document.getElementById('nv-' + sec); if (nv) nv.classList.add('active');
   var mob = document.getElementById('mob-' + sec); if (mob) mob.classList.add('active');
   cur = sec;
   var pg = document.getElementById('pg-' + sec); if (pg) pg.classList.add('on');
+  manageFabs();
   if (sec === '도서관') renderLibrary();
   if (doPush) { safePush({ type: 'sec', sec: sec }, sec === '개념들' ? '/' : '/' + encodeURIComponent(sec)); setMeta('', '', ''); }
   window.scrollTo(0, 0);
 }
 
-/* ── EDIT MODE (개념들) ── */
+/* ── EDIT MODES ── */
 function enterEditMode() {
+  if (!isAdmin()) { alert('관리자만 편집모드를 사용할 수 있습니다.'); return; }
   editMode = true;
   document.getElementById('pg-개념들').classList.add('edit-mode');
-  document.getElementById('fab-donut').style.display = 'none';
-  document.getElementById('fab-done').style.display = 'flex';
-  document.getElementById('fab-write').style.display = 'none';
+  manageFabs();
   renderGallery();
 }
 function exitEditMode() {
   editMode = false;
   document.getElementById('pg-개념들').classList.remove('edit-mode');
-  document.getElementById('fab-donut').style.display = 'flex';
-  document.getElementById('fab-done').style.display = 'none';
-  document.getElementById('fab-write').style.display = 'block';
+  manageFabs();
   renderGallery();
+}
+function enterLibEditMode() {
+  if (!isAdmin()) { alert('관리자만 수정모드를 사용할 수 있습니다.'); return; }
+  libEditMode = true;
+  manageFabs();
+  renderLibrary();
+}
+function exitLibEditMode() {
+  libEditMode = false;
+  manageFabs();
+  renderLibrary();
+}
+function exitActiveEditMode() {
+  if (editMode) exitEditMode();
+  else if (libEditMode) exitLibEditMode();
 }
 
 /* ── GALLERY ── */
 function renderGallery() {
   var g = document.getElementById('gallery');
-  var galItems = posts.filter(function(p) { return p.sec === '개념들' && p.img; });
   var html = '';
 
   if (editMode) {
-    html += '<div style="width:100%;margin-bottom:20px;flex-basis:100%;">';
+    // Edit mode: show ALL posts (image + text), drag to assign category
+    var allItems = posts.filter(function(p) { return p.sec === '개념들' || p.sec === '단어들'; });
+
+    html += '<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
     html += '<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
     html += '</div>';
-    var uncatItems = galItems.filter(function(p) { return !p.pos_cat; });
-    if (uncatItems.length) {
-      uncatItems.forEach(function(p) { html += buildCardHtml(p, true); });
-    }
+
+    // Uncategorized section
+    html += '<div class="gal-cat-section"><div class="gal-cat-edit-header"><span class="gal-cat-edit-name" style="color:#bbb;font-weight:400;font-size:13px;">미분류</span></div>';
+    html += '<div class="gal-cat-drop" data-cat="" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'\')">';
+    var uncatItems = allItems.filter(function(p) { return !p.pos_cat || !findIn(postCats, function(c) { return c.name === p.pos_cat; }); });
+    uncatItems.forEach(function(p) { html += buildEditCardHtml(p); });
+    html += '</div></div>';
+
+    // Category sections
     postCats.forEach(function(cat) {
-      var catItems = galItems.filter(function(p) { return p.pos_cat === cat.name; });
-      html += '<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">' + cat.name + '</div>';
-      catItems.forEach(function(p) { html += buildCardHtml(p, true); });
+      var catItems = allItems.filter(function(p) { return p.pos_cat === cat.name; });
+      html += '<div class="gal-cat-section" style="margin-top:32px;">';
+      html += '<div class="gal-cat-edit-header">';
+      html += '<span class="gal-cat-edit-name">' + cat.name + '</span>';
+      html += '<button class="gal-cat-del-btn" onclick="removePostCat(\'' + cat.id + '\')">삭제</button>';
+      html += '</div>';
+      html += '<div class="gal-cat-drop" data-cat="' + cat.name + '" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'' + cat.name + '\')">';
+      catItems.forEach(function(p) { html += buildEditCardHtml(p); });
+      html += '</div></div>';
     });
   } else {
+    // Normal view: image posts only
+    var galItems = posts.filter(function(p) { return p.sec === '개념들' && p.img; });
     var uncatItems2 = galItems.filter(function(p) { return !p.pos_cat || !findIn(postCats, function(c) { return c.name === p.pos_cat; }); });
-    uncatItems2.forEach(function(p) { html += buildCardHtml(p, false); });
+    uncatItems2.forEach(function(p) { html += buildCardHtml(p); });
     postCats.forEach(function(cat) {
       var catItems = galItems.filter(function(p) { return p.pos_cat === cat.name; });
       if (!catItems.length) return;
       html += '<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">' + cat.name + '</div>';
-      catItems.forEach(function(p) { html += buildCardHtml(p, false); });
+      catItems.forEach(function(p) { html += buildCardHtml(p); });
     });
   }
+
   if (!html) html = '<p class="loading">게시물이 없습니다.</p>';
   g.innerHTML = html;
 }
 
-function buildCardHtml(p, withCatSel) {
-  var catSel = '';
-  if (withCatSel) {
-    var opts = '<option value="">카테고리 없음</option>';
-    postCats.forEach(function(c) { opts += '<option value="' + c.name + '"' + (p.pos_cat === c.name ? ' selected' : '') + '>' + c.name + '</option>'; });
-    catSel = '<select class="card-edit-cat" onchange="changePostCat(' + p.id + ',this.value)" onclick="event.stopPropagation()">' + opts + '</select>';
-  }
+function buildCardHtml(p) {
   return '<div class="card" onclick="showDetail(' + p.id + ')">' +
     '<img src="' + p.img + '" alt="' + p.title + '" loading="lazy" onload="setThumbSize(this)">' +
-    '<div class="card-cap">' + p.title + '</div>' + catSel + '</div>';
+    '<div class="card-cap">' + p.title + '</div></div>';
 }
 
-function changePostCat(id, catName) {
-  var p = findIn(posts, function(x) { return x.id === id; }); if (!p) return;
-  p.pos_cat = catName;
-  dbUpdate(id, { pos_cat: catName });
+function buildEditCardHtml(p) {
+  var hasImg = p.img && p.img.length > 0;
+  var cls = 'card' + (hasImg ? '' : ' card-text');
+  var html = '<div class="' + cls + '" draggable="true" data-post-id="' + p.id + '"';
+  html += ' ondragstart="onGalCardDragStart(event,' + p.id + ')"';
+  html += ' ondragend="onGalCardDragEnd(event)"';
+  html += ' onclick="showDetail(' + p.id + ')">';
+  if (hasImg) {
+    html += '<img src="' + p.img + '" alt="' + p.title + '" loading="lazy" onload="setThumbSize(this)">';
+  }
+  html += '<div class="card-cap">' + p.title + '</div>';
+  html += '</div>';
+  return html;
+}
+
+/* Gallery drag-drop for category assignment */
+function onGalCardDragStart(e, id) {
+  galDragSrcId = id;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', String(id));
+  setTimeout(function() {
+    var el = document.querySelector('[data-post-id="' + id + '"]');
+    if (el) el.classList.add('dragging');
+  }, 0);
+}
+function onGalCardDragEnd(e) {
+  e.currentTarget.classList.remove('dragging');
+  galDragSrcId = null;
+}
+function onGalCatDragOver(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  e.currentTarget.classList.add('drag-over');
+}
+function onGalCatDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over');
+}
+function onGalCatDrop(e, catName) {
+  e.preventDefault();
+  e.stopPropagation();
+  document.querySelectorAll('.gal-cat-drop.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
+  var srcId = galDragSrcId;
+  if (srcId === null || srcId === undefined) {
+    var dt = e.dataTransfer.getData('text/plain');
+    if (dt) srcId = parseInt(dt);
+  }
+  if (!srcId) { galDragSrcId = null; return; }
+  var p = findIn(posts, function(x) { return x.id === srcId; });
+  if (p && p.pos_cat !== catName) {
+    p.pos_cat = catName;
+    dbUpdate(srcId, { pos_cat: catName });
+    renderGallery();
+  }
+  galDragSrcId = null;
 }
 
 /* ── POST CATEGORIES ── */
@@ -752,43 +958,80 @@ function showDetail(postId, doPush) {
   currentId = postId; savedScrollY = window.scrollY;
   document.querySelectorAll('.pg').forEach(function(x) { x.classList.remove('on'); });
   document.getElementById('dv').style.display = 'block';
+
+  // Hide all fab-stack items, then show edit if allowed
   document.getElementById('fab-write').style.display = 'none';
+  document.getElementById('fab-donut').style.display = 'none';
+  document.getElementById('fab-lib-toggle').style.display = 'none';
   document.getElementById('fab-book').style.display = 'none';
   document.getElementById('fab-cat').style.display = 'none';
-  document.getElementById('fab-donut').style.display = 'none';
   document.getElementById('fab-done').style.display = 'none';
   document.getElementById('fab-edit').style.display = canEdit(p) ? 'flex' : 'none';
+
+  // ── PARENT TEMPLATE BOX (if this post is a child of any template) ──
+  var tplBox = document.getElementById('d-template-box');
+  var parentTpl = null;
+  for (var i = 0; i < posts.length; i++) {
+    if (posts[i].is_template && posts[i].sub_docs && posts[i].sub_docs.indexOf(postId) >= 0) {
+      parentTpl = posts[i]; break;
+    }
+  }
+  if (parentTpl) {
+    var siblings = (parentTpl.sub_docs || []).filter(function(sid) { return sid !== postId; });
+    var tplHtml = '<span class="tpl-box-name" onclick="showDetail(' + parentTpl.id + ')">' + parentTpl.title + ' 틀</span>';
+    siblings.forEach(function(sid) {
+      var s = findIn(posts, function(x) { return x.id === sid; });
+      if (s) tplHtml += '<span class="tpl-box-sep">·</span><span class="tpl-box-sibling" onclick="showDetail(' + sid + ')">' + s.title + '</span>';
+    });
+    tplBox.innerHTML = tplHtml;
+    tplBox.style.display = 'inline-flex';
+  } else {
+    tplBox.style.display = 'none';
+    tplBox.innerHTML = '';
+  }
+
   document.getElementById('d-title').textContent = p.title;
-  var backSvg = '<span class="back-btn" onclick="closeDetail()" style="display:inline-block;margin-top:48px;"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
-  document.getElementById('d-text').innerHTML = wikiRender(p.body || '') + backSvg;
+  document.getElementById('d-text').innerHTML = wikiRender(p.body || '');
   document.getElementById('d-author').textContent = p.author_nickname || '';
-  // Sub-docs
+
+  // ── SUBDOCS (parent template: show below body, above back btn, no separator/label, no underline) ──
   var subEl = document.getElementById('d-subdocs');
   if (p.is_template && p.sub_docs && p.sub_docs.length) {
-    var subHtml = '<div class="subdocs-block"><div class="subdocs-label">하위 문서</div>';
-    for (var i = 0; i < p.sub_docs.length; i++) {
-      var sub = findIn(posts, function(x) { return x.id === p.sub_docs[i]; });
-      if (sub) subHtml += '<div class="subdoc-link"><span class="wiki-link" onclick="showDetail(' + sub.id + ')">→ ' + sub.title + '</span></div>';
+    var subHtml = '<div class="subdocs-inline">';
+    for (var j = 0; j < p.sub_docs.length; j++) {
+      var sub = findIn(posts, function(x) { return x.id === p.sub_docs[j]; });
+      if (sub) subHtml += '<span class="subdoc-inline-link" onclick="showDetail(' + sub.id + ')">→ ' + sub.title + '</span>';
     }
     subHtml += '</div>';
-    subEl.innerHTML = subHtml; subEl.style.display = 'block';
-  } else { subEl.style.display = 'none'; subEl.innerHTML = ''; }
-  // Related
+    subEl.innerHTML = subHtml;
+    subEl.style.display = 'block';
+  } else {
+    subEl.style.display = 'none';
+    subEl.innerHTML = '';
+  }
+
+  // ── BACK BUTTON (below subdocs) ──
+  document.getElementById('d-back').innerHTML = '<span class="back-btn" onclick="closeDetail()"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
+
+  // ── RELATED ──
   var tags = p.tags || [];
   var rel = posts.filter(function(x) { return x.id !== postId && x.tags && x.tags.some(function(t) { return tags.indexOf(t) >= 0; }); }).slice(0, 5);
   var wrap = document.getElementById('d-rel-wrap');
   if (rel.length) { wrap.style.display = 'block'; document.getElementById('d-related').innerHTML = rel.map(function(r) { return '<div class="rel-item"><span class="wiki-link" onclick="showDetail(' + r.id + ')">' + r.title + '</span><span class="r-sec">' + r.sec + '</span></div>'; }).join(''); }
   else wrap.style.display = 'none';
+
   if (doPush) { safePush({ type: 'post', id: postId }, '/' + encodeURIComponent(p.title)); var desc = p.body ? p.body.replace(/\[\[.*?\]\]/g, '').slice(0, 120).trim() + '…' : ''; setMeta(p.title, desc, p.img || ''); }
   window.scrollTo(0, 0); setTimeout(function() { window.scrollTo(0, 0); }, 80);
 }
+
 function closeDetail(doPush) {
   if (doPush === undefined) doPush = true;
   document.getElementById('dv').style.display = 'none';
-  document.getElementById('fab-edit').style.display = 'none';
-  currentId = null; go(cur, doPush);
+  currentId = null;
+  go(cur, doPush);
   setTimeout(function() { window.scrollTo(0, savedScrollY); }, 0);
 }
+
 window.addEventListener('popstate', function(e) {
   var st = e.state;
   if (!st) { go('개념들', false); return; }
@@ -854,17 +1097,21 @@ function renderLibrary() {
   rootCats.sort(function(a, b) { return a.order - b.order; });
   var html = '';
   rootCats.forEach(function(cat) {
+    html += '<div class="lib-cat-group">';
     html += renderLibCatHtml(cat, false);
     var subs = libCats.filter(function(s) { return s.parentId === cat.id; });
     subs.sort(function(a, b) { return a.order - b.order; });
     subs.forEach(function(sub) { html += renderLibCatHtml(sub, true); });
+    html += '</div>';
   });
   el.innerHTML = html;
 }
+
 function renderLibCatHtml(cat, isSub) {
   var catBooks = books.filter(function(b) { return b.category === cat.name; });
   catBooks.sort(function(a, b) { return a.order_index - b.order_index; });
-  var editBtn = authUser ? ' <button class="lib-cat-edit-btn" onclick="openLibCatEdit(\'' + cat.id + '\')">수정</button>' : '';
+  // Edit buttons only in libEditMode and admin
+  var editBtn = (libEditMode && isAdmin()) ? ' <button class="lib-cat-edit-btn" onclick="openLibCatEdit(\'' + cat.id + '\')">수정</button>' : '';
   var cls = isSub ? 'lib-sub-cat' : 'lib-cat';
   var labelCls = isSub ? 'lib-sub-label' : 'lib-cat-label';
   var html = '<div class="' + cls + '" data-cat="' + cat.name + '" ondragover="onCatDragOver(event)" ondrop="onCatDrop(event,\'' + cat.name + '\')">';
@@ -873,13 +1120,14 @@ function renderLibCatHtml(cat, isSub) {
   catBooks.forEach(function(b) {
     var exp = expandedBookId === b.id;
     html += '<div class="book-card' + (exp ? ' expanded' : '') + '" data-book-id="' + b.id + '" draggable="true"';
-    html += ' ondragstart="onBookDragStart(event,' + b.id + ')" ondragover="onBookDragOver(event)" ondragleave="onBookDragLeave(event)" ondrop="onBookDrop(event,' + b.id + ')" ondragend="onDragEnd()"';
+    html += ' ondragstart="onBookDragStart(event,' + b.id + ')" ondragover="onBookDragOver(event,' + b.id + ')" ondragleave="onBookDragLeave(event)" ondrop="onBookDrop(event,' + b.id + ')" ondragend="onDragEnd()"';
     html += ' ontouchstart="onBookTouchStart(event,' + b.id + ')" ontouchmove="onBookTouchMove(event)" ontouchend="onBookTouchEnd(event)">';
     html += '<div class="book-title" onclick="toggleBook(' + b.id + ')">' + b.title + '</div>';
     if (exp) {
       if (b.description) html += '<div class="book-expand">' + b.description + '</div>';
       if (b.author) html += '<div class="book-expand-author">' + b.author + '</div>';
-      if (authUser) html += '<button class="book-edit-btn" onclick="openBookEdit(' + b.id + ')">수정</button>';
+      // Book edit button only in libEditMode
+      if (libEditMode && authUser) html += '<button class="book-edit-btn" onclick="openBookEdit(' + b.id + ')">수정</button>';
     }
     html += '</div>';
   });
@@ -913,7 +1161,6 @@ function submitLibCat() {
     var cat = findIn(libCats, function(c) { return c.id === editingLibCatId; });
     if (cat) {
       var oldName = cat.name; cat.name = name; cat.parentId = parentId;
-      // update books with old category name
       books.forEach(function(b) { if (b.category === oldName) { b.category = name; dbUpdateBook(b.id, { category: name }); } });
     }
   } else {
@@ -971,31 +1218,67 @@ function submitBook() {
     .catch(function() { document.getElementById('b-err').style.display = 'block'; setTimeout(function() { document.getElementById('b-err').style.display = 'none'; }, 3000); });
 }
 
-/* ── DRAG BOOKS ── */
-function onBookDragStart(e, id) { dragSrcId = id; e.dataTransfer.effectAllowed = 'move'; setTimeout(function() { var el = document.querySelector('[data-book-id="' + id + '"]'); if (el) el.classList.add('dragging'); }, 0); }
-function onBookDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
-function onBookDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
-function onBookDrop(e, targetId) { e.preventDefault(); e.stopPropagation(); document.querySelectorAll('.drag-over').forEach(function(el) { el.classList.remove('drag-over'); }); if (dragSrcId && dragSrcId !== targetId) performBookDrop(dragSrcId, targetId, null); dragSrcId = null; }
+/* ── DRAG BOOKS (with before/after placement) ── */
+function onBookDragStart(e, id) {
+  dragSrcId = id;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', String(id));
+  setTimeout(function() { var el = document.querySelector('[data-book-id="' + id + '"]'); if (el) el.classList.add('dragging'); }, 0);
+}
+function onBookDragOver(e, id) {
+  e.preventDefault();
+  e.stopPropagation();
+  // Show before/after indicator
+  document.querySelectorAll('.drag-before,.drag-after').forEach(function(el) { el.classList.remove('drag-before','drag-after'); });
+  var rect = e.currentTarget.getBoundingClientRect();
+  var midX = rect.left + rect.width / 2;
+  if (e.clientX < midX) e.currentTarget.classList.add('drag-before');
+  else e.currentTarget.classList.add('drag-after');
+}
+function onBookDragLeave(e) {
+  e.currentTarget.classList.remove('drag-before','drag-after','drag-over');
+}
+function onBookDrop(e, targetId) {
+  e.preventDefault(); e.stopPropagation();
+  var rect = e.currentTarget.getBoundingClientRect();
+  var insertBefore = e.clientX < (rect.left + rect.width / 2);
+  document.querySelectorAll('.drag-over,.drag-before,.drag-after').forEach(function(el) { el.classList.remove('drag-over','drag-before','drag-after'); });
+  if (dragSrcId && dragSrcId !== targetId) performBookDrop(dragSrcId, targetId, null, insertBefore);
+  dragSrcId = null;
+}
 function onCatDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
-function onCatDrop(e, cat) { e.preventDefault(); document.querySelectorAll('.drag-over').forEach(function(el) { el.classList.remove('drag-over'); }); if (dragSrcId) performBookDrop(dragSrcId, null, cat); dragSrcId = null; }
-function onDragEnd() { document.querySelectorAll('.dragging,.drag-over').forEach(function(el) { el.classList.remove('dragging'); el.classList.remove('drag-over'); }); dragSrcId = null; }
+function onCatDrop(e, cat) {
+  e.preventDefault();
+  document.querySelectorAll('.drag-over,.drag-before,.drag-after').forEach(function(el) { el.classList.remove('drag-over','drag-before','drag-after'); });
+  if (dragSrcId) performBookDrop(dragSrcId, null, cat, false);
+  dragSrcId = null;
+}
+function onDragEnd() {
+  document.querySelectorAll('.dragging,.drag-over,.drag-before,.drag-after').forEach(function(el) { el.classList.remove('dragging','drag-over','drag-before','drag-after'); });
+  dragSrcId = null;
+}
 
-function performBookDrop(srcId, targetId, targetCat) {
+function performBookDrop(srcId, targetId, targetCat, insertBefore) {
   var srcBook = findIn(books, function(b) { return b.id === srcId; }); if (!srcBook) return;
   var targetBook = targetId ? findIn(books, function(b) { return b.id === targetId; }) : null;
   if (targetBook) {
     var srcC = srcBook.category, tgtC = targetBook.category;
     if (srcC === tgtC) {
       var cb = books.filter(function(b) { return b.category === srcC; }).sort(function(a, b) { return a.order_index - b.order_index; });
-      var si = findIdx(cb, function(b) { return b.id === srcId; }), ti = findIdx(cb, function(b) { return b.id === targetId; });
-      cb.splice(si, 1); cb.splice(ti, 0, srcBook);
+      var si = findIdx(cb, function(b) { return b.id === srcId; });
+      cb.splice(si, 1);
+      var ti = findIdx(cb, function(b) { return b.id === targetId; });
+      if (insertBefore) cb.splice(ti, 0, srcBook);
+      else cb.splice(ti + 1, 0, srcBook);
       cb.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { order_index: idx }); });
     } else {
       var old = books.filter(function(b) { return b.category === srcC && b.id !== srcId; }).sort(function(a, b) { return a.order_index - b.order_index; });
       old.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { order_index: idx }); });
       var tgt = books.filter(function(b) { return b.category === tgtC; }).sort(function(a, b) { return a.order_index - b.order_index; });
       var ti2 = findIdx(tgt, function(b) { return b.id === targetId; });
-      srcBook.category = tgtC; tgt.splice(ti2, 0, srcBook);
+      srcBook.category = tgtC;
+      if (insertBefore) tgt.splice(ti2, 0, srcBook);
+      else tgt.splice(ti2 + 1, 0, srcBook);
       tgt.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { category: b.category, order_index: idx }); });
     }
   } else if (targetCat && targetCat !== srcBook.category) {
@@ -1038,8 +1321,8 @@ function onBookTouchEnd(e) {
   if (targetEl) {
     var bookEl = targetEl.closest && targetEl.closest('[data-book-id]');
     var catEl = targetEl.closest && targetEl.closest('[data-cat]');
-    if (bookEl) { var tid = parseInt(bookEl.getAttribute('data-book-id')); if (tid !== touchDragId) performBookDrop(touchDragId, tid, null); }
-    else if (catEl) performBookDrop(touchDragId, null, catEl.getAttribute('data-cat'));
+    if (bookEl) { var tid = parseInt(bookEl.getAttribute('data-book-id')); if (tid !== touchDragId) performBookDrop(touchDragId, tid, null, true); }
+    else if (catEl) performBookDrop(touchDragId, null, catEl.getAttribute('data-cat'), false);
   }
   isDragging = false; touchDragId = null;
 }
@@ -1080,9 +1363,8 @@ function addSubdoc(id, prefix) {
   if (arr.indexOf(id) >= 0) return;
   arr.push(id);
   renderSubdocList(prefix);
-  var inputId = prefix + '-subdoc-search', resultsId = prefix + '-subdoc-results';
-  document.getElementById(inputId).value = '';
-  document.getElementById(resultsId).innerHTML = '';
+  document.getElementById(prefix + '-subdoc-search').value = '';
+  document.getElementById(prefix + '-subdoc-results').innerHTML = '';
 }
 function removeSubdoc(id, prefix) {
   if (prefix === 'f') newSubDocs = newSubDocs.filter(function(x) { return x !== id; });
@@ -1091,8 +1373,7 @@ function removeSubdoc(id, prefix) {
 }
 function renderSubdocList(prefix) {
   var arr = prefix === 'f' ? newSubDocs : editSubDocs;
-  var listId = prefix + '-subdocs-list';
-  var el = document.getElementById(listId); if (!el) return;
+  var el = document.getElementById(prefix + '-subdocs-list'); if (!el) return;
   el.innerHTML = arr.map(function(id) {
     var p = findIn(posts, function(x) { return x.id === id; });
     return p ? '<div class="subdoc-item"><span>' + p.title + '</span><button class="subdoc-remove" onclick="removeSubdoc(' + id + ',\'' + prefix + '\')">×</button></div>' : '';
@@ -1185,7 +1466,8 @@ function deletePost() {
   dbDelete(currentId).then(function() {
     posts = posts.filter(function(x) { return x.id !== currentId; });
     renderGallery(); renderDanuh(); closeAllPanels();
-    currentId = null; document.getElementById('dv').style.display = 'none'; document.getElementById('fab-edit').style.display = 'none';
+    currentId = null; document.getElementById('dv').style.display = 'none';
+    document.getElementById('fab-edit').style.display = 'none';
     go('개념들');
   }).catch(function() { alert('삭제 실패. 다시 시도해주세요.'); });
 }
