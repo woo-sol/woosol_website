@@ -770,13 +770,12 @@ function manageFabs() {
       fbCat.style.display='flex';
     } else {
       if(isAdmin()) fbLibToggle.style.display='flex';
-    } else if(cur==='관계심화') {
-  if(isAdmin()) document.getElementById('fab-about-edit').style.display='flex';
-}
-    
+    }
+  } else if(cur==='관계심화') {
+    if(isAdmin()) document.getElementById('fab-about-edit').style.display='flex';
   }
 }
-
+  
 function doLogin() {
   var email=document.getElementById('li-email').value.trim(), pw=document.getElementById('li-pw').value;
   var err=document.getElementById('li-err'); err.style.display='none';
