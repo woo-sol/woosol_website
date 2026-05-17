@@ -10,11 +10,16 @@
 <link rel="canonical" href="https://p-o-s.kr">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
-<meta property="og:type" content="website"><meta property="og:site_name" content="공공운영체제 POS">
-<meta property="og:title" content="공공운영체제 POS"><meta property="og:description" content="디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.">
-<meta property="og:url" content="https://p-o-s.kr"><meta property="og:image" content="https://p-o-s.kr/og-image.png">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="공공운영체제 POS">
-<meta name="twitter:description" content="디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브."><meta name="twitter:image" content="https://p-o-s.kr/og-image.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="공공운영체제 POS">
+<meta property="og:title" content="공공운영체제 POS">
+<meta property="og:description" content="디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.">
+<meta property="og:url" content="https://p-o-s.kr">
+<meta property="og:image" content="https://p-o-s.kr/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="공공운영체제 POS">
+<meta name="twitter:description" content="디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.">
+<meta name="twitter:image" content="https://p-o-s.kr/og-image.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"공공운영체제 POS","url":"https://p-o-s.kr"}</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300&family=Inter:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;700;900&display=swap');
@@ -55,11 +60,9 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .card:hover{transform:translateY(-6px);}
 .card img{display:block;object-fit:cover;}
 .card-cap{margin-top:10px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;}
-/* Text card in edit mode */
 .card-text{border:1px solid #eee;padding:10px 14px;background:#fafafa;cursor:grab;min-width:120px;}
 .card-text:hover{transform:none;background:#f0f0f0;}
 .card-text .card-cap{margin-top:0;}
-/* Gallery edit drag */
 .card.dragging{opacity:0.3;transform:none;}
 .gal-cat-drop{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;min-height:80px;border:1px dashed #ddd;padding:16px;transition:background 0.15s,border-color 0.15s;width:100%;}
 .gal-cat-drop.drag-over{background:#ebebff;border-color:var(--blue);}
@@ -69,7 +72,6 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .gal-cat-edit-name{font-size:14.6px;font-weight:700;}
 .gal-cat-del-btn{font-size:11px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;}
 .gal-cat-del-btn:hover{color:#f00;}
-
 .danuh-cols{column-width:9cm;column-count:5;column-gap:28px;margin-top:80px;list-style:none;}
 .danuh-cols li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;break-inside:avoid;}
 .danuh-cols li:hover{color:var(--blue);}
@@ -90,31 +92,27 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .r-sec{color:#bbb;font-size:9px;text-transform:uppercase;display:inline;margin-left:6px;}
 .back-btn{display:inline-block;margin-top:40px;cursor:pointer;opacity:0.6;transition:opacity 0.15s;}
 .back-btn:hover{opacity:1;}
-
-/* 틀 (Template) - parent doc subdocs: above back btn, no separator, no label */
-.subdocs-inline{margin-top:24px;margin-bottom:0;display:flex;flex-wrap:wrap;gap:8px 28px;align-items:flex-start;}
+/* 틀 - 부모문서: 하위문서 목록 (본문 바로 아래, 구분선/라벨/밑줄 없음) */
+.subdocs-inline{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px 28px;}
 .subdoc-inline-link{font-size:14.6px;cursor:pointer;color:#000;text-decoration:none;letter-spacing:-0.01em;}
 .subdoc-inline-link:hover{color:var(--blue);}
-
-/* 틀 (Template) - child doc: parent template box at top */
+/* 틀 - 자식문서: 상단 흰박스 검은테두리 */
 .template-box{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:1px solid #000;background:#fff;padding:5px 12px;font-size:12px;letter-spacing:-0.01em;margin-bottom:20px;}
 .tpl-box-name{font-weight:700;cursor:pointer;}
 .tpl-box-name:hover{color:var(--blue);}
 .tpl-box-sibling{cursor:pointer;color:#444;}
 .tpl-box-sibling:hover{color:var(--blue);}
 .tpl-box-sep{color:#ccc;}
-
 .fn-block{margin-top:32px;padding-top:12px;border-top:1px solid #000;}
 .fn-item{font-size:11px;color:#444;margin-bottom:4px;line-height:1.5;}
 
-/* LIBRARY - vertical layout */
+/* LIBRARY - 세로 정렬 */
 .lib-cats{display:flex;flex-direction:column;gap:40px;}
 .lib-cat-group{display:flex;flex-direction:column;gap:16px;}
 .lib-cat{width:100%;}
 .lib-cat-label{font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .lib-cat-edit-btn{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline;}
 .lib-cat-edit-btn:hover{color:#000;}
-/* subcategory - indented */
 .lib-sub-cat{margin-left:32px;}
 .lib-sub-label{font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
 .lib-sub-label::before{content:'ㄴ ';color:#bbb;font-weight:400;}
@@ -136,21 +134,16 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .cat-btn{border:1px solid #ccc;padding:5px 14px;font-size:13px;cursor:pointer;background:#fff;font-family:inherit;margin-right:6px;margin-bottom:6px;letter-spacing:-0.01em;}
 .cat-btn.active{border-color:#000;background:#000;color:#fff;}
 
-/* FAB STACK — all buttons 22x22, vertical stack */
+/* FAB STACK — 세로 배치, 22×22 통일 */
 .fab-stack{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:8px;z-index:300;align-items:center;}
-/* Primary square write button */
 .fab{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:block;flex-shrink:0;}
 .fab:hover{background:var(--blue);}
-/* Ring/donut button (edit mode toggle) */
 .fab-ring{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;padding:0;}
 .fab-ring:hover{background:var(--blue);}
-/* Icon button (book, cat) */
 .fab-icon{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;padding:0;}
 .fab-icon:hover{background:var(--blue);}
-/* Done button */
 .fab-done-btn{background:#000;color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:11px;font-family:inherit;padding:0 10px;height:22px;letter-spacing:-0.01em;white-space:nowrap;flex-shrink:0;}
 .fab-done-btn:hover{background:var(--blue);}
-/* Edit (pencil circle) - shown in detail view */
 .fab-edit{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;padding:0;}
 .fab-edit:hover{background:var(--blue);}
 
@@ -159,9 +152,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .ov.on{display:block;}
 .panel{display:none;position:fixed;top:0;right:0;width:min(500px,100vw);height:100vh;background:#fff;border-left:1px solid #000;z-index:300;overflow-y:auto;padding:28px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
 .panel.on{display:block;}
-/* Panel resize handle */
-.resize-handle{position:absolute;left:0;top:0;bottom:0;width:6px;cursor:ew-resize;z-index:10;transition:background 0.1s;}
-.resize-handle:hover{background:rgba(0,0,255,0.08);}
+.resize-handle{position:absolute;left:0;top:0;bottom:0;width:6px;cursor:ew-resize;z-index:10;}
+.resize-handle:hover{background:rgba(0,0,255,0.06);}
 .ph{font-size:14.6px;font-weight:400;letter-spacing:-0.01em;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;}
 .pc{background:none;border:none;font-size:20px;cursor:pointer;font-family:inherit;}
 .fl{margin-bottom:16px;}
@@ -188,6 +180,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .subdoc-item{font-size:13px;padding:4px 0;display:flex;justify-content:space-between;align-items:center;}
 .subdoc-remove{background:none;border:none;cursor:pointer;color:#bbb;font-size:16px;line-height:1;}
 .subdoc-remove:hover{color:#f00;}
+.profile-divider{margin-top:28px;padding-top:24px;border-top:1px solid #eee;}
 .deadend{display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);}
 .deadend.on{display:flex;}
 .deadend-box{background:#fff;border:1px solid #000;padding:28px 32px;font-size:14.6px;font-weight:400;max-width:280px;width:90%;}
@@ -209,17 +202,21 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </nav>
   <div class="nav-right">
     <span class="nickname-tag" id="nav-nickname" style="display:none;"></span>
+    <!-- 정보수정 버튼 — 로그인 시에만 표시 -->
+    <button class="nav-auth-btn" id="nav-profile" style="display:none;" onclick="openProfilePanel()">정보수정</button>
     <button class="nav-auth-btn" id="nav-logout" style="display:none;" onclick="logout()">로그아웃</button>
     <button class="nav-auth-btn" id="nav-login" onclick="showPanel('login-panel')">로그인</button>
   </div>
   <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
 </header>
+
 <div class="mobile-menu" id="mobile-menu">
   <button class="mob-item active" id="mob-개념들" onclick="go('개념들')">개념들</button>
   <button class="mob-item" id="mob-도서관" onclick="go('도서관')">도서관</button>
   <button class="mob-item" id="mob-건축언어" onclick="go('건축언어')">건축언어</button>
   <button class="mob-item" id="mob-관계심화" onclick="go('관계심화')">관계심화</button>
 </div>
+
 <main class="site-main">
   <div id="pg-개념들" class="pg on">
     <div id="gallery" class="gallery"></div>
@@ -235,15 +232,16 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
       <p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>
     </div>
   </div>
-  <!-- DETAIL VIEW — restructured for 틀 layout -->
+
+  <!-- DETAIL VIEW -->
   <div id="dv">
-    <!-- Child doc: parent template box (shown at top when this doc is inside a template) -->
+    <!-- 자식 문서: 상단 틀 박스 -->
     <div id="d-template-box" class="template-box" style="display:none;"></div>
     <h1 class="d-title" id="d-title"></h1>
     <div class="d-text" id="d-text"></div>
-    <!-- Parent doc: subdocs shown here (below body, above back btn, no separator, no label) -->
+    <!-- 부모 문서: 하위문서 목록 (본문 바로 아래, 구분선/라벨 없음) -->
     <div id="d-subdocs" style="display:none;"></div>
-    <!-- Back button -->
+    <!-- 뒤로가기 -->
     <div id="d-back"></div>
     <p class="d-author" id="d-author"></p>
     <div id="d-rel-wrap" style="display:none;margin-top:40px;">
@@ -253,34 +251,22 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
 </main>
 
-<!-- FAB STACK — vertical, bottom-right. flex-direction:column so last child = lowest -->
-<!-- Stack order (top to bottom visually): cat > book > lib-toggle > donut > write > edit -->
+<!-- FAB STACK -->
 <div class="fab-stack" id="fab-stack">
-  <!-- Edit (detail view, pencil circle) — shown lowest when visible -->
   <button class="fab-edit" id="fab-edit" onclick="onEditClick()" title="수정">
     <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="1" y1="10" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="7" y1="1" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="10" y1="1" x2="10" y2="4" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
   </button>
-  <!-- Write button (square, always shown in 개념들) -->
   <button class="fab" id="fab-write" onclick="onWriteClick()" title="글쓰기"></button>
-  <!-- Donut/ring — 개념들 edit mode toggle (admin only) -->
-  <button class="fab-ring" id="fab-donut" onclick="enterEditMode()" title="편집모드">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="3.2" fill="none"/>
-    </svg>
+  <button class="fab-ring" id="fab-donut" onclick="enterEditMode()" title="편집모드 (관리자)">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="3.2" fill="none"/></svg>
   </button>
-  <!-- Library edit mode toggle (admin only) -->
-  <button class="fab-ring" id="fab-lib-toggle" onclick="enterLibEditMode()" title="도서관 수정모드">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="3.2" fill="none"/>
-    </svg>
+  <button class="fab-ring" id="fab-lib-toggle" onclick="enterLibEditMode()" title="도서관 수정모드 (관리자)">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="3.2" fill="none"/></svg>
   </button>
-  <!-- Book add (도서관 edit mode) -->
   <button class="fab-icon" id="fab-book" onclick="onBookClick()" title="도서 등록">
     <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="2" y="1" width="9" height="11" rx="0.5" stroke="white" stroke-width="1.3"/><line x1="4" y1="4" x2="9" y2="4" stroke="white" stroke-width="1"/><line x1="4" y1="6.5" x2="9" y2="6.5" stroke="white" stroke-width="1"/><line x1="4" y1="9" x2="7" y2="9" stroke="white" stroke-width="1"/></svg>
   </button>
-  <!-- Cat add (도서관 edit mode) -->
-  <button class="fab-icon" id="fab-cat" onclick="onLibCatAdd()" title="카테고리 추가" style="font-size:16px;line-height:1;color:white;">+</button>
-  <!-- Done button (edit modes) -->
+  <button class="fab-icon" id="fab-cat" onclick="onLibCatAdd()" title="카테고리 추가" style="font-size:15px;color:#fff;line-height:1;">+</button>
   <button class="fab-done-btn" id="fab-done" onclick="exitActiveEditMode()">완료</button>
 </div>
 
@@ -288,18 +274,29 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 
 <div class="deadend" id="deadend">
   <div class="deadend-box">
-    <div id="de-main"><div class="deadend-msg">막다른 길입니다.</div>
-      <div class="deadend-btns"><button class="de-btn blue" onclick="deadendBuild()">길짓기</button><button class="de-btn blue" onclick="deadendExit()">출구</button><button class="de-btn gray" onclick="closeDeadend()">닫기</button></div>
+    <div id="de-main">
+      <div class="deadend-msg">막다른 길입니다.</div>
+      <div class="deadend-btns">
+        <button class="de-btn blue" onclick="deadendBuild()">길짓기</button>
+        <button class="de-btn blue" onclick="deadendExit()">출구</button>
+        <button class="de-btn gray" onclick="closeDeadend()">닫기</button>
+      </div>
     </div>
-    <div id="de-exit" style="display:none;"><div class="deadend-msg">외부 링크 연결</div>
+    <div id="de-exit" style="display:none;">
+      <div class="deadend-msg">외부 링크 연결</div>
       <input type="text" class="fi" id="de-url" placeholder="https://..." style="margin-bottom:12px;">
-      <div class="deadend-btns"><button class="de-btn blue" onclick="saveExit()">연결하기</button><button class="de-btn gray" onclick="showDeMain()">취소</button></div>
+      <div class="deadend-btns">
+        <button class="de-btn blue" onclick="saveExit()">연결하기</button>
+        <button class="de-btn gray" onclick="showDeMain()">취소</button>
+      </div>
       <p id="de-err" style="color:red;font-size:12px;margin-top:8px;display:none;"></p>
     </div>
   </div>
 </div>
 
-<!-- PANELS (all get resize handles) -->
+<!-- ===== PANELS ===== -->
+
+<!-- 로그인 -->
 <div class="panel" id="login-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>로그인</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -309,6 +306,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn sec" onclick="showPanel('signup-panel')">회원가입</button>
   <p id="li-err" class="err-msg"></p>
 </div>
+
+<!-- 회원가입 -->
 <div class="panel" id="signup-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>회원가입</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -326,6 +325,36 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
 </div>
 
+<!-- 회원정보 수정 -->
+<div class="panel" id="profile-panel">
+  <div class="resize-handle"></div>
+  <div class="ph"><span>회원정보 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
+
+  <!-- 현재 별명 표시 -->
+  <p style="font-size:12px;color:#999;margin-bottom:20px;">현재 별명: <span id="pro-current-nick" style="color:#000;"></span></p>
+
+  <!-- 별명 변경 -->
+  <div class="fl">
+    <label>새 별명</label>
+    <input type="text" class="fi" id="pro-nick" placeholder="변경할 별명 입력">
+  </div>
+  <button class="fbtn" onclick="saveNickname()">별명 저장</button>
+  <p id="pro-nick-ok" class="ok-msg">✓ 별명이 변경되었습니다.</p>
+  <p id="pro-nick-err" class="err-msg"></p>
+
+  <!-- 비밀번호 변경 -->
+  <div class="profile-divider">
+    <p style="font-size:12px;color:#888;margin-bottom:14px;line-height:1.6;">
+      비밀번호 변경 이메일을 발송합니다.<br>메일함에서 링크를 클릭해 비밀번호를 재설정하세요.
+    </p>
+    <p style="font-size:12px;color:#bbb;margin-bottom:14px;" id="pro-email-display"></p>
+    <button class="fbtn sec" onclick="sendPasswordReset()">비밀번호 변경 이메일 전송</button>
+    <p id="pro-pw-ok" class="ok-msg">✓ 이메일을 전송했습니다. 메일함을 확인해주세요.</p>
+    <p id="pro-pw-err" class="err-msg"></p>
+  </div>
+</div>
+
+<!-- 글쓰기 -->
 <div class="panel" id="new-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>게시물 올리기</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -365,6 +394,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="nf-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
 
+<!-- 게시물 수정 -->
 <div class="panel" id="edit-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>게시물 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -405,6 +435,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="ef-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
 
+<!-- 도서 등록 -->
 <div class="panel" id="book-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>도서 등록</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -413,9 +444,11 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="fl"><label>소개</label><textarea class="fta" id="b-desc" style="min-height:100px;"></textarea></div>
   <div class="fl"><label>카테고리</label><div id="book-cat-btns" style="margin-top:6px;"></div></div>
   <button class="fbtn" onclick="submitBook()">등록하기</button>
-  <p id="b-ok" class="ok-msg">✓ 등록되었습니다.</p><p id="b-err" class="err-msg">저장 실패.</p>
+  <p id="b-ok" class="ok-msg">✓ 등록되었습니다.</p>
+  <p id="b-err" class="err-msg">저장 실패.</p>
 </div>
 
+<!-- 도서 수정 -->
 <div class="panel" id="book-edit-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>도서 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -425,9 +458,11 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="fl"><label>카테고리</label><div id="be-cat-btns" style="margin-top:6px;"></div></div>
   <button class="fbtn" onclick="submitBookEdit()">수정 완료</button>
   <button class="fbtn del" onclick="deleteBook()">삭제</button>
-  <p id="be-ok" class="ok-msg">✓ 수정되었습니다.</p><p id="be-err" class="err-msg">저장 실패.</p>
+  <p id="be-ok" class="ok-msg">✓ 수정되었습니다.</p>
+  <p id="be-err" class="err-msg">저장 실패.</p>
 </div>
 
+<!-- 도서관 카테고리 -->
 <div class="panel" id="lib-cat-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span id="lib-cat-panel-title">카테고리 추가</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -443,6 +478,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="lc-ok" class="ok-msg">✓ 저장되었습니다.</p>
 </div>
 
+<!-- 개념들 카테고리 관리 -->
 <div class="panel" id="post-cat-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>개념들 카테고리 관리</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -451,1031 +487,972 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn" onclick="addPostCat()">추가</button>
 </div>
 
+<!-- ===== SCRIPT ===== -->
 <script>
+/* ── 설정 — 실제 값으로 교체하세요 ── */
 var SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
 var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
 var ADMIN_EMAIL = 'woosol1138@gmail.com';
+
+
 var TARGET_AREA = 220 * 220;
-
-
-var posts = [];
-var books = [];
-var libCats = [];
-var postCats = [];
-var editMode = false;
-var libEditMode = false;
+var posts = [], books = [], libCats = [], postCats = [];
+var editMode = false, libEditMode = false;
 var cur = '개념들';
-var savedScrollY = 0;
-var mobileOpen = false;
-var currentId = null;
-var pendingTitle = null;
-var pendingEdit = false;
-var authToken = null;
-var authUser = null;
-var authNickname = null;
-var pasteAttached = [];
-var fileImgTarget = '';
-var deadendWord = '';
-var newBookCat = '';
-var expandedBookId = null;
-var editingBookId = null;
-var editBookCat = '';
+var savedScrollY = 0, mobileOpen = false;
+var currentId = null, pendingTitle = null, pendingEdit = false;
+var authToken = null, authUser = null, authNickname = null;
+var pasteAttached = [], fileImgTarget = '';
+var deadendWord = '', newBookCat = '';
+var expandedBookId = null, editingBookId = null, editBookCat = '';
 var editingLibCatId = null;
-var dragSrcId = null;
-var galDragSrcId = null;
-var isDragging = false;
-var touchDragId = null;
-var touchTimer = null;
-var touchDragClone = null;
-var touchStartX = 0;
-var touchStartY = 0;
+var dragSrcId = null, galDragSrcId = null;
+var isDragging = false, touchDragId = null, touchTimer = null;
+var touchDragClone = null, touchStartX = 0, touchStartY = 0;
 var lastTapBook = {};
-var newSubDocs = [];
-var editSubDocs = [];
+var newSubDocs = [], editSubDocs = [];
 
-/* ── PANEL RESIZE ── */
-var isResizingPanel = false;
-var resizeStartX = 0;
-var resizeStartW = 0;
-var resizingPanel = null;
-
+/* ── 패널 가로 리사이즈 ── */
+var isResizingPanel = false, resizeStartX = 0, resizeStartW = 0, resizingPanel = null;
 document.addEventListener('mousedown', function(e) {
   if (!e.target.classList.contains('resize-handle')) return;
-  isResizingPanel = true;
-  resizingPanel = e.target.parentElement;
-  resizeStartX = e.clientX;
-  resizeStartW = resizingPanel.offsetWidth;
-  document.body.style.cursor = 'ew-resize';
-  document.body.style.userSelect = 'none';
+  isResizingPanel = true; resizingPanel = e.target.parentElement;
+  resizeStartX = e.clientX; resizeStartW = resizingPanel.offsetWidth;
+  document.body.style.cursor = 'ew-resize'; document.body.style.userSelect = 'none';
   e.preventDefault();
 });
 document.addEventListener('mousemove', function(e) {
   if (!isResizingPanel) return;
-  var dx = resizeStartX - e.clientX; // drag left = wider
-  var newW = Math.max(320, Math.min(window.innerWidth - 40, resizeStartW + dx));
+  var newW = Math.max(320, Math.min(window.innerWidth - 40, resizeStartW + (resizeStartX - e.clientX)));
   resizingPanel.style.width = newW + 'px';
 });
 document.addEventListener('mouseup', function() {
   if (!isResizingPanel) return;
-  isResizingPanel = false;
-  resizingPanel = null;
-  document.body.style.cursor = '';
-  document.body.style.userSelect = '';
+  isResizingPanel = false; resizingPanel = null;
+  document.body.style.cursor = ''; document.body.style.userSelect = '';
 });
 
-function SH(tok) { return { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + (tok || SUPA_KEY), 'Content-Type': 'application/json' }; }
-function saveToken(t) { authToken = t; try { localStorage.setItem('pos_token', t); } catch(e) {} }
-function loadToken() { try { return localStorage.getItem('pos_token'); } catch(e) { return null; } }
-function clearToken() { authToken = null; try { localStorage.removeItem('pos_token'); } catch(e) {} }
-function safePush(state, url) { try { history.pushState(state, '', url); } catch(e) {} }
-function findIn(arr, fn) { for (var i = 0; i < arr.length; i++) { if (fn(arr[i])) return arr[i]; } return null; }
-function findIdx(arr, fn) { for (var i = 0; i < arr.length; i++) { if (fn(arr[i])) return i; } return -1; }
-function genId() { return 'c' + Date.now() + Math.floor(Math.random() * 1000); }
+/* ── 유틸 ── */
+function SH(tok) { return {'apikey':SUPA_KEY,'Authorization':'Bearer '+(tok||SUPA_KEY),'Content-Type':'application/json'}; }
+function saveToken(t) { authToken=t; try{localStorage.setItem('pos_token',t);}catch(e){} }
+function loadToken() { try{return localStorage.getItem('pos_token');}catch(e){return null;} }
+function clearToken() { authToken=null; try{localStorage.removeItem('pos_token');}catch(e){} }
+function safePush(st,url) { try{history.pushState(st,'',url);}catch(e){} }
+function findIn(arr,fn) { for(var i=0;i<arr.length;i++){if(fn(arr[i]))return arr[i];}return null; }
+function findIdx(arr,fn) { for(var i=0;i<arr.length;i++){if(fn(arr[i]))return i;}return -1; }
+function genId() { return 'c'+Date.now()+Math.floor(Math.random()*1000); }
 
-function setMeta(title, desc, img) {
-  document.title = title ? title + ' — POS' : '공공운영체제 POS';
-  function s(sel, val) { var el = document.querySelector(sel); if (el) el.setAttribute('content', val); }
-  s('meta[property="og:title"]', title || '공공운영체제 POS');
-  s('meta[property="og:description"]', desc || '디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
-  s('meta[name="description"]', desc || '공공운영체제 POS. 디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
-  s('meta[name="twitter:title"]', title || '공공운영체제 POS');
-  s('meta[name="twitter:description"]', desc || '디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
-  if (img) { s('meta[property="og:image"]', img); s('meta[name="twitter:image"]', img); }
+function setMeta(title,desc,img) {
+  document.title = title ? title+' — POS' : '공공운영체제 POS';
+  function s(sel,val){var el=document.querySelector(sel);if(el)el.setAttribute('content',val);}
+  s('meta[property="og:title"]',title||'공공운영체제 POS');
+  s('meta[property="og:description"]',desc||'디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
+  s('meta[name="description"]',desc||'공공운영체제 POS. 디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
+  s('meta[name="twitter:title"]',title||'공공운영체제 POS');
+  s('meta[name="twitter:description"]',desc||'디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.');
+  if(img){s('meta[property="og:image"]',img);s('meta[name="twitter:image"]',img);}
 }
-
 function setThumbSize(img) {
-  if (window.innerWidth <= 480) { img.style.cssText = ''; return; }
-  var r = img.naturalWidth / img.naturalHeight;
-  img.style.height = '260px';
-  img.style.width = Math.round(260 * r) + 'px';
+  if(window.innerWidth<=480){img.style.cssText='';return;}
+  var r=img.naturalWidth/img.naturalHeight;
+  img.style.height='260px'; img.style.width=Math.round(260*r)+'px';
 }
 
-/* ── SETTINGS ── */
+/* ── Settings ── */
 function loadSettings() {
-  fetch(SUPA_URL + '/rest/v1/pos_settings?key=in.(lib_cats,post_cats)', { headers: SH() })
-    .then(function(r) { return r.json(); })
-    .then(function(rows) {
-      if (!Array.isArray(rows)) return;
-      for (var i = 0; i < rows.length; i++) {
-        if (rows[i].key === 'lib_cats' && Array.isArray(rows[i].value)) libCats = rows[i].value;
-        if (rows[i].key === 'post_cats' && Array.isArray(rows[i].value)) postCats = rows[i].value;
+  fetch(SUPA_URL+'/rest/v1/pos_settings?key=in.(lib_cats,post_cats)',{headers:SH()})
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(!Array.isArray(rows))return;
+      for(var i=0;i<rows.length;i++){
+        if(rows[i].key==='lib_cats'&&Array.isArray(rows[i].value))libCats=rows[i].value;
+        if(rows[i].key==='post_cats'&&Array.isArray(rows[i].value))postCats=rows[i].value;
       }
-      if (!libCats.length) {
-        libCats = [{id:'cat-1',name:'역사',parentId:null,order:0},{id:'cat-2',name:'디자인',parentId:null,order:1},{id:'cat-3',name:'미술',parentId:null,order:2}];
-      }
-      if (cur === '도서관') renderLibrary();
-      if (cur === '개념들') renderGallery();
+      if(!libCats.length)libCats=[{id:'cat-1',name:'역사',parentId:null,order:0},{id:'cat-2',name:'디자인',parentId:null,order:1},{id:'cat-3',name:'미술',parentId:null,order:2}];
+      if(cur==='도서관')renderLibrary();
+      if(cur==='개념들')renderGallery();
     })
-    .catch(function() {
-      libCats = [{id:'cat-1',name:'역사',parentId:null,order:0},{id:'cat-2',name:'디자인',parentId:null,order:1},{id:'cat-3',name:'미술',parentId:null,order:2}];
-    });
+    .catch(function(){libCats=[{id:'cat-1',name:'역사',parentId:null,order:0},{id:'cat-2',name:'디자인',parentId:null,order:1},{id:'cat-3',name:'미술',parentId:null,order:2}];});
 }
-function saveSetting(key, value) {
-  if (!authToken) return;
-  fetch(SUPA_URL + '/rest/v1/pos_settings', {
-    method: 'POST',
-    headers: Object.assign({}, SH(authToken), { 'Prefer': 'resolution=merge-duplicates' }),
-    body: JSON.stringify({ key: key, value: value })
-  });
+function saveSetting(key,value) {
+  if(!authToken)return;
+  fetch(SUPA_URL+'/rest/v1/pos_settings',{method:'POST',headers:Object.assign({},SH(authToken),{'Prefer':'resolution=merge-duplicates'}),body:JSON.stringify({key:key,value:value})});
 }
 
 /* ── DB ── */
 function dbLoad() {
-  fetch(SUPA_URL + '/rest/v1/posts?order=created_at.asc', { headers: SH() })
-    .then(function(r) { return r.json(); })
-    .then(function(data) { posts = Array.isArray(data) ? data : []; renderGallery(); renderDanuh(); })
-    .catch(function() { posts = []; renderGallery(); renderDanuh(); });
+  fetch(SUPA_URL+'/rest/v1/posts?order=created_at.asc',{headers:SH()})
+    .then(function(r){return r.json();})
+    .then(function(data){posts=Array.isArray(data)?data:[];renderGallery();renderDanuh();})
+    .catch(function(){posts=[];renderGallery();renderDanuh();});
 }
 function dbInsert(post) {
-  return fetch(SUPA_URL + '/rest/v1/posts', { method: 'POST', headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=representation' }), body: JSON.stringify(post) })
-    .then(function(r) { if (!r.ok) throw new Error(); return r.json(); })
-    .then(function(rows) { return Array.isArray(rows) ? rows[0] : null; });
+  return fetch(SUPA_URL+'/rest/v1/posts',{method:'POST',headers:Object.assign({},SH(authToken),{'Prefer':'return=representation'}),body:JSON.stringify(post)})
+    .then(function(r){if(!r.ok)throw new Error();return r.json();})
+    .then(function(rows){return Array.isArray(rows)?rows[0]:null;});
 }
-function dbUpdate(id, patch) {
-  return fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, { method: 'PATCH', headers: SH(authToken), body: JSON.stringify(patch) })
-    .then(function(r) { if (!r.ok) throw new Error(); });
+function dbUpdate(id,patch) {
+  return fetch(SUPA_URL+'/rest/v1/posts?id=eq.'+id,{method:'PATCH',headers:SH(authToken),body:JSON.stringify(patch)})
+    .then(function(r){if(!r.ok)throw new Error();});
 }
 function dbDelete(id) {
-  return fetch(SUPA_URL + '/rest/v1/posts?id=eq.' + id, { method: 'DELETE', headers: SH(authToken) })
-    .then(function(r) { if (!r.ok) throw new Error(); });
+  return fetch(SUPA_URL+'/rest/v1/posts?id=eq.'+id,{method:'DELETE',headers:SH(authToken)})
+    .then(function(r){if(!r.ok)throw new Error();});
 }
 function dbLoadBooks() {
-  fetch(SUPA_URL + '/rest/v1/books?order=order_index.asc', { headers: SH() })
-    .then(function(r) { return r.json(); })
-    .then(function(data) { books = Array.isArray(data) ? data : []; if (cur === '도서관') renderLibrary(); })
-    .catch(function() { books = []; });
+  fetch(SUPA_URL+'/rest/v1/books?order=order_index.asc',{headers:SH()})
+    .then(function(r){return r.json();})
+    .then(function(data){books=Array.isArray(data)?data:[];if(cur==='도서관')renderLibrary();})
+    .catch(function(){books=[];});
 }
 function dbInsertBook(book) {
-  return fetch(SUPA_URL + '/rest/v1/books', { method: 'POST', headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=representation' }), body: JSON.stringify(book) })
-    .then(function(r) { if (!r.ok) throw new Error(); return r.json(); })
-    .then(function(rows) { return Array.isArray(rows) ? rows[0] : null; });
+  return fetch(SUPA_URL+'/rest/v1/books',{method:'POST',headers:Object.assign({},SH(authToken),{'Prefer':'return=representation'}),body:JSON.stringify(book)})
+    .then(function(r){if(!r.ok)throw new Error();return r.json();})
+    .then(function(rows){return Array.isArray(rows)?rows[0]:null;});
 }
-function dbUpdateBook(id, patch) { fetch(SUPA_URL + '/rest/v1/books?id=eq.' + id, { method: 'PATCH', headers: SH(authToken), body: JSON.stringify(patch) }); }
+function dbUpdateBook(id,patch){fetch(SUPA_URL+'/rest/v1/books?id=eq.'+id,{method:'PATCH',headers:SH(authToken),body:JSON.stringify(patch)});}
 function dbDeleteBook(id) {
-  return fetch(SUPA_URL + '/rest/v1/books?id=eq.' + id, { method: 'DELETE', headers: SH(authToken) })
-    .then(function(r) { if (!r.ok) throw new Error(); });
+  return fetch(SUPA_URL+'/rest/v1/books?id=eq.'+id,{method:'DELETE',headers:SH(authToken)})
+    .then(function(r){if(!r.ok)throw new Error();});
 }
 function uploadImg(file) {
-  var path = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  return fetch(SUPA_URL + '/storage/v1/object/pos-images/' + path, { method: 'POST', headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + authToken, 'Content-Type': file.type }, body: file })
-    .then(function(r) { if (!r.ok) return null; return SUPA_URL + '/storage/v1/object/public/pos-images/' + path; });
+  var path=Date.now()+'_'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+  return fetch(SUPA_URL+'/storage/v1/object/pos-images/'+path,{method:'POST',headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+authToken,'Content-Type':file.type},body:file})
+    .then(function(r){if(!r.ok)return null;return SUPA_URL+'/storage/v1/object/public/pos-images/'+path;});
 }
-function readB64(file) { return new Promise(function(resolve) { var fr = new FileReader(); fr.onload = function(e) { resolve(e.target.result); }; fr.readAsDataURL(file); }); }
-function resolveImg(fileInput, urlInput) {
-  var f = fileInput && fileInput.files && fileInput.files[0];
-  if (f) { return uploadImg(f).then(function(u) { return u || readB64(f); }); }
-  return Promise.resolve(urlInput && urlInput.value.trim() || null);
+function readB64(file){return new Promise(function(resolve){var fr=new FileReader();fr.onload=function(e){resolve(e.target.result);};fr.readAsDataURL(file);});}
+function resolveImg(fileInput,urlInput) {
+  var f=fileInput&&fileInput.files&&fileInput.files[0];
+  if(f){return uploadImg(f).then(function(u){return u||readB64(f);});}
+  return Promise.resolve(urlInput&&urlInput.value.trim()||null);
 }
 
 /* ── AUTH ── */
 function initAuth() {
-  var t = loadToken(); if (!t) return;
-  fetch(SUPA_URL + '/auth/v1/user', { headers: SH(t) })
-    .then(function(r) { if (!r.ok) { clearToken(); return null; } return r.json(); })
-    .then(function(user) { if (!user) return; authToken = t; authUser = user; return loadProfile(user.id); })
-    .then(function() { updateNavAuth(); updateFabsForAuth(); })
-    .catch(function() { clearToken(); });
+  var t=loadToken(); if(!t)return;
+  fetch(SUPA_URL+'/auth/v1/user',{headers:SH(t)})
+    .then(function(r){if(!r.ok){clearToken();return null;}return r.json();})
+    .then(function(user){
+      if(!user){updateNavAuth();manageFabs();return;}
+      authToken=t; authUser=user;
+      return loadProfile(user.id).then(function(){
+        updateNavAuth();
+        manageFabs();
+      });
+    })
+    .catch(function(){clearToken();updateNavAuth();manageFabs();});
 }
 function loadProfile(uid) {
-  return fetch(SUPA_URL + '/rest/v1/profiles?id=eq.' + uid + '&select=nickname', { headers: SH(authToken) })
-    .then(function(r) { return r.json(); })
-    .then(function(rows) {
-      if (rows && rows[0] && rows[0].nickname) { authNickname = rows[0].nickname; return; }
-      var nick = (authUser && authUser.user_metadata && authUser.user_metadata.nickname) || '';
-      authNickname = nick || (authUser && authUser.email) || '';
-      if (nick) fetch(SUPA_URL + '/rest/v1/profiles', { method: 'POST', headers: Object.assign({}, SH(authToken), { 'Prefer': 'return=minimal' }), body: JSON.stringify({ id: uid, nickname: nick, email: authUser && authUser.email }) });
+  return fetch(SUPA_URL+'/rest/v1/profiles?id=eq.'+uid+'&select=nickname',{headers:SH(authToken)})
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(rows&&rows[0]&&rows[0].nickname){authNickname=rows[0].nickname;return;}
+      var nick=(authUser&&authUser.user_metadata&&authUser.user_metadata.nickname)||'';
+      authNickname=nick||(authUser&&authUser.email)||'';
+      if(nick)fetch(SUPA_URL+'/rest/v1/profiles',{method:'POST',headers:Object.assign({},SH(authToken),{'Prefer':'return=minimal'}),body:JSON.stringify({id:uid,nickname:nick,email:authUser&&authUser.email})});
     })
-    .catch(function() { authNickname = (authUser && authUser.user_metadata && authUser.user_metadata.nickname) || (authUser && authUser.email) || ''; });
+    .catch(function(){authNickname=(authUser&&authUser.user_metadata&&authUser.user_metadata.nickname)||(authUser&&authUser.email)||'';});
 }
 function updateNavAuth() {
-  var nick = document.getElementById('nav-nickname'), lo = document.getElementById('nav-logout'), li = document.getElementById('nav-login');
-  if (authUser) { nick.textContent = authNickname; nick.style.display = 'block'; lo.style.display = 'block'; li.style.display = 'none'; }
-  else { nick.style.display = 'none'; lo.style.display = 'none'; li.style.display = 'block'; }
-}
-function updateFabsForAuth() {
-  // Re-apply fab visibility after auth state change
-  manageFabs();
-}
-function isAdmin() { return authUser && authUser.email === ADMIN_EMAIL; }
-function canEdit(post) { if (!authUser || !post) return false; if (isAdmin()) return true; return post.author_nickname && post.author_nickname === authNickname; }
-
-/* ── FAB MANAGEMENT ── */
-function manageFabs() {
-  var fbWrite = document.getElementById('fab-write');
-  var fbDonut = document.getElementById('fab-donut');
-  var fbLibToggle = document.getElementById('fab-lib-toggle');
-  var fbBook = document.getElementById('fab-book');
-  var fbCat = document.getElementById('fab-cat');
-  var fbDone = document.getElementById('fab-done');
-  var fbEdit = document.getElementById('fab-edit');
-  // Hide all first
-  fbWrite.style.display = 'none';
-  fbDonut.style.display = 'none';
-  fbLibToggle.style.display = 'none';
-  fbBook.style.display = 'none';
-  fbCat.style.display = 'none';
-  fbDone.style.display = 'none';
-  fbEdit.style.display = 'none';
-
-  if (document.getElementById('dv').style.display === 'block') {
-    // Detail view - fab-edit handled separately in showDetail()
-    return;
+  var nick=document.getElementById('nav-nickname');
+  var lo=document.getElementById('nav-logout');
+  var li=document.getElementById('nav-login');
+  var pro=document.getElementById('nav-profile');
+  if(authUser){
+    nick.textContent=authNickname; nick.style.display='block';
+    lo.style.display='block'; li.style.display='none';
+    pro.style.display='block';
+  } else {
+    nick.style.display='none'; lo.style.display='none'; li.style.display='block';
+    pro.style.display='none';
   }
-  if (cur === '개념들') {
-    if (editMode) {
-      fbDone.style.display = 'flex';
+}
+function isAdmin(){return authUser&&authUser.email===ADMIN_EMAIL;}
+function canEdit(post){
+  if(!authUser||!post)return false;
+  if(isAdmin())return true;
+  return post.author_nickname&&post.author_nickname===authNickname;
+}
+
+/* ── 회원정보 수정 ── */
+function openProfilePanel() {
+  document.getElementById('pro-current-nick').textContent = authNickname || '';
+  document.getElementById('pro-nick').value = '';
+  document.getElementById('pro-email-display').textContent = authUser ? '전송 이메일: ' + authUser.email : '';
+  document.getElementById('pro-nick-ok').style.display = 'none';
+  document.getElementById('pro-nick-err').style.display = 'none';
+  document.getElementById('pro-pw-ok').style.display = 'none';
+  document.getElementById('pro-pw-err').style.display = 'none';
+  showPanel('profile-panel');
+}
+function saveNickname() {
+  var nick = document.getElementById('pro-nick').value.trim();
+  var ok = document.getElementById('pro-nick-ok');
+  var err = document.getElementById('pro-nick-err');
+  ok.style.display='none'; err.style.display='none';
+  if(!nick){err.textContent='별명을 입력해주세요.';err.style.display='block';return;}
+  if(!authUser)return;
+  fetch(SUPA_URL+'/rest/v1/profiles?id=eq.'+authUser.id,{
+    method:'PATCH',
+    headers:Object.assign({},SH(authToken),{'Prefer':'return=minimal'}),
+    body:JSON.stringify({nickname:nick})
+  }).then(function(r){
+    if(!r.ok)throw new Error();
+    authNickname=nick;
+    document.getElementById('nav-nickname').textContent=nick;
+    document.getElementById('pro-current-nick').textContent=nick;
+    document.getElementById('pro-nick').value='';
+    ok.style.display='block';
+    setTimeout(function(){ok.style.display='none';},2500);
+  }).catch(function(){
+    err.textContent='저장 실패. 다시 시도해주세요.';
+    err.style.display='block';
+  });
+}
+function sendPasswordReset() {
+  var ok = document.getElementById('pro-pw-ok');
+  var err = document.getElementById('pro-pw-err');
+  ok.style.display='none'; err.style.display='none';
+  if(!authUser)return;
+  fetch(SUPA_URL+'/auth/v1/recover',{
+    method:'POST',
+    headers:{'apikey':SUPA_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({email:authUser.email})
+  }).then(function(r){
+    if(!r.ok)throw new Error();
+    ok.style.display='block';
+    setTimeout(function(){ok.style.display='none';},5000);
+  }).catch(function(){
+    err.textContent='전송 실패. 다시 시도해주세요.';
+    err.style.display='block';
+  });
+}
+
+/* ── FAB 관리 ── */
+function manageFabs() {
+  var fbWrite=document.getElementById('fab-write');
+  var fbDonut=document.getElementById('fab-donut');
+  var fbLibToggle=document.getElementById('fab-lib-toggle');
+  var fbBook=document.getElementById('fab-book');
+  var fbCat=document.getElementById('fab-cat');
+  var fbDone=document.getElementById('fab-done');
+  var fbEdit=document.getElementById('fab-edit');
+  // 모두 숨기기
+  fbWrite.style.display='none'; fbDonut.style.display='none';
+  fbLibToggle.style.display='none'; fbBook.style.display='none';
+  fbCat.style.display='none'; fbDone.style.display='none'; fbEdit.style.display='none';
+
+  if(document.getElementById('dv').style.display==='block') return; // detail view: fab-edit handled in showDetail
+
+  if(cur==='개념들') {
+    if(editMode){
+      fbDone.style.display='flex';
     } else {
-      fbWrite.style.display = 'block';
-      if (isAdmin()) fbDonut.style.display = 'flex';
+      fbWrite.style.display='block';
+      if(isAdmin()) fbDonut.style.display='flex';
     }
-  } else if (cur === '도서관') {
-    if (libEditMode) {
-      fbDone.style.display = 'flex';
-      fbBook.style.display = 'flex';
-      fbCat.style.display = 'flex';
+  } else if(cur==='도서관') {
+    if(libEditMode){
+      fbDone.style.display='flex';
+      fbBook.style.display='flex';
+      fbCat.style.display='flex';
     } else {
-      if (isAdmin()) fbLibToggle.style.display = 'flex';
+      if(isAdmin()) fbLibToggle.style.display='flex';
     }
   }
 }
 
 function doLogin() {
-  var email = document.getElementById('li-email').value.trim(), pw = document.getElementById('li-pw').value;
-  var err = document.getElementById('li-err'); err.style.display = 'none';
-  fetch(SUPA_URL + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, password: pw }) })
-    .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
-    .then(function(res) {
-      if (!res.ok) throw new Error(res.d.error_description || res.d.msg || '로그인 실패');
-      saveToken(res.d.access_token); authUser = res.d.user; return loadProfile(authUser.id);
+  var email=document.getElementById('li-email').value.trim(), pw=document.getElementById('li-pw').value;
+  var err=document.getElementById('li-err'); err.style.display='none';
+  fetch(SUPA_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{'apikey':SUPA_KEY,'Content-Type':'application/json'},body:JSON.stringify({email:email,password:pw})})
+    .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
+    .then(function(res){
+      if(!res.ok)throw new Error(res.d.error_description||res.d.msg||'로그인 실패');
+      saveToken(res.d.access_token); authUser=res.d.user;
+      return loadProfile(authUser.id);
     })
-    .then(function() {
+    .then(function(){
       updateNavAuth(); manageFabs(); closeAllPanels();
-      if (pendingEdit) { pendingEdit = false; openEditPanel(); } else openNewPanel();
+      if(pendingEdit){pendingEdit=false;openEditPanel();}else openNewPanel();
     })
-    .catch(function(e) { err.textContent = e.message; err.style.display = 'block'; });
+    .catch(function(e){err.textContent=e.message;err.style.display='block';});
 }
 function doSignup() {
-  var nick = document.getElementById('su-nick').value.trim(), email = document.getElementById('su-email').value.trim(), pw = document.getElementById('su-pw').value;
-  var err = document.getElementById('su-err'); err.style.display = 'none';
-  if (!nick) { err.textContent = '별명을 입력해주세요.'; err.style.display = 'block'; return; }
-  fetch(SUPA_URL + '/auth/v1/signup', { method: 'POST', headers: { 'apikey': SUPA_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, password: pw, data: { nickname: nick } }) })
-    .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
-    .then(function(res) {
-      if (!res.ok) throw new Error(res.d.error_description || res.d.msg || '가입 실패');
-      if (res.d.access_token) fetch(SUPA_URL + '/rest/v1/profiles', { method: 'POST', headers: Object.assign({}, SH(res.d.access_token), { 'Prefer': 'return=minimal' }), body: JSON.stringify({ id: res.d.user.id, nickname: nick, email: email }) });
-      document.getElementById('signup-form').style.display = 'none';
-      document.getElementById('signup-done').style.display = 'block';
+  var nick=document.getElementById('su-nick').value.trim(), email=document.getElementById('su-email').value.trim(), pw=document.getElementById('su-pw').value;
+  var err=document.getElementById('su-err'); err.style.display='none';
+  if(!nick){err.textContent='별명을 입력해주세요.';err.style.display='block';return;}
+  fetch(SUPA_URL+'/auth/v1/signup',{method:'POST',headers:{'apikey':SUPA_KEY,'Content-Type':'application/json'},body:JSON.stringify({email:email,password:pw,data:{nickname:nick}})})
+    .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
+    .then(function(res){
+      if(!res.ok)throw new Error(res.d.error_description||res.d.msg||'가입 실패');
+      if(res.d.access_token)fetch(SUPA_URL+'/rest/v1/profiles',{method:'POST',headers:Object.assign({},SH(res.d.access_token),{'Prefer':'return=minimal'}),body:JSON.stringify({id:res.d.user.id,nickname:nick,email:email})});
+      document.getElementById('signup-form').style.display='none';
+      document.getElementById('signup-done').style.display='block';
     })
-    .catch(function(e) { err.textContent = e.message; err.style.display = 'block'; });
+    .catch(function(e){err.textContent=e.message;err.style.display='block';});
 }
 function logout() {
-  fetch(SUPA_URL + '/auth/v1/logout', { method: 'POST', headers: SH(authToken) }).catch(function() {});
-  clearToken(); authUser = null; authNickname = null; updateNavAuth(); manageFabs();
+  fetch(SUPA_URL+'/auth/v1/logout',{method:'POST',headers:SH(authToken)}).catch(function(){});
+  clearToken(); authUser=null; authNickname=null; updateNavAuth(); manageFabs();
 }
 
 /* ── NAV ── */
-function onWriteClick() { if (!authUser) showPanel('login-panel'); else openNewPanel(); }
-function onEditClick() {
-  var p = findIn(posts, function(x) { return x.id === currentId; });
-  if (!authUser) { pendingEdit = true; showPanel('login-panel'); return; }
-  if (!canEdit(p)) { alert('본인이 작성한 게시물만 수정할 수 있습니다.'); return; }
+function onWriteClick(){if(!authUser)showPanel('login-panel');else openNewPanel();}
+function onEditClick(){
+  var p=findIn(posts,function(x){return x.id===currentId;});
+  if(!authUser){pendingEdit=true;showPanel('login-panel');return;}
+  if(!canEdit(p)){alert('본인이 작성한 게시물만 수정할 수 있습니다.');return;}
   openEditPanel();
 }
-function onBookClick() {
-  if (!authUser) { showPanel('login-panel'); return; }
-  var rootCats = libCats.filter(function(c) { return !c.parentId; });
-  if (!newBookCat && rootCats.length) newBookCat = rootCats[0].name;
-  renderBtnGroup('book-cat-btns', libCats, newBookCat, null);
+function onBookClick(){
+  if(!authUser){showPanel('login-panel');return;}
+  var rootCats=libCats.filter(function(c){return !c.parentId;});
+  if(!newBookCat&&rootCats.length)newBookCat=rootCats[0].name;
+  renderBtnGroup('book-cat-btns',libCats,newBookCat,null);
   showPanel('book-panel');
 }
-function onLibCatAdd() {
-  if (!isAdmin()) return;
-  editingLibCatId = null;
-  document.getElementById('lib-cat-panel-title').textContent = '카테고리 추가';
-  document.getElementById('lc-name').value = '';
-  document.getElementById('lc-delete-btn').style.display = 'none';
+function onLibCatAdd(){
+  if(!isAdmin())return;
+  editingLibCatId=null;
+  document.getElementById('lib-cat-panel-title').textContent='카테고리 추가';
+  document.getElementById('lc-name').value='';
+  document.getElementById('lc-delete-btn').style.display='none';
   buildParentSelect(null);
   showPanel('lib-cat-panel');
 }
-function toggleMobile() { mobileOpen = !mobileOpen; document.getElementById('mobile-menu').classList.toggle('open', mobileOpen); }
-function closeMobile() { mobileOpen = false; document.getElementById('mobile-menu').classList.remove('open'); }
+function toggleMobile(){mobileOpen=!mobileOpen;document.getElementById('mobile-menu').classList.toggle('open',mobileOpen);}
+function closeMobile(){mobileOpen=false;document.getElementById('mobile-menu').classList.remove('open');}
 
-function go(sec, doPush) {
-  if (doPush === undefined) doPush = true;
+function go(sec,doPush) {
+  if(doPush===undefined)doPush=true;
   closeMobile();
-  if (editMode) exitEditMode();
-  if (libEditMode) exitLibEditMode();
-  document.querySelectorAll('.pg').forEach(function(p) { p.classList.remove('on'); });
-  document.getElementById('dv').style.display = 'none';
-  document.querySelectorAll('.nav-item,.mob-item').forEach(function(n) { n.classList.remove('active'); });
-  var nv = document.getElementById('nv-' + sec); if (nv) nv.classList.add('active');
-  var mob = document.getElementById('mob-' + sec); if (mob) mob.classList.add('active');
-  cur = sec;
-  var pg = document.getElementById('pg-' + sec); if (pg) pg.classList.add('on');
+  if(editMode)exitEditMode();
+  if(libEditMode)exitLibEditMode();
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+  document.getElementById('dv').style.display='none';
+  document.querySelectorAll('.nav-item,.mob-item').forEach(function(n){n.classList.remove('active');});
+  var nv=document.getElementById('nv-'+sec); if(nv)nv.classList.add('active');
+  var mob=document.getElementById('mob-'+sec); if(mob)mob.classList.add('active');
+  cur=sec;
+  var pg=document.getElementById('pg-'+sec); if(pg)pg.classList.add('on');
   manageFabs();
-  if (sec === '도서관') renderLibrary();
-  if (doPush) { safePush({ type: 'sec', sec: sec }, sec === '개념들' ? '/' : '/' + encodeURIComponent(sec)); setMeta('', '', ''); }
-  window.scrollTo(0, 0);
+  if(sec==='도서관')renderLibrary();
+  if(doPush){safePush({type:'sec',sec:sec},sec==='개념들'?'/':'/'+encodeURIComponent(sec));setMeta('','','');}
+  window.scrollTo(0,0);
 }
 
-/* ── EDIT MODES ── */
-function enterEditMode() {
-  if (!isAdmin()) { alert('관리자만 편집모드를 사용할 수 있습니다.'); return; }
-  editMode = true;
+/* ── 편집 모드 ── */
+function enterEditMode(){
+  if(!isAdmin()){alert('관리자만 편집모드를 사용할 수 있습니다.');return;}
+  editMode=true;
   document.getElementById('pg-개념들').classList.add('edit-mode');
-  manageFabs();
-  renderGallery();
+  manageFabs(); renderGallery();
 }
-function exitEditMode() {
-  editMode = false;
+function exitEditMode(){
+  editMode=false;
   document.getElementById('pg-개념들').classList.remove('edit-mode');
-  manageFabs();
-  renderGallery();
+  manageFabs(); renderGallery();
 }
-function enterLibEditMode() {
-  if (!isAdmin()) { alert('관리자만 수정모드를 사용할 수 있습니다.'); return; }
-  libEditMode = true;
-  manageFabs();
-  renderLibrary();
+function enterLibEditMode(){
+  if(!isAdmin()){alert('관리자만 수정모드를 사용할 수 있습니다.');return;}
+  libEditMode=true; manageFabs(); renderLibrary();
 }
-function exitLibEditMode() {
-  libEditMode = false;
-  manageFabs();
-  renderLibrary();
+function exitLibEditMode(){
+  libEditMode=false; manageFabs(); renderLibrary();
 }
-function exitActiveEditMode() {
-  if (editMode) exitEditMode();
-  else if (libEditMode) exitLibEditMode();
+function exitActiveEditMode(){
+  if(editMode)exitEditMode();
+  else if(libEditMode)exitLibEditMode();
 }
 
 /* ── GALLERY ── */
 function renderGallery() {
-  var g = document.getElementById('gallery');
-  var html = '';
-
-  if (editMode) {
-    // Edit mode: show ALL posts (image + text), drag to assign category
-    var allItems = posts.filter(function(p) { return p.sec === '개념들' || p.sec === '단어들'; });
-
-    html += '<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
-    html += '<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
-    html += '</div>';
-
-    // Uncategorized section
-    html += '<div class="gal-cat-section"><div class="gal-cat-edit-header"><span class="gal-cat-edit-name" style="color:#bbb;font-weight:400;font-size:13px;">미분류</span></div>';
-    html += '<div class="gal-cat-drop" data-cat="" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'\')">';
-    var uncatItems = allItems.filter(function(p) { return !p.pos_cat || !findIn(postCats, function(c) { return c.name === p.pos_cat; }); });
-    uncatItems.forEach(function(p) { html += buildEditCardHtml(p); });
-    html += '</div></div>';
-
-    // Category sections
-    postCats.forEach(function(cat) {
-      var catItems = allItems.filter(function(p) { return p.pos_cat === cat.name; });
-      html += '<div class="gal-cat-section" style="margin-top:32px;">';
-      html += '<div class="gal-cat-edit-header">';
-      html += '<span class="gal-cat-edit-name">' + cat.name + '</span>';
-      html += '<button class="gal-cat-del-btn" onclick="removePostCat(\'' + cat.id + '\')">삭제</button>';
-      html += '</div>';
-      html += '<div class="gal-cat-drop" data-cat="' + cat.name + '" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'' + cat.name + '\')">';
-      catItems.forEach(function(p) { html += buildEditCardHtml(p); });
-      html += '</div></div>';
+  var g=document.getElementById('gallery');
+  var html='';
+  if(editMode) {
+    var allItems=posts.filter(function(p){return p.sec==='개념들'||p.sec==='단어들';});
+    html+='<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
+    html+='<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
+    html+='</div>';
+    // 미분류
+    html+='<div class="gal-cat-section"><div class="gal-cat-edit-header"><span class="gal-cat-edit-name" style="color:#bbb;font-weight:400;font-size:13px;">미분류</span></div>';
+    html+='<div class="gal-cat-drop" data-cat="" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'\')">';
+    posts.filter(function(p){return (p.sec==='개념들'||p.sec==='단어들')&&(!p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;}));})
+      .forEach(function(p){html+=buildEditCardHtml(p);});
+    html+='</div></div>';
+    postCats.forEach(function(cat){
+      html+='<div class="gal-cat-section" style="margin-top:32px;"><div class="gal-cat-edit-header">';
+      html+='<span class="gal-cat-edit-name">'+cat.name+'</span>';
+      html+='<button class="gal-cat-del-btn" onclick="removePostCat(\''+cat.id+'\')">삭제</button>';
+      html+='</div><div class="gal-cat-drop" data-cat="'+cat.name+'" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\''+cat.name+'\')">';
+      posts.filter(function(p){return (p.sec==='개념들'||p.sec==='단어들')&&p.pos_cat===cat.name;})
+        .forEach(function(p){html+=buildEditCardHtml(p);});
+      html+='</div></div>';
     });
   } else {
-    // Normal view: image posts only
-    var galItems = posts.filter(function(p) { return p.sec === '개념들' && p.img; });
-    var uncatItems2 = galItems.filter(function(p) { return !p.pos_cat || !findIn(postCats, function(c) { return c.name === p.pos_cat; }); });
-    uncatItems2.forEach(function(p) { html += buildCardHtml(p); });
-    postCats.forEach(function(cat) {
-      var catItems = galItems.filter(function(p) { return p.pos_cat === cat.name; });
-      if (!catItems.length) return;
-      html += '<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">' + cat.name + '</div>';
-      catItems.forEach(function(p) { html += buildCardHtml(p); });
+    var galItems=posts.filter(function(p){return p.sec==='개념들'&&p.img;});
+    posts.filter(function(p){return p.sec==='개념들'&&p.img&&(!p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;}));})
+      .forEach(function(p){html+=buildCardHtml(p);});
+    postCats.forEach(function(cat){
+      var items=galItems.filter(function(p){return p.pos_cat===cat.name;});
+      if(!items.length)return;
+      html+='<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">'+cat.name+'</div>';
+      items.forEach(function(p){html+=buildCardHtml(p);});
     });
   }
-
-  if (!html) html = '<p class="loading">게시물이 없습니다.</p>';
-  g.innerHTML = html;
+  if(!html)html='<p class="loading">게시물이 없습니다.</p>';
+  g.innerHTML=html;
 }
-
 function buildCardHtml(p) {
-  return '<div class="card" onclick="showDetail(' + p.id + ')">' +
-    '<img src="' + p.img + '" alt="' + p.title + '" loading="lazy" onload="setThumbSize(this)">' +
-    '<div class="card-cap">' + p.title + '</div></div>';
+  return '<div class="card" onclick="showDetail('+p.id+')">' +
+    '<img src="'+p.img+'" alt="'+p.title+'" loading="lazy" onload="setThumbSize(this)">' +
+    '<div class="card-cap">'+p.title+'</div></div>';
 }
-
 function buildEditCardHtml(p) {
-  var hasImg = p.img && p.img.length > 0;
-  var cls = 'card' + (hasImg ? '' : ' card-text');
-  var html = '<div class="' + cls + '" draggable="true" data-post-id="' + p.id + '"';
-  html += ' ondragstart="onGalCardDragStart(event,' + p.id + ')"';
-  html += ' ondragend="onGalCardDragEnd(event)"';
-  html += ' onclick="showDetail(' + p.id + ')">';
-  if (hasImg) {
-    html += '<img src="' + p.img + '" alt="' + p.title + '" loading="lazy" onload="setThumbSize(this)">';
-  }
-  html += '<div class="card-cap">' + p.title + '</div>';
-  html += '</div>';
+  var hasImg=p.img&&p.img.length>0;
+  var html='<div class="card'+(hasImg?'':' card-text')+'" draggable="true" data-post-id="'+p.id+'"';
+  html+=' ondragstart="onGalCardDragStart(event,'+p.id+')" ondragend="onGalCardDragEnd(event)"';
+  html+=' onclick="showDetail('+p.id+')">';
+  if(hasImg)html+='<img src="'+p.img+'" alt="'+p.title+'" loading="lazy" onload="setThumbSize(this)">';
+  html+='<div class="card-cap">'+p.title+'</div></div>';
   return html;
 }
-
-/* Gallery drag-drop for category assignment */
-function onGalCardDragStart(e, id) {
-  galDragSrcId = id;
-  e.dataTransfer.effectAllowed = 'move';
-  e.dataTransfer.setData('text/plain', String(id));
-  setTimeout(function() {
-    var el = document.querySelector('[data-post-id="' + id + '"]');
-    if (el) el.classList.add('dragging');
-  }, 0);
+function onGalCardDragStart(e,id){
+  galDragSrcId=id; e.dataTransfer.effectAllowed='move'; e.dataTransfer.setData('text/plain',String(id));
+  setTimeout(function(){var el=document.querySelector('[data-post-id="'+id+'"]');if(el)el.classList.add('dragging');},0);
 }
-function onGalCardDragEnd(e) {
-  e.currentTarget.classList.remove('dragging');
-  galDragSrcId = null;
-}
-function onGalCatDragOver(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  e.currentTarget.classList.add('drag-over');
-}
-function onGalCatDragLeave(e) {
-  e.currentTarget.classList.remove('drag-over');
-}
-function onGalCatDrop(e, catName) {
-  e.preventDefault();
-  e.stopPropagation();
-  document.querySelectorAll('.gal-cat-drop.drag-over').forEach(function(el) { el.classList.remove('drag-over'); });
-  var srcId = galDragSrcId;
-  if (srcId === null || srcId === undefined) {
-    var dt = e.dataTransfer.getData('text/plain');
-    if (dt) srcId = parseInt(dt);
-  }
-  if (!srcId) { galDragSrcId = null; return; }
-  var p = findIn(posts, function(x) { return x.id === srcId; });
-  if (p && p.pos_cat !== catName) {
-    p.pos_cat = catName;
-    dbUpdate(srcId, { pos_cat: catName });
-    renderGallery();
-  }
-  galDragSrcId = null;
+function onGalCardDragEnd(e){e.currentTarget.classList.remove('dragging');galDragSrcId=null;}
+function onGalCatDragOver(e){e.preventDefault();e.stopPropagation();e.currentTarget.classList.add('drag-over');}
+function onGalCatDragLeave(e){e.currentTarget.classList.remove('drag-over');}
+function onGalCatDrop(e,catName){
+  e.preventDefault();e.stopPropagation();
+  document.querySelectorAll('.gal-cat-drop.drag-over').forEach(function(el){el.classList.remove('drag-over');});
+  var srcId=galDragSrcId;
+  if(srcId===null||srcId===undefined){var dt=e.dataTransfer.getData('text/plain');if(dt)srcId=parseInt(dt);}
+  if(!srcId){galDragSrcId=null;return;}
+  var p=findIn(posts,function(x){return x.id===srcId;});
+  if(p&&p.pos_cat!==catName){p.pos_cat=catName;dbUpdate(srcId,{pos_cat:catName});renderGallery();}
+  galDragSrcId=null;
 }
 
-/* ── POST CATEGORIES ── */
+/* ── 개념들 카테고리 ── */
 function renderPostCatsList() {
-  var el = document.getElementById('post-cats-list'); if (!el) return;
-  if (!postCats.length) { el.innerHTML = '<p style="font-size:13px;color:#bbb;">카테고리 없음</p>'; return; }
-  el.innerHTML = postCats.map(function(c) {
+  var el=document.getElementById('post-cats-list');if(!el)return;
+  if(!postCats.length){el.innerHTML='<p style="font-size:13px;color:#bbb;">카테고리 없음</p>';return;}
+  el.innerHTML=postCats.map(function(c){
     return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f0f0f0;">' +
-      '<span style="font-size:14.6px;">' + c.name + '</span>' +
-      '<button onclick="removePostCat(\'' + c.id + '\')" style="background:none;border:none;cursor:pointer;color:#bbb;font-size:16px;">×</button>' +
-      '</div>';
+      '<span style="font-size:14.6px;">'+c.name+'</span>' +
+      '<button onclick="removePostCat(\''+c.id+'\')" style="background:none;border:none;cursor:pointer;color:#bbb;font-size:16px;">×</button></div>';
   }).join('');
 }
 function addPostCat() {
-  var name = document.getElementById('pc-name').value.trim(); if (!name) return;
-  if (findIn(postCats, function(c) { return c.name === name; })) { alert('이미 있는 카테고리예요.'); return; }
-  postCats.push({ id: genId(), name: name, order: postCats.length });
-  saveSetting('post_cats', postCats);
-  document.getElementById('pc-name').value = '';
-  renderPostCatsList(); renderGallery();
+  var name=document.getElementById('pc-name').value.trim();if(!name)return;
+  if(findIn(postCats,function(c){return c.name===name;})){alert('이미 있는 카테고리예요.');return;}
+  postCats.push({id:genId(),name:name,order:postCats.length});
+  saveSetting('post_cats',postCats);
+  document.getElementById('pc-name').value='';
+  renderPostCatsList();renderGallery();
 }
 function removePostCat(id) {
-  postCats = postCats.filter(function(c) { return c.id !== id; });
-  saveSetting('post_cats', postCats);
-  renderPostCatsList(); renderGallery();
+  postCats=postCats.filter(function(c){return c.id!==id;});
+  saveSetting('post_cats',postCats);
+  renderPostCatsList();renderGallery();
 }
 
 /* ── DANUH ── */
 function renderDanuh() {
-  var el = document.getElementById('danuh-list');
-  var items = posts.filter(function(p) { return p.sec === '단어들' || (!p.img && p.sec !== 'link' && p.sec !== '개념들'); });
-  el.innerHTML = items.map(function(p) { return '<li onclick="showDetail(' + p.id + ')">' + p.title + '</li>'; }).join('');
+  var el=document.getElementById('danuh-list');
+  var items=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들');});
+  el.innerHTML=items.map(function(p){return '<li onclick="showDetail('+p.id+')">'+p.title+'</li>';}).join('');
 }
 
 /* ── DETAIL ── */
-function showDetail(postId, doPush) {
-  if (doPush === undefined) doPush = true;
-  var p = findIn(posts, function(x) { return x.id === postId; }); if (!p) return;
-  currentId = postId; savedScrollY = window.scrollY;
-  document.querySelectorAll('.pg').forEach(function(x) { x.classList.remove('on'); });
-  document.getElementById('dv').style.display = 'block';
+function showDetail(postId,doPush) {
+  if(doPush===undefined)doPush=true;
+  var p=findIn(posts,function(x){return x.id===postId;});if(!p)return;
+  currentId=postId; savedScrollY=window.scrollY;
+  document.querySelectorAll('.pg').forEach(function(x){x.classList.remove('on');});
+  document.getElementById('dv').style.display='block';
+  // FAB: 전부 숨기고 수정버튼만
+  ['fab-write','fab-donut','fab-lib-toggle','fab-book','fab-cat','fab-done'].forEach(function(id){
+    document.getElementById(id).style.display='none';
+  });
+  document.getElementById('fab-edit').style.display=canEdit(p)?'flex':'none';
 
-  // Hide all fab-stack items, then show edit if allowed
-  document.getElementById('fab-write').style.display = 'none';
-  document.getElementById('fab-donut').style.display = 'none';
-  document.getElementById('fab-lib-toggle').style.display = 'none';
-  document.getElementById('fab-book').style.display = 'none';
-  document.getElementById('fab-cat').style.display = 'none';
-  document.getElementById('fab-done').style.display = 'none';
-  document.getElementById('fab-edit').style.display = canEdit(p) ? 'flex' : 'none';
-
-  // ── PARENT TEMPLATE BOX (if this post is a child of any template) ──
-  var tplBox = document.getElementById('d-template-box');
-  var parentTpl = null;
-  for (var i = 0; i < posts.length; i++) {
-    if (posts[i].is_template && posts[i].sub_docs && posts[i].sub_docs.indexOf(postId) >= 0) {
-      parentTpl = posts[i]; break;
-    }
+  // 자식문서: 틀 박스
+  var tplBox=document.getElementById('d-template-box');
+  var parentTpl=null;
+  for(var i=0;i<posts.length;i++){
+    if(posts[i].is_template&&posts[i].sub_docs&&posts[i].sub_docs.indexOf(postId)>=0){parentTpl=posts[i];break;}
   }
-  if (parentTpl) {
-    var siblings = (parentTpl.sub_docs || []).filter(function(sid) { return sid !== postId; });
-    var tplHtml = '<span class="tpl-box-name" onclick="showDetail(' + parentTpl.id + ')">' + parentTpl.title + ' 틀</span>';
-    siblings.forEach(function(sid) {
-      var s = findIn(posts, function(x) { return x.id === sid; });
-      if (s) tplHtml += '<span class="tpl-box-sep">·</span><span class="tpl-box-sibling" onclick="showDetail(' + sid + ')">' + s.title + '</span>';
+  if(parentTpl){
+    var siblings=(parentTpl.sub_docs||[]).filter(function(sid){return sid!==postId;});
+    var tplHtml='<span class="tpl-box-name" onclick="showDetail('+parentTpl.id+')">'+parentTpl.title+' 틀</span>';
+    siblings.forEach(function(sid){
+      var s=findIn(posts,function(x){return x.id===sid;});
+      if(s)tplHtml+='<span class="tpl-box-sep">·</span><span class="tpl-box-sibling" onclick="showDetail('+sid+')">'+s.title+'</span>';
     });
-    tplBox.innerHTML = tplHtml;
-    tplBox.style.display = 'inline-flex';
-  } else {
-    tplBox.style.display = 'none';
-    tplBox.innerHTML = '';
-  }
+    tplBox.innerHTML=tplHtml; tplBox.style.display='inline-flex';
+  } else {tplBox.style.display='none';tplBox.innerHTML='';}
 
-  document.getElementById('d-title').textContent = p.title;
-  document.getElementById('d-text').innerHTML = wikiRender(p.body || '');
-  document.getElementById('d-author').textContent = p.author_nickname || '';
+  document.getElementById('d-title').textContent=p.title;
+  document.getElementById('d-text').innerHTML=wikiRender(p.body||'');
+  document.getElementById('d-author').textContent=p.author_nickname||'';
 
-  // ── SUBDOCS (parent template: show below body, above back btn, no separator/label, no underline) ──
-  var subEl = document.getElementById('d-subdocs');
-  if (p.is_template && p.sub_docs && p.sub_docs.length) {
-    var subHtml = '<div class="subdocs-inline">';
-    for (var j = 0; j < p.sub_docs.length; j++) {
-      var sub = findIn(posts, function(x) { return x.id === p.sub_docs[j]; });
-      if (sub) subHtml += '<span class="subdoc-inline-link" onclick="showDetail(' + sub.id + ')">→ ' + sub.title + '</span>';
+  // 부모문서: 하위문서 목록
+  var subEl=document.getElementById('d-subdocs');
+  if(p.is_template&&p.sub_docs&&p.sub_docs.length){
+    var subHtml='<div class="subdocs-inline">';
+    for(var j=0;j<p.sub_docs.length;j++){
+      var sub=findIn(posts,function(x){return x.id===p.sub_docs[j];});
+      if(sub)subHtml+='<span class="subdoc-inline-link" onclick="showDetail('+sub.id+')">→ '+sub.title+'</span>';
     }
-    subHtml += '</div>';
-    subEl.innerHTML = subHtml;
-    subEl.style.display = 'block';
-  } else {
-    subEl.style.display = 'none';
-    subEl.innerHTML = '';
-  }
+    subHtml+='</div>';
+    subEl.innerHTML=subHtml; subEl.style.display='block';
+  } else {subEl.style.display='none';subEl.innerHTML='';}
 
-  // ── BACK BUTTON (below subdocs) ──
-  document.getElementById('d-back').innerHTML = '<span class="back-btn" onclick="closeDetail()"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
+  // 뒤로가기
+  document.getElementById('d-back').innerHTML='<span class="back-btn" onclick="closeDetail()"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
 
-  // ── RELATED ──
-  var tags = p.tags || [];
-  var rel = posts.filter(function(x) { return x.id !== postId && x.tags && x.tags.some(function(t) { return tags.indexOf(t) >= 0; }); }).slice(0, 5);
-  var wrap = document.getElementById('d-rel-wrap');
-  if (rel.length) { wrap.style.display = 'block'; document.getElementById('d-related').innerHTML = rel.map(function(r) { return '<div class="rel-item"><span class="wiki-link" onclick="showDetail(' + r.id + ')">' + r.title + '</span><span class="r-sec">' + r.sec + '</span></div>'; }).join(''); }
-  else wrap.style.display = 'none';
+  // 관련 게시물
+  var tags=p.tags||[];
+  var rel=posts.filter(function(x){return x.id!==postId&&x.tags&&x.tags.some(function(t){return tags.indexOf(t)>=0;});}).slice(0,5);
+  var wrap=document.getElementById('d-rel-wrap');
+  if(rel.length){wrap.style.display='block';document.getElementById('d-related').innerHTML=rel.map(function(r){return '<div class="rel-item"><span class="wiki-link" onclick="showDetail('+r.id+')">'+r.title+'</span><span class="r-sec">'+r.sec+'</span></div>';}).join('');}
+  else wrap.style.display='none';
 
-  if (doPush) { safePush({ type: 'post', id: postId }, '/' + encodeURIComponent(p.title)); var desc = p.body ? p.body.replace(/\[\[.*?\]\]/g, '').slice(0, 120).trim() + '…' : ''; setMeta(p.title, desc, p.img || ''); }
-  window.scrollTo(0, 0); setTimeout(function() { window.scrollTo(0, 0); }, 80);
+  if(doPush){safePush({type:'post',id:postId},'/'+encodeURIComponent(p.title));var desc=p.body?p.body.replace(/\[\[.*?\]\]/g,'').slice(0,120).trim()+'…':'';setMeta(p.title,desc,p.img||'');}
+  window.scrollTo(0,0); setTimeout(function(){window.scrollTo(0,0);},80);
 }
-
 function closeDetail(doPush) {
-  if (doPush === undefined) doPush = true;
-  document.getElementById('dv').style.display = 'none';
-  currentId = null;
-  go(cur, doPush);
-  setTimeout(function() { window.scrollTo(0, savedScrollY); }, 0);
+  if(doPush===undefined)doPush=true;
+  document.getElementById('dv').style.display='none';
+  currentId=null; go(cur,doPush);
+  setTimeout(function(){window.scrollTo(0,savedScrollY);},0);
 }
-
-window.addEventListener('popstate', function(e) {
-  var st = e.state;
-  if (!st) { go('개념들', false); return; }
-  if (st.type === 'post') showDetail(st.id, false);
-  else if (st.type === 'sec') go(st.sec, false);
-  else go('개념들', false);
+window.addEventListener('popstate',function(e){
+  var st=e.state;
+  if(!st){go('개념들',false);return;}
+  if(st.type==='post')showDetail(st.id,false);
+  else if(st.type==='sec')go(st.sec,false);
+  else go('개념들',false);
 });
 
 /* ── WIKI RENDER ── */
 function wikiRender(text) {
-  var footnotes = [];
-  var processed = text.replace(/\(\((.+?)\)\)/g, function(_, fn) { footnotes.push(fn); return '\x01FN' + footnotes.length + '\x01'; });
-  var html = processed
-    .replace(/\[\[img:([^\]]+)\]\]/g, function(_, url) { return '</p><img class="d-img-plate" src="' + url + '" alt=""><p>'; })
-    .replace(/\x01FN(\d+)\x01/g, function(_, n) { return '<sup style="font-size:0.7em;">' + n + ')</sup>'; })
-    .replace(/\[\[(.+?)\]\]/g, function(_, w) {
-      var t = findIn(posts, function(p) { return p.title === w || (p.tags && p.tags.indexOf(w) >= 0); });
-      if (t) {
-        if (t.external_url) return '<span class="ext-link" onclick="window.open(\'' + t.external_url.replace(/\'/g, "\\'") + '\',\'_blank\')">' + w + ' ↗</span>';
-        if (t.sec !== 'link') return '<span class="wiki-link" onclick="showDetail(' + t.id + ')">' + w + '</span>';
+  var footnotes=[];
+  var processed=text.replace(/\(\((.+?)\)\)/g,function(_,fn){footnotes.push(fn);return'\x01FN'+footnotes.length+'\x01';});
+  var html=processed
+    .replace(/\[\[img:([^\]]+)\]\]/g,function(_,url){return '</p><img class="d-img-plate" src="'+url+'" alt=""><p>';})
+    .replace(/\x01FN(\d+)\x01/g,function(_,n){return '<sup style="font-size:0.7em;">'+n+')</sup>';})
+    .replace(/\[\[(.+?)\]\]/g,function(_,w){
+      var t=findIn(posts,function(p){return p.title===w||(p.tags&&p.tags.indexOf(w)>=0);});
+      if(t){
+        if(t.external_url)return '<span class="ext-link" onclick="window.open(\''+t.external_url.replace(/\'/g,"\\'")+'\',' + "'_blank'" + ')">'+w+' ↗</span>';
+        if(t.sec!=='link')return '<span class="wiki-link" onclick="showDetail('+t.id+')">'+w+'</span>';
       }
-      return '<span class="wiki-link dead-link" data-word="' + w.replace(/"/g, '&quot;') + '">' + w + '</span>';
+      return '<span class="wiki-link dead-link" data-word="'+w.replace(/"/g,'&quot;')+'">'+w+'</span>';
     })
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-    .replace(/\n\n/g, '</p><p style="margin-top:14px;">')
-    .replace(/\n/g, '<br>');
-  html = '<p>' + html + '</p>';
-  html = html.replace(/<p[^>]*>\s*<\/p>/g, '');
-  if (footnotes.length) {
-    html += '<div class="fn-block">';
-    for (var i = 0; i < footnotes.length; i++) { html += '<div class="fn-item">' + (i + 1) + ') ' + footnotes[i] + '</div>'; }
-    html += '</div>';
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g,'<em>$1</em>')
+    .replace(/\n\n/g,'</p><p style="margin-top:14px;">')
+    .replace(/\n/g,'<br>');
+  html='<p>'+html+'</p>';
+  html=html.replace(/<p[^>]*>\s*<\/p>/g,'');
+  if(footnotes.length){
+    html+='<div class="fn-block">';
+    for(var i=0;i<footnotes.length;i++)html+='<div class="fn-item">'+(i+1)+') '+footnotes[i]+'</div>';
+    html+='</div>';
   }
   return html;
 }
-document.addEventListener('click', function(e) { var el = e.target.closest && e.target.closest('.dead-link'); if (el) openDeadend(el.getAttribute('data-word')); });
+document.addEventListener('click',function(e){var el=e.target.closest&&e.target.closest('.dead-link');if(el)openDeadend(el.getAttribute('data-word'));});
 
 /* ── LIBRARY ── */
-function renderBtnGroup(containerId, cats, activeName, onSelect) {
-  var rootCats = cats.filter(function(c) { return !c.parentId; });
-  var all = [];
-  rootCats.sort(function(a, b) { return a.order - b.order; }).forEach(function(c) {
+function renderBtnGroup(containerId,cats,activeName,onSelect) {
+  var rootCats=cats.filter(function(c){return !c.parentId;});
+  var all=[];
+  rootCats.sort(function(a,b){return a.order-b.order;}).forEach(function(c){
     all.push(c);
-    var subs = cats.filter(function(s) { return s.parentId === c.id; });
-    subs.sort(function(a, b) { return a.order - b.order; }).forEach(function(s) { all.push(s); });
+    cats.filter(function(s){return s.parentId===c.id;}).sort(function(a,b){return a.order-b.order;}).forEach(function(s){all.push(s);});
   });
-  var html = all.map(function(c) {
-    var prefix = c.parentId ? 'ㄴ ' : '';
-    return '<button class="cat-btn' + (c.name === activeName ? ' active' : '') + '" onclick="handleCatBtnClick(\'' + c.name + '\',\'' + containerId + '\')">' + prefix + c.name + '</button>';
+  var html=all.map(function(c){
+    var prefix=c.parentId?'ㄴ ':'';
+    return '<button class="cat-btn'+(c.name===activeName?' active':'')+'" onclick="handleCatBtnClick(\''+c.name+'\',\''+containerId+'\')">'+prefix+c.name+'</button>';
   }).join('');
-  var el = document.getElementById(containerId); if (el) el.innerHTML = html;
+  var el=document.getElementById(containerId);if(el)el.innerHTML=html;
 }
-function handleCatBtnClick(name, containerId) {
-  if (containerId === 'book-cat-btns') newBookCat = name;
-  if (containerId === 'be-cat-btns') editBookCat = name;
-  renderBtnGroup(containerId, libCats, name, null);
+function handleCatBtnClick(name,containerId) {
+  if(containerId==='book-cat-btns')newBookCat=name;
+  if(containerId==='be-cat-btns')editBookCat=name;
+  renderBtnGroup(containerId,libCats,name,null);
 }
-
 function renderLibrary() {
-  var el = document.getElementById('lib-cats'); if (!el) return;
-  var rootCats = libCats.filter(function(c) { return !c.parentId; });
-  rootCats.sort(function(a, b) { return a.order - b.order; });
-  var html = '';
-  rootCats.forEach(function(cat) {
-    html += '<div class="lib-cat-group">';
-    html += renderLibCatHtml(cat, false);
-    var subs = libCats.filter(function(s) { return s.parentId === cat.id; });
-    subs.sort(function(a, b) { return a.order - b.order; });
-    subs.forEach(function(sub) { html += renderLibCatHtml(sub, true); });
-    html += '</div>';
+  var el=document.getElementById('lib-cats');if(!el)return;
+  var rootCats=libCats.filter(function(c){return !c.parentId;});
+  rootCats.sort(function(a,b){return a.order-b.order;});
+  var html='';
+  rootCats.forEach(function(cat){
+    html+='<div class="lib-cat-group">';
+    html+=renderLibCatHtml(cat,false);
+    libCats.filter(function(s){return s.parentId===cat.id;}).sort(function(a,b){return a.order-b.order;})
+      .forEach(function(sub){html+=renderLibCatHtml(sub,true);});
+    html+='</div>';
   });
-  el.innerHTML = html;
+  el.innerHTML=html;
 }
-
-function renderLibCatHtml(cat, isSub) {
-  var catBooks = books.filter(function(b) { return b.category === cat.name; });
-  catBooks.sort(function(a, b) { return a.order_index - b.order_index; });
-  // Edit buttons only in libEditMode and admin
-  var editBtn = (libEditMode && isAdmin()) ? ' <button class="lib-cat-edit-btn" onclick="openLibCatEdit(\'' + cat.id + '\')">수정</button>' : '';
-  var cls = isSub ? 'lib-sub-cat' : 'lib-cat';
-  var labelCls = isSub ? 'lib-sub-label' : 'lib-cat-label';
-  var html = '<div class="' + cls + '" data-cat="' + cat.name + '" ondragover="onCatDragOver(event)" ondrop="onCatDrop(event,\'' + cat.name + '\')">';
-  html += '<div class="' + labelCls + '">' + cat.name + editBtn + '</div>';
-  html += '<div class="lib-books">';
-  catBooks.forEach(function(b) {
-    var exp = expandedBookId === b.id;
-    html += '<div class="book-card' + (exp ? ' expanded' : '') + '" data-book-id="' + b.id + '" draggable="true"';
-    html += ' ondragstart="onBookDragStart(event,' + b.id + ')" ondragover="onBookDragOver(event,' + b.id + ')" ondragleave="onBookDragLeave(event)" ondrop="onBookDrop(event,' + b.id + ')" ondragend="onDragEnd()"';
-    html += ' ontouchstart="onBookTouchStart(event,' + b.id + ')" ontouchmove="onBookTouchMove(event)" ontouchend="onBookTouchEnd(event)">';
-    html += '<div class="book-title" onclick="toggleBook(' + b.id + ')">' + b.title + '</div>';
-    if (exp) {
-      if (b.description) html += '<div class="book-expand">' + b.description + '</div>';
-      if (b.author) html += '<div class="book-expand-author">' + b.author + '</div>';
-      // Book edit button only in libEditMode
-      if (libEditMode && authUser) html += '<button class="book-edit-btn" onclick="openBookEdit(' + b.id + ')">수정</button>';
+function renderLibCatHtml(cat,isSub) {
+  var catBooks=books.filter(function(b){return b.category===cat.name;});
+  catBooks.sort(function(a,b){return a.order_index-b.order_index;});
+  var editBtn=(libEditMode&&isAdmin())?' <button class="lib-cat-edit-btn" onclick="openLibCatEdit(\''+cat.id+'\')">수정</button>':'';
+  var cls=isSub?'lib-sub-cat':'lib-cat';
+  var labelCls=isSub?'lib-sub-label':'lib-cat-label';
+  var html='<div class="'+cls+'" data-cat="'+cat.name+'" ondragover="onCatDragOver(event)" ondrop="onCatDrop(event,\''+cat.name+'\')">';
+  html+='<div class="'+labelCls+'">'+cat.name+editBtn+'</div>';
+  html+='<div class="lib-books">';
+  catBooks.forEach(function(b){
+    var exp=expandedBookId===b.id;
+    html+='<div class="book-card'+(exp?' expanded':'')+'" data-book-id="'+b.id+'" draggable="true"';
+    html+=' ondragstart="onBookDragStart(event,'+b.id+')" ondragover="onBookDragOver(event,'+b.id+')" ondragleave="onBookDragLeave(event)" ondrop="onBookDrop(event,'+b.id+')" ondragend="onDragEnd()"';
+    html+=' ontouchstart="onBookTouchStart(event,'+b.id+')" ontouchmove="onBookTouchMove(event)" ontouchend="onBookTouchEnd(event)">';
+    html+='<div class="book-title" onclick="toggleBook('+b.id+')">'+b.title+'</div>';
+    if(exp){
+      if(b.description)html+='<div class="book-expand">'+b.description+'</div>';
+      if(b.author)html+='<div class="book-expand-author">'+b.author+'</div>';
+      if(libEditMode&&authUser)html+='<button class="book-edit-btn" onclick="openBookEdit('+b.id+')">수정</button>';
     }
-    html += '</div>';
+    html+='</div>';
   });
-  if (!catBooks.length) html += '<div class="cat-drop-zone" ondragover="onCatDragOver(event)" ondrop="onCatDrop(event,\'' + cat.name + '\')">여기에 책을 드래그하세요</div>';
-  html += '</div></div>';
+  if(!catBooks.length)html+='<div class="cat-drop-zone" ondragover="onCatDragOver(event)" ondrop="onCatDrop(event,\''+cat.name+'\')">여기에 책을 드래그하세요</div>';
+  html+='</div></div>';
   return html;
 }
-function toggleBook(id) { expandedBookId = expandedBookId === id ? null : id; renderLibrary(); }
+function toggleBook(id){expandedBookId=expandedBookId===id?null:id;renderLibrary();}
 
-/* Library category CRUD */
+/* Library 카테고리 CRUD */
 function buildParentSelect(selectedId) {
-  var sel = document.getElementById('lc-parent'); if (!sel) return;
-  var opts = '<option value="">없음 (최상위)</option>';
-  var rootCats = libCats.filter(function(c) { return !c.parentId && c.id !== editingLibCatId; });
-  rootCats.forEach(function(c) { opts += '<option value="' + c.id + '"' + (selectedId === c.id ? ' selected' : '') + '>' + c.name + '</option>'; });
-  sel.innerHTML = opts;
+  var sel=document.getElementById('lc-parent');if(!sel)return;
+  var opts='<option value="">없음 (최상위)</option>';
+  libCats.filter(function(c){return !c.parentId&&c.id!==editingLibCatId;})
+    .forEach(function(c){opts+='<option value="'+c.id+'"'+(selectedId===c.id?' selected':'')+'>'+c.name+'</option>';});
+  sel.innerHTML=opts;
 }
 function openLibCatEdit(id) {
-  var cat = findIn(libCats, function(c) { return c.id === id; }); if (!cat) return;
-  editingLibCatId = id;
-  document.getElementById('lib-cat-panel-title').textContent = '카테고리 수정';
-  document.getElementById('lc-name').value = cat.name;
-  document.getElementById('lc-delete-btn').style.display = 'block';
+  var cat=findIn(libCats,function(c){return c.id===id;});if(!cat)return;
+  editingLibCatId=id;
+  document.getElementById('lib-cat-panel-title').textContent='카테고리 수정';
+  document.getElementById('lc-name').value=cat.name;
+  document.getElementById('lc-delete-btn').style.display='block';
   buildParentSelect(cat.parentId);
   showPanel('lib-cat-panel');
 }
 function submitLibCat() {
-  var name = document.getElementById('lc-name').value.trim(); if (!name) return;
-  var parentId = document.getElementById('lc-parent').value || null;
-  if (editingLibCatId) {
-    var cat = findIn(libCats, function(c) { return c.id === editingLibCatId; });
-    if (cat) {
-      var oldName = cat.name; cat.name = name; cat.parentId = parentId;
-      books.forEach(function(b) { if (b.category === oldName) { b.category = name; dbUpdateBook(b.id, { category: name }); } });
+  var name=document.getElementById('lc-name').value.trim();if(!name)return;
+  var parentId=document.getElementById('lc-parent').value||null;
+  if(editingLibCatId){
+    var cat=findIn(libCats,function(c){return c.id===editingLibCatId;});
+    if(cat){
+      var oldName=cat.name;cat.name=name;cat.parentId=parentId;
+      books.forEach(function(b){if(b.category===oldName){b.category=name;dbUpdateBook(b.id,{category:name});}});
     }
   } else {
-    libCats.push({ id: genId(), name: name, parentId: parentId, order: libCats.length });
+    libCats.push({id:genId(),name:name,parentId:parentId,order:libCats.length});
   }
-  saveSetting('lib_cats', libCats);
-  document.getElementById('lc-ok').style.display = 'block';
-  setTimeout(function() { document.getElementById('lc-ok').style.display = 'none'; }, 2000);
-  closeAllPanels(); renderLibrary();
+  saveSetting('lib_cats',libCats);
+  document.getElementById('lc-ok').style.display='block';
+  setTimeout(function(){document.getElementById('lc-ok').style.display='none';},2000);
+  closeAllPanels();renderLibrary();
 }
 function deleteLibCat() {
-  if (!confirm('카테고리를 삭제하시겠습니까?')) return;
-  libCats = libCats.filter(function(c) { return c.id !== editingLibCatId && c.parentId !== editingLibCatId; });
-  saveSetting('lib_cats', libCats);
-  closeAllPanels(); renderLibrary();
+  if(!confirm('카테고리를 삭제하시겠습니까?'))return;
+  libCats=libCats.filter(function(c){return c.id!==editingLibCatId&&c.parentId!==editingLibCatId;});
+  saveSetting('lib_cats',libCats);
+  closeAllPanels();renderLibrary();
 }
 
 /* Book CRUD */
 function openBookEdit(id) {
-  var b = findIn(books, function(x) { return x.id === id; }); if (!b) return;
-  editingBookId = id; editBookCat = b.category;
-  document.getElementById('be-title').value = b.title;
-  document.getElementById('be-author').value = b.author || '';
-  document.getElementById('be-desc').value = b.description || '';
-  renderBtnGroup('be-cat-btns', libCats, editBookCat, null);
+  var b=findIn(books,function(x){return x.id===id;});if(!b)return;
+  editingBookId=id;editBookCat=b.category;
+  document.getElementById('be-title').value=b.title;
+  document.getElementById('be-author').value=b.author||'';
+  document.getElementById('be-desc').value=b.description||'';
+  renderBtnGroup('be-cat-btns',libCats,editBookCat,null);
   showPanel('book-edit-panel');
 }
 function submitBookEdit() {
-  var b = findIn(books, function(x) { return x.id === editingBookId; }); if (!b) return;
-  var patch = { title: document.getElementById('be-title').value.trim(), author: document.getElementById('be-author').value.trim(), description: document.getElementById('be-desc').value.trim(), category: editBookCat };
-  dbUpdateBook(b.id, patch); Object.assign(b, patch);
-  document.getElementById('be-ok').style.display = 'block';
-  setTimeout(function() { document.getElementById('be-ok').style.display = 'none'; }, 2000);
-  closeAllPanels(); expandedBookId = null; renderLibrary();
+  var b=findIn(books,function(x){return x.id===editingBookId;});if(!b)return;
+  var patch={title:document.getElementById('be-title').value.trim(),author:document.getElementById('be-author').value.trim(),description:document.getElementById('be-desc').value.trim(),category:editBookCat};
+  dbUpdateBook(b.id,patch);Object.assign(b,patch);
+  document.getElementById('be-ok').style.display='block';
+  setTimeout(function(){document.getElementById('be-ok').style.display='none';},2000);
+  closeAllPanels();expandedBookId=null;renderLibrary();
 }
 function deleteBook() {
-  if (!confirm('정말 삭제하시겠습니까?')) return;
-  dbDeleteBook(editingBookId).then(function() {
-    books = books.filter(function(b) { return b.id !== editingBookId; });
-    closeAllPanels(); expandedBookId = null; renderLibrary();
-  }).catch(function() { alert('삭제 실패.'); });
+  if(!confirm('정말 삭제하시겠습니까?'))return;
+  dbDeleteBook(editingBookId).then(function(){
+    books=books.filter(function(b){return b.id!==editingBookId;});
+    closeAllPanels();expandedBookId=null;renderLibrary();
+  }).catch(function(){alert('삭제 실패.');});
 }
 function submitBook() {
-  var title = document.getElementById('b-title').value.trim(); if (!title) { alert('제목을 입력해주세요.'); return; }
-  if (!newBookCat) { alert('카테고리를 선택해주세요.'); return; }
-  var cnt = books.filter(function(b) { return b.category === newBookCat; }).length;
-  dbInsertBook({ title: title, author: document.getElementById('b-author').value.trim(), description: document.getElementById('b-desc').value.trim(), category: newBookCat, order_index: cnt })
-    .then(function(saved) {
-      if (saved) books.push(saved);
-      document.getElementById('b-title').value = ''; document.getElementById('b-author').value = ''; document.getElementById('b-desc').value = '';
-      document.getElementById('b-ok').style.display = 'block';
-      setTimeout(function() { document.getElementById('b-ok').style.display = 'none'; }, 2500);
-      closeAllPanels(); renderLibrary();
+  var title=document.getElementById('b-title').value.trim();if(!title){alert('제목을 입력해주세요.');return;}
+  if(!newBookCat){alert('카테고리를 선택해주세요.');return;}
+  var cnt=books.filter(function(b){return b.category===newBookCat;}).length;
+  dbInsertBook({title:title,author:document.getElementById('b-author').value.trim(),description:document.getElementById('b-desc').value.trim(),category:newBookCat,order_index:cnt})
+    .then(function(saved){
+      if(saved)books.push(saved);
+      document.getElementById('b-title').value='';document.getElementById('b-author').value='';document.getElementById('b-desc').value='';
+      document.getElementById('b-ok').style.display='block';
+      setTimeout(function(){document.getElementById('b-ok').style.display='none';},2500);
+      closeAllPanels();renderLibrary();
     })
-    .catch(function() { document.getElementById('b-err').style.display = 'block'; setTimeout(function() { document.getElementById('b-err').style.display = 'none'; }, 3000); });
+    .catch(function(){document.getElementById('b-err').style.display='block';setTimeout(function(){document.getElementById('b-err').style.display='none';},3000);});
 }
 
-/* ── DRAG BOOKS (with before/after placement) ── */
-function onBookDragStart(e, id) {
-  dragSrcId = id;
-  e.dataTransfer.effectAllowed = 'move';
-  e.dataTransfer.setData('text/plain', String(id));
-  setTimeout(function() { var el = document.querySelector('[data-book-id="' + id + '"]'); if (el) el.classList.add('dragging'); }, 0);
+/* ── DRAG BOOKS ── */
+function onBookDragStart(e,id){
+  dragSrcId=id;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(id));
+  setTimeout(function(){var el=document.querySelector('[data-book-id="'+id+'"]');if(el)el.classList.add('dragging');},0);
 }
-function onBookDragOver(e, id) {
-  e.preventDefault();
-  e.stopPropagation();
-  // Show before/after indicator
-  document.querySelectorAll('.drag-before,.drag-after').forEach(function(el) { el.classList.remove('drag-before','drag-after'); });
-  var rect = e.currentTarget.getBoundingClientRect();
-  var midX = rect.left + rect.width / 2;
-  if (e.clientX < midX) e.currentTarget.classList.add('drag-before');
+function onBookDragOver(e,id){
+  e.preventDefault();e.stopPropagation();
+  document.querySelectorAll('.drag-before,.drag-after').forEach(function(el){el.classList.remove('drag-before','drag-after');});
+  var rect=e.currentTarget.getBoundingClientRect();
+  if(e.clientX<rect.left+rect.width/2)e.currentTarget.classList.add('drag-before');
   else e.currentTarget.classList.add('drag-after');
 }
-function onBookDragLeave(e) {
-  e.currentTarget.classList.remove('drag-before','drag-after','drag-over');
+function onBookDragLeave(e){e.currentTarget.classList.remove('drag-before','drag-after','drag-over');}
+function onBookDrop(e,targetId){
+  e.preventDefault();e.stopPropagation();
+  var insertBefore=e.clientX<(e.currentTarget.getBoundingClientRect().left+e.currentTarget.offsetWidth/2);
+  document.querySelectorAll('.drag-over,.drag-before,.drag-after').forEach(function(el){el.classList.remove('drag-over','drag-before','drag-after');});
+  if(dragSrcId&&dragSrcId!==targetId)performBookDrop(dragSrcId,targetId,null,insertBefore);
+  dragSrcId=null;
 }
-function onBookDrop(e, targetId) {
-  e.preventDefault(); e.stopPropagation();
-  var rect = e.currentTarget.getBoundingClientRect();
-  var insertBefore = e.clientX < (rect.left + rect.width / 2);
-  document.querySelectorAll('.drag-over,.drag-before,.drag-after').forEach(function(el) { el.classList.remove('drag-over','drag-before','drag-after'); });
-  if (dragSrcId && dragSrcId !== targetId) performBookDrop(dragSrcId, targetId, null, insertBefore);
-  dragSrcId = null;
-}
-function onCatDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
-function onCatDrop(e, cat) {
+function onCatDragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over');}
+function onCatDrop(e,cat){
   e.preventDefault();
-  document.querySelectorAll('.drag-over,.drag-before,.drag-after').forEach(function(el) { el.classList.remove('drag-over','drag-before','drag-after'); });
-  if (dragSrcId) performBookDrop(dragSrcId, null, cat, false);
-  dragSrcId = null;
+  document.querySelectorAll('.drag-over,.drag-before,.drag-after').forEach(function(el){el.classList.remove('drag-over','drag-before','drag-after');});
+  if(dragSrcId)performBookDrop(dragSrcId,null,cat,false);
+  dragSrcId=null;
 }
-function onDragEnd() {
-  document.querySelectorAll('.dragging,.drag-over,.drag-before,.drag-after').forEach(function(el) { el.classList.remove('dragging','drag-over','drag-before','drag-after'); });
-  dragSrcId = null;
+function onDragEnd(){
+  document.querySelectorAll('.dragging,.drag-over,.drag-before,.drag-after').forEach(function(el){el.classList.remove('dragging','drag-over','drag-before','drag-after');});
+  dragSrcId=null;
 }
-
-function performBookDrop(srcId, targetId, targetCat, insertBefore) {
-  var srcBook = findIn(books, function(b) { return b.id === srcId; }); if (!srcBook) return;
-  var targetBook = targetId ? findIn(books, function(b) { return b.id === targetId; }) : null;
-  if (targetBook) {
-    var srcC = srcBook.category, tgtC = targetBook.category;
-    if (srcC === tgtC) {
-      var cb = books.filter(function(b) { return b.category === srcC; }).sort(function(a, b) { return a.order_index - b.order_index; });
-      var si = findIdx(cb, function(b) { return b.id === srcId; });
-      cb.splice(si, 1);
-      var ti = findIdx(cb, function(b) { return b.id === targetId; });
-      if (insertBefore) cb.splice(ti, 0, srcBook);
-      else cb.splice(ti + 1, 0, srcBook);
-      cb.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { order_index: idx }); });
+function performBookDrop(srcId,targetId,targetCat,insertBefore) {
+  var srcBook=findIn(books,function(b){return b.id===srcId;});if(!srcBook)return;
+  var targetBook=targetId?findIn(books,function(b){return b.id===targetId;}):null;
+  if(targetBook){
+    var srcC=srcBook.category,tgtC=targetBook.category;
+    if(srcC===tgtC){
+      var cb=books.filter(function(b){return b.category===srcC;}).sort(function(a,b){return a.order_index-b.order_index;});
+      var si=findIdx(cb,function(b){return b.id===srcId;});cb.splice(si,1);
+      var ti=findIdx(cb,function(b){return b.id===targetId;});
+      if(insertBefore)cb.splice(ti,0,srcBook);else cb.splice(ti+1,0,srcBook);
+      cb.forEach(function(b,idx){b.order_index=idx;dbUpdateBook(b.id,{order_index:idx});});
     } else {
-      var old = books.filter(function(b) { return b.category === srcC && b.id !== srcId; }).sort(function(a, b) { return a.order_index - b.order_index; });
-      old.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { order_index: idx }); });
-      var tgt = books.filter(function(b) { return b.category === tgtC; }).sort(function(a, b) { return a.order_index - b.order_index; });
-      var ti2 = findIdx(tgt, function(b) { return b.id === targetId; });
-      srcBook.category = tgtC;
-      if (insertBefore) tgt.splice(ti2, 0, srcBook);
-      else tgt.splice(ti2 + 1, 0, srcBook);
-      tgt.forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { category: b.category, order_index: idx }); });
+      books.filter(function(b){return b.category===srcC&&b.id!==srcId;}).sort(function(a,b){return a.order_index-b.order_index;}).forEach(function(b,idx){b.order_index=idx;dbUpdateBook(b.id,{order_index:idx});});
+      var tgt=books.filter(function(b){return b.category===tgtC;}).sort(function(a,b){return a.order_index-b.order_index;});
+      var ti2=findIdx(tgt,function(b){return b.id===targetId;});
+      srcBook.category=tgtC;
+      if(insertBefore)tgt.splice(ti2,0,srcBook);else tgt.splice(ti2+1,0,srcBook);
+      tgt.forEach(function(b,idx){b.order_index=idx;dbUpdateBook(b.id,{category:b.category,order_index:idx});});
     }
-  } else if (targetCat && targetCat !== srcBook.category) {
-    var oc = srcBook.category;
-    books.filter(function(b) { return b.category === oc && b.id !== srcId; }).sort(function(a, b) { return a.order_index - b.order_index; }).forEach(function(b, idx) { b.order_index = idx; dbUpdateBook(b.id, { order_index: idx }); });
-    var nc = books.filter(function(b) { return b.category === targetCat; }).length;
-    srcBook.category = targetCat; srcBook.order_index = nc;
-    dbUpdateBook(srcBook.id, { category: targetCat, order_index: nc });
+  } else if(targetCat&&targetCat!==srcBook.category){
+    var oc=srcBook.category;
+    books.filter(function(b){return b.category===oc&&b.id!==srcId;}).sort(function(a,b){return a.order_index-b.order_index;}).forEach(function(b,idx){b.order_index=idx;dbUpdateBook(b.id,{order_index:idx});});
+    var nc=books.filter(function(b){return b.category===targetCat;}).length;
+    srcBook.category=targetCat;srcBook.order_index=nc;
+    dbUpdateBook(srcBook.id,{category:targetCat,order_index:nc});
   }
   renderLibrary();
 }
 
 /* Touch drag books */
-function onBookTouchStart(e, id) {
-  var touch = e.touches[0]; touchStartX = touch.clientX; touchStartY = touch.clientY;
-  var now = Date.now();
-  if (lastTapBook[id] && now - lastTapBook[id] < 400) { toggleBook(id); lastTapBook[id] = 0; return; }
-  lastTapBook[id] = now;
-  touchTimer = setTimeout(function() {
-    isDragging = true; touchDragId = id;
-    var el = e.currentTarget;
-    touchDragClone = el.cloneNode(true);
-    touchDragClone.style.cssText = 'position:fixed;opacity:0.75;pointer-events:none;z-index:9999;width:' + el.offsetWidth + 'px;left:' + (touch.clientX - el.offsetWidth / 2) + 'px;top:' + (touch.clientY - 40) + 'px;background:#fff;border:1px solid #000;padding:8px 12px;';
-    document.body.appendChild(touchDragClone); el.style.opacity = '0.3';
-  }, 600);
+function onBookTouchStart(e,id){
+  var touch=e.touches[0];touchStartX=touch.clientX;touchStartY=touch.clientY;
+  var now=Date.now();
+  if(lastTapBook[id]&&now-lastTapBook[id]<400){toggleBook(id);lastTapBook[id]=0;return;}
+  lastTapBook[id]=now;
+  touchTimer=setTimeout(function(){
+    isDragging=true;touchDragId=id;
+    var el=e.currentTarget;
+    touchDragClone=el.cloneNode(true);
+    touchDragClone.style.cssText='position:fixed;opacity:0.75;pointer-events:none;z-index:9999;width:'+el.offsetWidth+'px;left:'+(touch.clientX-el.offsetWidth/2)+'px;top:'+(touch.clientY-40)+'px;background:#fff;border:1px solid #000;padding:8px 12px;';
+    document.body.appendChild(touchDragClone);el.style.opacity='0.3';
+  },600);
 }
-function onBookTouchMove(e) {
-  if (!isDragging) { var t = e.touches[0]; if (Math.abs(t.clientX - touchStartX) > 8 || Math.abs(t.clientY - touchStartY) > 8) clearTimeout(touchTimer); return; }
-  e.preventDefault(); var t = e.touches[0];
-  touchDragClone.style.left = (t.clientX - touchDragClone.offsetWidth / 2) + 'px';
-  touchDragClone.style.top = (t.clientY - 40) + 'px';
+function onBookTouchMove(e){
+  if(!isDragging){var t=e.touches[0];if(Math.abs(t.clientX-touchStartX)>8||Math.abs(t.clientY-touchStartY)>8)clearTimeout(touchTimer);return;}
+  e.preventDefault();var t=e.touches[0];
+  touchDragClone.style.left=(t.clientX-touchDragClone.offsetWidth/2)+'px';
+  touchDragClone.style.top=(t.clientY-40)+'px';
 }
-function onBookTouchEnd(e) {
-  clearTimeout(touchTimer); if (!isDragging) return;
-  var touch = e.changedTouches[0]; touchDragClone.style.display = 'none';
-  var targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
-  if (touchDragClone && touchDragClone.parentNode) touchDragClone.parentNode.removeChild(touchDragClone);
-  touchDragClone = null;
-  var srcEl = document.querySelector('[data-book-id="' + touchDragId + '"]'); if (srcEl) srcEl.style.opacity = '';
-  if (targetEl) {
-    var bookEl = targetEl.closest && targetEl.closest('[data-book-id]');
-    var catEl = targetEl.closest && targetEl.closest('[data-cat]');
-    if (bookEl) { var tid = parseInt(bookEl.getAttribute('data-book-id')); if (tid !== touchDragId) performBookDrop(touchDragId, tid, null, true); }
-    else if (catEl) performBookDrop(touchDragId, null, catEl.getAttribute('data-cat'), false);
+function onBookTouchEnd(e){
+  clearTimeout(touchTimer);if(!isDragging)return;
+  var touch=e.changedTouches[0];touchDragClone.style.display='none';
+  var targetEl=document.elementFromPoint(touch.clientX,touch.clientY);
+  if(touchDragClone&&touchDragClone.parentNode)touchDragClone.parentNode.removeChild(touchDragClone);
+  touchDragClone=null;
+  var srcEl=document.querySelector('[data-book-id="'+touchDragId+'"]');if(srcEl)srcEl.style.opacity='';
+  if(targetEl){
+    var bookEl=targetEl.closest&&targetEl.closest('[data-book-id]');
+    var catEl=targetEl.closest&&targetEl.closest('[data-cat]');
+    if(bookEl){var tid=parseInt(bookEl.getAttribute('data-book-id'));if(tid!==touchDragId)performBookDrop(touchDragId,tid,null,true);}
+    else if(catEl)performBookDrop(touchDragId,null,catEl.getAttribute('data-cat'),false);
   }
-  isDragging = false; touchDragId = null;
+  isDragging=false;touchDragId=null;
 }
 
 /* ── TOOLBAR ── */
-function insertWiki(taId) { var ta = document.getElementById(taId); var s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e); var ins = sel ? '[[' + sel + ']]' : '[[]]'; ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + 2; ta.focus(); }
-function insertImgUrl(taId) { var ta = document.getElementById(taId); var s = ta.selectionStart, e = ta.selectionEnd; ta.value = ta.value.slice(0, s) + '[[img:]]' + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = s + 6; ta.focus(); }
-function insertFormat(taId, type) { var ta = document.getElementById(taId); var s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e); var m = type === 'bold' ? '**' : '*'; var ins = sel ? m + sel + m : m + m; ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + m.length; ta.focus(); }
-function insertFootnote(taId) { var ta = document.getElementById(taId); var s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s, e); var ins = sel ? '((' + sel + '))' : '(())'; ta.value = ta.value.slice(0, s) + ins + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = sel ? s + ins.length : s + 2; ta.focus(); }
-function triggerFileImg(taId, fileId) { fileImgTarget = taId; document.getElementById(fileId).click(); }
-function handleFileImg(input) {
-  var f = input.files[0]; if (!f) return;
-  var ta = document.getElementById(fileImgTarget); var s = ta.selectionStart;
-  ta.value = ta.value.slice(0, s) + '\n[[img:업로드 중...]]\n' + ta.value.slice(s);
-  uploadImg(f).then(function(url) { return url || readB64(f); }).then(function(url) { ta.value = ta.value.replace('[[img:업로드 중...]]', '[[img:' + url + ']]'); });
-  input.value = '';
+function insertWiki(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var ins=sel?'[['+sel+']]':'[[]]';ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+2;ta.focus();}
+function insertImgUrl(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd;ta.value=ta.value.slice(0,s)+'[[img:]]'+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=s+6;ta.focus();}
+function insertFormat(taId,type){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var m=type==='bold'?'**':'*';var ins=sel?m+sel+m:m+m;ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+m.length;ta.focus();}
+function insertFootnote(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var ins=sel?'(('+sel+'))':'(())';ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+2;ta.focus();}
+function triggerFileImg(taId,fileId){fileImgTarget=taId;document.getElementById(fileId).click();}
+function handleFileImg(input){
+  var f=input.files[0];if(!f)return;
+  var ta=document.getElementById(fileImgTarget);var s=ta.selectionStart;
+  ta.value=ta.value.slice(0,s)+'\n[[img:업로드 중...]]\n'+ta.value.slice(s);
+  uploadImg(f).then(function(url){return url||readB64(f);}).then(function(url){ta.value=ta.value.replace('[[img:업로드 중...]]','[[img:'+url+']]');});
+  input.value='';
 }
-function addPaste(id) {
-  var el = document.getElementById(id); if (!el || pasteAttached.indexOf(id) >= 0) return;
+function addPaste(id){
+  var el=document.getElementById(id);if(!el||pasteAttached.indexOf(id)>=0)return;
   pasteAttached.push(id);
-  el.addEventListener('paste', function(e) { e.preventDefault(); var text = (e.clipboardData || window.clipboardData).getData('text/plain'); var norm = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n'); var s = el.selectionStart, end = el.selectionEnd; el.value = el.value.slice(0, s) + norm + el.value.slice(end); el.selectionStart = el.selectionEnd = s + norm.length; });
+  el.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');var norm=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');var s=el.selectionStart,end=el.selectionEnd;el.value=el.value.slice(0,s)+norm+el.value.slice(end);el.selectionStart=el.selectionEnd=s+norm.length;});
 }
 
 /* ── SUB-DOCUMENTS ── */
-function toggleSubdocSection(sectionId, checked) {
-  document.getElementById(sectionId).style.display = checked ? 'block' : 'none';
+function toggleSubdocSection(sectionId,checked){document.getElementById(sectionId).style.display=checked?'block':'none';}
+function searchSubdocs(inputId,resultsId,prefix){
+  var q=document.getElementById(inputId).value.trim().toLowerCase();
+  var el=document.getElementById(resultsId);if(!el)return;
+  if(!q){el.innerHTML='';return;}
+  var arr=prefix==='f'?newSubDocs:editSubDocs;
+  var results=posts.filter(function(p){return p.title.toLowerCase().indexOf(q)>=0&&p.sec!=='link'&&arr.indexOf(p.id)<0&&p.id!==currentId;}).slice(0,6);
+  el.innerHTML=results.map(function(p){return '<div class="subdoc-search-result" onclick="addSubdoc('+p.id+',\''+prefix+'\')">'+p.title+'</div>';}).join('');
 }
-function searchSubdocs(inputId, resultsId, prefix) {
-  var q = document.getElementById(inputId).value.trim().toLowerCase();
-  var el = document.getElementById(resultsId); if (!el) return;
-  if (!q) { el.innerHTML = ''; return; }
-  var arr = prefix === 'f' ? newSubDocs : editSubDocs;
-  var results = posts.filter(function(p) { return p.title.toLowerCase().indexOf(q) >= 0 && p.sec !== 'link' && arr.indexOf(p.id) < 0 && p.id !== currentId; }).slice(0, 6);
-  el.innerHTML = results.map(function(p) { return '<div class="subdoc-search-result" onclick="addSubdoc(' + p.id + ',\'' + prefix + '\')">' + p.title + '</div>'; }).join('');
+function addSubdoc(id,prefix){
+  var arr=prefix==='f'?newSubDocs:editSubDocs;
+  if(arr.indexOf(id)>=0)return;
+  arr.push(id);renderSubdocList(prefix);
+  document.getElementById(prefix+'-subdoc-search').value='';
+  document.getElementById(prefix+'-subdoc-results').innerHTML='';
 }
-function addSubdoc(id, prefix) {
-  var arr = prefix === 'f' ? newSubDocs : editSubDocs;
-  if (arr.indexOf(id) >= 0) return;
-  arr.push(id);
-  renderSubdocList(prefix);
-  document.getElementById(prefix + '-subdoc-search').value = '';
-  document.getElementById(prefix + '-subdoc-results').innerHTML = '';
-}
-function removeSubdoc(id, prefix) {
-  if (prefix === 'f') newSubDocs = newSubDocs.filter(function(x) { return x !== id; });
-  else editSubDocs = editSubDocs.filter(function(x) { return x !== id; });
+function removeSubdoc(id,prefix){
+  if(prefix==='f')newSubDocs=newSubDocs.filter(function(x){return x!==id;});
+  else editSubDocs=editSubDocs.filter(function(x){return x!==id;});
   renderSubdocList(prefix);
 }
-function renderSubdocList(prefix) {
-  var arr = prefix === 'f' ? newSubDocs : editSubDocs;
-  var el = document.getElementById(prefix + '-subdocs-list'); if (!el) return;
-  el.innerHTML = arr.map(function(id) {
-    var p = findIn(posts, function(x) { return x.id === id; });
-    return p ? '<div class="subdoc-item"><span>' + p.title + '</span><button class="subdoc-remove" onclick="removeSubdoc(' + id + ',\'' + prefix + '\')">×</button></div>' : '';
+function renderSubdocList(prefix){
+  var arr=prefix==='f'?newSubDocs:editSubDocs;
+  var el=document.getElementById(prefix+'-subdocs-list');if(!el)return;
+  el.innerHTML=arr.map(function(id){
+    var p=findIn(posts,function(x){return x.id===id;});
+    return p?'<div class="subdoc-item"><span>'+p.title+'</span><button class="subdoc-remove" onclick="removeSubdoc('+id+',\''+prefix+'\')">×</button></div>':'';
   }).join('');
 }
 
 /* ── DEAD-END ── */
-function openDeadend(w) { deadendWord = w; showDeMain(); document.getElementById('deadend').classList.add('on'); }
-function closeDeadend() { document.getElementById('deadend').classList.remove('on'); showDeMain(); }
-function showDeMain() { document.getElementById('de-main').style.display = 'block'; document.getElementById('de-exit').style.display = 'none'; }
-function deadendBuild() { closeDeadend(); pendingTitle = deadendWord; onWriteClick(); }
-function deadendExit() {
-  if (!authUser) { closeDeadend(); showPanel('login-panel'); return; }
-  document.getElementById('de-main').style.display = 'none'; document.getElementById('de-exit').style.display = 'block';
-  document.getElementById('de-url').value = ''; document.getElementById('de-err').style.display = 'none';
-  setTimeout(function() { document.getElementById('de-url').focus(); }, 50);
+function openDeadend(w){deadendWord=w;showDeMain();document.getElementById('deadend').classList.add('on');}
+function closeDeadend(){document.getElementById('deadend').classList.remove('on');showDeMain();}
+function showDeMain(){document.getElementById('de-main').style.display='block';document.getElementById('de-exit').style.display='none';}
+function deadendBuild(){closeDeadend();pendingTitle=deadendWord;onWriteClick();}
+function deadendExit(){
+  if(!authUser){closeDeadend();showPanel('login-panel');return;}
+  document.getElementById('de-main').style.display='none';document.getElementById('de-exit').style.display='block';
+  document.getElementById('de-url').value='';document.getElementById('de-err').style.display='none';
+  setTimeout(function(){document.getElementById('de-url').focus();},50);
 }
-function saveExit() {
-  var url = document.getElementById('de-url').value.trim(); if (!url) return;
-  var err = document.getElementById('de-err'); err.style.display = 'none';
-  var existing = findIn(posts, function(p) { return p.title === deadendWord && p.sec === 'link'; });
+function saveExit(){
+  var url=document.getElementById('de-url').value.trim();if(!url)return;
+  var err=document.getElementById('de-err');err.style.display='none';
+  var existing=findIn(posts,function(p){return p.title===deadendWord&&p.sec==='link';});
   var pr;
-  if (existing) { pr = dbUpdate(existing.id, { external_url: url }).then(function() { existing.external_url = url; }); }
-  else { pr = dbInsert({ title: deadendWord, sec: 'link', img: null, plates: [], w: 0, h: 0, body: '', tags: [], date: '', type: 'Link', status: 'Published', external_url: url, author_nickname: authNickname || '' }).then(function(saved) { if (saved) posts.push(saved); }); }
-  pr.then(function() { closeDeadend(); if (currentId) showDetail(currentId, false); }).catch(function() { err.textContent = '저장 실패'; err.style.display = 'block'; });
+  if(existing){pr=dbUpdate(existing.id,{external_url:url}).then(function(){existing.external_url=url;});}
+  else{pr=dbInsert({title:deadendWord,sec:'link',img:null,plates:[],w:0,h:0,body:'',tags:[],date:'',type:'Link',status:'Published',external_url:url,author_nickname:authNickname||''}).then(function(saved){if(saved)posts.push(saved);});}
+  pr.then(function(){closeDeadend();if(currentId)showDetail(currentId,false);}).catch(function(){err.textContent='저장 실패';err.style.display='block';});
 }
 
 /* ── PANELS ── */
-var PANELS = ['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel'];
-function closeAllPanels() { PANELS.forEach(function(id) { document.getElementById(id).classList.remove('on'); }); document.getElementById('ov').classList.remove('on'); }
-function showPanel(id) {
-  closeAllPanels(); document.getElementById(id).classList.add('on'); document.getElementById('ov').classList.add('on');
-  if (id === 'post-cat-panel') renderPostCatsList();
+var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel'];
+function closeAllPanels(){PANELS.forEach(function(id){document.getElementById(id).classList.remove('on');});document.getElementById('ov').classList.remove('on');}
+function showPanel(id){
+  closeAllPanels();document.getElementById(id).classList.add('on');document.getElementById('ov').classList.add('on');
+  if(id==='post-cat-panel')renderPostCatsList();
 }
-function openNewPanel() {
-  newSubDocs = [];
-  showPanel('new-panel'); addPaste('f-body');
-  document.getElementById('f-is-template').checked = false;
-  document.getElementById('f-subdocs-section').style.display = 'none';
-  document.getElementById('f-subdocs-list').innerHTML = '';
-  if (pendingTitle) { document.getElementById('f-title').value = pendingTitle; pendingTitle = null; }
+function openNewPanel(){
+  newSubDocs=[];showPanel('new-panel');addPaste('f-body');
+  document.getElementById('f-is-template').checked=false;
+  document.getElementById('f-subdocs-section').style.display='none';
+  document.getElementById('f-subdocs-list').innerHTML='';
+  if(pendingTitle){document.getElementById('f-title').value=pendingTitle;pendingTitle=null;}
 }
-function openEditPanel() {
-  var p = findIn(posts, function(x) { return x.id === currentId; }); if (!p) return;
-  editSubDocs = p.sub_docs ? p.sub_docs.slice() : [];
-  showPanel('edit-panel'); addPaste('e-body');
-  document.getElementById('e-title').value = p.title;
-  document.getElementById('e-img').value = (p.img && p.img.indexOf('data:') !== 0) ? p.img : '';
-  document.getElementById('e-body').value = p.body || '';
-  var isTemp = !!(p.is_template);
-  document.getElementById('e-is-template').checked = isTemp;
-  document.getElementById('e-subdocs-section').style.display = isTemp ? 'block' : 'none';
+function openEditPanel(){
+  var p=findIn(posts,function(x){return x.id===currentId;});if(!p)return;
+  editSubDocs=p.sub_docs?p.sub_docs.slice():[];
+  showPanel('edit-panel');addPaste('e-body');
+  document.getElementById('e-title').value=p.title;
+  document.getElementById('e-img').value=(p.img&&p.img.indexOf('data:')!==0)?p.img:'';
+  document.getElementById('e-body').value=p.body||'';
+  var isTemp=!!(p.is_template);
+  document.getElementById('e-is-template').checked=isTemp;
+  document.getElementById('e-subdocs-section').style.display=isTemp?'block':'none';
   renderSubdocList('e');
 }
-function submitNewPost() {
-  var title = document.getElementById('f-title').value.trim(); if (!title) { alert('제목을 입력해주세요.'); return; }
-  var btn = document.getElementById('nf-submit'); btn.textContent = '저장 중...'; btn.disabled = true;
-  var isTemp = document.getElementById('f-is-template').checked;
-  resolveImg(document.getElementById('f-img-file'), document.getElementById('f-img')).then(function(img) {
-    var sec = img ? '개념들' : '단어들';
-    return dbInsert({ title: title, sec: sec, img: img || null, plates: [], w: 220, h: 220, body: document.getElementById('f-body').value.trim(), tags: [], date: '', type: 'Visual Research', status: 'Published', author_nickname: authNickname || '', is_template: isTemp, sub_docs: isTemp ? newSubDocs : [], pos_cat: '' })
-      .then(function(saved) {
-        if (saved) { posts.push(saved); renderGallery(); renderDanuh(); }
-        document.getElementById('f-title').value = ''; document.getElementById('f-img').value = ''; document.getElementById('f-body').value = ''; document.getElementById('f-img-file').value = '';
-        newSubDocs = [];
-        document.getElementById('nf-ok').style.display = 'block'; setTimeout(function() { document.getElementById('nf-ok').style.display = 'none'; }, 2500);
-        closeAllPanels(); go('개념들');
+function submitNewPost(){
+  var title=document.getElementById('f-title').value.trim();if(!title){alert('제목을 입력해주세요.');return;}
+  var btn=document.getElementById('nf-submit');btn.textContent='저장 중...';btn.disabled=true;
+  var isTemp=document.getElementById('f-is-template').checked;
+  resolveImg(document.getElementById('f-img-file'),document.getElementById('f-img')).then(function(img){
+    var sec=img?'개념들':'단어들';
+    return dbInsert({title:title,sec:sec,img:img||null,plates:[],w:220,h:220,body:document.getElementById('f-body').value.trim(),tags:[],date:'',type:'Visual Research',status:'Published',author_nickname:authNickname||'',is_template:isTemp,sub_docs:isTemp?newSubDocs:[],pos_cat:''})
+      .then(function(saved){
+        if(saved){posts.push(saved);renderGallery();renderDanuh();}
+        document.getElementById('f-title').value='';document.getElementById('f-img').value='';document.getElementById('f-body').value='';document.getElementById('f-img-file').value='';
+        newSubDocs=[];
+        document.getElementById('nf-ok').style.display='block';setTimeout(function(){document.getElementById('nf-ok').style.display='none';},2500);
+        closeAllPanels();go('개념들');
       });
-  }).catch(function() { document.getElementById('nf-err').style.display = 'block'; setTimeout(function() { document.getElementById('nf-err').style.display = 'none'; }, 3000); })
-  .then(function() { btn.textContent = '게시하기'; btn.disabled = false; });
+  }).catch(function(){document.getElementById('nf-err').style.display='block';setTimeout(function(){document.getElementById('nf-err').style.display='none';},3000);})
+  .then(function(){btn.textContent='게시하기';btn.disabled=false;});
 }
-function submitEdit() {
-  var p = findIn(posts, function(x) { return x.id === currentId; });
-  if (!p || !canEdit(p)) { alert('수정 권한이 없습니다.'); return; }
-  var isTemp = document.getElementById('e-is-template').checked;
-  resolveImg(document.getElementById('e-img-file'), document.getElementById('e-img')).then(function(img) {
-    var finalImg = img || p.img;
-    var patch = { title: document.getElementById('e-title').value.trim(), img: finalImg, sec: finalImg ? '개념들' : '단어들', body: document.getElementById('e-body').value.trim(), is_template: isTemp, sub_docs: isTemp ? editSubDocs : [] };
-    return dbUpdate(p.id, patch).then(function() {
-      Object.assign(p, patch); renderGallery(); renderDanuh();
-      document.getElementById('ef-ok').style.display = 'block'; setTimeout(function() { document.getElementById('ef-ok').style.display = 'none'; }, 2500);
-      closeAllPanels(); showDetail(currentId, false);
+function submitEdit(){
+  var p=findIn(posts,function(x){return x.id===currentId;});
+  if(!p||!canEdit(p)){alert('수정 권한이 없습니다.');return;}
+  var isTemp=document.getElementById('e-is-template').checked;
+  resolveImg(document.getElementById('e-img-file'),document.getElementById('e-img')).then(function(img){
+    var finalImg=img||p.img;
+    var patch={title:document.getElementById('e-title').value.trim(),img:finalImg,sec:finalImg?'개념들':'단어들',body:document.getElementById('e-body').value.trim(),is_template:isTemp,sub_docs:isTemp?editSubDocs:[]};
+    return dbUpdate(p.id,patch).then(function(){
+      Object.assign(p,patch);renderGallery();renderDanuh();
+      document.getElementById('ef-ok').style.display='block';setTimeout(function(){document.getElementById('ef-ok').style.display='none';},2500);
+      closeAllPanels();showDetail(currentId,false);
     });
-  }).catch(function() { document.getElementById('ef-err').style.display = 'block'; setTimeout(function() { document.getElementById('ef-err').style.display = 'none'; }, 3000); });
+  }).catch(function(){document.getElementById('ef-err').style.display='block';setTimeout(function(){document.getElementById('ef-err').style.display='none';},3000);});
 }
-function deletePost() {
-  if (!confirm('정말 삭제하시겠습니까?')) return;
-  var p = findIn(posts, function(x) { return x.id === currentId; });
-  if (!p || !canEdit(p)) { alert('삭제 권한이 없습니다.'); return; }
-  dbDelete(currentId).then(function() {
-    posts = posts.filter(function(x) { return x.id !== currentId; });
-    renderGallery(); renderDanuh(); closeAllPanels();
-    currentId = null; document.getElementById('dv').style.display = 'none';
-    document.getElementById('fab-edit').style.display = 'none';
+function deletePost(){
+  if(!confirm('정말 삭제하시겠습니까?'))return;
+  var p=findIn(posts,function(x){return x.id===currentId;});
+  if(!p||!canEdit(p)){alert('삭제 권한이 없습니다.');return;}
+  dbDelete(currentId).then(function(){
+    posts=posts.filter(function(x){return x.id!==currentId;});
+    renderGallery();renderDanuh();closeAllPanels();
+    currentId=null;document.getElementById('dv').style.display='none';document.getElementById('fab-edit').style.display='none';
     go('개념들');
-  }).catch(function() { alert('삭제 실패. 다시 시도해주세요.'); });
+  }).catch(function(){alert('삭제 실패. 다시 시도해주세요.');});
 }
 
+/* ── 초기화 ── */
 initAuth();
 dbLoad();
 dbLoadBooks();
 loadSettings();
+manageFabs();
 </script>
 </body>
 </html>
