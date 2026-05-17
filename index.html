@@ -889,7 +889,9 @@ function renderGallery() {
   var g=document.getElementById('gallery');
   var html='';
   if(editMode) {
-    var allItems=posts.filter(function(p){return p.sec==='개념들'||p.sec==='단어들';});
+    var allItems = posts.filter(function(p) {
+  return p.sec === '개념들' || p.sec === '단어들' || (!p.img && p.sec !== 'link');
+});
     html+='<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
     html+='<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
     html+='</div>';
@@ -897,6 +899,8 @@ function renderGallery() {
     html+='<div class="gal-cat-section"><div class="gal-cat-edit-header"><span class="gal-cat-edit-name" style="color:#bbb;font-weight:400;font-size:13px;">미분류</span></div>';
     html+='<div class="gal-cat-drop" data-cat="" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'\')">';
     posts.filter(function(p){return (p.sec==='개념들'||p.sec==='단어들')&&(!p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;}));})
+     
+
       .forEach(function(p){html+=buildEditCardHtml(p);});
     html+='</div></div>';
     postCats.forEach(function(cat){
@@ -904,7 +908,7 @@ function renderGallery() {
       html+='<span class="gal-cat-edit-name">'+cat.name+'</span>';
       html+='<button class="gal-cat-del-btn" onclick="removePostCat(\''+cat.id+'\')">삭제</button>';
       html+='</div><div class="gal-cat-drop" data-cat="'+cat.name+'" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\''+cat.name+'\')">';
-      posts.filter(function(p){return (p.sec==='개념들'||p.sec==='단어들')&&p.pos_cat===cat.name;})
+     posts.filter(function(p){return (p.sec==='개념들'||p.sec==='단어들'||(!p.img&&p.sec!=='link'))&&p.pos_cat===cat.name;})입력 내용: html+='<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
         .forEach(function(p){html+=buildEditCardHtml(p);});
       html+='</div></div>';
     });
@@ -950,7 +954,7 @@ function onGalCatDrop(e,catName){
   if(srcId===null||srcId===undefined){var dt=e.dataTransfer.getData('text/plain');if(dt)srcId=parseInt(dt);}
   if(!srcId){galDragSrcId=null;return;}
   var p=findIn(posts,function(x){return x.id===srcId;});
-  if(p && (p.pos_cat||'') !== catName) {
+if(p) {
   p.pos_cat = catName;
   dbUpdate(srcId, { pos_cat: catName });
   renderGallery();
