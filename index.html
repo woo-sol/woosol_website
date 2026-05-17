@@ -48,7 +48,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 @media(max-width:480px){
   .gallery{gap:16px 14px;}
   .card{width:calc(50% - 7px);}
-  .card img{width:100%!important;height:auto!important;}
+  .card img{width:100%!important;height:160px!important;object-fit:cover;}
   .card-cap{font-size:12px;}
 }
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
@@ -267,6 +267,9 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="2" y="1" width="9" height="11" rx="0.5" stroke="white" stroke-width="1.3"/><line x1="4" y1="4" x2="9" y2="4" stroke="white" stroke-width="1"/><line x1="4" y1="6.5" x2="9" y2="6.5" stroke="white" stroke-width="1"/><line x1="4" y1="9" x2="7" y2="9" stroke="white" stroke-width="1"/></svg>
   </button>
   <button class="fab-icon" id="fab-cat" onclick="onLibCatAdd()" title="카테고리 추가" style="font-size:15px;color:#fff;line-height:1;">+</button>
+  <button class="fab-ring" id="fab-about-edit" onclick="editAbout()" style="display:none;">
+  <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="1" y1="10" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="7" y1="1" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="10" y1="1" x2="10" y2="4" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+</button>
   <button class="fab-done-btn" id="fab-done" onclick="exitActiveEditMode()">완료</button>
 </div>
 
@@ -485,6 +488,15 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div id="post-cats-list" style="margin-bottom:16px;"></div>
   <div class="fl"><label>새 카테고리</label><input type="text" class="fi" id="pc-name" placeholder="카테고리 이름"></div>
   <button class="fbtn" onclick="addPostCat()">추가</button>
+  <div class="panel" id="about-panel">
+  <div class="resize-handle"></div>
+  <div class="ph"><span>관계심화 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
+  <div class="fl"><label>본문</label>
+    <textarea class="fta" id="about-body-ta" style="min-height:400px;"></textarea>
+  </div>
+  <button class="fbtn" onclick="saveAbout()">저장</button>
+  <p id="about-ok" class="ok-msg">✓ 저장되었습니다.</p>
+</div>
 </div>
 
 <!-- ===== SCRIPT ===== -->
@@ -758,7 +770,10 @@ function manageFabs() {
       fbCat.style.display='flex';
     } else {
       if(isAdmin()) fbLibToggle.style.display='flex';
-    }
+    } else if(cur==='관계심화') {
+  if(isAdmin()) document.getElementById('fab-about-edit').style.display='flex';
+}
+    
   }
 }
 
@@ -838,6 +853,7 @@ function go(sec,doPush) {
   var pg=document.getElementById('pg-'+sec); if(pg)pg.classList.add('on');
   manageFabs();
   if(sec==='도서관')renderLibrary();
+  if(sec==='관계심화') renderAbout();
   if(doPush){safePush({type:'sec',sec:sec},sec==='개념들'?'/':'/'+encodeURIComponent(sec));setMeta('','','');}
   window.scrollTo(0,0);
 }
@@ -932,7 +948,12 @@ function onGalCatDrop(e,catName){
   if(srcId===null||srcId===undefined){var dt=e.dataTransfer.getData('text/plain');if(dt)srcId=parseInt(dt);}
   if(!srcId){galDragSrcId=null;return;}
   var p=findIn(posts,function(x){return x.id===srcId;});
-  if(p&&p.pos_cat!==catName){p.pos_cat=catName;dbUpdate(srcId,{pos_cat:catName});renderGallery();}
+  if(p && (p.pos_cat||'') !== catName) {
+  p.pos_cat = catName;
+  dbUpdate(srcId, { pos_cat: catName });
+  renderGallery();
+  renderDanuh();
+}
   galDragSrcId=null;
 }
 
@@ -1379,7 +1400,7 @@ function saveExit(){
 }
 
 /* ── PANELS ── */
-var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel'];
+var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel'];
 function closeAllPanels(){PANELS.forEach(function(id){document.getElementById(id).classList.remove('on');});document.getElementById('ov').classList.remove('on');}
 function showPanel(id){
   closeAllPanels();document.getElementById(id).classList.add('on');document.getElementById('ov').classList.add('on');
@@ -1448,6 +1469,34 @@ function deletePost(){
 }
 
 /* ── 초기화 ── */
+  function renderAbout() {
+  var saved = '';
+  try { saved = localStorage.getItem('pos_about') || ''; } catch(e) {}
+  if(!saved) return;
+  var html = saved.split('\n\n').map(function(p) {
+    return '<p>' + p.replace(/\n/g,'<br>') + '</p>';
+  }).join('');
+  document.querySelector('#pg-관계심화 .about-body').innerHTML =
+    html + '<p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>';
+}
+function editAbout() {
+  document.getElementById('about-body-ta').value =
+    document.querySelector('#pg-관계심화 .about-body').innerText.replace('Instagram','').trim();
+  showPanel('about-panel');
+}
+function saveAbout() {
+  var content = document.getElementById('about-body-ta').value.trim();
+  try { localStorage.setItem('pos_about', content); } catch(e) {}
+  saveSetting('about_content', content);
+  var html = content.split('\n\n').map(function(p) {
+    return '<p>' + p.replace(/\n/g,'<br>') + '</p>';
+  }).join('');
+  document.querySelector('#pg-관계심화 .about-body').innerHTML =
+    html + '<p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>';
+  document.getElementById('about-ok').style.display='block';
+  setTimeout(function(){document.getElementById('about-ok').style.display='none';},2000);
+  closeAllPanels();
+}
 initAuth();
 dbLoad();
 dbLoadBooks();
