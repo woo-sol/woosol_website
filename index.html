@@ -912,19 +912,25 @@ function renderGallery() {
       html+='</div></div>';
     });
   } else {
-    var galItems=posts.filter(function(p){return p.sec==='개념들'&&p.img;});
-    galItems.filter(function(p){
-      return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});
-    }).forEach(function(p){html+=buildCardHtml(p);});
-    postCats.forEach(function(cat){
-      var items=galItems.filter(function(p){return p.pos_cat===cat.name;});
-      if(!items.length)return;
-      html+='<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">'+cat.name+'</div>';
-      items.forEach(function(p){html+=buildCardHtml(p);});
+  var galItems = posts.filter(function(p) {
+      return (p.sec==='개념들' || p.sec==='단어들' || (!p.img && p.sec!=='link'));
+    });
+    galItems.filter(function(p) {
+      return !p.pos_cat || !findIn(postCats, function(c) { return c.name === p.pos_cat; });
+    }).forEach(function(p) { html += p.img ? buildCardHtml(p) : buildTextCardHtml(p); });
+    postCats.forEach(function(cat) {
+      var items = galItems.filter(function(p) { return p.pos_cat === cat.name; });
+      if(!items.length) return;
+      html += '<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">' + cat.name + '</div>';
+      items.forEach(function(p) { html += p.img ? buildCardHtml(p) : buildTextCardHtml(p); });
     });
   }
   if(!html)html='<p class="loading">게시물이 없습니다.</p>';
   g.innerHTML=html;
+}
+  function buildTextCardHtml(p) {
+  return '<div class="card" style="cursor:pointer;" onclick="showDetail('+p.id+')">' +
+    '<div class="card-cap">'+p.title+'</div></div>';
 }
 function buildCardHtml(p) {
   return '<div class="card" onclick="showDetail('+p.id+')">' +
