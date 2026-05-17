@@ -886,62 +886,44 @@ function exitActiveEditMode(){
 
 /* ── GALLERY ── */
 function renderGallery() {
-  var g=document.getElementById('gallery');
-  var html='';
+  var g = document.getElementById('gallery');
+  var html = '';
   if(editMode) {
-    var allItems=posts.filter(function(p){
-      return p.sec==='개념들'||p.sec==='단어들'||(!p.img&&p.sec!=='link');
+    var txtItems = posts.filter(function(p) {
+      return p.sec==='단어들' || (!p.img && p.sec!=='link' && p.sec!=='개념들');
     });
-    html+='<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
-    html+='<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
-    html+='</div>';
-    html+='<div class="gal-cat-section"><div class="gal-cat-edit-header"><span class="gal-cat-edit-name" style="color:#bbb;font-weight:400;font-size:13px;">미분류</span></div>';
-    html+='<div class="gal-cat-drop" data-cat="" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'\')">';
-    allItems.filter(function(p){
-      return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});
-    }).forEach(function(p){html+=buildEditCardHtml(p);});
-    html+='</div></div>';
-    postCats.forEach(function(cat){
-      html+='<div class="gal-cat-section" style="margin-top:32px;"><div class="gal-cat-edit-header">';
-      html+='<span class="gal-cat-edit-name">'+cat.name+'</span>';
-      html+='<button class="gal-cat-del-btn" onclick="removePostCat(\''+cat.id+'\')">삭제</button>';
-      html+='</div><div class="gal-cat-drop" data-cat="'+cat.name+'" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\''+cat.name+'\')">';
-      allItems.filter(function(p){
-        return p.pos_cat===cat.name;
-      }).forEach(function(p){html+=buildEditCardHtml(p);});
-      html+='</div></div>';
+    html += '<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
+    html += '<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
+    html += '</div>';
+    html += '<div class="gal-cat-section"><div class="gal-cat-edit-header"><span class="gal-cat-edit-name" style="color:#bbb;font-weight:400;font-size:13px;">미분류</span></div>';
+    html += '<div class="gal-cat-drop" data-cat="" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'\')">';
+    txtItems.filter(function(p) {
+      return !p.pos_cat || !findIn(postCats, function(c) { return c.name===p.pos_cat; });
+    }).forEach(function(p) { html += buildEditCardHtml(p); });
+    html += '</div></div>';
+    postCats.forEach(function(cat) {
+      html += '<div class="gal-cat-section" style="margin-top:32px;"><div class="gal-cat-edit-header">';
+      html += '<span class="gal-cat-edit-name">'+cat.name+'</span>';
+      html += '<button class="gal-cat-del-btn" onclick="removePostCat(\''+cat.id+'\')">삭제</button>';
+      html += '</div><div class="gal-cat-drop" data-cat="'+cat.name+'" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\''+cat.name+'\')">';
+      txtItems.filter(function(p) { return p.pos_cat===cat.name; })
+        .forEach(function(p) { html += buildEditCardHtml(p); });
+      html += '</div></div>';
     });
   } else {
-    var allItems2=posts.filter(function(p){
-      return p.sec==='개념들'||p.sec==='단어들'||(!p.img&&p.sec!=='link');
-    });
-    // 미분류
-    var uncat=allItems2.filter(function(p){return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});});
-    var uncatImg=uncat.filter(function(p){return p.img;});
-    var uncatTxt=uncat.filter(function(p){return !p.img;});
-    uncatImg.forEach(function(p){html+=buildCardHtml(p);});
-    if(uncatTxt.length){
-      html+='<div style="flex-basis:100%;column-count:5;column-gap:28px;margin-top:16px;">';
-      uncatTxt.forEach(function(p){html+=buildTextCardHtml(p);});
-      html+='</div>';
-    }
-    // 카테고리별
-    postCats.forEach(function(cat){
-      var items=allItems2.filter(function(p){return p.pos_cat===cat.name;});
-      if(!items.length)return;
-      html+='<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">'+cat.name+'</div>';
-      var catImg=items.filter(function(p){return p.img;});
-      var catTxt=items.filter(function(p){return !p.img;});
-      catImg.forEach(function(p){html+=buildCardHtml(p);});
-      if(catTxt.length){
-        html+='<div style="flex-basis:100%;column-count:5;column-gap:28px;margin-top:16px;">';
-        catTxt.forEach(function(p){html+=buildTextCardHtml(p);});
-        html+='</div>';
-      }
+    var galItems = posts.filter(function(p) { return p.sec==='개념들' && p.img; });
+    galItems.filter(function(p) {
+      return !p.pos_cat || !findIn(postCats, function(c) { return c.name===p.pos_cat; });
+    }).forEach(function(p) { html += buildCardHtml(p); });
+    postCats.forEach(function(cat) {
+      var items = galItems.filter(function(p) { return p.pos_cat===cat.name; });
+      if(!items.length) return;
+      html += '<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">'+cat.name+'</div>';
+      items.forEach(function(p) { html += buildCardHtml(p); });
     });
   }
-  if(!html)html='<p class="loading">게시물이 없습니다.</p>';
-  g.innerHTML=html;
+  if(!html) html = '<p class="loading">게시물이 없습니다.</p>';
+  g.innerHTML = html;
 }
 function buildTextCardHtml(p) {
   return '<div onclick="showDetail('+p.id+')" style="cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;padding:2px 0;break-inside:avoid;">'+p.title+'</div>';
