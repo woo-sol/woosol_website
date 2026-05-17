@@ -1014,9 +1014,28 @@ function removePostCat(id) {
 
 /* ── DANUH ── */
 function renderDanuh() {
-  var el=document.getElementById('danuh-list');
-  var items=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들');});
-  el.innerHTML=items.map(function(p){return '<li onclick="showDetail('+p.id+')">'+p.title+'</li>';}).join('');
+  var el = document.getElementById('danuh-list');
+  var items = posts.filter(function(p) {
+    return p.sec==='단어들' || (!p.img && p.sec!=='link' && p.sec!=='개념들');
+  });
+  var html = '';
+  // 미분류
+  var uncat = items.filter(function(p) {
+    return !p.pos_cat || !findIn(postCats, function(c) { return c.name===p.pos_cat; });
+  });
+  uncat.forEach(function(p) {
+    html += '<li onclick="showDetail('+p.id+')">'+p.title+'</li>';
+  });
+  // 카테고리별
+  postCats.forEach(function(cat) {
+    var catItems = items.filter(function(p) { return p.pos_cat===cat.name; });
+    if(!catItems.length) return;
+    html += '<li style="font-weight:700;margin-top:20px;cursor:default;color:#000;">'+cat.name+'</li>';
+    catItems.forEach(function(p) {
+      html += '<li onclick="showDetail('+p.id+')" style="padding-left:12px;">'+p.title+'</li>';
+    });
+  });
+  el.innerHTML = html;
 }
 
 /* ── DETAIL ── */
