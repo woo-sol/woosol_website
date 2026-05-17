@@ -917,20 +917,33 @@ function renderGallery() {
     });
     galItems.filter(function(p) {
       return !p.pos_cat || !findIn(postCats, function(c) { return c.name === p.pos_cat; });
-    }).forEach(function(p) { html += p.img ? buildCardHtml(p) : buildTextCardHtml(p); });
+     var uncatImg = galItems.filter(function(p) { return (!p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;})) && p.img; });
+    var uncatTxt = galItems.filter(function(p) { return (!p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;})) && !p.img; });
+    uncatImg.forEach(function(p) { html += buildCardHtml(p); });
+    if(uncatTxt.length) {
+      html += '<div style="flex-basis:100%;column-count:5;column-gap:28px;margin-top:16px;">';
+      uncatTxt.forEach(function(p) { html += buildTextCardHtml(p); });
+      html += '</div>';
+    }
     postCats.forEach(function(cat) {
       var items = galItems.filter(function(p) { return p.pos_cat === cat.name; });
       if(!items.length) return;
       html += '<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">' + cat.name + '</div>';
-      items.forEach(function(p) { html += p.img ? buildCardHtml(p) : buildTextCardHtml(p); });
+            var imgItems = items.filter(function(p) { return p.img; });
+      var txtItems = items.filter(function(p) { return !p.img; });
+      imgItems.forEach(function(p) { html += buildCardHtml(p); });
+      if(txtItems.length) {
+        html += '<div style="flex-basis:100%;column-count:5;column-gap:28px;margin-top:16px;">';
+        txtItems.forEach(function(p) { html += buildTextCardHtml(p); });
+        html += '</div>';
+      }
     });
   }
   if(!html)html='<p class="loading">게시물이 없습니다.</p>';
   g.innerHTML=html;
 }
-  function buildTextCardHtml(p) {
-  return '<div class="card" style="cursor:pointer;" onclick="showDetail('+p.id+')">' +
-    '<div class="card-cap">'+p.title+'</div></div>';
+ function buildTextCardHtml(p) {
+  return '<div class="danuh-text-item" onclick="showDetail('+p.id+')" style="cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;padding:2px 0;">'+p.title+'</div>';
 }
 function buildCardHtml(p) {
   return '<div class="card" onclick="showDetail('+p.id+')">' +
