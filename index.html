@@ -46,15 +46,16 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .mob-item:hover,.mob-item.active{color:#000;}
 @media(max-width:600px){.nav-bar{display:none;}.hamburger{display:flex;}}
 @media(max-width:480px){
-  .gallery{gap:12px 10px;align-items:flex-start;}
-  .card{width:calc(50% - 5px);flex-shrink:0;}
+  .site-main{padding:20px 12px 100px;}
+  .gallery{gap:10px 8px;align-items:flex-start;}
+  .card{width:calc(50% - 4px)!important;flex-shrink:0!important;flex-basis:calc(50% - 4px)!important;}
   .card img{width:100%!important;height:auto!important;object-fit:contain;}
   .card-cap{font-size:12px;}
   .danuh-cols{column-count:2;column-width:auto;margin-top:40px;}
 }
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 .pg{display:none;}.pg.on{display:block;}
- 
+
 /* GALLERY */
 .gallery{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;}
 .card{cursor:pointer;flex-shrink:0;transition:transform 0.22s ease;}
@@ -78,7 +79,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .danuh-cols li:hover{color:var(--blue);}
 .about-body{max-width:600px;font-size:14.6px;font-weight:400;line-height:1.6;letter-spacing:-0.01em;}
 .about-body p+p{margin-top:14px;}
- 
+
 /* DETAIL */
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
@@ -106,7 +107,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .tpl-box-sep{color:#ccc;}
 .fn-block{margin-top:32px;padding-top:12px;border-top:1px solid #000;}
 .fn-item{font-size:11px;color:#444;margin-bottom:4px;line-height:1.5;}
- 
+
 /* LIBRARY - 세로 정렬 */
 .lib-cats{display:flex;flex-direction:column;gap:40px;}
 .lib-cat-group{display:flex;flex-direction:column;gap:16px;}
@@ -134,7 +135,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .cat-drop-zone.drag-over{background:#ebebff;border-color:var(--blue);}
 .cat-btn{border:1px solid #ccc;padding:5px 14px;font-size:13px;cursor:pointer;background:#fff;font-family:inherit;margin-right:6px;margin-bottom:6px;letter-spacing:-0.01em;}
 .cat-btn.active{border-color:#000;background:#000;color:#fff;}
- 
+
 /* FAB STACK — 세로 배치, 22×22 통일 */
 .fab-stack{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:8px;z-index:300;align-items:center;}
 .fab{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:block;flex-shrink:0;}
@@ -147,7 +148,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .fab-done-btn:hover{background:var(--blue);}
 .fab-edit{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;padding:0;}
 .fab-edit:hover{background:var(--blue);}
- 
+
 /* PANELS */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.18);z-index:250;}
 .ov.on{display:block;}
@@ -210,14 +211,14 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
   <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
 </header>
- 
+
 <div class="mobile-menu" id="mobile-menu">
   <button class="mob-item active" id="mob-개념들" onclick="go('개념들')">개념들</button>
   <button class="mob-item" id="mob-도서관" onclick="go('도서관')">도서관</button>
   <button class="mob-item" id="mob-건축언어" onclick="go('건축언어')">건축언어</button>
   <button class="mob-item" id="mob-관계심화" onclick="go('관계심화')">관계심화</button>
 </div>
- 
+
 <main class="site-main">
   <div id="pg-개념들" class="pg on">
     <div id="gallery" class="gallery"></div>
@@ -233,7 +234,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
       <p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>
     </div>
   </div>
- 
+
   <!-- DETAIL VIEW -->
   <div id="dv">
     <!-- 자식 문서: 상단 틀 박스 -->
@@ -251,7 +252,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     </div>
   </div>
 </main>
- 
+
 <!-- FAB STACK -->
 <div class="fab-stack" id="fab-stack">
   <button class="fab-edit" id="fab-edit" onclick="onEditClick()" title="수정"></button>
@@ -269,9 +270,9 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fab-ring" id="fab-about-edit" onclick="editAbout()" style="display:none;" title="관계심화 수정"></button>
   <button class="fab-done-btn" id="fab-done" onclick="exitActiveEditMode()">완료</button>
 </div>
- 
+
 <div class="ov" id="ov" onclick="closeAllPanels()"></div>
- 
+
 <div class="deadend" id="deadend">
   <div class="deadend-box">
     <div id="de-main">
@@ -293,9 +294,9 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     </div>
   </div>
 </div>
- 
+
 <!-- ===== PANELS ===== -->
- 
+
 <!-- 로그인 -->
 <div class="panel" id="login-panel">
   <div class="resize-handle"></div>
@@ -306,7 +307,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn sec" onclick="showPanel('signup-panel')">회원가입</button>
   <p id="li-err" class="err-msg"></p>
 </div>
- 
+
 <!-- 회원가입 -->
 <div class="panel" id="signup-panel">
   <div class="resize-handle"></div>
@@ -324,15 +325,15 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <button class="fbtn sec" style="margin-top:20px;" onclick="showPanel('login-panel')">로그인하러 가기</button>
   </div>
 </div>
- 
+
 <!-- 회원정보 수정 -->
 <div class="panel" id="profile-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>회원정보 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
- 
+
   <!-- 현재 별명 표시 -->
   <p style="font-size:12px;color:#999;margin-bottom:20px;">현재 별명: <span id="pro-current-nick" style="color:#000;"></span></p>
- 
+
   <!-- 별명 변경 -->
   <div class="fl">
     <label>새 별명</label>
@@ -341,7 +342,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn" onclick="saveNickname()">별명 저장</button>
   <p id="pro-nick-ok" class="ok-msg">✓ 별명이 변경되었습니다.</p>
   <p id="pro-nick-err" class="err-msg"></p>
- 
+
   <!-- 비밀번호 변경 -->
   <div class="profile-divider">
     <p style="font-size:12px;color:#888;margin-bottom:14px;line-height:1.6;">
@@ -353,7 +354,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <p id="pro-pw-err" class="err-msg"></p>
   </div>
 </div>
- 
+
 <!-- 글쓰기 -->
 <div class="panel" id="new-panel">
   <div class="resize-handle"></div>
@@ -393,7 +394,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="nf-ok" class="ok-msg">✓ 등록되었습니다.</p>
   <p id="nf-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
- 
+
 <!-- 게시물 수정 -->
 <div class="panel" id="edit-panel">
   <div class="resize-handle"></div>
@@ -434,7 +435,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="ef-ok" class="ok-msg">✓ 수정되었습니다.</p>
   <p id="ef-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
- 
+
 <!-- 도서 등록 -->
 <div class="panel" id="book-panel">
   <div class="resize-handle"></div>
@@ -447,7 +448,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="b-ok" class="ok-msg">✓ 등록되었습니다.</p>
   <p id="b-err" class="err-msg">저장 실패.</p>
 </div>
- 
+
 <!-- 도서 수정 -->
 <div class="panel" id="book-edit-panel">
   <div class="resize-handle"></div>
@@ -461,7 +462,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="be-ok" class="ok-msg">✓ 수정되었습니다.</p>
   <p id="be-err" class="err-msg">저장 실패.</p>
 </div>
- 
+
 <!-- 도서관 카테고리 -->
 <div class="panel" id="lib-cat-panel">
   <div class="resize-handle"></div>
@@ -477,7 +478,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn del" id="lc-delete-btn" style="display:none;" onclick="deleteLibCat()">삭제</button>
   <p id="lc-ok" class="ok-msg">✓ 저장되었습니다.</p>
 </div>
- 
+
 <!-- 개념들 카테고리 관리 -->
 <div class="panel" id="post-cat-panel">
   <div class="resize-handle"></div>
@@ -486,7 +487,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="fl"><label>새 카테고리</label><input type="text" class="fi" id="pc-name" placeholder="카테고리 이름"></div>
   <button class="fbtn" onclick="addPostCat()">추가</button>
 </div>
- 
+
 <!-- 관계심화 수정 -->
 <div class="panel" id="about-panel">
   <div class="resize-handle"></div>
@@ -497,14 +498,14 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn" onclick="saveAbout()">저장</button>
   <p id="about-ok" class="ok-msg">✓ 저장되었습니다.</p>
 </div>
- 
+
 <!-- ===== SCRIPT ===== -->
 <script>
 /* ── 설정 — 실제 값으로 교체하세요 ── */
 var SUPA_URL    = 'https://xybngqgqhdbpliqofefn.supabase.co';
 var SUPA_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
 var ADMIN_EMAIL = 'woosol1138@gmail.com';
- 
+
 var TARGET_AREA = 220 * 220;
 var posts = [], books = [], libCats = [], postCats = [];
 var editMode = false, libEditMode = false;
@@ -521,7 +522,7 @@ var isDragging = false, touchDragId = null, touchTimer = null;
 var touchDragClone = null, touchStartX = 0, touchStartY = 0;
 var lastTapBook = {};
 var newSubDocs = [], editSubDocs = [];
- 
+
 /* ── 패널 가로 리사이즈 ── */
 var isResizingPanel = false, resizeStartX = 0, resizeStartW = 0, resizingPanel = null;
 document.addEventListener('mousedown', function(e) {
@@ -541,7 +542,7 @@ document.addEventListener('mouseup', function() {
   isResizingPanel = false; resizingPanel = null;
   document.body.style.cursor = ''; document.body.style.userSelect = '';
 });
- 
+
 /* ── 유틸 ── */
 function SH(tok) { return {'apikey':SUPA_KEY,'Authorization':'Bearer '+(tok||SUPA_KEY),'Content-Type':'application/json'}; }
 function saveToken(t) { authToken=t; try{localStorage.setItem('pos_token',t);}catch(e){} }
@@ -551,7 +552,7 @@ function safePush(st,url) { try{history.pushState(st,'',url);}catch(e){} }
 function findIn(arr,fn) { for(var i=0;i<arr.length;i++){if(fn(arr[i]))return arr[i];}return null; }
 function findIdx(arr,fn) { for(var i=0;i<arr.length;i++){if(fn(arr[i]))return i;}return -1; }
 function genId() { return 'c'+Date.now()+Math.floor(Math.random()*1000); }
- 
+
 function setMeta(title,desc,img) {
   document.title = title ? title+' — POS' : '공공운영체제 POS';
   function s(sel,val){var el=document.querySelector(sel);if(el)el.setAttribute('content',val);}
@@ -567,7 +568,7 @@ function setThumbSize(img) {
   var r=img.naturalWidth/img.naturalHeight;
   img.style.height='260px'; img.style.width=Math.round(260*r)+'px';
 }
- 
+
 /* ── Settings ── */
 function loadSettings() {
   fetch(SUPA_URL+'/rest/v1/pos_settings?key=in.(lib_cats,post_cats)',{headers:SH()})
@@ -588,7 +589,7 @@ function saveSetting(key,value) {
   if(!authToken)return;
   fetch(SUPA_URL+'/rest/v1/pos_settings',{method:'POST',headers:Object.assign({},SH(authToken),{'Prefer':'resolution=merge-duplicates'}),body:JSON.stringify({key:key,value:value})});
 }
- 
+
 /* ── DB ── */
 function dbLoad() {
   fetch(SUPA_URL+'/rest/v1/posts?order=created_at.asc',{headers:SH()})
@@ -636,7 +637,7 @@ function resolveImg(fileInput,urlInput) {
   if(f){return uploadImg(f).then(function(u){return u||readB64(f);});}
   return Promise.resolve(urlInput&&urlInput.value.trim()||null);
 }
- 
+
 /* ── AUTH ── */
 function initAuth() {
   var t=loadToken(); if(!t)return;
@@ -676,7 +677,7 @@ function canEdit(post){
   if(isAdmin())return true;
   return post.author_nickname&&post.author_nickname===authNickname;
 }
- 
+
 /* ── 회원정보 수정 ── */
 function openProfilePanel() {
   document.getElementById('pro-current-nick').textContent = authNickname || '';
@@ -731,7 +732,7 @@ function sendPasswordReset() {
     err.style.display='block';
   });
 }
- 
+
 /* ── FAB 관리 ── */
 function manageFabs() {
   var fbWrite=document.getElementById('fab-write');
@@ -746,9 +747,9 @@ function manageFabs() {
   fbLibToggle.style.display='none'; fbBook.style.display='none';
   fbCat.style.display='none'; fbDone.style.display='none'; fbEdit.style.display='none';
   document.getElementById('fab-about-edit').style.display='none';
- 
+
   if(document.getElementById('dv').style.display==='block') return;
- 
+
   if(cur==='개념들') {
     if(editMode){
       fbDone.style.display='flex';
@@ -768,7 +769,7 @@ function manageFabs() {
     if(isAdmin()) document.getElementById('fab-about-edit').style.display='flex';
   }
 }
- 
+
 function doLogin() {
   var email=document.getElementById('li-email').value.trim(), pw=document.getElementById('li-pw').value;
   var err=document.getElementById('li-err'); err.style.display='none';
@@ -803,7 +804,7 @@ function logout() {
   fetch(SUPA_URL+'/auth/v1/logout',{method:'POST',headers:SH(authToken)}).catch(function(){});
   clearToken(); authUser=null; authNickname=null; updateNavAuth(); manageFabs();
 }
- 
+
 /* ── NAV ── */
 function onWriteClick(){if(!authUser)showPanel('login-panel');else openNewPanel();}
 function onEditClick(){
@@ -830,7 +831,7 @@ function onLibCatAdd(){
 }
 function toggleMobile(){mobileOpen=!mobileOpen;document.getElementById('mobile-menu').classList.toggle('open',mobileOpen);}
 function closeMobile(){mobileOpen=false;document.getElementById('mobile-menu').classList.remove('open');}
- 
+
 function go(sec,doPush) {
   if(doPush===undefined)doPush=true;
   closeMobile();
@@ -849,7 +850,7 @@ function go(sec,doPush) {
   if(doPush){safePush({type:'sec',sec:sec},sec==='개념들'?'/':'/'+encodeURIComponent(sec));setMeta('','','');}
   window.scrollTo(0,0);
 }
- 
+
 /* ── 편집 모드 ── */
 function enterEditMode(){
   if(!isAdmin()){alert('관리자만 편집모드를 사용할 수 있습니다.');return;}
@@ -873,7 +874,7 @@ function exitActiveEditMode(){
   if(editMode)exitEditMode();
   else if(libEditMode)exitLibEditMode();
 }
- 
+
 /* ── GALLERY ── */
 function renderGallery() {
   var g=document.getElementById('gallery');
@@ -940,7 +941,7 @@ function onGalCatDrop(e,catName){
   if(p){p.pos_cat=catName;dbUpdate(srcId,{pos_cat:catName});renderGallery();renderDanuh();}
   galDragSrcId=null;
 }
- 
+
 /* ── DANUH ── */
 function renderDanuh() {
   var el=document.getElementById('danuh-list');
@@ -978,14 +979,7 @@ function removePostCat(id) {
   saveSetting('post_cats',postCats);
   renderPostCatsList();renderGallery();
 }
- 
-/* ── DANUH ── */
-function renderDanuh() {
-  var el=document.getElementById('danuh-list');
-  var items=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들');});
-  el.innerHTML=items.map(function(p){return '<li onclick="showDetail('+p.id+')">'+p.title+'</li>';}).join('');
-}
- 
+
 /* ── DETAIL ── */
 function showDetail(postId,doPush) {
   if(doPush===undefined)doPush=true;
@@ -998,7 +992,7 @@ function showDetail(postId,doPush) {
     document.getElementById(id).style.display='none';
   });
   document.getElementById('fab-edit').style.display=canEdit(p)?'flex':'none';
- 
+
   // 자식문서: 틀 박스
   var tplBox=document.getElementById('d-template-box');
   var parentTpl=null;
@@ -1014,11 +1008,11 @@ function showDetail(postId,doPush) {
     });
     tplBox.innerHTML=tplHtml; tplBox.style.display='inline-flex';
   } else {tplBox.style.display='none';tplBox.innerHTML='';}
- 
+
   document.getElementById('d-title').textContent=p.title;
   document.getElementById('d-text').innerHTML=wikiRender(p.body||'');
   document.getElementById('d-author').textContent=p.author_nickname||'';
- 
+
   // 부모문서: 하위문서 목록
   var subEl=document.getElementById('d-subdocs');
   if(p.is_template&&p.sub_docs&&p.sub_docs.length){
@@ -1030,17 +1024,17 @@ function showDetail(postId,doPush) {
     subHtml+='</div>';
     subEl.innerHTML=subHtml; subEl.style.display='block';
   } else {subEl.style.display='none';subEl.innerHTML='';}
- 
+
   // 뒤로가기
   document.getElementById('d-back').innerHTML='<span class="back-btn" onclick="closeDetail()"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
- 
+
   // 관련 게시물
   var tags=p.tags||[];
   var rel=posts.filter(function(x){return x.id!==postId&&x.tags&&x.tags.some(function(t){return tags.indexOf(t)>=0;});}).slice(0,5);
   var wrap=document.getElementById('d-rel-wrap');
   if(rel.length){wrap.style.display='block';document.getElementById('d-related').innerHTML=rel.map(function(r){return '<div class="rel-item"><span class="wiki-link" onclick="showDetail('+r.id+')">'+r.title+'</span><span class="r-sec">'+r.sec+'</span></div>';}).join('');}
   else wrap.style.display='none';
- 
+
   if(doPush){safePush({type:'post',id:postId},'/'+encodeURIComponent(p.title));var desc=p.body?p.body.replace(/\[\[.*?\]\]/g,'').slice(0,120).trim()+'…':'';setMeta(p.title,desc,p.img||'');}
   window.scrollTo(0,0); setTimeout(function(){window.scrollTo(0,0);},80);
 }
@@ -1057,7 +1051,7 @@ window.addEventListener('popstate',function(e){
   else if(st.type==='sec')go(st.sec,false);
   else go('개념들',false);
 });
- 
+
 /* ── WIKI RENDER ── */
 function wikiRender(text) {
   var footnotes=[];
@@ -1087,7 +1081,7 @@ function wikiRender(text) {
   return html;
 }
 document.addEventListener('click',function(e){var el=e.target.closest&&e.target.closest('.dead-link');if(el)openDeadend(el.getAttribute('data-word'));});
- 
+
 /* ── LIBRARY ── */
 function renderBtnGroup(containerId,cats,activeName,onSelect) {
   var rootCats=cats.filter(function(c){return !c.parentId;});
@@ -1148,7 +1142,7 @@ function renderLibCatHtml(cat,isSub) {
   return html;
 }
 function toggleBook(id){expandedBookId=expandedBookId===id?null:id;renderLibrary();}
- 
+
 /* Library 카테고리 CRUD */
 function buildParentSelect(selectedId) {
   var sel=document.getElementById('lc-parent');if(!sel)return;
@@ -1189,7 +1183,7 @@ function deleteLibCat() {
   saveSetting('lib_cats',libCats);
   closeAllPanels();renderLibrary();
 }
- 
+
 /* Book CRUD */
 function openBookEdit(id) {
   var b=findIn(books,function(x){return x.id===id;});if(!b)return;
@@ -1229,7 +1223,7 @@ function submitBook() {
     })
     .catch(function(){document.getElementById('b-err').style.display='block';setTimeout(function(){document.getElementById('b-err').style.display='none';},3000);});
 }
- 
+
 /* ── DRAG BOOKS ── */
 function onBookDragStart(e,id){
   dragSrcId=id;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(id));
@@ -1289,7 +1283,7 @@ function performBookDrop(srcId,targetId,targetCat,insertBefore) {
   }
   renderLibrary();
 }
- 
+
 /* Touch drag books */
 function onBookTouchStart(e,id){
   var touch=e.touches[0];touchStartX=touch.clientX;touchStartY=touch.clientY;
@@ -1325,7 +1319,7 @@ function onBookTouchEnd(e){
   }
   isDragging=false;touchDragId=null;
 }
- 
+
 /* ── TOOLBAR ── */
 function insertWiki(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var ins=sel?'[['+sel+']]':'[[]]';ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+2;ta.focus();}
 function insertImgUrl(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd;ta.value=ta.value.slice(0,s)+'[[img:]]'+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=s+6;ta.focus();}
@@ -1344,7 +1338,7 @@ function addPaste(id){
   pasteAttached.push(id);
   el.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');var norm=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');var s=el.selectionStart,end=el.selectionEnd;el.value=el.value.slice(0,s)+norm+el.value.slice(end);el.selectionStart=el.selectionEnd=s+norm.length;});
 }
- 
+
 /* ── SUB-DOCUMENTS ── */
 function toggleSubdocSection(sectionId,checked){document.getElementById(sectionId).style.display=checked?'block':'none';}
 function searchSubdocs(inputId,resultsId,prefix){
@@ -1375,7 +1369,7 @@ function renderSubdocList(prefix){
     return p?'<div class="subdoc-item"><span>'+p.title+'</span><button class="subdoc-remove" onclick="removeSubdoc('+id+',\''+prefix+'\')">×</button></div>':'';
   }).join('');
 }
- 
+
 /* ── DEAD-END ── */
 function openDeadend(w){deadendWord=w;showDeMain();document.getElementById('deadend').classList.add('on');}
 function closeDeadend(){document.getElementById('deadend').classList.remove('on');showDeMain();}
@@ -1396,7 +1390,7 @@ function saveExit(){
   else{pr=dbInsert({title:deadendWord,sec:'link',img:null,plates:[],w:0,h:0,body:'',tags:[],date:'',type:'Link',status:'Published',external_url:url,author_nickname:authNickname||''}).then(function(saved){if(saved)posts.push(saved);});}
   pr.then(function(){closeDeadend();if(currentId)showDetail(currentId,false);}).catch(function(){err.textContent='저장 실패';err.style.display='block';});
 }
- 
+
 /* ── PANELS ── */
 var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel'];
 function closeAllPanels(){PANELS.forEach(function(id){document.getElementById(id).classList.remove('on');});document.getElementById('ov').classList.remove('on');}
@@ -1465,7 +1459,7 @@ function deletePost(){
     go('개념들');
   }).catch(function(){alert('삭제 실패. 다시 시도해주세요.');});
 }
- 
+
 /* ── 관계심화 ── */
 function renderAbout() {
   fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.about_content',{headers:SH()})
@@ -1495,7 +1489,7 @@ function saveAbout() {
   setTimeout(function(){document.getElementById('about-ok').style.display='none';},2000);
   closeAllPanels();
 }
- 
+
 /* ── 초기화 ── */
 initAuth();
 dbLoad();
