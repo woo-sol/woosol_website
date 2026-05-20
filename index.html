@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>공공운영체제 POS — Public Operating System</title>
-<meta name="description" content="공공운영체제 POS. 시각이미지에 관한 텍스트와 유통을 위한 공공운영체제">
+<meta name="description" content="공공운영체제 POS. 디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.">
 <meta name="keywords" content="POS, p-o-s, 공공운영체제, public operating system, 디자인, 시각언어, 아카이브">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://p-o-s.kr">
@@ -13,12 +13,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="공공운영체제 POS">
 <meta property="og:title" content="공공운영체제 POS">
-<meta property="og:description" content="시각이미지에 관한 텍스트와 유통을 위한 공공운영체제">
+<meta property="og:description" content="디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.">
 <meta property="og:url" content="https://p-o-s.kr">
-<meta property="og:image" content="https://i.pinimg.com/1200x/69/6c/59/696c59b1f03d7f485f230e7fc892e934.jpg">
+<meta property="og:image" content="https://p-o-s.kr/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="공공운영체제 POS">
-<meta name="twitter:description" content="시각이미지에 관한 텍스트와 유통을 위한 공공운영체제">
+<meta name="twitter:description" content="디자인의 공공 활동을 통해 담론을 실천하는 시각언어 아카이브.">
 <meta name="twitter:image" content="https://p-o-s.kr/og-image.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"공공운영체제 POS","url":"https://p-o-s.kr"}</script>
 <style>
@@ -46,14 +46,15 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .mob-item:hover,.mob-item.active{color:#000;}
 @media(max-width:600px){.nav-bar{display:none;}.hamburger{display:flex;}}
 @media(max-width:480px){
-  .gallery{gap:16px 14px;}
-  .card{width:calc(50% - 7px);}
-  .card img{width:100%!important;height:160px!important;object-fit:cover;}
+  .gallery{gap:12px 10px;align-items:flex-start;}
+  .card{width:calc(50% - 5px);flex-shrink:0;}
+  .card img{width:100%!important;height:auto!important;object-fit:contain;}
   .card-cap{font-size:12px;}
+  .danuh-cols{column-count:2;column-width:auto;margin-top:40px;}
 }
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 .pg{display:none;}.pg.on{display:block;}
-
+ 
 /* GALLERY */
 .gallery{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;}
 .card{cursor:pointer;flex-shrink:0;transition:transform 0.22s ease;}
@@ -64,9 +65,9 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .card-text:hover{transform:none;background:#f0f0f0;}
 .card-text .card-cap{margin-top:0;}
 .card.dragging{opacity:0.3;transform:none;}
-.gal-cat-drop{display:flex;flex-wrap:wrap;align-items:flex-end;gap:36px 44px;min-height:80px;border:1px dashed #ddd;padding:16px;transition:background 0.15s,border-color 0.15s;width:100%;}
+.gal-cat-drop{display:flex;flex-wrap:wrap;flex-direction:column;align-items:flex-start;gap:0;min-height:40px;border:1px dashed #eee;padding:8px 4px;transition:background 0.15s,border-color 0.15s;width:100%;}
 .gal-cat-drop.drag-over{background:#ebebff;border-color:var(--blue);}
-.gal-cat-drop:empty::before{content:'여기에 드래그하세요';font-size:12px;color:#ccc;line-height:80px;}
+.gal-cat-drop:empty::before{content:'여기에 드래그하세요';font-size:12px;color:#ddd;line-height:40px;}
 .gal-cat-section{flex-basis:100%;}
 .gal-cat-edit-header{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
 .gal-cat-edit-name{font-size:14.6px;font-weight:700;}
@@ -77,13 +78,13 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .danuh-cols li:hover{color:var(--blue);}
 .about-body{max-width:600px;font-size:14.6px;font-weight:400;line-height:1.6;letter-spacing:-0.01em;}
 .about-body p+p{margin-top:14px;}
-
+ 
 /* DETAIL */
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
-.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:9cm;column-count:5;column-gap:28px;}
-.d-text p{break-inside:avoid;}.d-text p+p{margin-top:14px;}
-.d-img-plate{width:100%;height:auto;display:block;margin:24px 0;}
+.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:clamp(300px,42vw,560px);column-count:5;column-gap:36px;column-fill:auto;}
+.d-text p{break-inside:avoid;margin-top:14px;}
+.d-img-plate{max-width:50%;height:auto;display:block;margin:24px 0;}
 .wiki-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
 .ext-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
 .d-author{font-size:11px;color:#bbb;margin-top:28px;letter-spacing:-0.01em;}
@@ -105,7 +106,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .tpl-box-sep{color:#ccc;}
 .fn-block{margin-top:32px;padding-top:12px;border-top:1px solid #000;}
 .fn-item{font-size:11px;color:#444;margin-bottom:4px;line-height:1.5;}
-
+ 
 /* LIBRARY - 세로 정렬 */
 .lib-cats{display:flex;flex-direction:column;gap:40px;}
 .lib-cat-group{display:flex;flex-direction:column;gap:16px;}
@@ -133,7 +134,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .cat-drop-zone.drag-over{background:#ebebff;border-color:var(--blue);}
 .cat-btn{border:1px solid #ccc;padding:5px 14px;font-size:13px;cursor:pointer;background:#fff;font-family:inherit;margin-right:6px;margin-bottom:6px;letter-spacing:-0.01em;}
 .cat-btn.active{border-color:#000;background:#000;color:#fff;}
-
+ 
 /* FAB STACK — 세로 배치, 22×22 통일 */
 .fab-stack{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:8px;z-index:300;align-items:center;}
 .fab{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:block;flex-shrink:0;}
@@ -146,7 +147,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .fab-done-btn:hover{background:var(--blue);}
 .fab-edit{width:22px;height:22px;background:#000;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;padding:0;}
 .fab-edit:hover{background:var(--blue);}
-
+ 
 /* PANELS */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.18);z-index:250;}
 .ov.on{display:block;}
@@ -209,14 +210,14 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
   <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
 </header>
-
+ 
 <div class="mobile-menu" id="mobile-menu">
   <button class="mob-item active" id="mob-개념들" onclick="go('개념들')">개념들</button>
   <button class="mob-item" id="mob-도서관" onclick="go('도서관')">도서관</button>
   <button class="mob-item" id="mob-건축언어" onclick="go('건축언어')">건축언어</button>
   <button class="mob-item" id="mob-관계심화" onclick="go('관계심화')">관계심화</button>
 </div>
-
+ 
 <main class="site-main">
   <div id="pg-개념들" class="pg on">
     <div id="gallery" class="gallery"></div>
@@ -232,7 +233,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
       <p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>
     </div>
   </div>
-
+ 
   <!-- DETAIL VIEW -->
   <div id="dv">
     <!-- 자식 문서: 상단 틀 박스 -->
@@ -250,12 +251,10 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     </div>
   </div>
 </main>
-
+ 
 <!-- FAB STACK -->
 <div class="fab-stack" id="fab-stack">
-  <button class="fab-edit" id="fab-edit" onclick="onEditClick()" title="수정">
-    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="1" y1="10" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="7" y1="1" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="10" y1="1" x2="10" y2="4" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
-  </button>
+  <button class="fab-edit" id="fab-edit" onclick="onEditClick()" title="수정"></button>
   <button class="fab" id="fab-write" onclick="onWriteClick()" title="글쓰기"></button>
   <button class="fab-ring" id="fab-donut" onclick="enterEditMode()" title="편집모드 (관리자)">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="3.2" fill="none"/></svg>
@@ -267,14 +266,12 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="2" y="1" width="9" height="11" rx="0.5" stroke="white" stroke-width="1.3"/><line x1="4" y1="4" x2="9" y2="4" stroke="white" stroke-width="1"/><line x1="4" y1="6.5" x2="9" y2="6.5" stroke="white" stroke-width="1"/><line x1="4" y1="9" x2="7" y2="9" stroke="white" stroke-width="1"/></svg>
   </button>
   <button class="fab-icon" id="fab-cat" onclick="onLibCatAdd()" title="카테고리 추가" style="font-size:15px;color:#fff;line-height:1;">+</button>
-  <button class="fab-ring" id="fab-about-edit" onclick="editAbout()" style="display:none;">
-  <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="1" y1="10" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="7" y1="1" x2="10" y2="1" stroke="white" stroke-width="1.4" stroke-linecap="round"/><line x1="10" y1="1" x2="10" y2="4" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
-</button>
+  <button class="fab-ring" id="fab-about-edit" onclick="editAbout()" style="display:none;" title="관계심화 수정"></button>
   <button class="fab-done-btn" id="fab-done" onclick="exitActiveEditMode()">완료</button>
 </div>
-
+ 
 <div class="ov" id="ov" onclick="closeAllPanels()"></div>
-
+ 
 <div class="deadend" id="deadend">
   <div class="deadend-box">
     <div id="de-main">
@@ -296,9 +293,9 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     </div>
   </div>
 </div>
-
+ 
 <!-- ===== PANELS ===== -->
-
+ 
 <!-- 로그인 -->
 <div class="panel" id="login-panel">
   <div class="resize-handle"></div>
@@ -309,7 +306,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn sec" onclick="showPanel('signup-panel')">회원가입</button>
   <p id="li-err" class="err-msg"></p>
 </div>
-
+ 
 <!-- 회원가입 -->
 <div class="panel" id="signup-panel">
   <div class="resize-handle"></div>
@@ -327,15 +324,15 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <button class="fbtn sec" style="margin-top:20px;" onclick="showPanel('login-panel')">로그인하러 가기</button>
   </div>
 </div>
-
+ 
 <!-- 회원정보 수정 -->
 <div class="panel" id="profile-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>회원정보 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
-
+ 
   <!-- 현재 별명 표시 -->
   <p style="font-size:12px;color:#999;margin-bottom:20px;">현재 별명: <span id="pro-current-nick" style="color:#000;"></span></p>
-
+ 
   <!-- 별명 변경 -->
   <div class="fl">
     <label>새 별명</label>
@@ -344,7 +341,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn" onclick="saveNickname()">별명 저장</button>
   <p id="pro-nick-ok" class="ok-msg">✓ 별명이 변경되었습니다.</p>
   <p id="pro-nick-err" class="err-msg"></p>
-
+ 
   <!-- 비밀번호 변경 -->
   <div class="profile-divider">
     <p style="font-size:12px;color:#888;margin-bottom:14px;line-height:1.6;">
@@ -356,7 +353,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <p id="pro-pw-err" class="err-msg"></p>
   </div>
 </div>
-
+ 
 <!-- 글쓰기 -->
 <div class="panel" id="new-panel">
   <div class="resize-handle"></div>
@@ -396,7 +393,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="nf-ok" class="ok-msg">✓ 등록되었습니다.</p>
   <p id="nf-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
-
+ 
 <!-- 게시물 수정 -->
 <div class="panel" id="edit-panel">
   <div class="resize-handle"></div>
@@ -437,7 +434,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="ef-ok" class="ok-msg">✓ 수정되었습니다.</p>
   <p id="ef-err" class="err-msg">저장 실패. 다시 시도해주세요.</p>
 </div>
-
+ 
 <!-- 도서 등록 -->
 <div class="panel" id="book-panel">
   <div class="resize-handle"></div>
@@ -450,7 +447,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="b-ok" class="ok-msg">✓ 등록되었습니다.</p>
   <p id="b-err" class="err-msg">저장 실패.</p>
 </div>
-
+ 
 <!-- 도서 수정 -->
 <div class="panel" id="book-edit-panel">
   <div class="resize-handle"></div>
@@ -464,7 +461,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="be-ok" class="ok-msg">✓ 수정되었습니다.</p>
   <p id="be-err" class="err-msg">저장 실패.</p>
 </div>
-
+ 
 <!-- 도서관 카테고리 -->
 <div class="panel" id="lib-cat-panel">
   <div class="resize-handle"></div>
@@ -480,7 +477,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn del" id="lc-delete-btn" style="display:none;" onclick="deleteLibCat()">삭제</button>
   <p id="lc-ok" class="ok-msg">✓ 저장되었습니다.</p>
 </div>
-
+ 
 <!-- 개념들 카테고리 관리 -->
 <div class="panel" id="post-cat-panel">
   <div class="resize-handle"></div>
@@ -489,7 +486,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="fl"><label>새 카테고리</label><input type="text" class="fi" id="pc-name" placeholder="카테고리 이름"></div>
   <button class="fbtn" onclick="addPostCat()">추가</button>
 </div>
-
+ 
 <!-- 관계심화 수정 -->
 <div class="panel" id="about-panel">
   <div class="resize-handle"></div>
@@ -500,16 +497,14 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn" onclick="saveAbout()">저장</button>
   <p id="about-ok" class="ok-msg">✓ 저장되었습니다.</p>
 </div>
-
-
+ 
 <!-- ===== SCRIPT ===== -->
 <script>
 /* ── 설정 — 실제 값으로 교체하세요 ── */
-var SUPA_URL = 'https://xybngqgqhdbpliqofefn.supabase.co';
-var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
+var SUPA_URL    = 'https://xybngqgqhdbpliqofefn.supabase.co';
+var SUPA_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Ym5ncWdxaGRicGxpcW9mZWZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTExOTcsImV4cCI6MjA5MjA4NzE5N30.pcqzQpEMxh9u1iqhpCCEsrGK_LzUUWyU_gT4pd7xY2I';
 var ADMIN_EMAIL = 'woosol1138@gmail.com';
-
-
+ 
 var TARGET_AREA = 220 * 220;
 var posts = [], books = [], libCats = [], postCats = [];
 var editMode = false, libEditMode = false;
@@ -526,7 +521,7 @@ var isDragging = false, touchDragId = null, touchTimer = null;
 var touchDragClone = null, touchStartX = 0, touchStartY = 0;
 var lastTapBook = {};
 var newSubDocs = [], editSubDocs = [];
-
+ 
 /* ── 패널 가로 리사이즈 ── */
 var isResizingPanel = false, resizeStartX = 0, resizeStartW = 0, resizingPanel = null;
 document.addEventListener('mousedown', function(e) {
@@ -546,7 +541,7 @@ document.addEventListener('mouseup', function() {
   isResizingPanel = false; resizingPanel = null;
   document.body.style.cursor = ''; document.body.style.userSelect = '';
 });
-
+ 
 /* ── 유틸 ── */
 function SH(tok) { return {'apikey':SUPA_KEY,'Authorization':'Bearer '+(tok||SUPA_KEY),'Content-Type':'application/json'}; }
 function saveToken(t) { authToken=t; try{localStorage.setItem('pos_token',t);}catch(e){} }
@@ -556,7 +551,7 @@ function safePush(st,url) { try{history.pushState(st,'',url);}catch(e){} }
 function findIn(arr,fn) { for(var i=0;i<arr.length;i++){if(fn(arr[i]))return arr[i];}return null; }
 function findIdx(arr,fn) { for(var i=0;i<arr.length;i++){if(fn(arr[i]))return i;}return -1; }
 function genId() { return 'c'+Date.now()+Math.floor(Math.random()*1000); }
-
+ 
 function setMeta(title,desc,img) {
   document.title = title ? title+' — POS' : '공공운영체제 POS';
   function s(sel,val){var el=document.querySelector(sel);if(el)el.setAttribute('content',val);}
@@ -572,7 +567,7 @@ function setThumbSize(img) {
   var r=img.naturalWidth/img.naturalHeight;
   img.style.height='260px'; img.style.width=Math.round(260*r)+'px';
 }
-
+ 
 /* ── Settings ── */
 function loadSettings() {
   fetch(SUPA_URL+'/rest/v1/pos_settings?key=in.(lib_cats,post_cats)',{headers:SH()})
@@ -593,7 +588,7 @@ function saveSetting(key,value) {
   if(!authToken)return;
   fetch(SUPA_URL+'/rest/v1/pos_settings',{method:'POST',headers:Object.assign({},SH(authToken),{'Prefer':'resolution=merge-duplicates'}),body:JSON.stringify({key:key,value:value})});
 }
-
+ 
 /* ── DB ── */
 function dbLoad() {
   fetch(SUPA_URL+'/rest/v1/posts?order=created_at.asc',{headers:SH()})
@@ -641,7 +636,7 @@ function resolveImg(fileInput,urlInput) {
   if(f){return uploadImg(f).then(function(u){return u||readB64(f);});}
   return Promise.resolve(urlInput&&urlInput.value.trim()||null);
 }
-
+ 
 /* ── AUTH ── */
 function initAuth() {
   var t=loadToken(); if(!t)return;
@@ -658,15 +653,8 @@ function initAuth() {
     .catch(function(){clearToken();updateNavAuth();manageFabs();});
 }
 function loadProfile(uid) {
-  return fetch(SUPA_URL+'/rest/v1/profiles?id=eq.'+uid+'&select=nickname',{headers:SH(authToken)})
-    .then(function(r){return r.json();})
-    .then(function(rows){
-      if(rows&&rows[0]&&rows[0].nickname){authNickname=rows[0].nickname;return;}
-      var nick=(authUser&&authUser.user_metadata&&authUser.user_metadata.nickname)||'';
-      authNickname=nick||(authUser&&authUser.email)||'';
-      if(nick)fetch(SUPA_URL+'/rest/v1/profiles',{method:'POST',headers:Object.assign({},SH(authToken),{'Prefer':'return=minimal'}),body:JSON.stringify({id:uid,nickname:nick,email:authUser&&authUser.email})});
-    })
-    .catch(function(){authNickname=(authUser&&authUser.user_metadata&&authUser.user_metadata.nickname)||(authUser&&authUser.email)||'';});
+  authNickname=(authUser&&authUser.user_metadata&&authUser.user_metadata.nickname)||(authUser&&authUser.email)||'';
+  return Promise.resolve();
 }
 function updateNavAuth() {
   var nick=document.getElementById('nav-nickname');
@@ -688,7 +676,7 @@ function canEdit(post){
   if(isAdmin())return true;
   return post.author_nickname&&post.author_nickname===authNickname;
 }
-
+ 
 /* ── 회원정보 수정 ── */
 function openProfilePanel() {
   document.getElementById('pro-current-nick').textContent = authNickname || '';
@@ -701,19 +689,20 @@ function openProfilePanel() {
   showPanel('profile-panel');
 }
 function saveNickname() {
-  var nick = document.getElementById('pro-nick').value.trim();
-  var ok = document.getElementById('pro-nick-ok');
-  var err = document.getElementById('pro-nick-err');
+  var nick=document.getElementById('pro-nick').value.trim();
+  var ok=document.getElementById('pro-nick-ok');
+  var err=document.getElementById('pro-nick-err');
   ok.style.display='none'; err.style.display='none';
   if(!nick){err.textContent='별명을 입력해주세요.';err.style.display='block';return;}
   if(!authUser)return;
-  fetch(SUPA_URL+'/rest/v1/profiles?id=eq.'+authUser.id,{
-    method:'PATCH',
-    headers:Object.assign({},SH(authToken),{'Prefer':'return=minimal'}),
-    body:JSON.stringify({nickname:nick})
+  fetch(SUPA_URL+'/auth/v1/user',{
+    method:'PUT',
+    headers:SH(authToken),
+    body:JSON.stringify({data:{nickname:nick}})
   }).then(function(r){
     if(!r.ok)throw new Error();
     authNickname=nick;
+    if(authUser.user_metadata)authUser.user_metadata.nickname=nick;
     document.getElementById('nav-nickname').textContent=nick;
     document.getElementById('pro-current-nick').textContent=nick;
     document.getElementById('pro-nick').value='';
@@ -742,7 +731,7 @@ function sendPasswordReset() {
     err.style.display='block';
   });
 }
-
+ 
 /* ── FAB 관리 ── */
 function manageFabs() {
   var fbWrite=document.getElementById('fab-write');
@@ -756,9 +745,10 @@ function manageFabs() {
   fbWrite.style.display='none'; fbDonut.style.display='none';
   fbLibToggle.style.display='none'; fbBook.style.display='none';
   fbCat.style.display='none'; fbDone.style.display='none'; fbEdit.style.display='none';
-
-  if(document.getElementById('dv').style.display==='block') return; // detail view: fab-edit handled in showDetail
-
+  document.getElementById('fab-about-edit').style.display='none';
+ 
+  if(document.getElementById('dv').style.display==='block') return;
+ 
   if(cur==='개념들') {
     if(editMode){
       fbDone.style.display='flex';
@@ -778,7 +768,7 @@ function manageFabs() {
     if(isAdmin()) document.getElementById('fab-about-edit').style.display='flex';
   }
 }
-  
+ 
 function doLogin() {
   var email=document.getElementById('li-email').value.trim(), pw=document.getElementById('li-pw').value;
   var err=document.getElementById('li-err'); err.style.display='none';
@@ -813,7 +803,7 @@ function logout() {
   fetch(SUPA_URL+'/auth/v1/logout',{method:'POST',headers:SH(authToken)}).catch(function(){});
   clearToken(); authUser=null; authNickname=null; updateNavAuth(); manageFabs();
 }
-
+ 
 /* ── NAV ── */
 function onWriteClick(){if(!authUser)showPanel('login-panel');else openNewPanel();}
 function onEditClick(){
@@ -840,7 +830,7 @@ function onLibCatAdd(){
 }
 function toggleMobile(){mobileOpen=!mobileOpen;document.getElementById('mobile-menu').classList.toggle('open',mobileOpen);}
 function closeMobile(){mobileOpen=false;document.getElementById('mobile-menu').classList.remove('open');}
-
+ 
 function go(sec,doPush) {
   if(doPush===undefined)doPush=true;
   closeMobile();
@@ -859,7 +849,7 @@ function go(sec,doPush) {
   if(doPush){safePush({type:'sec',sec:sec},sec==='개념들'?'/':'/'+encodeURIComponent(sec));setMeta('','','');}
   window.scrollTo(0,0);
 }
-
+ 
 /* ── 편집 모드 ── */
 function enterEditMode(){
   if(!isAdmin()){alert('관리자만 편집모드를 사용할 수 있습니다.');return;}
@@ -883,55 +873,43 @@ function exitActiveEditMode(){
   if(editMode)exitEditMode();
   else if(libEditMode)exitLibEditMode();
 }
-
+ 
 /* ── GALLERY ── */
 function renderGallery() {
-  var g = document.getElementById('gallery');
-  var html = '';
+  var g=document.getElementById('gallery');
+  var html='';
   if(editMode) {
-    var txtItems = posts.filter(function(p) {
-      return p.sec==='단어들' || (!p.img && p.sec!=='link' && p.sec!=='개념들');
-    });
-    html += '<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
-    html += '<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
-    html += '</div>';
-    html += '<div class="gal-cat-section"><div class="gal-cat-edit-header"><span class="gal-cat-edit-name" style="color:#bbb;font-weight:400;font-size:13px;">미분류</span></div>';
-    html += '<div class="gal-cat-drop" data-cat="" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'\')">';
-    txtItems.filter(function(p) {
-      return !p.pos_cat || !findIn(postCats, function(c) { return c.name===p.pos_cat; });
-    }).forEach(function(p) { html += buildEditCardHtml(p); });
-    html += '</div></div>';
-    postCats.forEach(function(cat) {
-      html += '<div class="gal-cat-section" style="margin-top:32px;"><div class="gal-cat-edit-header">';
-      html += '<span class="gal-cat-edit-name">'+cat.name+'</span>';
-      html += '<button class="gal-cat-del-btn" onclick="removePostCat(\''+cat.id+'\')">삭제</button>';
-      html += '</div><div class="gal-cat-drop" data-cat="'+cat.name+'" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\''+cat.name+'\')">';
-      txtItems.filter(function(p) { return p.pos_cat===cat.name; })
-        .forEach(function(p) { html += buildEditCardHtml(p); });
-      html += '</div></div>';
+    var txtItems=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들');});
+    html+='<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
+    html+='<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
+    html+='</div>';
+    html+='<div class="gal-cat-section"><div class="gal-cat-edit-header"><span class="gal-cat-edit-name" style="color:#bbb;font-weight:400;font-size:13px;">미분류</span></div>';
+    html+='<div class="gal-cat-drop" data-cat="" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\'\')">';
+    txtItems.filter(function(p){return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});})
+      .forEach(function(p){html+=buildEditCardHtml(p);});
+    html+='</div></div>';
+    postCats.forEach(function(cat){
+      html+='<div class="gal-cat-section" style="margin-top:32px;"><div class="gal-cat-edit-header">';
+      html+='<span class="gal-cat-edit-name">'+cat.name+'</span>';
+      html+='<button class="gal-cat-del-btn" onclick="removePostCat(\''+cat.id+'\')">삭제</button>';
+      html+='</div><div class="gal-cat-drop" data-cat="'+cat.name+'" ondragover="onGalCatDragOver(event)" ondragleave="onGalCatDragLeave(event)" ondrop="onGalCatDrop(event,\''+cat.name+'\')">';
+      txtItems.filter(function(p){return p.pos_cat===cat.name;})
+        .forEach(function(p){html+=buildEditCardHtml(p);});
+      html+='</div></div>';
     });
   } else {
-    var galItems = posts.filter(function(p) { return p.sec==='개념들' && p.img; });
-    galItems.filter(function(p) {
-      return !p.pos_cat || !findIn(postCats, function(c) { return c.name===p.pos_cat; });
-    }).forEach(function(p) { html += buildCardHtml(p); });
-    postCats.forEach(function(cat) {
-      var items = galItems.filter(function(p) { return p.pos_cat===cat.name; });
-      if(!items.length) return;
-      html += '<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">'+cat.name+'</div>';
-      items.forEach(function(p) { html += buildCardHtml(p); });
+    var galItems=posts.filter(function(p){return p.sec==='개념들'&&p.img;});
+    galItems.filter(function(p){return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});})
+      .forEach(function(p){html+=buildCardHtml(p);});
+    postCats.forEach(function(cat){
+      var items=galItems.filter(function(p){return p.pos_cat===cat.name;});
+      if(!items.length)return;
+      html+='<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">'+cat.name+'</div>';
+      items.forEach(function(p){html+=buildCardHtml(p);});
     });
   }
-  if(!html) html = '<p class="loading">게시물이 없습니다.</p>';
-  g.innerHTML = html;
-}
-function buildTextCardHtml(p) {
-  return '<div onclick="showDetail('+p.id+')" style="cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;padding:2px 0;break-inside:avoid;">'+p.title+'</div>';
-}
-function buildCardHtml(p) {
-  return '<div class="card" onclick="showDetail('+p.id+')">' +
-    '<img src="'+p.img+'" alt="'+p.title+'" loading="lazy" onload="setThumbSize(this)">' +
-    '<div class="card-cap">'+p.title+'</div></div>';
+  if(!html)html='<p class="loading">게시물이 없습니다.</p>';
+  g.innerHTML=html;
 }
 function buildCardHtml(p) {
   return '<div class="card" onclick="showDetail('+p.id+')">' +
@@ -939,13 +917,11 @@ function buildCardHtml(p) {
     '<div class="card-cap">'+p.title+'</div></div>';
 }
 function buildEditCardHtml(p) {
-  var hasImg=p.img&&p.img.length>0;
-  var html='<div class="card'+(hasImg?'':' card-text')+'" draggable="true" data-post-id="'+p.id+'"';
-  html+=' ondragstart="onGalCardDragStart(event,'+p.id+')" ondragend="onGalCardDragEnd(event)"';
-  html+=' onclick="showDetail('+p.id+')">';
-  if(hasImg)html+='<img src="'+p.img+'" alt="'+p.title+'" loading="lazy" onload="setThumbSize(this)">';
-  html+='<div class="card-cap">'+p.title+'</div></div>';
-  return html;
+  return '<div draggable="true" data-post-id="'+p.id+'"'+
+    ' ondragstart="onGalCardDragStart(event,'+p.id+')" ondragend="onGalCardDragEnd(event)"'+
+    ' onclick="showDetail('+p.id+')"'+
+    ' style="cursor:grab;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;padding:1px 0;break-inside:avoid;user-select:none;">'+
+    p.title+'</div>';
 }
 function onGalCardDragStart(e,id){
   galDragSrcId=id; e.dataTransfer.effectAllowed='move'; e.dataTransfer.setData('text/plain',String(id));
@@ -961,16 +937,25 @@ function onGalCatDrop(e,catName){
   if(srcId===null||srcId===undefined){var dt=e.dataTransfer.getData('text/plain');if(dt)srcId=parseInt(dt);}
   if(!srcId){galDragSrcId=null;return;}
   var p=findIn(posts,function(x){return x.id===srcId;});
-if(p) {
-  p.pos_cat = catName;
-  dbUpdate(srcId, { pos_cat: catName });
-  renderGallery();
-  renderDanuh();
-}
+  if(p){p.pos_cat=catName;dbUpdate(srcId,{pos_cat:catName});renderGallery();renderDanuh();}
   galDragSrcId=null;
 }
-
-/* ── 개념들 카테고리 ── */
+ 
+/* ── DANUH ── */
+function renderDanuh() {
+  var el=document.getElementById('danuh-list');
+  var items=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들');});
+  var html='';
+  var uncat=items.filter(function(p){return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});});
+  uncat.forEach(function(p){html+='<li onclick="showDetail('+p.id+')">'+p.title+'</li>';});
+  postCats.forEach(function(cat){
+    var catItems=items.filter(function(p){return p.pos_cat===cat.name;});
+    if(!catItems.length)return;
+    html+='<li style="font-weight:700;margin-top:20px;cursor:default;color:#000;list-style:none;">'+cat.name+'</li>';
+    catItems.forEach(function(p){html+='<li onclick="showDetail('+p.id+')" style="padding-left:12px;">'+p.title+'</li>';});
+  });
+  el.innerHTML=html;
+}
 function renderPostCatsList() {
   var el=document.getElementById('post-cats-list');if(!el)return;
   if(!postCats.length){el.innerHTML='<p style="font-size:13px;color:#bbb;">카테고리 없음</p>';return;}
@@ -993,33 +978,14 @@ function removePostCat(id) {
   saveSetting('post_cats',postCats);
   renderPostCatsList();renderGallery();
 }
-
+ 
 /* ── DANUH ── */
 function renderDanuh() {
-  var el = document.getElementById('danuh-list');
-  var items = posts.filter(function(p) {
-    return p.sec==='단어들' || (!p.img && p.sec!=='link' && p.sec!=='개념들');
-  });
-  var html = '';
-  // 미분류
-  var uncat = items.filter(function(p) {
-    return !p.pos_cat || !findIn(postCats, function(c) { return c.name===p.pos_cat; });
-  });
-  uncat.forEach(function(p) {
-    html += '<li onclick="showDetail('+p.id+')">'+p.title+'</li>';
-  });
-  // 카테고리별
-  postCats.forEach(function(cat) {
-    var catItems = items.filter(function(p) { return p.pos_cat===cat.name; });
-    if(!catItems.length) return;
-    html += '<li style="font-weight:700;margin-top:20px;cursor:default;color:#000;">'+cat.name+'</li>';
-    catItems.forEach(function(p) {
-      html += '<li onclick="showDetail('+p.id+')" style="padding-left:12px;">'+p.title+'</li>';
-    });
-  });
-  el.innerHTML = html;
+  var el=document.getElementById('danuh-list');
+  var items=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들');});
+  el.innerHTML=items.map(function(p){return '<li onclick="showDetail('+p.id+')">'+p.title+'</li>';}).join('');
 }
-
+ 
 /* ── DETAIL ── */
 function showDetail(postId,doPush) {
   if(doPush===undefined)doPush=true;
@@ -1028,11 +994,11 @@ function showDetail(postId,doPush) {
   document.querySelectorAll('.pg').forEach(function(x){x.classList.remove('on');});
   document.getElementById('dv').style.display='block';
   // FAB: 전부 숨기고 수정버튼만
-  ['fab-write','fab-donut','fab-lib-toggle','fab-book','fab-cat','fab-done'].forEach(function(id){
+  ['fab-write','fab-donut','fab-lib-toggle','fab-book','fab-cat','fab-done','fab-about-edit'].forEach(function(id){
     document.getElementById(id).style.display='none';
   });
   document.getElementById('fab-edit').style.display=canEdit(p)?'flex':'none';
-
+ 
   // 자식문서: 틀 박스
   var tplBox=document.getElementById('d-template-box');
   var parentTpl=null;
@@ -1048,11 +1014,11 @@ function showDetail(postId,doPush) {
     });
     tplBox.innerHTML=tplHtml; tplBox.style.display='inline-flex';
   } else {tplBox.style.display='none';tplBox.innerHTML='';}
-
+ 
   document.getElementById('d-title').textContent=p.title;
   document.getElementById('d-text').innerHTML=wikiRender(p.body||'');
   document.getElementById('d-author').textContent=p.author_nickname||'';
-
+ 
   // 부모문서: 하위문서 목록
   var subEl=document.getElementById('d-subdocs');
   if(p.is_template&&p.sub_docs&&p.sub_docs.length){
@@ -1064,17 +1030,17 @@ function showDetail(postId,doPush) {
     subHtml+='</div>';
     subEl.innerHTML=subHtml; subEl.style.display='block';
   } else {subEl.style.display='none';subEl.innerHTML='';}
-
+ 
   // 뒤로가기
   document.getElementById('d-back').innerHTML='<span class="back-btn" onclick="closeDetail()"><svg width="38" height="26" viewBox="0 0 38 26" fill="none"><line x1="36" y1="13" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="13" y1="2" x2="2" y2="13" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="2" y1="13" x2="13" y2="24" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
-
+ 
   // 관련 게시물
   var tags=p.tags||[];
   var rel=posts.filter(function(x){return x.id!==postId&&x.tags&&x.tags.some(function(t){return tags.indexOf(t)>=0;});}).slice(0,5);
   var wrap=document.getElementById('d-rel-wrap');
   if(rel.length){wrap.style.display='block';document.getElementById('d-related').innerHTML=rel.map(function(r){return '<div class="rel-item"><span class="wiki-link" onclick="showDetail('+r.id+')">'+r.title+'</span><span class="r-sec">'+r.sec+'</span></div>';}).join('');}
   else wrap.style.display='none';
-
+ 
   if(doPush){safePush({type:'post',id:postId},'/'+encodeURIComponent(p.title));var desc=p.body?p.body.replace(/\[\[.*?\]\]/g,'').slice(0,120).trim()+'…':'';setMeta(p.title,desc,p.img||'');}
   window.scrollTo(0,0); setTimeout(function(){window.scrollTo(0,0);},80);
 }
@@ -1091,7 +1057,7 @@ window.addEventListener('popstate',function(e){
   else if(st.type==='sec')go(st.sec,false);
   else go('개념들',false);
 });
-
+ 
 /* ── WIKI RENDER ── */
 function wikiRender(text) {
   var footnotes=[];
@@ -1121,7 +1087,7 @@ function wikiRender(text) {
   return html;
 }
 document.addEventListener('click',function(e){var el=e.target.closest&&e.target.closest('.dead-link');if(el)openDeadend(el.getAttribute('data-word'));});
-
+ 
 /* ── LIBRARY ── */
 function renderBtnGroup(containerId,cats,activeName,onSelect) {
   var rootCats=cats.filter(function(c){return !c.parentId;});
@@ -1182,7 +1148,7 @@ function renderLibCatHtml(cat,isSub) {
   return html;
 }
 function toggleBook(id){expandedBookId=expandedBookId===id?null:id;renderLibrary();}
-
+ 
 /* Library 카테고리 CRUD */
 function buildParentSelect(selectedId) {
   var sel=document.getElementById('lc-parent');if(!sel)return;
@@ -1223,7 +1189,7 @@ function deleteLibCat() {
   saveSetting('lib_cats',libCats);
   closeAllPanels();renderLibrary();
 }
-
+ 
 /* Book CRUD */
 function openBookEdit(id) {
   var b=findIn(books,function(x){return x.id===id;});if(!b)return;
@@ -1263,7 +1229,7 @@ function submitBook() {
     })
     .catch(function(){document.getElementById('b-err').style.display='block';setTimeout(function(){document.getElementById('b-err').style.display='none';},3000);});
 }
-
+ 
 /* ── DRAG BOOKS ── */
 function onBookDragStart(e,id){
   dragSrcId=id;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(id));
@@ -1323,7 +1289,7 @@ function performBookDrop(srcId,targetId,targetCat,insertBefore) {
   }
   renderLibrary();
 }
-
+ 
 /* Touch drag books */
 function onBookTouchStart(e,id){
   var touch=e.touches[0];touchStartX=touch.clientX;touchStartY=touch.clientY;
@@ -1359,7 +1325,7 @@ function onBookTouchEnd(e){
   }
   isDragging=false;touchDragId=null;
 }
-
+ 
 /* ── TOOLBAR ── */
 function insertWiki(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var ins=sel?'[['+sel+']]':'[[]]';ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+2;ta.focus();}
 function insertImgUrl(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd;ta.value=ta.value.slice(0,s)+'[[img:]]'+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=s+6;ta.focus();}
@@ -1378,7 +1344,7 @@ function addPaste(id){
   pasteAttached.push(id);
   el.addEventListener('paste',function(e){e.preventDefault();var text=(e.clipboardData||window.clipboardData).getData('text/plain');var norm=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');var s=el.selectionStart,end=el.selectionEnd;el.value=el.value.slice(0,s)+norm+el.value.slice(end);el.selectionStart=el.selectionEnd=s+norm.length;});
 }
-
+ 
 /* ── SUB-DOCUMENTS ── */
 function toggleSubdocSection(sectionId,checked){document.getElementById(sectionId).style.display=checked?'block':'none';}
 function searchSubdocs(inputId,resultsId,prefix){
@@ -1409,7 +1375,7 @@ function renderSubdocList(prefix){
     return p?'<div class="subdoc-item"><span>'+p.title+'</span><button class="subdoc-remove" onclick="removeSubdoc('+id+',\''+prefix+'\')">×</button></div>':'';
   }).join('');
 }
-
+ 
 /* ── DEAD-END ── */
 function openDeadend(w){deadendWord=w;showDeMain();document.getElementById('deadend').classList.add('on');}
 function closeDeadend(){document.getElementById('deadend').classList.remove('on');showDeMain();}
@@ -1430,7 +1396,7 @@ function saveExit(){
   else{pr=dbInsert({title:deadendWord,sec:'link',img:null,plates:[],w:0,h:0,body:'',tags:[],date:'',type:'Link',status:'Published',external_url:url,author_nickname:authNickname||''}).then(function(saved){if(saved)posts.push(saved);});}
   pr.then(function(){closeDeadend();if(currentId)showDetail(currentId,false);}).catch(function(){err.textContent='저장 실패';err.style.display='block';});
 }
-
+ 
 /* ── PANELS ── */
 var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel'];
 function closeAllPanels(){PANELS.forEach(function(id){document.getElementById(id).classList.remove('on');});document.getElementById('ov').classList.remove('on');}
@@ -1499,36 +1465,38 @@ function deletePost(){
     go('개념들');
   }).catch(function(){alert('삭제 실패. 다시 시도해주세요.');});
 }
-
-/* ── 초기화 ── */
-  function renderAbout() {
-  var saved = '';
-  try { saved = localStorage.getItem('pos_about') || ''; } catch(e) {}
-  if(!saved) return;
-  var html = saved.split('\n\n').map(function(p) {
-    return '<p>' + p.replace(/\n/g,'<br>') + '</p>';
-  }).join('');
-  document.querySelector('#pg-관계심화 .about-body').innerHTML =
-    html + '<p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>';
+ 
+/* ── 관계심화 ── */
+function renderAbout() {
+  fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.about_content',{headers:SH()})
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(!rows||!rows[0]||!rows[0].value)return;
+      var content=rows[0].value;
+      var html=content.split('\n\n').map(function(p){return '<p>'+p.replace(/\n/g,'<br>')+'</p>';}).join('');
+      document.querySelector('#pg-관계심화 .about-body').innerHTML=
+        html+'<p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>';
+    })
+    .catch(function(){});
 }
 function editAbout() {
-  document.getElementById('about-body-ta').value =
-    document.querySelector('#pg-관계심화 .about-body').innerText.replace('Instagram','').trim();
+  var body=document.querySelector('#pg-관계심화 .about-body');
+  var text=body?body.innerText.replace('Instagram','').trim():'';
+  document.getElementById('about-body-ta').value=text;
   showPanel('about-panel');
 }
 function saveAbout() {
-  var content = document.getElementById('about-body-ta').value.trim();
-  try { localStorage.setItem('pos_about', content); } catch(e) {}
-  saveSetting('about_content', content);
-  var html = content.split('\n\n').map(function(p) {
-    return '<p>' + p.replace(/\n/g,'<br>') + '</p>';
-  }).join('');
-  document.querySelector('#pg-관계심화 .about-body').innerHTML =
-    html + '<p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>';
+  var content=document.getElementById('about-body-ta').value.trim();
+  saveSetting('about_content',content);
+  var html=content.split('\n\n').map(function(p){return '<p>'+p.replace(/\n/g,'<br>')+'</p>';}).join('');
+  document.querySelector('#pg-관계심화 .about-body').innerHTML=
+    html+'<p style="margin-top:28px;"><a href="https://www.instagram.com/p__o__s__/" target="_blank" style="color:#000;">Instagram</a></p>';
   document.getElementById('about-ok').style.display='block';
   setTimeout(function(){document.getElementById('about-ok').style.display='none';},2000);
   closeAllPanels();
 }
+ 
+/* ── 초기화 ── */
 initAuth();
 dbLoad();
 dbLoadBooks();
