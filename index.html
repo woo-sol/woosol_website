@@ -85,7 +85,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 /* DETAIL */
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
-.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:clamp(300px,42vw,560px);column-count:5;column-gap:36px;column-fill:auto;}
+.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:clamp(260px,38vw,500px);column-count:5;column-gap:36px;column-fill:auto;max-height:none;}
 .d-text p{break-inside:avoid;margin-top:14px;}
 .d-img-plate{max-width:50%;height:auto;display:block;margin:24px 0;}
 .wiki-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
@@ -188,14 +188,19 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .deadend{display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);}
 /* CURRICULUM */
 .curr-layout{display:flex;gap:0;min-height:calc(100vh - var(--header-h));margin:-32px -28px -100px;}
-.curr-sidebar{width:200px;min-width:160px;border-right:1px solid #ccc;overflow-y:auto;padding:0;flex-shrink:0;position:relative;}
+.curr-sidebar{width:230px;min-width:180px;border-right:1px solid #ccc;overflow-y:auto;padding:0;flex-shrink:0;position:relative;}
 .curr-content{flex:1;overflow-y:auto;padding:32px 28px 100px;}
 /* 그룹 (DESIGN / CURATORIAL / TEXT) */
 .curr-group{margin-bottom:0;}
 .curr-group-header{display:flex;align-items:flex-end;justify-content:space-between;padding:16px 12px 4px 12px;cursor:pointer;user-select:none;}
 .curr-group-header:hover{opacity:0.7;}
-.curr-group-title{font-size:22px;font-weight:900;letter-spacing:-0.01em;line-height:1;color:#000;}
-.curr-group-arrow{font-size:12px;color:#888;margin-bottom:2px;}
+.curr-group-title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:400;letter-spacing:0.02em;line-height:1;color:#000;}
+.curr-group-arrow{width:14px;height:14px;position:relative;flex-shrink:0;margin-bottom:4px;}
+.curr-group-arrow::before,.curr-group-arrow::after{content:'';position:absolute;background:#aaa;}
+.curr-group-arrow::before{width:1.5px;height:9px;right:0;top:0;}
+.curr-group-arrow::after{width:9px;height:1.5px;right:0;bottom:0;}
+.curr-group-arrow.open::before{width:9px;height:1.5px;right:0;top:auto;bottom:0;}
+.curr-group-arrow.open::after{width:1.5px;height:9px;right:0;bottom:0;}
 .curr-group-body{display:none;padding-bottom:12px;}
 .curr-group-body.open{display:block;}
 /* 카테고리 (1.디자인의 정의) */
@@ -1499,14 +1504,14 @@ function submitNewPost(){
   var selCat=document.querySelector('#f-cat-btns .cat-btn.active');
   var posCat=selCat?selCat.getAttribute('data-cat'):'';
   resolveImg(document.getElementById('f-img-file'),document.getElementById('f-img')).then(function(img){
-    var sec=img?'개념들':'단어들';
+    var sec = cur==='커리큘럼' ? '커리큘럼' : (img?'개념들':'단어들');
     return dbInsert({title:title,sec:sec,img:img||null,plates:[],w:220,h:220,body:document.getElementById('f-body').value.trim(),tags:[],date:'',type:'Visual Research',status:'Published',author_nickname:authNickname||'',is_template:isTemp,sub_docs:isTemp?newSubDocs:[],pos_cat:posCat})
       .then(function(saved){
-        if(saved){posts.push(saved);renderGallery();renderDanuh();}
+        if(saved){posts.push(saved);renderGallery();renderDanuh();if(cur==='커리큘럼')renderCurrContent();}
         document.getElementById('f-title').value='';document.getElementById('f-img').value='';document.getElementById('f-body').value='';document.getElementById('f-img-file').value='';
         newSubDocs=[];
         document.getElementById('nf-ok').style.display='block';setTimeout(function(){document.getElementById('nf-ok').style.display='none';},2500);
-        closeAllPanels();go('개념들');
+        closeAllPanels();
       });
   }).catch(function(){document.getElementById('nf-err').style.display='block';setTimeout(function(){document.getElementById('nf-err').style.display='none';},3000);})
   .then(function(){btn.textContent='게시하기';btn.disabled=false;});
@@ -1579,12 +1584,18 @@ function renderCurriculum(){
     html+='<div class="curr-group">';
     html+='<div class="curr-group-header" onclick="toggleCurrGroup(\''+g.id+'\')">';
     html+='<span class="curr-group-title">'+g.title+'</span>';
-    html+='<span class="curr-group-arrow">'+(g.open?'∧':'∨')+'</span>';
+    html+='<span class="curr-group-arrow'+(g.open?' open':'')+'"></span>';
     html+='</div>';
     html+='<div class="curr-group-body'+(g.open?' open':'')+'">';
     (g.cats||[]).forEach(function(cat){
       var active=currSelectedCat&&currSelectedCat.id===cat.id?' active':'';
-      html+='<div class="curr-cat-item'+active+'" onclick="selectCurrCat(\''+g.id+'\',\''+cat.id+'\')">'+cat.name+'</div>';
+      html+='<div class="curr-cat-item'+active+'" onclick="selectCurrCat(\''+g.id+'\',\''+cat.id+'\')">';
+      html+=cat.name;
+      if(currEditMode&&isAdmin()){
+        html+=' <button onclick="event.stopPropagation();renameCurrCat(\''+g.id+'\',\''+cat.id+'\')" style="font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;">수정</button>';
+        html+=' <button onclick="event.stopPropagation();deleteCurrCat(\''+g.id+'\',\''+cat.id+'\')" style="font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;">삭제</button>';
+      }
+      html+='</div>';
       (cat.posts||[]).forEach(function(pid){
         var p=findIn(posts,function(x){return x.id===pid;});if(!p)return;
         html+='<div class="curr-post-item" onclick="showDetail('+pid+')">'+p.title+'</div>';
@@ -1628,6 +1639,19 @@ function renderCurrContent(){
   var dhtml='';
   txtItems.forEach(function(p){dhtml+='<li onclick="showDetail('+p.id+')">'+p.title+'</li>';});
   dan.innerHTML=dhtml;
+}
+function renameCurrCat(gid,cid){
+  var g=findIn(currData.groups,function(x){return x.id===gid;});if(!g)return;
+  var cat=findIn(g.cats,function(x){return x.id===cid;});if(!cat)return;
+  var name=prompt('새 이름:',cat.name);if(!name)return;
+  cat.name=name;saveCurrData();renderCurriculum();
+}
+function deleteCurrCat(gid,cid){
+  if(!confirm('항목을 삭제하시겠습니까?'))return;
+  var g=findIn(currData.groups,function(x){return x.id===gid;});if(!g)return;
+  g.cats=g.cats.filter(function(x){return x.id!==cid;});
+  if(currSelectedCat&&currSelectedCat.id===cid)currSelectedCat=null;
+  saveCurrData();renderCurriculum();
 }
 function addCurrCat(gid){
   var name=prompt('항목 이름:');if(!name)return;
