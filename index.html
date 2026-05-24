@@ -186,6 +186,36 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .subdoc-remove:hover{color:#f00;}
 .profile-divider{margin-top:28px;padding-top:24px;border-top:1px solid #eee;}
 .deadend{display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);}
+/* CURRICULUM */
+.curr-layout{display:flex;gap:0;min-height:calc(100vh - var(--header-h));margin:-32px -28px -100px;}
+.curr-sidebar{width:200px;min-width:160px;border-right:1px solid #ccc;overflow-y:auto;padding:0;flex-shrink:0;position:relative;}
+.curr-content{flex:1;overflow-y:auto;padding:32px 28px 100px;}
+/* 그룹 (DESIGN / CURATORIAL / TEXT) */
+.curr-group{margin-bottom:0;}
+.curr-group-header{display:flex;align-items:flex-end;justify-content:space-between;padding:16px 12px 4px 12px;cursor:pointer;user-select:none;}
+.curr-group-header:hover{opacity:0.7;}
+.curr-group-title{font-size:22px;font-weight:900;letter-spacing:-0.01em;line-height:1;color:#000;}
+.curr-group-arrow{font-size:12px;color:#888;margin-bottom:2px;}
+.curr-group-body{display:none;padding-bottom:12px;}
+.curr-group-body.open{display:block;}
+/* 카테고리 (1.디자인의 정의) */
+.curr-cat-item{padding:2px 12px;cursor:pointer;font-size:13px;font-weight:700;letter-spacing:-0.01em;color:#000;line-height:1.4;}
+.curr-cat-item:hover,.curr-cat-item.active{color:var(--blue);}
+/* 게시물 (ㄴ 달린) */
+.curr-post-item{padding:1px 12px 1px 20px;cursor:pointer;font-size:13px;font-weight:400;letter-spacing:-0.01em;color:#444;line-height:1.4;}
+.curr-post-item::before{content:'ㄴ ';color:#bbb;font-size:11px;}
+.curr-post-item:hover,.curr-post-item.active{color:var(--blue);}
+/* 하위게시물 */
+.curr-subpost-item{padding:1px 12px 1px 32px;cursor:pointer;font-size:12px;color:#888;letter-spacing:-0.01em;line-height:1.4;}
+.curr-subpost-item:hover{color:var(--blue);}
+/* 관리자 편집버튼 */
+.curr-admin-add{padding:2px 12px;font-size:11px;color:#ccc;background:none;border:none;cursor:pointer;font-family:inherit;display:block;}
+.curr-admin-add:hover{color:var(--blue);}
+@media(max-width:600px){
+  .curr-layout{flex-direction:column;margin:-20px -12px -100px;}
+  .curr-sidebar{width:100%;max-width:100%;border-right:none;border-bottom:1px solid #000;max-height:50vh;}
+  .curr-content{padding:20px 12px 60px;}
+}
 .deadend.on{display:flex;}
 .deadend-box{background:#fff;border:1px solid #000;padding:28px 32px;font-size:14.6px;font-weight:400;max-width:280px;width:90%;}
 .deadend-msg{margin-bottom:18px;}
@@ -201,7 +231,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <nav class="nav-bar">
     <button class="nav-item active" id="nv-개념들" onclick="go('개념들')">개념들</button>
     <button class="nav-item" id="nv-도서관" onclick="go('도서관')">도서관</button>
-    <button class="nav-item" id="nv-건축언어" onclick="go('건축언어')">건축언어</button>
+    <button class="nav-item" id="nv-커리큘럼" onclick="go('커리큘럼')">커리큘럼</button>
     <button class="nav-item" id="nv-관계심화" onclick="go('관계심화')">관계심화</button>
   </nav>
   <div class="nav-right">
@@ -217,7 +247,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 <div class="mobile-menu" id="mobile-menu">
   <button class="mob-item active" id="mob-개념들" onclick="go('개념들')">개념들</button>
   <button class="mob-item" id="mob-도서관" onclick="go('도서관')">도서관</button>
-  <button class="mob-item" id="mob-건축언어" onclick="go('건축언어')">건축언어</button>
+  <button class="mob-item" id="mob-커리큘럼" onclick="go('커리큘럼')">커리큘럼</button>
   <button class="mob-item" id="mob-관계심화" onclick="go('관계심화')">관계심화</button>
 </div>
 
@@ -227,7 +257,19 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <ul class="danuh-cols" id="danuh-list"></ul>
   </div>
   <div id="pg-도서관" class="pg"><div class="lib-cats" id="lib-cats"></div></div>
-  <div id="pg-건축언어" class="pg"><p style="font-size:14.6px;">construction zone</p></div>
+  <div id="pg-커리큘럼" class="pg">
+    <div class="curr-layout">
+      <!-- 왼쪽 사이드바 목록 -->
+      <div class="curr-sidebar" id="curr-sidebar">
+        <div id="curr-tree"></div>
+      </div>
+      <!-- 오른쪽 콘텐츠 -->
+      <div class="curr-content">
+        <div id="curr-gallery" class="gallery"></div>
+        <ul class="danuh-cols" id="curr-danuh-list"></ul>
+      </div>
+    </div>
+  </div>
   <div id="pg-관계심화" class="pg">
     <div class="about-body">
       <p>POS는 공공 운영체제로 디자인의 공공 활동을 통해 담론을 실천합니다. 동시대에 생산되는 상징기호로서의 시각이미지와 담론들을 매개하면서, 새로운 언어를 실험하고 공공에게 있어서 디자인의 의미와 개념을 점검합니다.</p>
@@ -363,6 +405,10 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="ph"><span>게시물 올리기</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="f-title" placeholder="게시물 제목"></div>
   <div class="fl">
+    <label>카테고리</label>
+    <div id="f-cat-btns" style="margin-top:4px;display:flex;flex-wrap:wrap;gap:4px;"></div>
+  </div>
+  <div class="fl">
     <label>썸네일 이미지 <span style="color:#bbb;font-size:11px;">(없으면 '단어들'에 저장)</span></label>
     <div class="thumb-row"><input type="text" class="fi" id="f-img" placeholder="URL (https://...)"><input type="file" id="f-img-file" accept="image/*" style="font-size:12px;"></div>
   </div>
@@ -402,6 +448,10 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="resize-handle"></div>
   <div class="ph"><span>게시물 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="e-title"></div>
+  <div class="fl">
+    <label>카테고리</label>
+    <div id="e-cat-btns" style="margin-top:4px;display:flex;flex-wrap:wrap;gap:4px;"></div>
+  </div>
   <div class="fl">
     <label>썸네일 이미지</label>
     <div class="thumb-row"><input type="text" class="fi" id="e-img" placeholder="URL (https://...)"><input type="file" id="e-img-file" accept="image/*" style="font-size:12px;"></div>
@@ -769,6 +819,14 @@ function manageFabs() {
     }
   } else if(cur==='관계심화') {
     if(isAdmin()) document.getElementById('fab-about-edit').style.display='flex';
+  } else if(cur==='커리큘럼') {
+    if(currEditMode){
+      fbDone.style.display='flex';
+      fbWrite.style.display='block';
+    } else {
+      fbWrite.style.display='block';
+      if(isAdmin()) fbDonut.style.display='flex';
+    }
   }
 }
 
@@ -849,6 +907,7 @@ function go(sec,doPush) {
   manageFabs();
   if(sec==='도서관')renderLibrary();
   if(sec==='관계심화') renderAbout();
+  if(sec==='커리큘럼') renderCurriculum();
   if(doPush){safePush({type:'sec',sec:sec},sec==='개념들'?'/':'/'+encodeURIComponent(sec));setMeta('','','');}
   window.scrollTo(0,0);
 }
@@ -1406,6 +1465,13 @@ function openNewPanel(){
   document.getElementById('f-subdocs-section').style.display='none';
   document.getElementById('f-subdocs-list').innerHTML='';
   if(pendingTitle){document.getElementById('f-title').value=pendingTitle;pendingTitle=null;}
+  // 카테고리 버튼
+  var el=document.getElementById('f-cat-btns');
+  if(el){
+    var html='<button class="cat-btn active" data-cat="" onclick="selectNewCat(this,\'\')">없음</button>';
+    postCats.forEach(function(c){html+='<button class="cat-btn" data-cat="'+c.name+'" onclick="selectNewCat(this,\''+c.name+'\')">'+c.name+'</button>';});
+    el.innerHTML=html;
+  }
 }
 function openEditPanel(){
   var p=findIn(posts,function(x){return x.id===currentId;});if(!p)return;
@@ -1418,14 +1484,23 @@ function openEditPanel(){
   document.getElementById('e-is-template').checked=isTemp;
   document.getElementById('e-subdocs-section').style.display=isTemp?'block':'none';
   renderSubdocList('e');
+  // 카테고리 버튼
+  var el=document.getElementById('e-cat-btns');
+  if(el){
+    var html='<button class="cat-btn'+((!p.pos_cat)?' active':'')+'" data-cat="" onclick="selectEditCat(this,\'\')">없음</button>';
+    postCats.forEach(function(c){html+='<button class="cat-btn'+(p.pos_cat===c.name?' active':'')+'" data-cat="'+c.name+'" onclick="selectEditCat(this,\''+c.name+'\')">'+c.name+'</button>';});
+    el.innerHTML=html;
+  }
 }
 function submitNewPost(){
   var title=document.getElementById('f-title').value.trim();if(!title){alert('제목을 입력해주세요.');return;}
   var btn=document.getElementById('nf-submit');btn.textContent='저장 중...';btn.disabled=true;
   var isTemp=document.getElementById('f-is-template').checked;
+  var selCat=document.querySelector('#f-cat-btns .cat-btn.active');
+  var posCat=selCat?selCat.getAttribute('data-cat'):'';
   resolveImg(document.getElementById('f-img-file'),document.getElementById('f-img')).then(function(img){
     var sec=img?'개념들':'단어들';
-    return dbInsert({title:title,sec:sec,img:img||null,plates:[],w:220,h:220,body:document.getElementById('f-body').value.trim(),tags:[],date:'',type:'Visual Research',status:'Published',author_nickname:authNickname||'',is_template:isTemp,sub_docs:isTemp?newSubDocs:[],pos_cat:''})
+    return dbInsert({title:title,sec:sec,img:img||null,plates:[],w:220,h:220,body:document.getElementById('f-body').value.trim(),tags:[],date:'',type:'Visual Research',status:'Published',author_nickname:authNickname||'',is_template:isTemp,sub_docs:isTemp?newSubDocs:[],pos_cat:posCat})
       .then(function(saved){
         if(saved){posts.push(saved);renderGallery();renderDanuh();}
         document.getElementById('f-title').value='';document.getElementById('f-img').value='';document.getElementById('f-body').value='';document.getElementById('f-img-file').value='';
@@ -1440,9 +1515,11 @@ function submitEdit(){
   var p=findIn(posts,function(x){return x.id===currentId;});
   if(!p||!canEdit(p)){alert('수정 권한이 없습니다.');return;}
   var isTemp=document.getElementById('e-is-template').checked;
+  var selCat=document.querySelector('#e-cat-btns .cat-btn.active');
+  var posCat=selCat?selCat.getAttribute('data-cat'):p.pos_cat||'';
   resolveImg(document.getElementById('e-img-file'),document.getElementById('e-img')).then(function(img){
     var finalImg=img||p.img;
-    var patch={title:document.getElementById('e-title').value.trim(),img:finalImg,sec:finalImg?'개념들':'단어들',body:document.getElementById('e-body').value.trim(),is_template:isTemp,sub_docs:isTemp?editSubDocs:[]};
+    var patch={title:document.getElementById('e-title').value.trim(),img:finalImg,sec:finalImg?'개념들':'단어들',body:document.getElementById('e-body').value.trim(),is_template:isTemp,sub_docs:isTemp?editSubDocs:[],pos_cat:posCat};
     return dbUpdate(p.id,patch).then(function(){
       Object.assign(p,patch);renderGallery();renderDanuh();
       document.getElementById('ef-ok').style.display='block';setTimeout(function(){document.getElementById('ef-ok').style.display='none';},2500);
@@ -1460,6 +1537,112 @@ function deletePost(){
     currentId=null;document.getElementById('dv').style.display='none';document.getElementById('fab-edit').style.display='none';
     go('개념들');
   }).catch(function(){alert('삭제 실패. 다시 시도해주세요.');});
+}
+
+/* ── 카테고리 선택 헬퍼 ── */
+var newPostCat='';
+var editPostCat='';
+function selectNewCat(el,name){
+  newPostCat=name;
+  document.querySelectorAll('#f-cat-btns .cat-btn').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');
+}
+function selectEditCat(el,name){
+  editPostCat=name;
+  document.querySelectorAll('#e-cat-btns .cat-btn').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');
+}
+
+/* ── 커리큘럼 ── */
+var currData={groups:[
+  {id:'g1',title:'DESIGN',open:false,cats:[]},
+  {id:'g2',title:'CURATORIAL',open:false,cats:[]},
+  {id:'g3',title:'TEXT',open:false,cats:[]}
+]};
+var currEditMode=false;
+var currSelectedCat=null;
+
+function loadCurrData(){
+  fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.curr_data',{headers:SH()})
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(rows&&rows[0]&&rows[0].value)currData=rows[0].value;
+      renderCurriculum();
+    }).catch(function(){renderCurriculum();});
+}
+function saveCurrData(){saveSetting('curr_data',currData);}
+
+function renderCurriculum(){
+  if(!document.getElementById('curr-tree'))return;
+  var html='';
+  currData.groups.forEach(function(g){
+    html+='<div class="curr-group">';
+    html+='<div class="curr-group-header" onclick="toggleCurrGroup(\''+g.id+'\')">';
+    html+='<span class="curr-group-title">'+g.title+'</span>';
+    html+='<span class="curr-group-arrow">'+(g.open?'∧':'∨')+'</span>';
+    html+='</div>';
+    html+='<div class="curr-group-body'+(g.open?' open':'')+'">';
+    (g.cats||[]).forEach(function(cat){
+      var active=currSelectedCat&&currSelectedCat.id===cat.id?' active':'';
+      html+='<div class="curr-cat-item'+active+'" onclick="selectCurrCat(\''+g.id+'\',\''+cat.id+'\')">'+cat.name+'</div>';
+      (cat.posts||[]).forEach(function(pid){
+        var p=findIn(posts,function(x){return x.id===pid;});if(!p)return;
+        html+='<div class="curr-post-item" onclick="showDetail('+pid+')">'+p.title+'</div>';
+        (p.sub_docs||[]).forEach(function(sid){
+          var s=findIn(posts,function(x){return x.id===sid;});if(!s)return;
+          html+='<div class="curr-subpost-item" onclick="showDetail('+sid+')">'+s.title+'</div>';
+        });
+      });
+    });
+    if(currEditMode&&isAdmin()){
+      html+='<button class="curr-admin-add" onclick="addCurrCat(\''+g.id+'\')">+ 항목 추가</button>';
+    }
+    html+='</div></div>';
+  });
+  document.getElementById('curr-tree').innerHTML=html;
+  renderCurrContent();
+}
+function toggleCurrGroup(gid){
+  var g=findIn(currData.groups,function(x){return x.id===gid;});
+  if(g)g.open=!g.open;
+  renderCurriculum();
+}
+function selectCurrCat(gid,cid){
+  var g=findIn(currData.groups,function(x){return x.id===gid;});
+  var cat=g?findIn(g.cats,function(x){return x.id===cid;}):null;
+  currSelectedCat=cat||null;
+  renderCurriculum();
+}
+function renderCurrContent(){
+  var gal=document.getElementById('curr-gallery');
+  var dan=document.getElementById('curr-danuh-list');
+  if(!gal||!dan)return;
+  var filtered=currSelectedCat
+    ? posts.filter(function(p){return (currSelectedCat.posts||[]).indexOf(p.id)>=0;})
+    : posts.filter(function(p){return p.sec==='커리큘럼';});
+  var imgItems=filtered.filter(function(p){return p.img;});
+  var txtItems=filtered.filter(function(p){return !p.img;});
+  var html='';
+  imgItems.forEach(function(p){html+=buildCardHtml(p);});
+  gal.innerHTML=html||'';
+  var dhtml='';
+  txtItems.forEach(function(p){dhtml+='<li onclick="showDetail('+p.id+')">'+p.title+'</li>';});
+  dan.innerHTML=dhtml;
+}
+function addCurrCat(gid){
+  var name=prompt('항목 이름:');if(!name)return;
+  var g=findIn(currData.groups,function(x){return x.id===gid;});
+  if(!g)return;
+  if(!g.cats)g.cats=[];
+  g.cats.push({id:'cc'+Date.now(),name:name,posts:[]});
+  saveCurrData();renderCurriculum();
+}
+function enterCurrEditMode(){
+  if(!isAdmin())return;
+  currEditMode=true;manageFabs();renderCurriculum();
+}
+function exitCurrEditMode(){
+  currEditMode=false;manageFabs();renderCurriculum();
 }
 
 /* ── 관계심화 ── */
@@ -1497,6 +1680,7 @@ initAuth();
 dbLoad();
 dbLoadBooks();
 loadSettings();
+loadCurrData();
 manageFabs();
 </script>
 </body>
