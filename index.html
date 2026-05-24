@@ -77,7 +77,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .danuh-cols{column-width:140px;column-count:5;column-gap:28px;margin-top:80px;list-style:none;}
 .danuh-cols li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;break-inside:avoid;}
 .danuh-cols li:hover{color:var(--blue);}
-.danuh-cat-title{column-span:all;font-size:16.6px;font-weight:900;letter-spacing:-0.01em;margin-top:40px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #000;cursor:default;list-style:none;}
+.danuh-cat-title{column-span:all;font-size:16.6px;font-weight:900;letter-spacing:-0.02em;margin-top:40px;margin-bottom:6px;padding-bottom:6px;border-bottom:2px solid #000;cursor:default;list-style:none;}
 .danuh-cat-title:first-child{margin-top:0;}
 .about-body{max-width:600px;font-size:14.6px;font-weight:400;line-height:1.6;letter-spacing:-0.01em;}
 .about-body p+p{margin-top:14px;}
@@ -85,7 +85,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 /* DETAIL */
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
-.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:clamp(260px,38vw,500px);column-count:5;column-gap:36px;column-fill:auto;max-height:none;}
+.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:clamp(260px,38vw,500px);column-count:5;column-gap:36px;column-fill:auto;max-height:657px;}
+/* 30줄 * 1.5 행간 * 14.6px = 657px */
 .d-text p{break-inside:avoid;margin-top:14px;}
 .d-img-plate{max-width:50%;height:auto;display:block;margin:24px 0;}
 .wiki-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
@@ -154,8 +155,12 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 /* PANELS */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.18);z-index:250;}
 .ov.on{display:block;}
-.panel{display:none;position:fixed;top:0;right:0;width:min(500px,100vw);height:100vh;background:#fff;border-left:1px solid #000;z-index:300;overflow-y:auto;padding:28px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
-.panel.on{display:block;}
+.panel{display:none;position:fixed;top:0;right:0;width:min(500px,100vw);height:100vh;background:#fff;border-left:1px solid #000;z-index:300;overflow-y:auto;padding:28px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;display:flex;flex-direction:column;}
+.panel.on{display:flex;}
+.panel-body{flex:1;display:flex;flex-direction:column;}
+.fl-grow{flex:1;display:flex;flex-direction:column;margin-bottom:16px;}
+.fl-grow label{display:block;font-size:12px;color:#888;margin-bottom:5px;}
+.fta-grow{flex:1;width:100%;border:1px solid #000;padding:7px 9px;font-family:inherit;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;background:#fff;outline:none;resize:none;min-height:120px;}
 .resize-handle{position:absolute;left:0;top:0;bottom:0;width:6px;cursor:ew-resize;z-index:10;}
 .resize-handle:hover{background:rgba(0,0,255,0.06);}
 .ph{font-size:14.6px;font-weight:400;letter-spacing:-0.01em;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;}
@@ -316,6 +321,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 <!-- FAB STACK -->
 <div class="fab-stack" id="fab-stack">
   <button class="fab-edit" id="fab-edit" onclick="onEditClick()" title="수정"></button>
+  <button class="fab-edit" id="fab-curr-edit" onclick="onCurrEditClick()" title="수정" style="display:none;"></button>
   <button class="fab" id="fab-write" onclick="onWriteClick()" title="글쓰기"></button>
   <button class="fab-ring" id="fab-donut" onclick="cur==='커리큘럼'?enterCurrEditMode():enterEditMode()" title="편집모드 (관리자)">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="3.2" fill="none"/></svg>
@@ -430,7 +436,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
   <div class="fl">
     <label>본문</label>
-    <textarea class="fta" id="f-body" placeholder="텍스트를 입력하세요."></textarea>
+    <textarea class="fta-grow" id="f-body" placeholder="텍스트를 입력하세요."></textarea>
     <div class="toolbar">
       <button class="tbtn" onclick="insertWiki('f-body')">[[위키링크]]</button>
       <button class="tbtn" onclick="insertImgUrl('f-body')">URL이미지</button>
@@ -474,7 +480,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
   <div class="fl">
     <label>본문</label>
-    <textarea class="fta" id="e-body" style="min-height:260px;"></textarea>
+    <textarea class="fta-grow" id="e-body"></textarea>
     <div class="toolbar">
       <button class="tbtn" onclick="insertWiki('e-body')">[[위키링크]]</button>
       <button class="tbtn" onclick="insertImgUrl('e-body')">URL이미지</button>
@@ -578,7 +584,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="fl"><label>제목</label><input type="text" class="fi" id="curr-ep-title" placeholder="제목"></div>
   <div class="fl">
     <label>본문</label>
-    <textarea class="fta" id="curr-ep-body" placeholder="본문을 입력하세요."></textarea>
+    <textarea class="fta-grow" id="curr-ep-body" placeholder="본문을 입력하세요."></textarea>
     <div class="toolbar">
       <button class="tbtn" onclick="currIns('[[',']]')">[[위키링크]]</button>
       <button class="tbtn" onclick="currIns('[[img:',']]')">URL이미지</button>
@@ -854,6 +860,7 @@ function manageFabs() {
   fbLibToggle.style.display='none'; fbBook.style.display='none';
   fbCat.style.display='none'; fbDone.style.display='none'; fbEdit.style.display='none';
   document.getElementById('fab-about-edit').style.display='none';
+  document.getElementById('fab-curr-edit').style.display='none';
 
   if(document.getElementById('dv').style.display==='block') return;
 
@@ -1080,11 +1087,22 @@ function renderDanuh() {
 function renderPostCatsList() {
   var el=document.getElementById('post-cats-list');if(!el)return;
   if(!postCats.length){el.innerHTML='<p style="font-size:13px;color:#bbb;">카테고리 없음</p>';return;}
-  el.innerHTML=postCats.map(function(c){
+  el.innerHTML=postCats.map(function(c,i){
     return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f0f0f0;">' +
       '<span style="font-size:14.6px;">'+c.name+'</span>' +
-      '<button onclick="removePostCat(\''+c.id+'\')" style="background:none;border:none;cursor:pointer;color:#bbb;font-size:16px;">×</button></div>';
+      '<div style="display:flex;gap:6px;align-items:center;">' +
+      (i>0?'<button onclick="moveCat(\''+c.id+'\',-1)" style="background:none;border:none;cursor:pointer;font-size:13px;color:#bbb;padding:0;">↑</button>':'<span style="width:18px;display:inline-block;"></span>')+
+      (i<postCats.length-1?'<button onclick="moveCat(\''+c.id+'\',1)" style="background:none;border:none;cursor:pointer;font-size:13px;color:#bbb;padding:0;">↓</button>':'<span style="width:18px;display:inline-block;"></span>')+
+      '<button onclick="removePostCat(\''+c.id+'\')" style="background:none;border:none;cursor:pointer;color:#bbb;font-size:16px;">×</button>' +
+      '</div></div>';
   }).join('');
+}
+function moveCat(id,dir){
+  var idx=findIdx(postCats,function(c){return c.id===id;});if(idx<0)return;
+  var ni=idx+dir;if(ni<0||ni>=postCats.length)return;
+  var tmp=postCats[idx];postCats[idx]=postCats[ni];postCats[ni]=tmp;
+  saveSetting('post_cats',postCats);
+  renderPostCatsList();renderGallery();renderDanuh();
 }
 function addPostCat() {
   var name=document.getElementById('pc-name').value.trim();if(!name)return;
@@ -1576,6 +1594,17 @@ function submitEdit(){
   var isTemp=document.getElementById('e-is-template').checked;
   var selCat=document.querySelector('#e-cat-btns .cat-btn.active');
   var posCat=selCat?selCat.getAttribute('data-cat'):p.pos_cat||'';
+    var imgFile=document.getElementById('e-img-file');
+    var hasFile=imgFile&&imgFile.files&&imgFile.files[0];
+    /* URL을 지운 경우: imgUrl='' 이고 파일도 없으면 img=null */
+    if(!hasFile&&imgUrl===''){
+      var patch2={title:document.getElementById('e-title').value.trim(),img:null,sec:'단어들',body:document.getElementById('e-body').value.trim(),is_template:isTemp,sub_docs:isTemp?editSubDocs:[],pos_cat:posCat};
+      return dbUpdate(p.id,patch2).then(function(){
+        Object.assign(p,patch2);renderGallery();renderDanuh();
+        document.getElementById('ef-ok').style.display='block';setTimeout(function(){document.getElementById('ef-ok').style.display='none';},2500);
+        closeAllPanels();showDetail(currentId,false);
+      });
+    }
   resolveImg(document.getElementById('e-img-file'),document.getElementById('e-img')).then(function(img){
     var finalImg=img||p.img;
     var patch={title:document.getElementById('e-title').value.trim(),img:finalImg,sec:finalImg?'개념들':'단어들',body:document.getElementById('e-body').value.trim(),is_template:isTemp,sub_docs:isTemp?editSubDocs:[],pos_cat:posCat};
@@ -1689,6 +1718,17 @@ function selCurrPost(id){
     '<div class="curr-view-title">'+p.title+'</div>'+
     '<div class="curr-view-body">'+(p.body||'')+'</div>'+
     (g?'<div class="curr-cat-tag">'+g.title+'</div>':'');
+  // 수정 버튼 표시 (관리자 또는 작성자)
+  if(isAdmin()||(authUser&&p.author_nickname&&p.author_nickname===authNickname)){
+    document.getElementById('fab-curr-edit').style.display='flex';
+  }
+}
+function onCurrEditClick(){
+  var p=findIn(posts,function(x){return x.id===currSelPostId;});
+  if(!p)return;
+  var parentTag=p.tags&&p.tags.find(function(t){return t.indexOf('cp:')===0;});
+  var parentId=parentTag?parseInt(parentTag.replace('cp:',''),10):null;
+  openCurrEditPanel(currSelPostId,parentId);
 }
 
 /* 커리큘럼 패널 열기 */
