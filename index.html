@@ -188,34 +188,45 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .deadend{display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);}
 /* CURRICULUM */
 .curr-layout{display:flex;gap:0;min-height:calc(100vh - var(--header-h));margin:-32px -28px -100px;}
-.curr-sidebar{width:230px;min-width:180px;border-right:1px solid #ccc;overflow-y:auto;padding:0;flex-shrink:0;position:relative;}
-.curr-content{flex:1;overflow-y:auto;padding:32px 28px 100px;}
-/* 그룹 (DESIGN / CURATORIAL / TEXT) */
-.curr-group{margin-bottom:0;}
-.curr-group-header{display:flex;align-items:flex-end;justify-content:space-between;padding:16px 12px 4px 12px;cursor:pointer;user-select:none;}
-.curr-group-header:hover{opacity:0.7;}
-.curr-group-title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:400;letter-spacing:0.02em;line-height:1;color:#000;}
-.curr-group-arrow{width:14px;height:14px;position:relative;flex-shrink:0;margin-bottom:4px;}
-.curr-group-arrow::before,.curr-group-arrow::after{content:'';position:absolute;background:#aaa;}
-.curr-group-arrow::before{width:1.5px;height:9px;right:0;top:0;}
-.curr-group-arrow::after{width:9px;height:1.5px;right:0;bottom:0;}
-.curr-group-arrow.open::before{width:9px;height:1.5px;right:0;top:auto;bottom:0;}
-.curr-group-arrow.open::after{width:1.5px;height:9px;right:0;bottom:0;}
-.curr-group-body{display:none;padding-bottom:12px;}
-.curr-group-body.open{display:block;}
-/* 카테고리 (1.디자인의 정의) */
-.curr-cat-item{padding:2px 12px;cursor:pointer;font-size:13px;font-weight:700;letter-spacing:-0.01em;color:#000;line-height:1.4;}
-.curr-cat-item:hover,.curr-cat-item.active{color:var(--blue);}
-/* 게시물 (ㄴ 달린) */
-.curr-post-item{padding:1px 12px 1px 20px;cursor:pointer;font-size:13px;font-weight:400;letter-spacing:-0.01em;color:#444;line-height:1.4;}
-.curr-post-item::before{content:'ㄴ ';color:#bbb;font-size:11px;}
-.curr-post-item:hover,.curr-post-item.active{color:var(--blue);}
-/* 하위게시물 */
-.curr-subpost-item{padding:1px 12px 1px 32px;cursor:pointer;font-size:12px;color:#888;letter-spacing:-0.01em;line-height:1.4;}
-.curr-subpost-item:hover{color:var(--blue);}
-/* 관리자 편집버튼 */
-.curr-admin-add{padding:2px 12px;font-size:11px;color:#ccc;background:none;border:none;cursor:pointer;font-family:inherit;display:block;}
-.curr-admin-add:hover{color:var(--blue);}
+.curr-sidebar{width:264px;flex-shrink:0;border-right:1px solid #000;overflow-y:auto;display:flex;flex-direction:column;}
+.curr-sidebar-inner{flex:1;}
+.curr-content{flex:1;overflow-y:scroll;padding:32px 28px 100px;}
+.curr-content::-webkit-scrollbar{width:6px;}
+.curr-content::-webkit-scrollbar-track{background:#f8f8f8;}
+.curr-content::-webkit-scrollbar-thumb{background:#ccc;}
+.curr-content::-webkit-scrollbar-thumb:hover{background:#999;}
+.curr-group{border-bottom:1px solid #eee;}
+.curr-group-title{font-family:'Outfit',sans-serif;font-weight:400;font-size:20px;letter-spacing:0.02em;padding:14px 14px 8px;color:#000;line-height:1;}
+.curr-post-list{padding:0 0 8px 0;}
+.curr-post-item{padding:2px 14px 2px 22px;font-size:13px;color:#444;cursor:pointer;line-height:1.5;letter-spacing:-0.01em;}
+.curr-post-item:hover{color:var(--blue);}
+.curr-post-item.active{color:var(--blue);font-weight:700;}
+.curr-post-item.sub{padding-left:34px;}
+.curr-post-item.sub::before{content:'ㄴ ';color:#bbb;font-size:11px;}
+.curr-empty-hint{padding:2px 14px 2px 22px;font-size:12px;color:#ccc;line-height:1.5;}
+/* 관리모드 */
+.curr-admin-group-header{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 8px;}
+.curr-admin-group-title{font-family:'Outfit',sans-serif;font-weight:400;font-size:20px;color:#000;}
+.curr-admin-btn{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;}
+.curr-admin-btn:hover{color:#000;}
+.curr-admin-post-item{display:flex;align-items:center;justify-content:space-between;padding:2px 14px 2px 22px;}
+.curr-admin-post-item.sub{padding-left:34px;}
+.curr-admin-post-item.sub .curr-admin-post-title::before{content:'ㄴ ';color:#bbb;font-size:11px;}
+.curr-admin-post-title{font-size:13px;color:#444;}
+.curr-sidebar-fab{position:sticky;bottom:0;padding:10px 14px;background:#fff;border-top:1px solid #eee;}
+.curr-sidebar-fab-btn{width:18px;height:18px;background:#000;border:none;cursor:pointer;display:block;}
+.curr-sidebar-fab-btn:hover{background:var(--blue);}
+/* 게시물 뷰 */
+.curr-view-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;margin-bottom:24px;}
+.curr-view-body{font-size:14.6px;line-height:1.5;color:#333;white-space:pre-wrap;letter-spacing:-0.01em;}
+.curr-cat-tag{display:inline-block;border:1px solid #000;padding:3px 10px;font-size:11px;letter-spacing:-0.01em;margin-top:24px;}
+.curr-empty{color:#ccc;font-size:13px;margin-top:40px;}
+/* 카테고리 관리 모달 */
+.curr-cat-modal{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border:1px solid #000;padding:28px;width:360px;z-index:600;}
+.curr-cat-modal.on{display:block;}
+.curr-cat-modal h3{font-size:14px;font-weight:400;margin-bottom:20px;letter-spacing:-0.01em;}
+.curr-cat-modal label{display:block;font-size:12px;color:#888;margin-bottom:5px;}
+.curr-cat-modal input{width:100%;border:1px solid #000;padding:7px 9px;font-family:inherit;font-size:14px;background:#fff;outline:none;margin-bottom:14px;}
 @media(max-width:600px){
   .curr-layout{flex-direction:column;margin:-20px -12px -100px;}
   .curr-sidebar{width:100%;max-width:100%;border-right:none;border-bottom:1px solid #000;max-height:50vh;}
@@ -264,14 +275,14 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div id="pg-도서관" class="pg"><div class="lib-cats" id="lib-cats"></div></div>
   <div id="pg-커리큘럼" class="pg">
     <div class="curr-layout">
-      <!-- 왼쪽 사이드바 목록 -->
-      <div class="curr-sidebar" id="curr-sidebar">
-        <div id="curr-tree"></div>
+      <div class="curr-sidebar">
+        <div class="curr-sidebar-inner" id="curr-sidebar-inner"></div>
+        <div class="curr-sidebar-fab" id="curr-sidebar-fab" style="display:none;">
+          <button class="curr-sidebar-fab-btn" onclick="openCurrCatManager()" title="카테고리 관리"></button>
+        </div>
       </div>
-      <!-- 오른쪽 콘텐츠 -->
-      <div class="curr-content">
-        <div id="curr-gallery" class="gallery"></div>
-        <ul class="danuh-cols" id="curr-danuh-list"></ul>
+      <div class="curr-content" id="curr-content">
+        <p class="curr-empty">← 왼쪽에서 게시물을 선택하세요</p>
       </div>
     </div>
   </div>
@@ -306,7 +317,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 <div class="fab-stack" id="fab-stack">
   <button class="fab-edit" id="fab-edit" onclick="onEditClick()" title="수정"></button>
   <button class="fab" id="fab-write" onclick="onWriteClick()" title="글쓰기"></button>
-  <button class="fab-ring" id="fab-donut" onclick="enterEditMode()" title="편집모드 (관리자)">
+  <button class="fab-ring" id="fab-donut" onclick="cur==='커리큘럼'?enterCurrEditMode():enterEditMode()" title="편집모드 (관리자)">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="3.2" fill="none"/></svg>
   </button>
   <button class="fab-ring" id="fab-lib-toggle" onclick="enterLibEditMode()" title="도서관 수정모드 (관리자)">
@@ -554,6 +565,45 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   </div>
   <button class="fbtn" onclick="saveAbout()">저장</button>
   <p id="about-ok" class="ok-msg">✓ 저장되었습니다.</p>
+</div>
+
+<!-- 커리큘럼 글쓰기/수정 패널 -->
+<div class="panel" id="curr-edit-panel">
+  <div class="resize-handle"></div>
+  <div class="ph"><span id="curr-ep-label">커리큘럼 게시물 작성</span><button class="pc" onclick="closeCurrPanel()">✕</button></div>
+  <div class="fl">
+    <label>카테고리</label>
+    <select class="fi" id="curr-ep-cat" style="height:38px;font-size:14px;"></select>
+  </div>
+  <div class="fl"><label>제목</label><input type="text" class="fi" id="curr-ep-title" placeholder="제목"></div>
+  <div class="fl">
+    <label>본문</label>
+    <textarea class="fta" id="curr-ep-body" placeholder="본문을 입력하세요."></textarea>
+    <div class="toolbar">
+      <button class="tbtn" onclick="currIns('[[',']]')">[[위키링크]]</button>
+      <button class="tbtn" onclick="currIns('[[img:',']]')">URL이미지</button>
+      <button class="tbtn bold" onclick="currIns('**','**')">볼드</button>
+      <button class="tbtn italic" onclick="currIns('*','*')">이탤릭</button>
+      <button class="tbtn" onclick="currIns('((','))')">각주</button>
+    </div>
+  </div>
+  <button class="fbtn" id="curr-ep-submit" onclick="submitCurrPanel()">게시하기</button>
+  <button class="fbtn del" id="curr-ep-delete" style="display:none;" onclick="deleteCurrPost()">삭제</button>
+  <button class="fbtn sec" id="curr-ep-sub" style="display:none;" onclick="makeCurrSubPost()">+ 하위 게시물 만들기</button>
+  <p id="curr-ep-ok" class="ok-msg">✓ 저장되었습니다.</p>
+  <p id="curr-ep-err" class="err-msg">저장 실패.</p>
+</div>
+
+<!-- 커리큘럼 카테고리 관리 모달 -->
+<div class="curr-cat-modal" id="curr-cat-modal">
+  <h3>카테고리 관리</h3>
+  <div id="curr-cat-list" style="margin-bottom:16px;"></div>
+  <label>새 카테고리</label>
+  <input type="text" id="curr-new-cat" placeholder="예: DESIGN" onkeydown="if(event.key==='Enter')addCurrGroup()">
+  <div style="display:flex;gap:8px;">
+    <button class="fbtn" onclick="addCurrGroup()" style="margin-top:0;">추가</button>
+    <button class="fbtn sec" onclick="closeCurrCatModal()" style="margin-top:0;">닫기</button>
+  </div>
 </div>
 
 <!-- ===== SCRIPT ===== -->
@@ -829,7 +879,6 @@ function manageFabs() {
       fbDone.style.display='flex';
       fbWrite.style.display='block';
     } else {
-      fbWrite.style.display='block';
       if(isAdmin()) fbDonut.style.display='flex';
     }
   }
@@ -871,7 +920,11 @@ function logout() {
 }
 
 /* ── NAV ── */
-function onWriteClick(){if(!authUser)showPanel('login-panel');else openNewPanel();}
+function onWriteClick(){
+  if(!authUser){showPanel('login-panel');return;}
+  if(cur==='커리큘럼'){openCurrWritePanel(null);return;}
+  openNewPanel();
+}
 function onEditClick(){
   var p=findIn(posts,function(x){return x.id===currentId;});
   if(!authUser){pendingEdit=true;showPanel('login-panel');return;}
@@ -939,6 +992,7 @@ function exitLibEditMode(){
 function exitActiveEditMode(){
   if(editMode)exitEditMode();
   else if(libEditMode)exitLibEditMode();
+  else if(currEditMode)exitCurrEditMode();
 }
 
 /* ── GALLERY ── */
@@ -1458,7 +1512,7 @@ function saveExit(){
 }
 
 /* ── PANELS ── */
-var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel'];
+var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel','curr-edit-panel'];
 function closeAllPanels(){PANELS.forEach(function(id){document.getElementById(id).classList.remove('on');});document.getElementById('ov').classList.remove('on');}
 function showPanel(id){
   closeAllPanels();document.getElementById(id).classList.add('on');document.getElementById('ov').classList.add('on');
@@ -1559,114 +1613,234 @@ function selectEditCat(el,name){
 }
 
 /* ── 커리큘럼 ── */
-var currData={groups:[
-  {id:'g1',title:'DESIGN',open:false,cats:[]},
-  {id:'g2',title:'CURATORIAL',open:false,cats:[]},
-  {id:'g3',title:'TEXT',open:false,cats:[]}
-]};
+var currGroups=[
+  {id:'g1',title:'DESIGN'},
+  {id:'g2',title:'CURATORIAL'},
+  {id:'g3',title:'TEXT'}
+];
 var currEditMode=false;
-var currSelectedCat=null;
+var currSelPostId=null;
+var currEditingId=null;
+var currEditingParentId=null;
+
+/* 카테고리(그룹)를 Supabase pos_settings에 저장 */
+function saveCurrGroups(){saveSetting('curr_groups',currGroups);}
 
 function loadCurrData(){
-  fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.curr_data',{headers:SH()})
+  fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.curr_groups',{headers:SH()})
     .then(function(r){return r.json();})
     .then(function(rows){
-      if(rows&&rows[0]&&rows[0].value)currData=rows[0].value;
+      if(rows&&rows[0]&&rows[0].value&&rows[0].value.length)currGroups=rows[0].value;
       renderCurriculum();
     }).catch(function(){renderCurriculum();});
 }
-function saveCurrData(){saveSetting('curr_data',currData);}
 
 function renderCurriculum(){
-  if(!document.getElementById('curr-tree'))return;
-  var html='';
-  currData.groups.forEach(function(g){
-    html+='<div class="curr-group">';
-    html+='<div class="curr-group-header" onclick="toggleCurrGroup(\''+g.id+'\')">';
-    html+='<span class="curr-group-title">'+g.title+'</span>';
-    html+='<span class="curr-group-arrow'+(g.open?' open':'')+'"></span>';
-    html+='</div>';
-    html+='<div class="curr-group-body'+(g.open?' open':'')+'">';
-    (g.cats||[]).forEach(function(cat){
-      var active=currSelectedCat&&currSelectedCat.id===cat.id?' active':'';
-      html+='<div class="curr-cat-item'+active+'" onclick="selectCurrCat(\''+g.id+'\',\''+cat.id+'\')">';
-      html+=cat.name;
-      if(currEditMode&&isAdmin()){
-        html+=' <button onclick="event.stopPropagation();renameCurrCat(\''+g.id+'\',\''+cat.id+'\')" style="font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;">수정</button>';
-        html+=' <button onclick="event.stopPropagation();deleteCurrCat(\''+g.id+'\',\''+cat.id+'\')" style="font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;">삭제</button>';
-      }
-      html+='</div>';
-      (cat.posts||[]).forEach(function(pid){
-        var p=findIn(posts,function(x){return x.id===pid;});if(!p)return;
-        html+='<div class="curr-post-item" onclick="showDetail('+pid+')">'+p.title+'</div>';
-        (p.sub_docs||[]).forEach(function(sid){
-          var s=findIn(posts,function(x){return x.id===sid;});if(!s)return;
-          html+='<div class="curr-subpost-item" onclick="showDetail('+sid+')">'+s.title+'</div>';
-        });
-      });
-    });
+  var el=document.getElementById('curr-sidebar-inner');
+  if(!el)return;
+  var currPosts=posts.filter(function(p){return p.sec==='커리큘럼';});
+  var h='';
+  currGroups.forEach(function(g){
+    /* 이 그룹에 속한 루트 게시물 (parentId 없는 것) */
+    var rootPosts=currPosts.filter(function(p){return p.pos_cat===g.id&&!(p.tags&&p.tags.some(function(t){return t.indexOf('cp:')===0;}));});
+    h+='<div class="curr-group">';
     if(currEditMode&&isAdmin()){
-      html+='<button class="curr-admin-add" onclick="addCurrCat(\''+g.id+'\')">+ 항목 추가</button>';
+      h+='<div class="curr-admin-group-header"><span class="curr-admin-group-title">'+g.title+'</span>';
+      h+='<div style="display:flex;gap:6px;">';
+      h+='<button class="curr-admin-btn" onclick="renameCurrGroup(\''+g.id+'\')">수정</button>';
+      h+='<button class="curr-admin-btn" onclick="deleteCurrGroup(\''+g.id+'\')">삭제</button>';
+      h+='</div></div>';
+    } else {
+      h+='<div class="curr-group-title">'+g.title+'</div>';
     }
-    html+='</div></div>';
+    h+='<div class="curr-post-list">';
+    if(!rootPosts.length){h+='<div class="curr-empty-hint">게시물 없음</div>';}
+    rootPosts.forEach(function(p){
+      var subs=currPosts.filter(function(x){return x.tags&&x.tags.indexOf('cp:'+p.id)>=0;});
+      if(currEditMode&&isAdmin()){
+        h+='<div class="curr-admin-post-item"><span class="curr-admin-post-title">'+p.title+'</span>';
+        h+='<button class="curr-admin-btn" onclick="openCurrEditPanel('+p.id+',null)">수정</button></div>';
+        subs.forEach(function(s){
+          h+='<div class="curr-admin-post-item sub"><span class="curr-admin-post-title">'+s.title+'</span>';
+          h+='<button class="curr-admin-btn" onclick="openCurrEditPanel('+s.id+','+p.id+')">수정</button></div>';
+        });
+      } else {
+        var a=currSelPostId===p.id?' active':'';
+        h+='<div class="curr-post-item'+a+'" onclick="selCurrPost('+p.id+')">'+p.title+'</div>';
+        subs.forEach(function(s){
+          var sa=currSelPostId===s.id?' active':'';
+          h+='<div class="curr-post-item sub'+sa+'" onclick="selCurrPost('+s.id+')">'+s.title+'</div>';
+        });
+      }
+    });
+    h+='</div></div>';
   });
-  document.getElementById('curr-tree').innerHTML=html;
-  renderCurrContent();
+  el.innerHTML=h;
+  document.getElementById('curr-sidebar-fab').style.display=(currEditMode&&isAdmin())?'block':'none';
 }
-function toggleCurrGroup(gid){
-  var g=findIn(currData.groups,function(x){return x.id===gid;});
-  if(g)g.open=!g.open;
+
+function selCurrPost(id){
+  currSelPostId=id;
+  var p=findIn(posts,function(x){return x.id===id;});
+  if(!p)return;
   renderCurriculum();
+  var g=findIn(currGroups,function(x){return x.id===p.pos_cat;});
+  document.getElementById('curr-content').innerHTML=
+    '<div class="curr-view-title">'+p.title+'</div>'+
+    '<div class="curr-view-body">'+(p.body||'')+'</div>'+
+    (g?'<div class="curr-cat-tag">'+g.title+'</div>':'');
 }
-function selectCurrCat(gid,cid){
-  var g=findIn(currData.groups,function(x){return x.id===gid;});
-  var cat=g?findIn(g.cats,function(x){return x.id===cid;}):null;
-  currSelectedCat=cat||null;
-  renderCurriculum();
+
+/* 커리큘럼 패널 열기 */
+function openCurrWritePanel(parentId){
+  currEditingId=null; currEditingParentId=parentId||null;
+  document.getElementById('curr-ep-label').textContent='게시물 작성';
+  var sel=document.getElementById('curr-ep-cat');
+  sel.innerHTML=currGroups.map(function(g){return '<option value="'+g.id+'">'+g.title+'</option>';}).join('');
+  if(parentId){
+    var par=findIn(posts,function(x){return x.id===parentId;});
+    if(par){sel.value=par.pos_cat;sel.disabled=true;}
+  } else {sel.disabled=false;}
+  document.getElementById('curr-ep-title').value='';
+  document.getElementById('curr-ep-body').value='';
+  document.getElementById('curr-ep-submit').textContent='게시하기';
+  document.getElementById('curr-ep-delete').style.display='none';
+  document.getElementById('curr-ep-sub').style.display='none';
+  document.getElementById('curr-ep-ok').style.display='none';
+  showPanel('curr-edit-panel');
 }
-function renderCurrContent(){
-  var gal=document.getElementById('curr-gallery');
-  var dan=document.getElementById('curr-danuh-list');
-  if(!gal||!dan)return;
-  var filtered=currSelectedCat
-    ? posts.filter(function(p){return (currSelectedCat.posts||[]).indexOf(p.id)>=0;})
-    : posts.filter(function(p){return p.sec==='커리큘럼';});
-  var imgItems=filtered.filter(function(p){return p.img;});
-  var txtItems=filtered.filter(function(p){return !p.img;});
-  var html='';
-  imgItems.forEach(function(p){html+=buildCardHtml(p);});
-  gal.innerHTML=html||'';
-  var dhtml='';
-  txtItems.forEach(function(p){dhtml+='<li onclick="showDetail('+p.id+')">'+p.title+'</li>';});
-  dan.innerHTML=dhtml;
+function openCurrEditPanel(id,parentId){
+  currEditingId=id; currEditingParentId=parentId||null;
+  var p=findIn(posts,function(x){return x.id===id;});if(!p)return;
+  document.getElementById('curr-ep-label').textContent='게시물 수정';
+  var sel=document.getElementById('curr-ep-cat');
+  sel.innerHTML=currGroups.map(function(g){return '<option value="'+g.id+'"'+(g.id===p.pos_cat?' selected':'')+'>'+g.title+'</option>';}).join('');
+  sel.disabled=!!parentId;
+  document.getElementById('curr-ep-title').value=p.title;
+  document.getElementById('curr-ep-body').value=p.body||'';
+  document.getElementById('curr-ep-submit').textContent='수정 완료';
+  document.getElementById('curr-ep-delete').style.display='block';
+  document.getElementById('curr-ep-sub').style.display=parentId?'none':'block';
+  document.getElementById('curr-ep-ok').style.display='none';
+  showPanel('curr-edit-panel');
 }
-function renameCurrCat(gid,cid){
-  var g=findIn(currData.groups,function(x){return x.id===gid;});if(!g)return;
-  var cat=findIn(g.cats,function(x){return x.id===cid;});if(!cat)return;
-  var name=prompt('새 이름:',cat.name);if(!name)return;
-  cat.name=name;saveCurrData();renderCurriculum();
+function closeCurrPanel(){
+  closeAllPanels();
+  document.getElementById('curr-ep-cat').disabled=false;
+  currEditingId=null; currEditingParentId=null;
 }
-function deleteCurrCat(gid,cid){
-  if(!confirm('항목을 삭제하시겠습니까?'))return;
-  var g=findIn(currData.groups,function(x){return x.id===gid;});if(!g)return;
-  g.cats=g.cats.filter(function(x){return x.id!==cid;});
-  if(currSelectedCat&&currSelectedCat.id===cid)currSelectedCat=null;
-  saveCurrData();renderCurriculum();
+
+function submitCurrPanel(){
+  var title=document.getElementById('curr-ep-title').value.trim();
+  if(!title){alert('제목을 입력해주세요.');return;}
+  var catId=document.getElementById('curr-ep-cat').value;
+  var body=document.getElementById('curr-ep-body').value.trim();
+  if(currEditingId){
+    /* 수정 */
+    var p=findIn(posts,function(x){return x.id===currEditingId;});
+    if(!p)return;
+    var patch={title:title,pos_cat:catId,body:body};
+    dbUpdate(currEditingId,patch).then(function(){
+      Object.assign(p,patch);
+      document.getElementById('curr-ep-ok').style.display='block';
+      setTimeout(function(){document.getElementById('curr-ep-ok').style.display='none';},2000);
+      closeCurrPanel();
+      if(currSelPostId===currEditingId)selCurrPost(currEditingId);
+      else renderCurriculum();
+    }).catch(function(){document.getElementById('curr-ep-err').style.display='block';setTimeout(function(){document.getElementById('curr-ep-err').style.display='none';},3000);});
+  } else {
+    /* 신규 */
+    var newPost={title:title,sec:'커리큘럼',img:null,plates:[],w:0,h:0,body:body,date:'',type:'Curriculum',status:'Published',author_nickname:authNickname||'',pos_cat:catId,is_template:false,sub_docs:[],tags:currEditingParentId?['cp:'+currEditingParentId]:[]};
+    dbInsert(newPost).then(function(saved){
+      if(saved)posts.push(saved);
+      closeCurrPanel(); renderCurriculum();
+    }).catch(function(){document.getElementById('curr-ep-err').style.display='block';setTimeout(function(){document.getElementById('curr-ep-err').style.display='none';},3000);});
+  }
 }
-function addCurrCat(gid){
-  var name=prompt('항목 이름:');if(!name)return;
-  var g=findIn(currData.groups,function(x){return x.id===gid;});
-  if(!g)return;
-  if(!g.cats)g.cats=[];
-  g.cats.push({id:'cc'+Date.now(),name:name,posts:[]});
-  saveCurrData();renderCurriculum();
+function deleteCurrPost(){
+  if(!confirm('정말 삭제하시겠습니까?'))return;
+  /* 하위 게시물도 함께 삭제 */
+  var toDelete=posts.filter(function(x){return x.id===currEditingId||(x.tags&&x.tags.indexOf('cp:'+currEditingId)>=0);});
+  var promises=toDelete.map(function(x){return dbDelete(x.id);});
+  Promise.all(promises).then(function(){
+    toDelete.forEach(function(x){posts=posts.filter(function(p){return p.id!==x.id;});});
+    if(currSelPostId===currEditingId||toDelete.some(function(x){return x.id===currSelPostId;})){
+      currSelPostId=null;
+      document.getElementById('curr-content').innerHTML='<p class="curr-empty">← 왼쪽에서 게시물을 선택하세요</p>';
+    }
+    closeCurrPanel(); renderCurriculum();
+  }).catch(function(){alert('삭제 실패.');});
 }
+function makeCurrSubPost(){
+  var pid=currEditingId;
+  closeCurrPanel();
+  setTimeout(function(){openCurrWritePanel(pid);},50);
+}
+
+/* 툴바 */
+function currIns(before,after){
+  var ta=document.getElementById('curr-ep-body');
+  var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);
+  var ins=sel?before+sel+after:before+after;
+  ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);
+  ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+before.length;
+  ta.focus();
+}
+
+/* 카테고리(그룹) 관리 */
+function openCurrCatManager(){
+  renderCurrCatList();
+  document.getElementById('curr-cat-modal').classList.add('on');
+  document.getElementById('ov').classList.add('on');
+}
+function closeCurrCatModal(){
+  document.getElementById('curr-cat-modal').classList.remove('on');
+  document.getElementById('ov').classList.remove('on');
+}
+function renderCurrCatList(){
+  document.getElementById('curr-cat-list').innerHTML=currGroups.map(function(g){
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #f0f0f0;">'+
+      '<span style="font-size:13px;">'+g.title+'</span>'+
+      '<div style="display:flex;gap:10px;">'+
+      '<button onclick="renameCurrGroup(\''+g.id+'\');renderCurrCatList()" style="font-size:11px;color:#999;background:none;border:none;cursor:pointer;font-family:inherit;">수정</button>'+
+      '<button onclick="deleteCurrGroupModal(\''+g.id+'\')" style="font-size:11px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;">삭제</button>'+
+      '</div></div>';
+  }).join('');
+}
+function addCurrGroup(){
+  var n=document.getElementById('curr-new-cat').value.trim().toUpperCase();
+  if(!n)return;
+  currGroups.push({id:'cg'+Date.now(),title:n});
+  saveCurrGroups();
+  document.getElementById('curr-new-cat').value='';
+  renderCurrCatList(); renderCurriculum();
+}
+function renameCurrGroup(id){
+  var g=findIn(currGroups,function(x){return x.id===id;});if(!g)return;
+  var n=prompt('새 이름:',g.title);if(!n)return;
+  g.title=n.toUpperCase(); saveCurrGroups(); renderCurriculum();
+}
+function deleteCurrGroup(id){
+  if(!confirm('카테고리와 해당 게시물이 모두 삭제됩니다.'))return;
+  currGroups=currGroups.filter(function(x){return x.id!==id;});
+  var toDelete=posts.filter(function(p){return p.pos_cat===id&&p.sec==='커리큘럼';});
+  toDelete.forEach(function(p){dbDelete(p.id);posts=posts.filter(function(x){return x.id!==p.id;});});
+  saveCurrGroups(); renderCurriculum();
+}
+function deleteCurrGroupModal(id){
+  if(!confirm('카테고리와 해당 게시물이 모두 삭제됩니다.'))return;
+  currGroups=currGroups.filter(function(x){return x.id!==id;});
+  var toDelete=posts.filter(function(p){return p.pos_cat===id&&p.sec==='커리큘럼';});
+  toDelete.forEach(function(p){dbDelete(p.id);posts=posts.filter(function(x){return x.id!==p.id;});});
+  saveCurrGroups(); renderCurrCatList(); renderCurriculum();
+}
+
 function enterCurrEditMode(){
-  if(!isAdmin())return;
-  currEditMode=true;manageFabs();renderCurriculum();
+  if(!isAdmin()){alert('관리자만 수정모드를 사용할 수 있습니다.');return;}
+  currEditMode=true; manageFabs(); renderCurriculum();
 }
 function exitCurrEditMode(){
-  currEditMode=false;manageFabs();renderCurriculum();
+  currEditMode=false; manageFabs(); renderCurriculum();
 }
 
 /* ── 관계심화 ── */
