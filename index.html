@@ -199,12 +199,15 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .curr-content{flex:1;overflow:hidden;display:flex;}
 /* 3열 레이아웃 (게시물 열람시) */
 .curr-two-pane{display:flex;width:100%;height:100%;}
-.curr-body-col{width:420px;flex-shrink:0;overflow-y:auto;padding:40px 36px 80px;border-right:1px solid #eee;}
+.curr-body-col{width:420px;flex-shrink:0;overflow-y:auto;padding:40px 36px 80px;border-right:1px solid #000;}
 .curr-body-col::-webkit-scrollbar{width:4px;}
 .curr-body-col::-webkit-scrollbar-thumb{background:#ddd;}
-.curr-img-col{flex:1;overflow:hidden;display:flex;align-items:flex-start;justify-content:center;padding:40px 32px;position:sticky;top:0;}
-.curr-img-col img{max-width:100%;max-height:calc(100vh - var(--header-h) - 80px);object-fit:contain;transition:opacity 0.25s ease;}
+.curr-img-col{flex:1;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;padding:40px 32px;position:sticky;top:0;}
+.curr-img-col img{max-width:100%;max-height:calc(100vh - var(--header-h) - 140px);object-fit:contain;transition:opacity 0.25s ease;display:block;}
 .curr-img-col img.fade{opacity:0;}
+.curr-img-caption{font-size:12px;color:#555;margin-top:8px;letter-spacing:-0.01em;}
+/* 본문 안 도판 마커 */
+.curr-img-marker{color:var(--blue);cursor:default;font-size:13px;letter-spacing:-0.01em;display:block;margin:12px 0 4px;}
 /* 섹션 구분 */
 .curr-section{margin-bottom:28px;}
 .curr-section-text{font-size:14.6px;line-height:1.6;color:#333;letter-spacing:-0.01em;white-space:pre-wrap;}
@@ -602,7 +605,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <textarea class="fta-grow" id="curr-ep-body" placeholder="본문을 입력하세요."></textarea>
     <div class="toolbar">
       <button class="tbtn" onclick="currIns('[[',']]')">[[위키링크]]</button>
-      <button class="tbtn" onclick="currIns('[[img:',']]')">URL이미지</button>
+      <button class="tbtn" onclick="currInsImg()">도판 삽입</button>
       <button class="tbtn bold" onclick="currIns('**','**')">볼드</button>
       <button class="tbtn italic" onclick="currIns('*','*')">이탤릭</button>
       <button class="tbtn" onclick="currIns('((','))')">각주</button>
@@ -1725,24 +1728,22 @@ function renderCurriculum(){
 
 /* ── 커리큘럼 본문 파서 ── */
 function parseCurrBody(body) {
-  /* [[img:url]] 기준으로 섹션 분리
-     섹션 = { text, imgUrl(해당 텍스트와 페어링되는 이미지) }
-     이미지가 텍스트 뒤에 오면 그 텍스트 블록과 이미지를 페어링 */
-  var sections = [];
-  var parts = body.split(/\[\[img:([^\]]+)\]\]/);
-  for (var i = 0; i < parts.length; i++) {
-    if (i % 2 === 0) {
-      var txt = parts[i].trim();
-      var imgUrl = (i + 1 < parts.length) ? parts[i + 1] : null;
-      if (txt || imgUrl) sections.push({ text: txt, imgUrl: imgUrl || null });
-    }
-  }
-  return sections;
+  /* [[img:URL|도판이름]] 또는 [[img:URL]] 형식 파싱
+     반환: 이미지 포함 여부 */
+  return /\[\[img:/.test(body);
 }
 
 function renderCurrTextSimple(text) {
   if (!text) return '';
   return text
+    /* [[img:URL|이름]] → 인라인 도판 마커로 변환 (이미지 자체는 오른쪽 열에) */
+    .replace(/\[\[img:([^|\]]+)\|([^\]]+)\]\]/g, function(_, url, name) {
+      return '<span class="curr-img-marker" data-img-url="' + url.trim() + '" data-img-name="' + name.trim() + '">[' + name.trim() + '] ▶</span>';
+    })
+    /* [[img:URL]] 이름 없는 경우 */
+    .replace(/\[\[img:([^\]]+)\]\]/g, function(_, url) {
+      return '<span class="curr-img-marker" data-img-url="' + url.trim() + '" data-img-name="">[이미지] ▶</span>';
+    })
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(/\[\[(.+?)\]\]/g, function(_, w) {
@@ -1764,84 +1765,94 @@ function selCurrPost(id) {
   }
 
   var g = findIn(currGroups, function(x) { return x.id === p.pos_cat; });
-  var sections = parseCurrBody(p.body || '');
-  var hasImages = sections.some(function(s) { return s.imgUrl; });
+  var bodyText = p.body || '';
+  var hasImg = parseCurrBody(bodyText);
 
-  if (hasImages) {
-    /* 3열 레이아웃 */
-    var firstImg = '';
-    for (var i = 0; i < sections.length; i++) { if (sections[i].imgUrl) { firstImg = sections[i].imgUrl; break; } }
+  /* 첫 번째 이미지 URL/이름 추출 */
+  var firstUrl = '', firstName = '';
+  var firstMatch = bodyText.match(/\[\[img:([^|\]]+)(?:\|([^\]]+))?\]\]/);
+  if (firstMatch) {
+    firstUrl = firstMatch[1].trim();
+    firstName = firstMatch[2] ? firstMatch[2].trim() : '';
+  }
 
-    var bodyHtml = '<div class="curr-view-title">' + p.title + '</div>';
-    sections.forEach(function(s, idx) {
-      bodyHtml += '<div class="curr-section" data-idx="' + idx + '" data-img="' + (s.imgUrl || '') + '">';
-      if (s.text) bodyHtml += '<div class="curr-section-text">' + renderCurrTextSimple(s.text) + '</div>';
-      bodyHtml += '</div>';
-    });
-    if (g) bodyHtml += '<div class="curr-cat-tag">' + g.title + '</div>';
+  var renderedBody = '<div class="curr-view-title">' + p.title + '</div>' +
+    '<div class="curr-section-text">' + renderCurrTextSimple(bodyText) + '</div>' +
+    (g ? '<div class="curr-cat-tag">' + g.title + '</div>' : '');
 
+  if (hasImg) {
+    /* 3열: 본문열 + 이미지열 */
     document.getElementById('curr-content').innerHTML =
       '<div class="curr-two-pane">' +
-        '<div class="curr-body-col" id="curr-body-col">' + bodyHtml + '</div>' +
+        '<div class="curr-body-col" id="curr-body-col">' + renderedBody + '</div>' +
         '<div class="curr-img-col" id="curr-img-col">' +
-          '<img id="curr-active-img" src="' + firstImg + '" alt="">' +
+          '<img id="curr-active-img" src="' + firstUrl + '" alt="' + firstName + '">' +
+          '<div class="curr-img-caption" id="curr-img-caption">' + (firstName ? '[' + firstName + ']' : '') + '</div>' +
         '</div>' +
       '</div>';
-
     setupCurrImgScroll();
   } else {
     /* 이미지 없으면 단일 본문 */
     document.getElementById('curr-content').innerHTML =
-      '<div class="curr-content-default">' +
-        '<div class="curr-view-title">' + p.title + '</div>' +
-        '<div class="curr-view-body">' + renderCurrTextSimple(p.body || '') + '</div>' +
-        (g ? '<div class="curr-cat-tag">' + g.title + '</div>' : '') +
-      '</div>';
+      '<div class="curr-content-default">' + renderedBody + '</div>';
   }
 }
 
 function setupCurrImgScroll() {
   var bodyCol = document.getElementById('curr-body-col');
   var imgEl = document.getElementById('curr-active-img');
+  var captionEl = document.getElementById('curr-img-caption');
   if (!bodyCol || !imgEl) return;
 
   var lastUrl = imgEl.src;
 
   function updateImg() {
-    var sections = bodyCol.querySelectorAll('.curr-section[data-img]');
+    var markers = bodyCol.querySelectorAll('.curr-img-marker[data-img-url]');
+    if (!markers.length) return;
     var bodyRect = bodyCol.getBoundingClientRect();
-    var triggerY = bodyRect.top + bodyRect.height * 0.35; /* 화면 상단 35% 지점 */
-    var activeUrl = '';
+    var triggerY = bodyRect.top + bodyRect.height * 0.38; /* 화면 38% 지점 */
 
-    /* 트리거 라인을 지난 섹션 중 가장 마지막(가장 아래) 것의 이미지 */
-    for (var i = 0; i < sections.length; i++) {
-      var url = sections[i].getAttribute('data-img');
-      if (!url) continue;
-      var rect = sections[i].getBoundingClientRect();
-      if (rect.top <= triggerY) activeUrl = url;
-    }
+    var activeUrl = markers[0].getAttribute('data-img-url');
+    var activeName = markers[0].getAttribute('data-img-name') || '';
 
-    /* 아직 아무 섹션도 트리거 안됐으면 첫 이미지 유지 */
-    if (!activeUrl) {
-      for (var j = 0; j < sections.length; j++) {
-        var u = sections[j].getAttribute('data-img');
-        if (u) { activeUrl = u; break; }
+    for (var i = 0; i < markers.length; i++) {
+      var rect = markers[i].getBoundingClientRect();
+      var url = markers[i].getAttribute('data-img-url');
+      if (url && rect.top <= triggerY) {
+        activeUrl = url;
+        activeName = markers[i].getAttribute('data-img-name') || '';
       }
     }
 
     if (activeUrl && activeUrl !== lastUrl) {
       lastUrl = activeUrl;
       imgEl.classList.add('fade');
-      var url = activeUrl;
+      var u = activeUrl, n = activeName;
       setTimeout(function() {
-        imgEl.src = url;
+        imgEl.src = u;
+        imgEl.alt = n;
         imgEl.classList.remove('fade');
+        if (captionEl) captionEl.textContent = n ? '[' + n + ']' : '';
       }, 200);
     }
   }
 
   bodyCol.addEventListener('scroll', updateImg);
-  setTimeout(updateImg, 80); /* 초기 렌더 후 실행 */
+  setTimeout(updateImg, 80);
+}
+
+/* 도판 삽입 헬퍼 */
+function currInsImg() {
+  var name = prompt('도판 이름\n예) 도판1:구겐하임 미술관');
+  if (!name) return;
+  var url = prompt('이미지 URL\nhttps://...');
+  if (!url) return;
+  var ta = document.getElementById('curr-ep-body');
+  var s = ta.selectionStart;
+  var ins = '\n[[img:' + url.trim() + '|' + name.trim() + ']]\n';
+  ta.value = ta.value.slice(0, s) + ins + ta.value.slice(s);
+  ta.selectionStart = ta.selectionEnd = s + ins.length;
+  ta.focus();
 }
 function onCurrEditClick(){
   var p=findIn(posts,function(x){return x.id===currSelPostId;});
