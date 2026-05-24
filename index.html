@@ -32,7 +32,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .nav-bar{display:flex;align-items:center;}
 .nav-item{font-size:12px;font-weight:400;letter-spacing:-0.01em;color:#999;white-space:nowrap;padding:0 20px;cursor:pointer;background:none;border:none;font-family:inherit;transition:color 0.1s;}
 .nav-item:hover,.nav-item.active{color:#000;}
-.nav-item.active{text-decoration:underline;text-underline-offset:3px;}
+.nav-item.active{}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px;}
 .nickname-tag{font-size:11px;color:#999;letter-spacing:-0.01em;}
 .nav-auth-btn{font-size:11px;color:#bbb;cursor:pointer;background:none;border:none;font-family:inherit;padding:0;}
@@ -158,9 +158,10 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .panel{display:none;position:fixed;top:0;right:0;width:min(500px,100vw);height:100vh;background:#fff;border-left:1px solid #000;z-index:300;padding:28px;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;flex-direction:column;}
 .panel.on{display:flex;overflow-y:auto;}
 .panel-body{flex:1;display:flex;flex-direction:column;}
-.fl-grow{flex:1;display:flex;flex-direction:column;margin-bottom:16px;}
-.fl-grow label{display:block;font-size:12px;color:#888;margin-bottom:5px;}
-.fta-grow{flex:1;width:100%;border:1px solid #000;padding:7px 9px;font-family:inherit;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;background:#fff;outline:none;resize:none;min-height:120px;}
+.fl-grow{flex:1;display:flex;flex-direction:column;margin-bottom:16px;min-height:0;}
+.fl-grow label{display:block;font-size:12px;color:#888;margin-bottom:5px;flex-shrink:0;}
+.fl-grow .toolbar{flex-shrink:0;}
+.fta-grow{flex:1;width:100%;border:1px solid #000;padding:7px 9px;font-family:inherit;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;background:#fff;outline:none;resize:none;min-height:160px;}
 .resize-handle{position:absolute;left:0;top:0;bottom:0;width:6px;cursor:ew-resize;z-index:10;}
 .resize-handle:hover{background:rgba(0,0,255,0.06);}
 .ph{font-size:14.6px;font-weight:400;letter-spacing:-0.01em;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;}
@@ -195,11 +196,20 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .curr-layout{display:flex;gap:0;min-height:calc(100vh - var(--header-h));margin:-32px -28px -100px;}
 .curr-sidebar{width:264px;flex-shrink:0;border-right:1px solid #000;overflow-y:auto;display:flex;flex-direction:column;}
 .curr-sidebar-inner{flex:1;}
-.curr-content{flex:1;overflow-y:scroll;padding:32px 28px 100px;}
-.curr-content::-webkit-scrollbar{width:6px;}
-.curr-content::-webkit-scrollbar-track{background:#f8f8f8;}
-.curr-content::-webkit-scrollbar-thumb{background:#ccc;}
-.curr-content::-webkit-scrollbar-thumb:hover{background:#999;}
+.curr-content{flex:1;overflow:hidden;display:flex;}
+/* 3열 레이아웃 (게시물 열람시) */
+.curr-two-pane{display:flex;width:100%;height:100%;}
+.curr-body-col{width:420px;flex-shrink:0;overflow-y:auto;padding:40px 36px 80px;border-right:1px solid #eee;}
+.curr-body-col::-webkit-scrollbar{width:4px;}
+.curr-body-col::-webkit-scrollbar-thumb{background:#ddd;}
+.curr-img-col{flex:1;overflow:hidden;display:flex;align-items:flex-start;justify-content:center;padding:40px 32px;position:sticky;top:0;}
+.curr-img-col img{max-width:100%;max-height:calc(100vh - var(--header-h) - 80px);object-fit:contain;transition:opacity 0.25s ease;}
+.curr-img-col img.fade{opacity:0;}
+/* 섹션 구분 */
+.curr-section{margin-bottom:28px;}
+.curr-section-text{font-size:14.6px;line-height:1.6;color:#333;letter-spacing:-0.01em;white-space:pre-wrap;}
+/* 게시물 없을때 기본 콘텐츠 영역 */
+.curr-content-default{flex:1;overflow-y:auto;padding:40px 36px;}
 .curr-group{border-bottom:1px solid #eee;}
 .curr-group-title{font-family:'Outfit',sans-serif;font-weight:400;font-size:20px;letter-spacing:0.02em;padding:14px 14px 8px;color:#000;line-height:1;}
 .curr-post-list{padding:0 0 8px 0;}
@@ -235,7 +245,10 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 @media(max-width:600px){
   .curr-layout{flex-direction:column;margin:-20px -12px -100px;}
   .curr-sidebar{width:100%;max-width:100%;border-right:none;border-bottom:1px solid #000;max-height:50vh;}
-  .curr-content{padding:20px 12px 60px;}
+  .curr-content{display:block;overflow-y:auto;padding:20px 12px 60px;}
+  .curr-two-pane{flex-direction:column;}
+  .curr-body-col{width:100%;border-right:none;padding:20px 12px;}
+  .curr-img-col{width:100%;padding:12px;position:relative;}
 }
 .deadend.on{display:flex;}
 .deadend-box{background:#fff;border:1px solid #000;padding:28px 32px;font-size:14.6px;font-weight:400;max-width:280px;width:90%;}
@@ -287,7 +300,9 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
         </div>
       </div>
       <div class="curr-content" id="curr-content">
-        <p class="curr-empty">← 왼쪽에서 게시물을 선택하세요</p>
+        <div class="curr-content-default">
+          <p class="curr-empty">← 왼쪽에서 게시물을 선택하세요</p>
+        </div>
       </div>
     </div>
   </div>
@@ -434,7 +449,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <label>썸네일 이미지 <span style="color:#bbb;font-size:11px;">(없으면 '단어들'에 저장)</span></label>
     <div class="thumb-row"><input type="text" class="fi" id="f-img" placeholder="URL (https://...)"><input type="file" id="f-img-file" accept="image/*" style="font-size:12px;"></div>
   </div>
-  <div class="fl">
+  <div class="fl-grow">
     <label>본문</label>
     <textarea class="fta-grow" id="f-body" placeholder="텍스트를 입력하세요."></textarea>
     <div class="toolbar">
@@ -478,7 +493,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <label>썸네일 이미지</label>
     <div class="thumb-row"><input type="text" class="fi" id="e-img" placeholder="URL (https://...)"><input type="file" id="e-img-file" accept="image/*" style="font-size:12px;"></div>
   </div>
-  <div class="fl">
+  <div class="fl-grow">
     <label>본문</label>
     <textarea class="fta-grow" id="e-body"></textarea>
     <div class="toolbar">
@@ -582,7 +597,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <select class="fi" id="curr-ep-cat" style="height:38px;font-size:14px;"></select>
   </div>
   <div class="fl"><label>제목</label><input type="text" class="fi" id="curr-ep-title" placeholder="제목"></div>
-  <div class="fl">
+  <div class="fl-grow">
     <label>본문</label>
     <textarea class="fta-grow" id="curr-ep-body" placeholder="본문을 입력하세요."></textarea>
     <div class="toolbar">
@@ -1594,18 +1609,18 @@ function submitEdit(){
   var isTemp=document.getElementById('e-is-template').checked;
   var selCat=document.querySelector('#e-cat-btns .cat-btn.active');
   var posCat=selCat?selCat.getAttribute('data-cat'):p.pos_cat||'';
-    var imgFile=document.getElementById('e-img-file');
-    var hasFile=imgFile&&imgFile.files&&imgFile.files[0];
-    /* URL을 지운 경우: imgUrl='' 이고 파일도 없으면 img=null */
-    if(!hasFile&&imgUrl===''){
-      var patch2={title:document.getElementById('e-title').value.trim(),img:null,sec:'단어들',body:document.getElementById('e-body').value.trim(),is_template:isTemp,sub_docs:isTemp?editSubDocs:[],pos_cat:posCat};
-      return dbUpdate(p.id,patch2).then(function(){
-        Object.assign(p,patch2);renderGallery();renderDanuh();
-        document.getElementById('ef-ok').style.display='block';setTimeout(function(){document.getElementById('ef-ok').style.display='none';},2500);
-        closeAllPanels();showDetail(currentId,false);
-      });
-    }
-  resolveImg(document.getElementById('e-img-file'),document.getElementById('e-img')).then(function(img){
+  var imgUrl=document.getElementById('e-img').value.trim();
+  var imgFile=document.getElementById('e-img-file');
+  var hasFile=imgFile&&imgFile.files&&imgFile.files[0];
+  if(!hasFile&&imgUrl===''){
+    var patch2={title:document.getElementById('e-title').value.trim(),img:null,sec:'단어들',body:document.getElementById('e-body').value.trim(),is_template:isTemp,sub_docs:isTemp?editSubDocs:[],pos_cat:posCat};
+    return dbUpdate(p.id,patch2).then(function(){
+      Object.assign(p,patch2);renderGallery();renderDanuh();
+      document.getElementById('ef-ok').style.display='block';setTimeout(function(){document.getElementById('ef-ok').style.display='none';},2500);
+      closeAllPanels();showDetail(currentId,false);
+    });
+  }
+  resolveImg(imgFile,document.getElementById('e-img')).then(function(img){
     var finalImg=img||p.img;
     var patch={title:document.getElementById('e-title').value.trim(),img:finalImg,sec:finalImg?'개념들':'단어들',body:document.getElementById('e-body').value.trim(),is_template:isTemp,sub_docs:isTemp?editSubDocs:[],pos_cat:posCat};
     return dbUpdate(p.id,patch).then(function(){
@@ -1708,20 +1723,125 @@ function renderCurriculum(){
   document.getElementById('curr-sidebar-fab').style.display=(currEditMode&&isAdmin())?'block':'none';
 }
 
-function selCurrPost(id){
-  currSelPostId=id;
-  var p=findIn(posts,function(x){return x.id===id;});
-  if(!p)return;
-  renderCurriculum();
-  var g=findIn(currGroups,function(x){return x.id===p.pos_cat;});
-  document.getElementById('curr-content').innerHTML=
-    '<div class="curr-view-title">'+p.title+'</div>'+
-    '<div class="curr-view-body">'+(p.body||'')+'</div>'+
-    (g?'<div class="curr-cat-tag">'+g.title+'</div>':'');
-  // 수정 버튼 표시 (관리자 또는 작성자)
-  if(isAdmin()||(authUser&&p.author_nickname&&p.author_nickname===authNickname)){
-    document.getElementById('fab-curr-edit').style.display='flex';
+/* ── 커리큘럼 본문 파서 ── */
+function parseCurrBody(body) {
+  /* [[img:url]] 기준으로 섹션 분리
+     섹션 = { text, imgUrl(해당 텍스트와 페어링되는 이미지) }
+     이미지가 텍스트 뒤에 오면 그 텍스트 블록과 이미지를 페어링 */
+  var sections = [];
+  var parts = body.split(/\[\[img:([^\]]+)\]\]/);
+  for (var i = 0; i < parts.length; i++) {
+    if (i % 2 === 0) {
+      var txt = parts[i].trim();
+      var imgUrl = (i + 1 < parts.length) ? parts[i + 1] : null;
+      if (txt || imgUrl) sections.push({ text: txt, imgUrl: imgUrl || null });
+    }
   }
+  return sections;
+}
+
+function renderCurrTextSimple(text) {
+  if (!text) return '';
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/\[\[(.+?)\]\]/g, function(_, w) {
+      var t = findIn(posts, function(p) { return p.title === w; });
+      if (t) return '<span class="wiki-link" onclick="showDetail(' + t.id + ')">' + w + '</span>';
+      return '<span class="wiki-link dead-link" data-word="' + w.replace(/"/g, '&quot;') + '">' + w + '</span>';
+    })
+    .replace(/\n/g, '<br>');
+}
+
+function selCurrPost(id) {
+  currSelPostId = id;
+  var p = findIn(posts, function(x) { return x.id === id; });
+  if (!p) return;
+  renderCurriculum();
+
+  if (isAdmin() || (authUser && p.author_nickname && p.author_nickname === authNickname)) {
+    document.getElementById('fab-curr-edit').style.display = 'flex';
+  }
+
+  var g = findIn(currGroups, function(x) { return x.id === p.pos_cat; });
+  var sections = parseCurrBody(p.body || '');
+  var hasImages = sections.some(function(s) { return s.imgUrl; });
+
+  if (hasImages) {
+    /* 3열 레이아웃 */
+    var firstImg = '';
+    for (var i = 0; i < sections.length; i++) { if (sections[i].imgUrl) { firstImg = sections[i].imgUrl; break; } }
+
+    var bodyHtml = '<div class="curr-view-title">' + p.title + '</div>';
+    sections.forEach(function(s, idx) {
+      bodyHtml += '<div class="curr-section" data-idx="' + idx + '" data-img="' + (s.imgUrl || '') + '">';
+      if (s.text) bodyHtml += '<div class="curr-section-text">' + renderCurrTextSimple(s.text) + '</div>';
+      bodyHtml += '</div>';
+    });
+    if (g) bodyHtml += '<div class="curr-cat-tag">' + g.title + '</div>';
+
+    document.getElementById('curr-content').innerHTML =
+      '<div class="curr-two-pane">' +
+        '<div class="curr-body-col" id="curr-body-col">' + bodyHtml + '</div>' +
+        '<div class="curr-img-col" id="curr-img-col">' +
+          '<img id="curr-active-img" src="' + firstImg + '" alt="">' +
+        '</div>' +
+      '</div>';
+
+    setupCurrImgScroll();
+  } else {
+    /* 이미지 없으면 단일 본문 */
+    document.getElementById('curr-content').innerHTML =
+      '<div class="curr-content-default">' +
+        '<div class="curr-view-title">' + p.title + '</div>' +
+        '<div class="curr-view-body">' + renderCurrTextSimple(p.body || '') + '</div>' +
+        (g ? '<div class="curr-cat-tag">' + g.title + '</div>' : '') +
+      '</div>';
+  }
+}
+
+function setupCurrImgScroll() {
+  var bodyCol = document.getElementById('curr-body-col');
+  var imgEl = document.getElementById('curr-active-img');
+  if (!bodyCol || !imgEl) return;
+
+  var lastUrl = imgEl.src;
+
+  function updateImg() {
+    var sections = bodyCol.querySelectorAll('.curr-section[data-img]');
+    var bodyRect = bodyCol.getBoundingClientRect();
+    var triggerY = bodyRect.top + bodyRect.height * 0.35; /* 화면 상단 35% 지점 */
+    var activeUrl = '';
+
+    /* 트리거 라인을 지난 섹션 중 가장 마지막(가장 아래) 것의 이미지 */
+    for (var i = 0; i < sections.length; i++) {
+      var url = sections[i].getAttribute('data-img');
+      if (!url) continue;
+      var rect = sections[i].getBoundingClientRect();
+      if (rect.top <= triggerY) activeUrl = url;
+    }
+
+    /* 아직 아무 섹션도 트리거 안됐으면 첫 이미지 유지 */
+    if (!activeUrl) {
+      for (var j = 0; j < sections.length; j++) {
+        var u = sections[j].getAttribute('data-img');
+        if (u) { activeUrl = u; break; }
+      }
+    }
+
+    if (activeUrl && activeUrl !== lastUrl) {
+      lastUrl = activeUrl;
+      imgEl.classList.add('fade');
+      var url = activeUrl;
+      setTimeout(function() {
+        imgEl.src = url;
+        imgEl.classList.remove('fade');
+      }, 200);
+    }
+  }
+
+  bodyCol.addEventListener('scroll', updateImg);
+  setTimeout(updateImg, 80); /* 초기 렌더 후 실행 */
 }
 function onCurrEditClick(){
   var p=findIn(posts,function(x){return x.id===currSelPostId;});
