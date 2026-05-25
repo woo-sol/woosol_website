@@ -197,7 +197,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .curr-sidebar-inner{flex:1;}
 .curr-content{flex:1;display:flex;overflow:hidden;}
 /* 본문열 - 독립 스크롤 */
-.curr-body-col{width:360px;flex-shrink:0;overflow-y:auto;padding:40px 24px 80px;border-right:1px solid #000;}
+.curr-body-col{width:468px;flex-shrink:0;overflow-y:auto;padding:40px 24px 80px;border-right:1px solid #000;}
 .curr-body-col::-webkit-scrollbar{width:4px;}
 .curr-body-col::-webkit-scrollbar-thumb{background:#ddd;}
 /* 이미지열 - 고정, 가운데 정렬 */
@@ -455,6 +455,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <label>본문</label>
     <textarea class="fta-grow" id="f-body" placeholder="텍스트를 입력하세요."></textarea>
     <div class="toolbar">
+      <button class="tbtn" style="font-weight:700;font-size:14px;" onclick="insertHeading('f-body','h1')">제목</button>
+      <button class="tbtn" style="font-weight:600;font-size:12px;" onclick="insertHeading('f-body','h2')">부제목</button>
       <button class="tbtn" onclick="insertWiki('f-body')">[[위키링크]]</button>
       <button class="tbtn" onclick="insertImgUrl('f-body')">URL이미지</button>
       <button class="tbtn bold" onclick="insertFormat('f-body','bold')">볼드</button>
@@ -499,6 +501,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <label>본문</label>
     <textarea class="fta-grow" id="e-body"></textarea>
     <div class="toolbar">
+      <button class="tbtn" style="font-weight:700;font-size:14px;" onclick="insertHeading('e-body','h1')">제목</button>
+      <button class="tbtn" style="font-weight:600;font-size:12px;" onclick="insertHeading('e-body','h2')">부제목</button>
       <button class="tbtn" onclick="insertWiki('e-body')">[[위키링크]]</button>
       <button class="tbtn" onclick="insertImgUrl('e-body')">URL이미지</button>
       <button class="tbtn bold" onclick="insertFormat('e-body','bold')">볼드</button>
@@ -603,6 +607,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
     <label>본문</label>
     <textarea class="fta-grow" id="curr-ep-body" placeholder="본문을 입력하세요."></textarea>
     <div class="toolbar">
+      <button class="tbtn" style="font-weight:700;font-size:14px;" onclick="currInsHeading('h1')">제목</button>
+      <button class="tbtn" style="font-weight:600;font-size:12px;" onclick="currInsHeading('h2')">부제목</button>
       <button class="tbtn" onclick="currIns('[[',']]')">[[위키링크]]</button>
       <button class="tbtn" onclick="currInsImg()">도판 삽입</button>
       <button class="tbtn bold" onclick="currIns('**','**')">볼드</button>
@@ -1222,7 +1228,8 @@ function wikiRender(text) {
       }
       return '<span class="wiki-link dead-link" data-word="'+w.replace(/"/g,'&quot;')+'">'+w+'</span>';
     })
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^## (.+)$/mg,'<h2 style="font-size:16px;font-weight:700;letter-spacing:-0.01em;margin-top:24px;margin-bottom:8px;break-after:avoid;">$1</h2>')
+    .replace(/^# (.+)$/mg,'<h1 style="font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-top:32px;margin-bottom:10px;break-after:avoid;">$1</h1>')
     .replace(/\*([^*]+)\*/g,'<em>$1</em>')
     .replace(/\n\n/g,'</p><p style="margin-top:14px;">')
     .replace(/\n/g,'<br>');
@@ -1476,6 +1483,24 @@ function onBookTouchEnd(e){
 }
 
 /* ── TOOLBAR ── */
+function insertHeading(taId,level){
+  var ta=document.getElementById(taId);
+  var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);
+  var prefix=level==='h1'?'# ':'## ';
+  var ins='\n'+prefix+(sel||'제목')+'\n';
+  ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);
+  ta.selectionStart=ta.selectionEnd=s+ins.length;
+  ta.focus();
+}
+function currInsHeading(level){
+  var prefix=level==='h1'?'# ':'## ';
+  var ta=document.getElementById('curr-ep-body');
+  var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);
+  var ins='\n'+prefix+(sel||'제목')+'\n';
+  ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);
+  ta.selectionStart=ta.selectionEnd=s+ins.length;
+  ta.focus();
+}
 function insertWiki(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var ins=sel?'[['+sel+']]':'[[]]';ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+2;ta.focus();}
 function insertImgUrl(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd;ta.value=ta.value.slice(0,s)+'[[img:]]'+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=s+6;ta.focus();}
 function insertFormat(taId,type){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var m=type==='bold'?'**':'*';var ins=sel?m+sel+m:m+m;ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+m.length;ta.focus();}
@@ -1743,7 +1768,8 @@ function renderCurrTextSimple(text) {
     .replace(/\[\[img:([^\]]+)\]\]/g, function(_, url) {
       return '<span class="curr-img-marker" data-img-url="' + url.trim() + '" data-img-name="">[이미지] ▶</span>';
     })
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^## (.+)$/mg,'<h2 style="font-size:16px;font-weight:700;letter-spacing:-0.01em;margin-top:24px;margin-bottom:8px;">$1</h2>')
+    .replace(/^# (.+)$/mg,'<h1 style="font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-top:32px;margin-bottom:10px;">$1</h1>')
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(/\[\[(.+?)\]\]/g, function(_, w) {
       var t = findIn(posts, function(p) { return p.title === w; });
