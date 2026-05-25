@@ -1030,7 +1030,7 @@ function renderGallery() {
   var g=document.getElementById('gallery');
   var html='';
   if(editMode) {
-    var txtItems=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들');});
+    var txtItems=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들'&&p.sec!=='커리큘럼');});
     html+='<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
     html+='<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
     html+='</div>';
@@ -1095,7 +1095,7 @@ function onGalCatDrop(e,catName){
 /* ── DANUH ── */
 function renderDanuh() {
   var el=document.getElementById('danuh-list');
-  var items=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들');});
+  var items=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들'&&p.sec!=='커리큘럼');});
   var html='';
   var uncat=items.filter(function(p){return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});});
   uncat.forEach(function(p){html+='<li onclick="showDetail('+p.id+')">'+p.title+'</li>';});
@@ -1367,7 +1367,7 @@ function submitBookEdit() {
 function deleteBook() {
   if(!confirm('정말 삭제하시겠습니까?'))return;
   dbDeleteBook(editingBookId).then(function(){
-    books=books.filter(function(b){return b.id!==editingBookId;});
+    books=books.filter(function(b){return String(b.id)!==String(editingBookId);});
     closeAllPanels();expandedBookId=null;renderLibrary();
   }).catch(function(){alert('삭제 실패.');});
 }
