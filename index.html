@@ -534,6 +534,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="fl"><label>제목</label><input type="text" class="fi" id="b-title" placeholder="책 제목"></div>
   <div class="fl"><label>저자</label><input type="text" class="fi" id="b-author" placeholder="저자명"></div>
   <div class="fl"><label>소개</label><textarea class="fta" id="b-desc" style="min-height:100px;"></textarea></div>
+  <div class="fl"><label>카테고리</label><div id="book-cat-btns" style="margin-top:6px;"></div></div>
   <div class="fl"><label>분류</label>
     <select class="fi" id="b-type" style="height:38px;font-size:14px;">
       <option value="책">📖 책</option>
@@ -1411,7 +1412,10 @@ function submitBook() {
   var title=document.getElementById('b-title').value.trim();if(!title){alert('제목을 입력해주세요.');return;}
   if(!newBookCat){alert('카테고리를 선택해주세요.');return;}
   var cnt=books.filter(function(b){return b.category===newBookCat;}).length;
-  dbInsertBook({title:title,author:document.getElementById('b-author').value.trim(),description:document.getElementById('b-desc').value.trim(),category:newBookCat,order_index:cnt,book_type:document.getElementById('b-type').value})
+  var bookData={title:title,author:document.getElementById('b-author').value.trim(),description:document.getElementById('b-desc').value.trim(),category:newBookCat,order_index:cnt};
+  var typeEl=document.getElementById('b-type');
+  if(typeEl)bookData.book_type=typeEl.value;
+  dbInsertBook(bookData)
     .then(function(saved){
       if(saved)books.push(saved);
       document.getElementById('b-title').value='';document.getElementById('b-author').value='';document.getElementById('b-desc').value='';
@@ -1419,7 +1423,11 @@ function submitBook() {
       setTimeout(function(){document.getElementById('b-ok').style.display='none';},2500);
       closeAllPanels();renderLibrary();
     })
-    .catch(function(){document.getElementById('b-err').style.display='block';setTimeout(function(){document.getElementById('b-err').style.display='none';},3000);});
+    .catch(function(e){
+      console.error('book insert error',e);
+      document.getElementById('b-err').style.display='block';
+      setTimeout(function(){document.getElementById('b-err').style.display='none';},3000);
+    });
 }
 
 /* ── DRAG BOOKS ── */
