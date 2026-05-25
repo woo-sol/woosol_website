@@ -51,6 +51,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   .card{width:calc(50% - 4px)!important;flex-shrink:0!important;flex-basis:calc(50% - 4px)!important;}
   .card img{width:100%!important;height:auto!important;object-fit:contain;}
   .card-cap{font-size:12px;}
+  .lib-cats{columns:2;column-gap:20px;}
   .danuh-cols{column-count:2!important;column-width:auto!important;margin-top:40px;}
 }
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
@@ -111,14 +112,14 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .fn-item{font-size:11px;color:#444;margin-bottom:4px;line-height:1.5;}
 
 /* LIBRARY - 세로 정렬 */
-.lib-cats{display:flex;flex-direction:column;gap:40px;}
-.lib-cat-group{display:flex;flex-direction:column;gap:16px;}
+.lib-cats{columns:5 auto;column-gap:36px;}
+.lib-cat-group{break-inside:avoid;margin-bottom:40px;}
 .lib-cat{width:100%;}
-.lib-cat-label{font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.lib-cat-label{font-size:18px;font-weight:900;letter-spacing:-0.02em;margin-bottom:10px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #000;padding-bottom:6px;}
 .lib-cat-edit-btn{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline;}
 .lib-cat-edit-btn:hover{color:#000;}
-.lib-sub-cat{margin-left:32px;}
-.lib-sub-label{font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.lib-sub-cat{margin-left:16px;break-inside:avoid;}
+.lib-sub-label{font-size:15px;font-weight:700;letter-spacing:-0.01em;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
 .lib-sub-label::before{content:'ㄴ ';color:#bbb;font-weight:400;}
 .lib-books{display:flex;flex-wrap:wrap;gap:6px 8px;min-height:32px;}
 .book-card{padding:6px 12px;cursor:pointer;user-select:none;min-width:100px;max-width:240px;border:1px solid transparent;transition:background 0.1s;position:relative;}
