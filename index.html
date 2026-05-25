@@ -111,30 +111,25 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .fn-item{font-size:11px;color:#444;margin-bottom:4px;line-height:1.5;}
 
 /* LIBRARY - 세로 정렬 */
-.lib-cats{columns:5 auto;column-gap:28px;}
-.lib-cat-group{display:contents;}
-.lib-cat{display:contents;}
-.lib-cat-label{column-span:all;font-size:18px;font-weight:900;letter-spacing:-0.02em;margin-top:40px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #000;display:block;}
-.lib-cat-label:first-of-type{margin-top:0;}
-.lib-cat-edit-btn{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline;}
+/* LIBRARY - 테이블 스타일 */
+.lib-cats{width:100%;}
+.lib-table{width:100%;border-collapse:collapse;font-size:12px;letter-spacing:-0.01em;}
+.lib-table th{font-size:11px;font-weight:400;color:#999;text-align:left;padding:4px 8px;border-bottom:1px solid #ddd;white-space:nowrap;}
+.lib-table td{padding:3px 8px;vertical-align:middle;line-height:1.4;}
+.lib-row:hover td{background:#eef!important;}
+.lib-book-title{cursor:pointer;font-size:12px;font-weight:400;color:#000;display:flex;align-items:center;gap:6px;}
+.lib-book-title:hover{color:var(--blue);}
+.lib-book-icon{font-size:11px;color:#888;flex-shrink:0;cursor:pointer;border:1px solid #ccc;padding:1px 4px;border-radius:2px;}
+.lib-expand-row td{padding:6px 8px 10px 32px;font-size:12px;color:#444;line-height:1.6;}
+.lib-expand-desc{margin-bottom:4px;}
+.lib-expand-author{color:#888;font-size:11px;}
+.lib-edit-btn-sm{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0 4px;text-decoration:underline;}
+.lib-edit-btn-sm:hover{color:#000;}
+.lib-cat-row td{font-size:14px;font-weight:900;letter-spacing:-0.02em;padding:16px 8px 5px;background:#fff;cursor:pointer;border-bottom:2px solid #000;}
+.lib-cat-row.sub td{font-size:12px;font-weight:700;padding:10px 8px 4px 20px;border-bottom:1px solid #ccc;}
+.lib-cat-row .cat-arrow{font-size:10px;color:#888;margin-left:6px;}
+.lib-cat-edit-btn{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline;margin-left:8px;}
 .lib-cat-edit-btn:hover{color:#000;}
-.lib-sub-cat{display:contents;}
-.lib-sub-label{column-span:all;font-size:15px;font-weight:700;letter-spacing:-0.01em;margin-top:24px;margin-bottom:4px;display:block;padding-left:16px;}
-.lib-sub-label::before{content:'ㄴ ';color:#bbb;font-weight:400;}
-.lib-books{display:contents;}
-.book-card{padding:2px 0;cursor:pointer;user-select:none;border:none;transition:color 0.1s;display:block;break-inside:avoid;}
-.book-card:hover{background:none;}
-.book-card:hover .book-title{color:var(--blue);}
-.book-card.expanded .book-title{color:var(--blue);}
-.book-card.drag-before{border-left:2px solid var(--blue)!important;}
-.book-card.drag-after{border-right:2px solid var(--blue)!important;}
-.book-title{font-size:14.6px;font-weight:400;letter-spacing:-0.01em;}
-.book-expand{margin-top:8px;font-size:12px;color:#444;line-height:1.6;}
-.book-expand-author{font-size:11px;color:#999;margin-top:4px;}
-.book-edit-btn{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;margin-top:6px;display:block;text-decoration:underline;}
-.book-edit-btn:hover{color:#000;}
-.cat-drop-zone{width:100%;padding:10px;border:1px dashed #ddd;font-size:11px;color:#ccc;text-align:center;margin-top:4px;}
-.cat-drop-zone.drag-over{background:#ebebff;border-color:var(--blue);}
 .cat-btn{border:1px solid #ccc;padding:5px 14px;font-size:13px;cursor:pointer;background:#fff;font-family:inherit;margin-right:6px;margin-bottom:6px;letter-spacing:-0.01em;}
 .cat-btn.active{border-color:#000;background:#000;color:#fff;}
 
@@ -538,7 +533,13 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="fl"><label>제목</label><input type="text" class="fi" id="b-title" placeholder="책 제목"></div>
   <div class="fl"><label>저자</label><input type="text" class="fi" id="b-author" placeholder="저자명"></div>
   <div class="fl"><label>소개</label><textarea class="fta" id="b-desc" style="min-height:100px;"></textarea></div>
-  <div class="fl"><label>카테고리</label><div id="book-cat-btns" style="margin-top:6px;"></div></div>
+  <div class="fl"><label>분류</label>
+    <select class="fi" id="b-type" style="height:38px;font-size:14px;">
+      <option value="책">📖 책</option>
+      <option value="논문">📄 논문</option>
+      <option value="칼럼">✏️ 칼럼</option>
+    </select>
+  </div>
   <button class="fbtn" onclick="submitBook()">등록하기</button>
   <p id="b-ok" class="ok-msg">✓ 등록되었습니다.</p>
   <p id="b-err" class="err-msg">저장 실패.</p>
@@ -551,6 +552,13 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <div class="fl"><label>제목</label><input type="text" class="fi" id="be-title"></div>
   <div class="fl"><label>저자</label><input type="text" class="fi" id="be-author"></div>
   <div class="fl"><label>소개</label><textarea class="fta" id="be-desc" style="min-height:100px;"></textarea></div>
+  <div class="fl"><label>분류</label>
+    <select class="fi" id="be-type" style="height:38px;font-size:14px;">
+      <option value="책">📖 책</option>
+      <option value="논문">📄 논문</option>
+      <option value="칼럼">✏️ 칼럼</option>
+    </select>
+  </div>
   <div class="fl"><label>카테고리</label><div id="be-cat-btns" style="margin-top:6px;"></div></div>
   <button class="fbtn" onclick="submitBookEdit()">수정 완료</button>
   <button class="fbtn del" onclick="deleteBook()">삭제</button>
@@ -1263,47 +1271,75 @@ function handleCatBtnClick(name,containerId) {
   if(containerId==='be-cat-btns')editBookCat=name;
   renderBtnGroup(containerId,libCats,name,null);
 }
+/* 아이콘 타입 */
+var BOOK_ICONS={'책':'📖','논문':'📄','칼럼':'✏️'};
+var collapsedCats={};
+
 function renderLibrary() {
   var el=document.getElementById('lib-cats');if(!el)return;
   var rootCats=libCats.filter(function(c){return !c.parentId;});
   rootCats.sort(function(a,b){return a.order-b.order;});
-  var html='';
+  var html='<table class="lib-table"><thead><tr><th>제목</th><th>저자</th><th>분류</th>'+(libEditMode&&isAdmin()?'<th></th>':'')+'</tr></thead><tbody>';
   rootCats.forEach(function(cat){
-    html+='<div class="lib-cat-group">';
-    html+=renderLibCatHtml(cat,false);
+    html+=renderLibCatRows(cat,false);
     libCats.filter(function(s){return s.parentId===cat.id;}).sort(function(a,b){return a.order-b.order;})
-      .forEach(function(sub){html+=renderLibCatHtml(sub,true);});
-    html+='</div>';
+      .forEach(function(sub){html+=renderLibCatRows(sub,true);});
   });
+  html+='</tbody></table>';
   el.innerHTML=html;
 }
-function renderLibCatHtml(cat,isSub) {
+
+function renderLibCatRows(cat,isSub){
+  var collapsed=collapsedCats[cat.id];
+  var editBtn=(libEditMode&&isAdmin())?'<button class="lib-cat-edit-btn" onclick="openLibCatEdit(\''+cat.id+'\')">수정</button>':'';
+  var arrow=collapsed?'▶':'▼';
+  var h='<tr class="lib-cat-row'+(isSub?' sub':'')+'" onclick="toggleLibCat(\''+cat.id+'\')">';
+  h+='<td colspan="'+(libEditMode&&isAdmin()?'4':'3')+'">'+cat.name+'<span class="cat-arrow">'+arrow+'</span>'+editBtn+'</td></tr>';
+  if(collapsed)return h;
   var catBooks=books.filter(function(b){return b.category===cat.name;});
   catBooks.sort(function(a,b){return a.order_index-b.order_index;});
-  var editBtn=(libEditMode&&isAdmin())?' <button class="lib-cat-edit-btn" onclick="openLibCatEdit(\''+cat.id+'\')">수정</button>':'';
-  var cls=isSub?'lib-sub-cat':'lib-cat';
-  var labelCls=isSub?'lib-sub-label':'lib-cat-label';
-  var html='<div class="'+cls+'" data-cat="'+cat.name+'" ondragover="onCatDragOver(event)" ondrop="onCatDrop(event,\''+cat.name+'\')">';
-  html+='<div class="'+labelCls+'">'+cat.name+editBtn+'</div>';
-  html+='<div class="lib-books">';
-  catBooks.forEach(function(b){
+  catBooks.forEach(function(b,idx){
+    var even=idx%2===0;
     var exp=expandedBookId===b.id;
-    html+='<div class="book-card'+(exp?' expanded':'')+'" data-book-id="'+b.id+'" draggable="true"';
-    html+=' ondragstart="onBookDragStart(event,'+b.id+')" ondragover="onBookDragOver(event,'+b.id+')" ondragleave="onBookDragLeave(event)" ondrop="onBookDrop(event,'+b.id+')" ondragend="onDragEnd()"';
-    html+=' ontouchstart="onBookTouchStart(event,'+b.id+')" ontouchmove="onBookTouchMove(event)" ontouchend="onBookTouchEnd(event)">';
-    html+='<div class="book-title" onclick="toggleBook('+b.id+')">'+b.title+'</div>';
+    var icon=BOOK_ICONS[b.book_type]||'📖';
+    h+='<tr class="lib-row" style="background:'+(even?'#fff':'#f7f7f7')+';" data-book-id="'+b.id+'">';
+    h+='<td><span class="lib-book-title" onclick="toggleBook('+b.id+')">';
+    h+='<span class="lib-book-icon" onclick="cycleBookType(event,'+b.id+')">'+icon+'</span>';
+    h+=b.title+'</span></td>';
+    h+='<td style="color:#666;font-size:11px;">'+(b.author||'')+'</td>';
+    h+='<td style="color:#999;font-size:11px;">'+cat.name+'</td>';
+    if(libEditMode&&isAdmin())h+='<td><button class="lib-edit-btn-sm" onclick="openBookEdit('+b.id+')">수정</button></td>';
+    h+='</tr>';
     if(exp){
-      if(b.description)html+='<div class="book-expand">'+b.description+'</div>';
-      if(b.author)html+='<div class="book-expand-author">'+b.author+'</div>';
-      if(libEditMode&&authUser)html+='<button class="book-edit-btn" onclick="openBookEdit('+b.id+')">수정</button>';
+      h+='<tr class="lib-expand-row"><td colspan="'+(libEditMode&&isAdmin()?'4':'3')+'">';
+      if(b.description)h+='<div class="lib-expand-desc">'+b.description+'</div>';
+      if(b.author)h+='<div class="lib-expand-author">'+b.author+'</div>';
+      h+='</td></tr>';
     }
-    html+='</div>';
   });
-  if(!catBooks.length)html+='<div class="cat-drop-zone" ondragover="onCatDragOver(event)" ondrop="onCatDrop(event,\''+cat.name+'\')">여기에 책을 드래그하세요</div>';
-  html+='</div></div>';
-  return html;
+  if(!catBooks.length){
+    h+='<tr><td colspan="'+(libEditMode&&isAdmin()?'4':'3')+'" style="color:#ccc;font-size:11px;padding:4px 8px;">게시물 없음</td></tr>';
+  }
+  return h;
+}
+
+function toggleLibCat(id){
+  collapsedCats[id]=!collapsedCats[id];
+  renderLibrary();
 }
 function toggleBook(id){expandedBookId=expandedBookId===id?null:id;renderLibrary();}
+
+var BOOK_TYPE_CYCLE=['책','논문','칼럼'];
+function cycleBookType(e,id){
+  e.stopPropagation();
+  if(!libEditMode||!isAdmin())return;
+  var b=findIn(books,function(x){return x.id===id;});if(!b)return;
+  var cur=b.book_type||'책';
+  var next=BOOK_TYPE_CYCLE[(BOOK_TYPE_CYCLE.indexOf(cur)+1)%BOOK_TYPE_CYCLE.length];
+  b.book_type=next;
+  dbUpdateBook(id,{book_type:next});
+  renderLibrary();
+}
 
 /* Library 카테고리 CRUD */
 function buildParentSelect(selectedId) {
@@ -1353,12 +1389,13 @@ function openBookEdit(id) {
   document.getElementById('be-title').value=b.title;
   document.getElementById('be-author').value=b.author||'';
   document.getElementById('be-desc').value=b.description||'';
+  document.getElementById('be-type').value=b.book_type||'책';
   renderBtnGroup('be-cat-btns',libCats,editBookCat,null);
   showPanel('book-edit-panel');
 }
 function submitBookEdit() {
   var b=findIn(books,function(x){return x.id===editingBookId;});if(!b)return;
-  var patch={title:document.getElementById('be-title').value.trim(),author:document.getElementById('be-author').value.trim(),description:document.getElementById('be-desc').value.trim(),category:editBookCat};
+  var patch={title:document.getElementById('be-title').value.trim(),author:document.getElementById('be-author').value.trim(),description:document.getElementById('be-desc').value.trim(),category:editBookCat,book_type:document.getElementById('be-type').value};
   dbUpdateBook(b.id,patch);Object.assign(b,patch);
   document.getElementById('be-ok').style.display='block';
   setTimeout(function(){document.getElementById('be-ok').style.display='none';},2000);
@@ -1375,7 +1412,7 @@ function submitBook() {
   var title=document.getElementById('b-title').value.trim();if(!title){alert('제목을 입력해주세요.');return;}
   if(!newBookCat){alert('카테고리를 선택해주세요.');return;}
   var cnt=books.filter(function(b){return b.category===newBookCat;}).length;
-  dbInsertBook({title:title,author:document.getElementById('b-author').value.trim(),description:document.getElementById('b-desc').value.trim(),category:newBookCat,order_index:cnt})
+  dbInsertBook({title:title,author:document.getElementById('b-author').value.trim(),description:document.getElementById('b-desc').value.trim(),category:newBookCat,order_index:cnt,book_type:document.getElementById('b-type').value})
     .then(function(saved){
       if(saved)books.push(saved);
       document.getElementById('b-title').value='';document.getElementById('b-author').value='';document.getElementById('b-desc').value='';
