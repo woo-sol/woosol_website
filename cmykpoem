@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMYK 텍스트 망점</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; background: #fff; overflow: hidden; }
+    canvas { display: block; width: 100%; height: 100%; cursor: none; }
+  </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const MAX_FS = 16;
+const SPACING = 18;
+const EFFECT_R = 110;
+const EFFECT_R2 = EFFECT_R * EFFECT_R;
+const DECAY = 0.013;
+const CYCLE_MS = 3000;
+const DISSOLVE_MS = 800;
+
+const SENTENCES = [
+  '좋은일들과새로운바람기대되는미래와처음보는얼굴들낯설지만두렵지않은',
+  '더나은일들을바라볼수있는익숙한어제에서길어온현재의눈과귀로지금을감각하고',
+  '오래남은사람들과둘러보지않았던주변을둘러보며재감각하는회상의이미지들과',
+  '떨쳐지지않는후회들과기분좋게공존할수있는방법으로과거를웃음지을수있으며',
+];
+const COLORS = [
+  'rgb(0,183,235)',
+  'rgb(236,0,140)',
+  'rgb(255,220,0)',
+  'rgb(20,20,20)',
+];
+const OFFSETS = [
+  {dx:0,  dy:0 },
+  {dx:5,  dy:2 },
+  {dx:-3, dy:5 },
+  {dx:2,  dy:-4},
+];
+
+let cols, rows, total;
+let vals = [];
+let dotX, dotY, charIdx;
+let mouse = {x:-999, y:-999};
+let dpr = window.devicePixelRatio || 1;
+let cycleStart = performance.now();
+
+function build(w, h) {
+  cols = Math.ceil(w / SPACING) + 2;
+  rows = Math.ceil(h / SPACING) + 2;
+  total = cols * rows;
+  const ox = (w - (cols-1)*SPACING) / 2;
+  const oy = (h - (rows-1)*SPACING) / 2;
+  dotX = new Float32Array(total);
+  dotY = new Float32Array(total);
+  charIdx = new Uint16Array(total);
+  for (let r=0; r<rows; r++)
+    for (let c=0; c<cols; c++) {
+      const i = r*cols+c;
+      dotX[i] = ox + c*SPACING;
+      dotY[i] = oy + r*SPACING;
+      charIdx[i] = r*cols+c;
+    }
+  vals = [0,1,2,3].map(() => new Float32Array(total));
+}
+
+function resize() {
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  build(rect.width, rect.height);
+}
+
+canvas.addEventListener('mousemove', e => {
+  const r = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - r.left;
+  mouse.y = e.clientY - r.top;
+});
+canvas.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  const r = canvas.getBoundingClientRect();
+  mouse.x = e.touches[0].clientX - r.left;
+  mouse.y = e.touches[0].clientY - r.top;
+}, {passive: false});
+canvas.addEventListener('touchend', () => { mouse.x = -999; mouse.y = -999; });
+
+function easeInOut(t) { return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2; }
+
+let rafId;
+function draw() {
+  const W = canvas.width / dpr;
+  const H = canvas.height / dpr;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const now = performance.now();
+  const elapsed = (now - cycleStart) % CYCLE_MS;
+  const cycleIdx = Math.floor((now - cycleStart) / CYCLE_MS) % 4;
+  const fade = easeInOut(Math.min(elapsed / DISSOLVE_MS, 1));
+  const cur = cycleIdx, nxt = (cycleIdx + 1) % 4;
+  const strengths = [0, 0, 0, 0];
+  strengths[cur] = 1 - fade;
+  strengths[nxt] = fade;
+
+  const mx = mouse.x, my = mouse.y;
+
+  for (let li = 0; li < 4; li++) {
+    const s = strengths[li];
+    const v = vals[li];
+    const {dx, dy} = OFFSETS[li];
+    for (let i = 0; i < total; i++) {
+      if (s > 0 && mx > -900) {
+        const ddx = (dotX[i]+dx) - mx;
+        const ddy = (dotY[i]+dy) - my;
+        const d2 = ddx*ddx + ddy*ddy;
+        if (d2 < EFFECT_R2) {
+          const t = 1 - d2/EFFECT_R2;
+          const boost = MAX_FS * t * t * s;
+          if (boost > v[i]) v[i] = boost;
+        }
+      }
+      v[i] -= DECAY;
+      if (v[i] < 0) v[i] = 0;
+    }
+  }
+
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  for (let li = 0; li < 4; li++) {
+    const v = vals[li];
+    const {dx, dy} = OFFSETS[li];
+    const sentence = SENTENCES[li];
+    const slen = sentence.length;
+    ctx.fillStyle = COLORS[li];
+    let lastFs = -1;
+    for (let i = 0; i < total; i++) {
+      const fs = v[i];
+      if (fs < 0.5) continue;
+      const fsInt = Math.round(fs);
+      if (fsInt !== lastFs) {
+        ctx.font = `${fsInt}px sans-serif`;
+        lastFs = fsInt;
+      }
+      ctx.fillText(sentence[charIdx[i] % slen], dotX[i]+dx, dotY[i]+dy);
+    }
+  }
+
+  rafId = requestAnimationFrame(draw);
+}
+
+resize();
+window.addEventListener('resize', () => {
+  cancelAnimationFrame(rafId);
+  resize();
+  draw();
+});
+draw();
+</script>
+</body>
+</html>
