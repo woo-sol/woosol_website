@@ -77,7 +77,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .danuh-cols{column-width:140px;column-count:5;column-gap:28px;margin-top:80px;list-style:none;}
 .danuh-cols li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;break-inside:avoid;}
 .danuh-cols li:hover{color:var(--blue);}
-.danuh-cat-title{column-span:all;font-size:16.6px;font-weight:900;letter-spacing:-0.02em;margin-top:40px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #000;cursor:default;list-style:none;}
+.danuh-cat-title{column-span:all;font-size:19px;font-weight:900;letter-spacing:-0.02em;margin-top:40px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #000;cursor:pointer;list-style:none;}
+.danuh-cat-title:hover{color:var(--blue);}
 .danuh-cat-title:first-child{margin-top:0;}
 .about-body{max-width:600px;font-size:14.6px;font-weight:400;line-height:1.6;letter-spacing:-0.01em;}
 .about-body p+p{margin-top:14px;}
@@ -86,7 +87,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
 .d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:9cm;column-gap:36px;}
-.d-text p{break-inside:avoid;margin-top:14px;}
+.d-text p{margin-top:14px;}
 .d-img-plate{max-width:50%;height:auto;display:block;margin:24px 0;}
 .wiki-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
 .ext-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
@@ -284,6 +285,10 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 
 <main class="site-main">
   <div id="pg-개념들" class="pg on">
+    <div id="gae념-header" style="margin-bottom:48px;">
+      <h2 id="gae념-title" style="font-size:32px;font-weight:900;letter-spacing:-0.02em;line-height:1;margin-bottom:12px;">개념들</h2>
+      <p id="gaenym-desc" style="font-size:14.6px;color:#666;letter-spacing:-0.01em;">이곳은 개념들을 모아논 곳입니다.</p>
+    </div>
     <div id="gallery" class="gallery"></div>
     <ul class="danuh-cols" id="danuh-list"></ul>
   </div>
@@ -593,7 +598,15 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn" onclick="addPostCat()">추가</button>
 </div>
 
-<!-- 관계심화 수정 -->
+<!-- 개념들 헤더 수정 -->
+<div class="panel" id="gae-header-panel">
+  <div class="resize-handle"></div>
+  <div class="ph"><span>개념들 헤더 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
+  <div class="fl"><label>제목</label><input type="text" class="fi" id="gae-h-title" placeholder="개념들"></div>
+  <div class="fl"><label>설명</label><textarea class="fta" id="gae-h-desc" style="min-height:80px;"></textarea></div>
+  <button class="fbtn" onclick="saveGaeHeader()">저장</button>
+  <p id="gae-h-ok" class="ok-msg">✓ 저장되었습니다.</p>
+</div>
 <div class="panel" id="about-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>관계심화 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -786,19 +799,42 @@ function resolveImg(fileInput,urlInput) {
 
 /* ── AUTH ── */
 function initAuth() {
-  var t=loadToken(); if(!t)return;
+  var t=loadToken(); if(!t) return;
   fetch(SUPA_URL+'/auth/v1/user',{headers:SH(t)})
-    .then(function(r){if(!r.ok){clearToken();return null;}return r.json();})
+    .then(function(r){if(!r.ok){
+      /* 토큰 만료시 자동 갱신 시도 */
+      return refreshToken().then(function(newT){
+        if(!newT)throw new Error('refresh failed');
+        return fetch(SUPA_URL+'/auth/v1/user',{headers:SH(newT)});
+      });
+    } return r;})
+    .then(function(r){if(!r.ok)throw new Error(); return r.json();})
     .then(function(user){
-      if(!user){updateNavAuth();manageFabs();return;}
+      if(!user)return;
       authToken=t; authUser=user;
       return loadProfile(user.id).then(function(){
-        updateNavAuth();
-        manageFabs();
+        updateNavAuth(); manageFabs();
+        setInterval(refreshToken, 50*60*1000);
       });
     })
     .catch(function(){clearToken();updateNavAuth();manageFabs();});
 }
+function refreshToken(){
+  var t=loadToken();if(!t)return Promise.resolve(null);
+  return fetch(SUPA_URL+'/auth/v1/token?grant_type=refresh_token',{
+    method:'POST',
+    headers:{'apikey':SUPA_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({refresh_token:loadRefreshToken()})
+  }).then(function(r){if(!r.ok)return null;return r.json();})
+    .then(function(d){
+      if(!d||!d.access_token)return null;
+      saveToken(d.access_token);
+      if(d.refresh_token)saveRefreshToken(d.refresh_token);
+      return d.access_token;
+    }).catch(function(){return null;});
+}
+function saveRefreshToken(t){try{localStorage.setItem('pos_refresh_token',t);}catch(e){}}
+function loadRefreshToken(){try{return localStorage.getItem('pos_refresh_token');}catch(e){return null;}}
 function loadProfile(uid) {
   authNickname=(authUser&&authUser.user_metadata&&authUser.user_metadata.nickname)||(authUser&&authUser.email)||'';
   return Promise.resolve();
@@ -931,7 +967,9 @@ function doLogin() {
     .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
     .then(function(res){
       if(!res.ok)throw new Error(res.d.error_description||res.d.msg||'로그인 실패');
-      saveToken(res.d.access_token); authUser=res.d.user;
+      saveToken(res.d.access_token);
+      if(res.d.refresh_token)saveRefreshToken(res.d.refresh_token);
+      authUser=res.d.user;
       return loadProfile(authUser.id);
     })
     .then(function(){
@@ -1015,11 +1053,23 @@ function enterEditMode(){
   if(!isAdmin()){alert('관리자만 편집모드를 사용할 수 있습니다.');return;}
   editMode=true;
   document.getElementById('pg-개념들').classList.add('edit-mode');
+  /* 헤더 수정 버튼 표시 */
+  var hdr=document.getElementById('gae념-header');
+  if(hdr&&!document.getElementById('gae념-edit-btn')){
+    var btn=document.createElement('button');
+    btn.id='gae념-edit-btn';
+    btn.textContent='헤더 수정';
+    btn.style.cssText='font-size:11px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;margin-top:6px;display:block;text-decoration:underline;';
+    btn.onclick=openGaeHeader;
+    hdr.appendChild(btn);
+  }
   manageFabs(); renderGallery();
 }
 function exitEditMode(){
   editMode=false;
   document.getElementById('pg-개념들').classList.remove('edit-mode');
+  var btn=document.getElementById('gae념-edit-btn');
+  if(btn)btn.parentNode.removeChild(btn);
   manageFabs(); renderGallery();
 }
 function enterLibEditMode(){
@@ -1115,7 +1165,9 @@ function renderDanuh() {
   postCats.forEach(function(cat){
     var catItems=items.filter(function(p){return p.pos_cat===cat.name;});
     if(!catItems.length)return;
-    html+='<li class="danuh-cat-title">'+cat.name+'</li>';
+    var catPost=findIn(posts,function(p){return p.title===cat.name;});
+    var catClick=catPost?'onclick="showDetail('+catPost.id+')"':'';
+    html+='<li class="danuh-cat-title" '+catClick+'>'+cat.name+'</li>';
     catItems.forEach(function(p){html+='<li onclick="showDetail('+p.id+')" style="padding-left:12px;">'+p.title+'</li>';});
   });
   el.innerHTML=html;
@@ -1234,12 +1286,15 @@ function wikiRender(text) {
     .replace(/\[\[img:([^\]]+)\]\]/g,function(_,url){return '</p><img class="d-img-plate" src="'+url+'" alt=""><p>';})
     .replace(/\x01FN(\d+)\x01/g,function(_,n){return '<sup style="font-size:0.7em;">'+n+')</sup>';})
     .replace(/\[\[(.+?)\]\]/g,function(_,w){
-      var t=findIn(posts,function(p){return p.title===w||(p.tags&&p.tags.indexOf(w)>=0);});
+      var parts=w.split('|');
+      var target=parts[0].trim();
+      var label=parts.length>1?parts[1].trim():target;
+      var t=findIn(posts,function(p){return p.title===target||(p.tags&&p.tags.indexOf(target)>=0);});
       if(t){
-        if(t.external_url)return '<span class="ext-link" onclick="window.open(\''+t.external_url.replace(/\'/g,"\\'")+'\',' + "'_blank'" + ')">'+w+' ↗</span>';
-        if(t.sec!=='link')return '<span class="wiki-link" onclick="showDetail('+t.id+')">'+w+'</span>';
+        if(t.external_url)return '<span class="ext-link" onclick="window.open(\''+t.external_url.replace(/\'/g,"\\'")+'\',' + "'_blank'" + ')">'+label+' ↗</span>';
+        if(t.sec!=='link')return '<span class="wiki-link" onclick="showDetail('+t.id+')">'+label+'</span>';
       }
-      return '<span class="wiki-link dead-link" data-word="'+w.replace(/"/g,'&quot;')+'">'+w+'</span>';
+      return '<span class="wiki-link dead-link" data-word="'+target.replace(/"/g,'&quot;')+'">'+label+'</span>';
     })
     .replace(/^## (.+)$/mg,'<h2 style="font-size:16px;font-weight:700;letter-spacing:-0.01em;margin-top:24px;margin-bottom:8px;break-after:avoid;">$1</h2>')
     .replace(/^# (.+)$/mg,'<h1 style="font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-top:32px;margin-bottom:10px;break-after:avoid;">$1</h1>')
@@ -1580,7 +1635,18 @@ function currInsHeading(level){
   ta.selectionStart=ta.selectionEnd=s+ins.length;
   ta.focus();
 }
-function insertWiki(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var ins=sel?'[['+sel+']]':'[[]]';ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+2;ta.focus();}
+function insertWiki(taId){
+  var ta=document.getElementById(taId);
+  var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);
+  /* 선택 텍스트가 있으면 [[선택텍스트]] , 없으면 [[문서명|표시텍스트]] 형식 안내 */
+  var ins=sel?'[['+sel+']]':'[[문서명|표시텍스트]]';
+  var cursorPos=sel?s+ins.length:s+2;
+  ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);
+  /* 문서명 부분 선택 */
+  ta.selectionStart=s+2;
+  ta.selectionEnd=sel?s+2+sel.length:s+2+'문서명'.length;
+  ta.focus();
+}
 function insertImgUrl(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd;ta.value=ta.value.slice(0,s)+'[[img:]]'+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=s+6;ta.focus();}
 function insertFormat(taId,type){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var m=type==='bold'?'**':'*';var ins=sel?m+sel+m:m+m;ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+m.length;ta.focus();}
 function insertFootnote(taId){var ta=document.getElementById(taId);var s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.slice(s,e);var ins=sel?'(('+sel+'))':'(())';ta.value=ta.value.slice(0,s)+ins+ta.value.slice(e);ta.selectionStart=ta.selectionEnd=sel?s+ins.length:s+2;ta.focus();}
@@ -1651,7 +1717,7 @@ function saveExit(){
 }
 
 /* ── PANELS ── */
-var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel','curr-edit-panel'];
+var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel','curr-edit-panel','gae-header-panel'];
 function closeAllPanels(){PANELS.forEach(function(id){document.getElementById(id).classList.remove('on');});document.getElementById('ov').classList.remove('on');}
 function showPanel(id){
   closeAllPanels();document.getElementById(id).classList.add('on');document.getElementById('ov').classList.add('on');
@@ -2119,7 +2185,31 @@ function exitCurrEditMode(){
   currEditMode=false; manageFabs(); renderCurriculum();
 }
 
-/* ── 관계심화 ── */
+function openGaeHeader(){
+  document.getElementById('gae-h-title').value=document.getElementById('gae념-title').textContent;
+  document.getElementById('gae-h-desc').value=document.getElementById('gaenym-desc').textContent;
+  showPanel('gae-header-panel');
+}
+function saveGaeHeader(){
+  var title=document.getElementById('gae-h-title').value.trim()||'개념들';
+  var desc=document.getElementById('gae-h-desc').value.trim();
+  document.getElementById('gae념-title').textContent=title;
+  document.getElementById('gaenym-desc').textContent=desc;
+  saveSetting('gae_header',{title:title,desc:desc});
+  document.getElementById('gae-h-ok').style.display='block';
+  setTimeout(function(){document.getElementById('gae-h-ok').style.display='none';},2000);
+  closeAllPanels();
+}
+function loadGaeHeader(){
+  fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.gae_header',{headers:SH()})
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(!rows||!rows[0]||!rows[0].value)return;
+      var v=rows[0].value;
+      if(v.title)document.getElementById('gae념-title').textContent=v.title;
+      if(v.desc)document.getElementById('gaenym-desc').textContent=v.desc;
+    }).catch(function(){});
+}
 function renderAbout() {
   fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.about_content',{headers:SH()})
     .then(function(r){return r.json();})
@@ -2155,6 +2245,7 @@ dbLoad();
 dbLoadBooks();
 loadSettings();
 loadCurrData();
+loadGaeHeader();
 manageFabs();
 </script>
 </body>
