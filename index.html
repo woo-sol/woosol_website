@@ -1160,7 +1160,11 @@ function renderDanuh() {
   var el=document.getElementById('danuh-list');
   var items=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들'&&p.sec!=='커리큘럼');});
   var html='';
-  var uncat=items.filter(function(p){return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});});
+  var catNames=postCats.map(function(c){return c.name;});
+  var uncat=items.filter(function(p){
+    return (!p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;}))
+      && catNames.indexOf(p.title)<0;
+  });
   uncat.forEach(function(p){html+='<li onclick="showDetail('+p.id+')">'+p.title+'</li>';});
   postCats.forEach(function(cat){
     var catItems=items.filter(function(p){return p.pos_cat===cat.name;});
@@ -1757,6 +1761,10 @@ function openEditPanel(){
 }
 function submitNewPost(){
   var title=document.getElementById('f-title').value.trim();if(!title){alert('제목을 입력해주세요.');return;}
+  /* 중복 제목 검사 */
+  if(findIn(posts,function(p){return p.title===title&&p.sec!=='link';})){
+    alert('이미 존재하는 문서입니다.');return;
+  }
   var btn=document.getElementById('nf-submit');btn.textContent='저장 중...';btn.disabled=true;
   var isTemp=document.getElementById('f-is-template').checked;
   var selCat=document.querySelector('#f-cat-btns .cat-btn.active');
