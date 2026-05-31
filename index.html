@@ -77,7 +77,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .danuh-cols{column-width:140px;column-count:5;column-gap:28px;margin-top:80px;list-style:none;}
 .danuh-cols li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;break-inside:avoid;}
 .danuh-cols li:hover{color:var(--blue);}
-.danuh-cat-title{column-span:all;font-size:19px;font-weight:900;letter-spacing:-0.02em;margin-top:40px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #000;cursor:pointer;list-style:none;}
+.danuh-cat-title{column-span:all;font-size:22px;font-weight:900;letter-spacing:-0.02em;margin-top:40px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #000;cursor:pointer;list-style:none;}
 .danuh-cat-title:hover{color:var(--blue);}
 .danuh-cat-title:first-child{margin-top:0;}
 .about-body{max-width:600px;font-size:14.6px;font-weight:400;line-height:1.6;letter-spacing:-0.01em;}
@@ -286,7 +286,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 <main class="site-main">
   <div id="pg-개념들" class="pg on">
     <div id="gae념-header" style="margin-bottom:48px;">
-      <h2 id="gae념-title" style="font-size:32px;font-weight:900;letter-spacing:-0.02em;line-height:1;margin-bottom:12px;">개념들</h2>
+      <h2 id="gae념-title" style="font-size:32px;font-weight:400;letter-spacing:-0.02em;line-height:1;margin-bottom:12px;">개념들</h2>
       <p id="gaenym-desc" style="font-size:14.6px;color:#666;letter-spacing:-0.01em;">이곳은 개념들을 모아논 곳입니다.</p>
     </div>
     <div id="gallery" class="gallery"></div>
@@ -1164,7 +1164,6 @@ function renderDanuh() {
   uncat.forEach(function(p){html+='<li onclick="showDetail('+p.id+')">'+p.title+'</li>';});
   postCats.forEach(function(cat){
     var catItems=items.filter(function(p){return p.pos_cat===cat.name;});
-    if(!catItems.length)return;
     var catPost=findIn(posts,function(p){return p.title===cat.name;});
     var catClick=catPost?'onclick="showDetail('+catPost.id+')"':'';
     html+='<li class="danuh-cat-title" '+catClick+'>'+cat.name+'</li>';
