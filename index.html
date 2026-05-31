@@ -1244,8 +1244,14 @@ function showDetail(postId,doPush) {
   var lineCount=(bodyText.match(/\n/g)||[]).length + Math.ceil(bodyText.length/80);
   var dtEl=document.getElementById('d-text');
   dtEl.innerHTML=wikiRender(bodyText);
-  dtEl.style.columnWidth = lineCount<=7 ? 'initial' : '';
-  dtEl.style.columnCount = lineCount<=7 ? '1' : '';
+  /* 7줄 이하: column-fill:auto + 첫 열 높이만큼 max-height → 나머지 열 비움 */
+  if(lineCount<=7){
+    dtEl.style.columnFill='auto';
+    dtEl.style.maxHeight=(lineCount*1.5*14.6+60)+'px';
+  } else {
+    dtEl.style.columnFill='';
+    dtEl.style.maxHeight='';
+  }
   document.getElementById('d-author').textContent=p.author_nickname||'';
 
   // 부모문서: 하위문서 목록
