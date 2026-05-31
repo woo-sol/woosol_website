@@ -1162,8 +1162,9 @@ function renderDanuh() {
   var html='';
   var catNames=postCats.map(function(c){return c.name;});
   var uncat=items.filter(function(p){
-    return (!p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;}))
-      && catNames.indexOf(p.title)<0;
+    /* 카테고리 이름과 같은 제목은 미분류에서 무조건 제외 */
+    if(catNames.indexOf(p.title)>=0)return false;
+    return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});
   });
   uncat.forEach(function(p){html+='<li onclick="showDetail('+p.id+')">'+p.title+'</li>';});
   postCats.forEach(function(cat){
@@ -1239,7 +1240,12 @@ function showDetail(postId,doPush) {
   } else {tplBox.style.display='none';tplBox.innerHTML='';}
 
   document.getElementById('d-title').textContent=p.title;
-  document.getElementById('d-text').innerHTML=wikiRender(p.body||'');
+  var bodyText=p.body||'';
+  var lineCount=(bodyText.match(/\n/g)||[]).length + Math.ceil(bodyText.length/80);
+  var dtEl=document.getElementById('d-text');
+  dtEl.innerHTML=wikiRender(bodyText);
+  dtEl.style.columnWidth = lineCount<=7 ? 'initial' : '';
+  dtEl.style.columnCount = lineCount<=7 ? '1' : '';
   document.getElementById('d-author').textContent=p.author_nickname||'';
 
   // 부모문서: 하위문서 목록
@@ -1769,6 +1775,11 @@ function submitNewPost(){
   var isTemp=document.getElementById('f-is-template').checked;
   var selCat=document.querySelector('#f-cat-btns .cat-btn.active');
   var posCat=selCat?selCat.getAttribute('data-cat'):'';
+  /* 카테고리 이름과 동일한 제목이면 해당 카테고리로 자동 지정 */
+  if(!posCat){
+    var matchCat=findIn(postCats,function(c){return c.name===title;});
+    if(matchCat)posCat=matchCat.name;
+  }
   resolveImg(document.getElementById('f-img-file'),document.getElementById('f-img')).then(function(img){
     var sec = cur==='커리큘럼' ? '커리큘럼' : (img?'개념들':'단어들');
     return dbInsert({title:title,sec:sec,img:img||null,plates:[],w:220,h:220,body:document.getElementById('f-body').value.trim(),tags:[],date:'',type:'Visual Research',status:'Published',author_nickname:authNickname||'',is_template:isTemp,sub_docs:isTemp?newSubDocs:[],pos_cat:posCat})
