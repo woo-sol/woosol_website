@@ -1245,6 +1245,7 @@ function showDetail(postId,doPush) {
   var bodyText=p.body||'';
   var dtEl=document.getElementById('d-text');
   dtEl.innerHTML=wikiRender(bodyText);
+  dtEl.style.columnCount = calcColumnCount(bodyText);
   document.getElementById('d-author').textContent=p.author_nickname||'';
 
   // 부모문서: 하위문서 목록
@@ -1272,6 +1273,16 @@ function showDetail(postId,doPush) {
   if(doPush){safePush({type:'post',id:postId},'/'+encodeURIComponent(p.title));var desc=p.body?p.body.replace(/\[\[.*?\]\]/g,'').slice(0,120).trim()+'…':'';setMeta(p.title,desc,p.img||'');}
   window.scrollTo(0,0); setTimeout(function(){window.scrollTo(0,0);},80);
 }
+/* 글 길이에 따라 적절한 열 개수 계산 */
+function calcColumnCount(text){
+  var len=(text||'').replace(/\[\[.*?\]\]/g,'').replace(/[*_]/g,'').length;
+  if(len<=150)return 1;
+  if(len<=400)return 2;
+  if(len<=800)return 3;
+  if(len<=1400)return 4;
+  return 5;
+}
+
 function closeDetail(doPush) {
   if(doPush===undefined)doPush=true;
   document.getElementById('dv').style.display='none';
