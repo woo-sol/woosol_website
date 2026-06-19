@@ -87,7 +87,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 /* DETAIL */
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
-.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:9cm;column-count:5;column-gap:36px;}
+.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;}
 .d-text p{margin-top:14px;}
 .d-text p{margin-top:14px;}
 .d-img-plate{max-width:50%;height:auto;display:block;margin:24px 0;}
@@ -1245,10 +1245,19 @@ function showDetail(postId,doPush) {
   var bodyText=p.body||'';
   var dtEl=document.getElementById('d-text');
   dtEl.innerHTML=wikiRender(bodyText);
-  var cnt=calcColumnCount(bodyText);
-  dtEl.style.columnCount=cnt;
-  var colPx=340.16; /* 9cm 정확한 px값 */
-  dtEl.style.maxWidth=(cnt*colPx + (cnt-1)*36 + 4)+'px';
+  if(isShortText(bodyText)){
+    /* 15줄 이하: 왼쪽 한 칸(5등분 중 1칸)만 사용, 단 나눔 없음 */
+    dtEl.style.columnCount='';
+    dtEl.style.columnGap='';
+    dtEl.style.columnWidth='';
+    dtEl.style.width='calc((100% - 144px)/5)';
+  } else {
+    /* 15줄 이상: 5등분, 단 너비 미지정(컨테이너 폭 기준 자동 분배) */
+    dtEl.style.width='100%';
+    dtEl.style.columnWidth='';
+    dtEl.style.columnCount='5';
+    dtEl.style.columnGap='36px';
+  }
   document.getElementById('d-author').textContent=p.author_nickname||'';
 
   // 부모문서: 하위문서 목록
@@ -1276,14 +1285,11 @@ function showDetail(postId,doPush) {
   if(doPush){safePush({type:'post',id:postId},'/'+encodeURIComponent(p.title));var desc=p.body?p.body.replace(/\[\[.*?\]\]/g,'').slice(0,120).trim()+'…':'';setMeta(p.title,desc,p.img||'');}
   window.scrollTo(0,0); setTimeout(function(){window.scrollTo(0,0);},80);
 }
-/* 글 길이에 따라 적절한 열 개수 계산 */
-function calcColumnCount(text){
-  var len=(text||'').replace(/\[\[.*?\]\]/g,'').replace(/[*_]/g,'').length;
-  if(len<=150)return 1;
-  if(len<=400)return 2;
-  if(len<=800)return 3;
-  if(len<=1400)return 4;
-  return 5;
+/* 본문이 15줄 이하인지 판별 */
+function isShortText(text){
+  text=text||'';
+  var lineCount=(text.match(/\n/g)||[]).length + Math.ceil(text.replace(/\n/g,'').length/45);
+  return lineCount<=15;
 }
 
 function closeDetail(doPush) {
