@@ -1244,15 +1244,36 @@ function showDetail(postId,doPush) {
   var bodyText=p.body||'';
   var dtEl=document.getElementById('d-text');
   dtEl.innerHTML=wikiRender(bodyText);
-  if(isShortText(bodyText)){
-    /* 15줄 이하: 왼쪽 한 칸(5등분 중 1칸)만 사용, 단 나눔 없음 */
-    dtEl.style.columnCount='';
-    dtEl.style.columnGap='';
-    dtEl.style.columnWidth='';
-    dtEl.style.width='min(9cm, calc((100% - 144px)/5))';
-  } else {
-    /* 15줄 이상: 최대 5등분, 화면 좁아지면 자동으로 단 수 감소 */
+  /* 1) 먼저 좁은 1칸 너비로 렌더링해서 실제 높이/너비 측정 */
+  dtEl.style.columnCount='';
+  dtEl.style.columnGap='';
+  dtEl.style.columnWidth='';
+  dtEl.style.maxWidth='';
+  dtEl.style.width='min(9cm, 100%)';
+  var colPx=dtEl.getBoundingClientRect().width; /* 실제 렌더링된 1칸 너비(정확) */
+  var measuredH=dtEl.scrollHeight;
+  /* 2) 줄 수 기준 임계값 (line-height 1.5 * font-size 14.6px = 21.9px/줄) */
+  var LH=21.9;
+  var t17=17*LH, t34=34*LH, t51=51*LH, t68=68*LH;
+  var cols;
+  if(measuredH<=t17)cols=1;
+  else if(measuredH<=t34)cols=2;
+  else if(measuredH<=t51)cols=3;
+  else if(measuredH<=t68)cols=4;
+  else cols=5;
+  /* 3) 단 수에 맞춰 스타일 적용 */
+  if(cols===1){
+    /* width는 이미 min(9cm,100%)로 설정됨 — 그대로 유지 */
+  } else if(cols<5){
     dtEl.style.width='100%';
+    dtEl.style.maxWidth=(cols*colPx + (cols-1)*36)+'px';
+    dtEl.style.columnWidth='9cm';
+    dtEl.style.columnCount=String(cols);
+    dtEl.style.columnGap='36px';
+  } else {
+    /* 68줄 초과: 기존 긴 글 법칙 — 최대 5등분, 화면 좁아지면 자동 축소 */
+    dtEl.style.width='100%';
+    dtEl.style.maxWidth='';
     dtEl.style.columnWidth='9cm';
     dtEl.style.columnCount='5';
     dtEl.style.columnGap='36px';
@@ -1285,12 +1306,6 @@ function showDetail(postId,doPush) {
   window.scrollTo(0,0); setTimeout(function(){window.scrollTo(0,0);},80);
 }
 /* 본문이 15줄 이하인지 판별 */
-function isShortText(text){
-  text=text||'';
-  var lineCount=(text.match(/\n/g)||[]).length + Math.ceil(text.replace(/\n/g,'').length/45);
-  return lineCount<=15;
-}
-
 function closeDetail(doPush) {
   if(doPush===undefined)doPush=true;
   document.getElementById('dv').style.display='none';
