@@ -1249,11 +1249,11 @@ function showDetail(postId,doPush) {
     dtEl.style.columnCount='';
     dtEl.style.columnGap='';
     dtEl.style.columnWidth='';
-    dtEl.style.width='calc((100% - 144px)/5)';
+    dtEl.style.width='min(9cm, calc((100% - 144px)/5))';
   } else {
-    /* 15줄 이상: 5등분, 단 너비 미지정(컨테이너 폭 기준 자동 분배) */
+    /* 15줄 이상: 최대 5등분, 화면 좁아지면 자동으로 단 수 감소 */
     dtEl.style.width='100%';
-    dtEl.style.columnWidth='';
+    dtEl.style.columnWidth='9cm';
     dtEl.style.columnCount='5';
     dtEl.style.columnGap='36px';
   }
