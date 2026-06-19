@@ -1245,7 +1245,9 @@ function showDetail(postId,doPush) {
   var bodyText=p.body||'';
   var dtEl=document.getElementById('d-text');
   dtEl.innerHTML=wikiRender(bodyText);
-  dtEl.style.columnCount = calcColumnCount(bodyText);
+  var cnt=calcColumnCount(bodyText);
+  dtEl.style.columnCount=cnt;
+  dtEl.style.maxWidth=(cnt*340 + (cnt-1)*36)+'px';
   document.getElementById('d-author').textContent=p.author_nickname||'';
 
   // 부모문서: 하위문서 목록
