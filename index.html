@@ -1092,7 +1092,7 @@ function renderGallery() {
   var g=document.getElementById('gallery');
   var html='';
   if(editMode) {
-    var txtItems=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들'&&p.sec!=='커리큘럼');});
+    var txtItems=posts.filter(function(p){return p.sec==='단어들'||p.sec==='개념들';});
     html+='<div style="width:100%;flex-basis:100%;margin-bottom:20px;">';
     html+='<button onclick="showPanel(\'post-cat-panel\')" style="font-size:13px;background:none;border:1px solid #ccc;padding:5px 12px;cursor:pointer;font-family:inherit;">카테고리 관리</button>';
     html+='</div>';
@@ -1114,15 +1114,9 @@ function renderGallery() {
       html+='</div></div>';
     });
   } else {
-    var galItems=posts.filter(function(p){return p.sec==='개념들'&&p.img;});
-    galItems.filter(function(p){return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});})
-      .forEach(function(p){html+=buildCardHtml(p);});
-    postCats.forEach(function(cat){
-      var items=galItems.filter(function(p){return p.pos_cat===cat.name;});
-      if(!items.length)return;
-      html+='<div style="flex-basis:100%;font-size:14.6px;font-weight:700;letter-spacing:-0.01em;margin-top:40px;margin-bottom:4px;">'+cat.name+'</div>';
-      items.forEach(function(p){html+=buildCardHtml(p);});
-    });
+    /* 일반 보기: 이미지/텍스트 구분 없이 danuh-list에서 통합 표시 */
+    g.innerHTML='';
+    return;
   }
   if(!html)html='<p class="loading">게시물이 없습니다.</p>';
   g.innerHTML=html;
@@ -1160,21 +1154,26 @@ function onGalCatDrop(e,catName){
 /* ── DANUH ── */
 function renderDanuh() {
   var el=document.getElementById('danuh-list');
-  var items=posts.filter(function(p){return p.sec==='단어들'||(!p.img&&p.sec!=='link'&&p.sec!=='개념들'&&p.sec!=='커리큘럼');});
+  /* 텍스트글 + 이미지 섬네일 게시물 모두 포함 (구분 없이) */
+  var items=posts.filter(function(p){return (p.sec==='단어들'||p.sec==='개념들');});
   var html='';
   var catNames=postCats.map(function(c){return c.name;});
+  function itemHtml(p,extraStyle){
+    var thumb=p.img?'<img src="'+p.img+'" alt="" style="display:block;max-width:60%;height:auto;margin-bottom:4px;">':'';
+    return '<li onclick="showDetail('+p.id+')" style="'+(extraStyle||'')+'">'+thumb+p.title+'</li>';
+  }
   var uncat=items.filter(function(p){
     /* 카테고리 이름과 같은 제목은 미분류에서 무조건 제외 */
     if(catNames.indexOf(p.title)>=0)return false;
     return !p.pos_cat||!findIn(postCats,function(c){return c.name===p.pos_cat;});
   });
-  uncat.forEach(function(p){html+='<li onclick="showDetail('+p.id+')">'+p.title+'</li>';});
+  uncat.forEach(function(p){html+=itemHtml(p,'');});
   postCats.forEach(function(cat){
     var catItems=items.filter(function(p){return p.pos_cat===cat.name;});
     var catPost=findIn(posts,function(p){return p.title===cat.name;});
     var catClick=catPost?'onclick="showDetail('+catPost.id+')"':'';
     html+='<li class="danuh-cat-title" '+catClick+'>'+cat.name+'</li>';
-    catItems.forEach(function(p){html+='<li onclick="showDetail('+p.id+')" style="padding-left:12px;">'+p.title+'</li>';});
+    catItems.forEach(function(p){html+=itemHtml(p,'padding-left:12px;');});
   });
   el.innerHTML=html;
 }
@@ -1771,6 +1770,7 @@ function openEditPanel(){
   showPanel('edit-panel');addPaste('e-body');
   document.getElementById('e-title').value=p.title;
   document.getElementById('e-img').value=(p.img&&p.img.indexOf('data:')!==0)?p.img:'';
+  document.getElementById('e-img-file').value=''; /* 이전에 선택된 파일 잔존 방지 */
   document.getElementById('e-body').value=p.body||'';
   var isTemp=!!(p.is_template);
   document.getElementById('e-is-template').checked=isTemp;
@@ -2228,9 +2228,11 @@ function openGaeHeader(){
   showPanel('gae-header-panel');
 }
 function saveGaeHeader(){
-  var title=document.getElementById('gae-h-title').value.trim()||'개념들';
+  var title=document.getElementById('gae-h-title').value.trim();
   var desc=document.getElementById('gae-h-desc').value.trim();
-  document.getElementById('gae념-title').textContent=title;
+  var titleEl=document.getElementById('gae념-title');
+  titleEl.textContent=title;
+  titleEl.style.display=title?'block':'none';
   document.getElementById('gaenym-desc').textContent=desc;
   saveSetting('gae_header',{title:title,desc:desc});
   document.getElementById('gae-h-ok').style.display='block';
@@ -2243,8 +2245,10 @@ function loadGaeHeader(){
     .then(function(rows){
       if(!rows||!rows[0]||!rows[0].value)return;
       var v=rows[0].value;
-      if(v.title)document.getElementById('gae념-title').textContent=v.title;
-      if(v.desc)document.getElementById('gaenym-desc').textContent=v.desc;
+      var titleEl=document.getElementById('gae념-title');
+      titleEl.textContent=v.title||'';
+      titleEl.style.display=v.title?'block':'none';
+      document.getElementById('gaenym-desc').textContent=v.desc||'';
     }).catch(function(){});
 }
 function renderAbout() {
