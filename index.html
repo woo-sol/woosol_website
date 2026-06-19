@@ -87,9 +87,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 /* DETAIL */
 #dv{display:none;}
 .d-title{font-size:20px;font-weight:400;letter-spacing:-0.01em;line-height:1.3;margin-bottom:28px;}
-.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;display:flex;flex-wrap:wrap;align-items:flex-start;gap:0 36px;}
-.d-text-col{width:340px;flex-shrink:0;}
-@media(max-width:600px){.d-text-col{width:100%;}}
+.d-text{font-size:14.6px;font-weight:400;line-height:1.5;letter-spacing:-0.01em;column-width:9cm;column-count:5;column-gap:36px;}
+.d-text p{margin-top:14px;}
 .d-text p{margin-top:14px;}
 .d-img-plate{max-width:50%;height:auto;display:block;margin:24px 0;}
 .wiki-link{color:var(--blue);text-decoration:underline;cursor:pointer;}
@@ -1245,7 +1244,7 @@ function showDetail(postId,doPush) {
   document.getElementById('d-title').textContent=p.title;
   var bodyText=p.body||'';
   var dtEl=document.getElementById('d-text');
-  layoutDText(dtEl,wikiRender(bodyText));
+  dtEl.innerHTML=wikiRender(bodyText);
   document.getElementById('d-author').textContent=p.author_nickname||'';
 
   // 부모문서: 하위문서 목록
@@ -1273,35 +1272,6 @@ function showDetail(postId,doPush) {
   if(doPush){safePush({type:'post',id:postId},'/'+encodeURIComponent(p.title));var desc=p.body?p.body.replace(/\[\[.*?\]\]/g,'').slice(0,120).trim()+'…':'';setMeta(p.title,desc,p.img||'');}
   window.scrollTo(0,0); setTimeout(function(){window.scrollTo(0,0);},80);
 }
-/* ── 본문 열 순차 채움 (15줄씩) ── */
-function layoutDText(containerEl,html){
-  var measure=document.createElement('div');
-  measure.style.cssText='position:absolute;left:-9999px;top:0;visibility:hidden;width:340px;font-size:14.6px;line-height:1.5;letter-spacing:-0.01em;';
-  measure.innerHTML=html;
-  document.body.appendChild(measure);
-
-  var children=Array.prototype.slice.call(measure.children);
-  var threshold=330; /* 약 15줄 */
-  var chunks=[]; var cur=[]; var curH=0;
-
-  children.forEach(function(child){
-    var mt=parseFloat(getComputedStyle(child).marginTop)||0;
-    var h=child.offsetHeight+mt;
-    if(curH+h>threshold && cur.length>0){
-      chunks.push(cur); cur=[]; curH=0;
-    }
-    cur.push(child.outerHTML);
-    curH+=h;
-  });
-  if(cur.length)chunks.push(cur);
-  document.body.removeChild(measure);
-
-  if(!chunks.length){containerEl.innerHTML='';return;}
-  containerEl.innerHTML=chunks.map(function(nodes){
-    return '<div class="d-text-col">'+nodes.join('')+'</div>';
-  }).join('');
-}
-
 function closeDetail(doPush) {
   if(doPush===undefined)doPush=true;
   document.getElementById('dv').style.display='none';
