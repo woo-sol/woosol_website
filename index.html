@@ -28,7 +28,7 @@
 body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;min-height:100vh;}
 ::selection{background:#CDFF1A;color:#000;}
 .header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:#fff;display:flex;align-items:center;padding:0 28px;z-index:200;}
-.logo{font-family:'Outfit',sans-serif;font-weight:200;font-size:28px;letter-spacing:0.04em;cursor:pointer;user-select:none;flex-shrink:0;}
+.logo{display:flex;align-items:center;color:#000;cursor:pointer;user-select:none;flex-shrink:0;}
 .logo:hover{opacity:0.4;}
 .nav-bar{display:flex;align-items:center;}
 .nav-item{font-size:12px;font-weight:400;letter-spacing:-0.01em;color:#999;white-space:nowrap;padding:0 20px;cursor:pointer;background:none;border:none;font-family:inherit;transition:color 0.1s;}
@@ -53,7 +53,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   .card img{width:100%!important;height:auto!important;object-fit:contain;}
   .card-cap{font-size:12px;}
   .lib-cats{columns:2;column-gap:20px;}
-  .danuh-cols{column-count:2!important;column-width:auto!important;margin-top:40px;}}
+  .danuh-cols{column-count:2!important;column-width:auto!important;margin-top:0;}}
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 .pg{display:none;}.pg.on{display:block;}
 
@@ -75,7 +75,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .gal-cat-edit-name{font-size:14.6px;font-weight:700;}
 .gal-cat-del-btn{font-size:11px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;}
 .gal-cat-del-btn:hover{color:#f00;}
-.danuh-cols{column-width:140px;column-count:5;column-gap:28px;margin-top:80px;list-style:none;}
+.danuh-cols{column-width:140px;column-count:5;column-gap:28px;margin-top:0;list-style:none;}
 .danuh-cols li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;break-inside:avoid;}
 .danuh-cols li:hover{color:var(--blue);}
 .danuh-cat-title{column-span:all;font-size:22px;font-weight:900;letter-spacing:-0.02em;margin-top:40px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #000;cursor:pointer;list-style:none;}
@@ -261,7 +261,9 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 </head>
 <body>
 <header class="header">
-  <div class="logo" onclick="go('개념들')">POS</div>
+  <div class="logo" onclick="go('개념들')" title="POS">
+    <img src="logo.png" alt="POS" style="height:34px;width:auto;display:block;">
+  </div>
   <nav class="nav-bar">
     <button class="nav-item active" id="nv-개념들" onclick="go('개념들')">개념들</button>
     <button class="nav-item" id="nv-도서관" onclick="go('도서관')">도서관</button>
