@@ -24,12 +24,15 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300&family=Inter:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;700;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{--blue:#FF6A00;--header-h:52px;}
+:root{--blue:#FF6A00;--header-h:76px;}
 body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;min-height:100vh;}
 ::selection{background:#CDFF1A;color:#000;}
 .header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:#fff;display:flex;align-items:center;padding:0 28px;z-index:200;}
 .logo{display:flex;align-items:center;color:#000;cursor:pointer;user-select:none;flex-shrink:0;}
-.logo:hover{opacity:0.4;}
+.logo .logo-default{display:block;}
+.logo .logo-hover{display:none;}
+.logo:hover .logo-default{display:none;}
+.logo:hover .logo-hover{display:block;}
 .nav-bar{display:flex;align-items:center;}
 .nav-item{font-size:12px;font-weight:400;letter-spacing:-0.01em;color:#999;white-space:nowrap;padding:0 20px;cursor:pointer;background:none;border:none;font-family:inherit;transition:color 0.1s;}
 .nav-item:hover,.nav-item.active{color:#000;}
@@ -262,7 +265,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 <body>
 <header class="header">
   <div class="logo" onclick="go('개념들')" title="POS">
-    <img src="logo.png" alt="POS" style="height:50px;width:auto;display:block;">
+    <img class="logo-default" src="logo.png" alt="POS" style="height:50px;width:auto;display:block;">
+    <img class="logo-hover" src="logohover.png" alt="POS" style="height:50px;width:auto;display:block;">
   </div>
   <nav class="nav-bar">
     <button class="nav-item active" id="nv-개념들" onclick="go('개념들')">개념들</button>
