@@ -287,10 +287,6 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 
 <main class="site-main">
   <div id="pg-개념들" class="pg on">
-    <div id="gae념-header" style="margin-bottom:48px;">
-      <h2 id="gae념-title" style="font-size:32px;font-weight:400;letter-spacing:-0.02em;line-height:1;margin-bottom:12px;">개념들</h2>
-      <p id="gaenym-desc" style="font-size:14.6px;color:#666;letter-spacing:-0.01em;">이곳은 개념들을 모아논 곳입니다.</p>
-    </div>
     <div id="gallery" class="gallery"></div>
     <ul class="danuh-cols" id="danuh-list"></ul>
   </div>
@@ -600,15 +596,6 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <button class="fbtn" onclick="addPostCat()">추가</button>
 </div>
 
-<!-- 개념들 헤더 수정 -->
-<div class="panel" id="gae-header-panel">
-  <div class="resize-handle"></div>
-  <div class="ph"><span>개념들 헤더 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
-  <div class="fl"><label>제목</label><input type="text" class="fi" id="gae-h-title" placeholder="개념들"></div>
-  <div class="fl"><label>설명</label><textarea class="fta" id="gae-h-desc" style="min-height:80px;"></textarea></div>
-  <button class="fbtn" onclick="saveGaeHeader()">저장</button>
-  <p id="gae-h-ok" class="ok-msg">✓ 저장되었습니다.</p>
-</div>
 <div class="panel" id="about-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span>관계심화 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
@@ -1055,23 +1042,11 @@ function enterEditMode(){
   if(!isAdmin()){alert('관리자만 편집모드를 사용할 수 있습니다.');return;}
   editMode=true;
   document.getElementById('pg-개념들').classList.add('edit-mode');
-  /* 헤더 수정 버튼 표시 */
-  var hdr=document.getElementById('gae념-header');
-  if(hdr&&!document.getElementById('gae념-edit-btn')){
-    var btn=document.createElement('button');
-    btn.id='gae념-edit-btn';
-    btn.textContent='헤더 수정';
-    btn.style.cssText='font-size:11px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;margin-top:6px;display:block;text-decoration:underline;';
-    btn.onclick=openGaeHeader;
-    hdr.appendChild(btn);
-  }
   manageFabs(); renderGallery();
 }
 function exitEditMode(){
   editMode=false;
   document.getElementById('pg-개념들').classList.remove('edit-mode');
-  var btn=document.getElementById('gae념-edit-btn');
-  if(btn)btn.parentNode.removeChild(btn);
   manageFabs(); renderGallery();
 }
 function enterLibEditMode(){
@@ -1759,7 +1734,7 @@ function saveExit(){
 }
 
 /* ── PANELS ── */
-var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel','curr-edit-panel','gae-header-panel'];
+var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel','curr-edit-panel'];
 function closeAllPanels(){PANELS.forEach(function(id){document.getElementById(id).classList.remove('on');});document.getElementById('ov').classList.remove('on');}
 function showPanel(id){
   closeAllPanels();document.getElementById(id).classList.add('on');document.getElementById('ov').classList.add('on');
@@ -2237,35 +2212,6 @@ function exitCurrEditMode(){
   currEditMode=false; manageFabs(); renderCurriculum();
 }
 
-function openGaeHeader(){
-  document.getElementById('gae-h-title').value=document.getElementById('gae념-title').textContent;
-  document.getElementById('gae-h-desc').value=document.getElementById('gaenym-desc').textContent;
-  showPanel('gae-header-panel');
-}
-function saveGaeHeader(){
-  var title=document.getElementById('gae-h-title').value.trim();
-  var desc=document.getElementById('gae-h-desc').value.trim();
-  var titleEl=document.getElementById('gae념-title');
-  titleEl.textContent=title;
-  titleEl.style.display=title?'block':'none';
-  document.getElementById('gaenym-desc').textContent=desc;
-  saveSetting('gae_header',{title:title,desc:desc});
-  document.getElementById('gae-h-ok').style.display='block';
-  setTimeout(function(){document.getElementById('gae-h-ok').style.display='none';},2000);
-  closeAllPanels();
-}
-function loadGaeHeader(){
-  fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.gae_header',{headers:SH()})
-    .then(function(r){return r.json();})
-    .then(function(rows){
-      if(!rows||!rows[0]||!rows[0].value)return;
-      var v=rows[0].value;
-      var titleEl=document.getElementById('gae념-title');
-      titleEl.textContent=v.title||'';
-      titleEl.style.display=v.title?'block':'none';
-      document.getElementById('gaenym-desc').textContent=v.desc||'';
-    }).catch(function(){});
-}
 function renderAbout() {
   fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.about_content',{headers:SH()})
     .then(function(r){return r.json();})
@@ -2301,7 +2247,6 @@ dbLoad();
 dbLoadBooks();
 loadSettings();
 loadCurrData();
-loadGaeHeader();
 manageFabs();
 </script>
 </body>
