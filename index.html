@@ -55,7 +55,7 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   .card{width:calc(50% - 4px)!important;flex-shrink:0!important;flex-basis:calc(50% - 4px)!important;}
   .card img{width:100%!important;height:auto!important;object-fit:contain;}
   .card-cap{font-size:12px;}
-  .lib-cats{columns:2;column-gap:20px;}
+  .lib-cats{columns:1;column-gap:0;}
   .danuh-cols{column-count:2!important;column-width:auto!important;margin-top:0;}}
 .site-main{margin-top:var(--header-h);padding:32px 28px 100px;}
 .pg{display:none;}.pg.on{display:block;}
@@ -79,6 +79,13 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .gal-cat-del-btn{font-size:11px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;}
 .gal-cat-del-btn:hover{color:#f00;}
 .danuh-cols{column-width:140px;column-count:5;column-gap:28px;margin-top:0;list-style:none;}
+.gae-search-bar{display:flex;align-items:center;gap:8px;margin-bottom:24px;}
+.gae-search-icon{background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
+.gae-search-icon:hover circle,.gae-search-icon:hover line{stroke:var(--blue);}
+.gae-search-input{display:none;border:none;border-bottom:1px solid #000;font-family:inherit;font-size:14.6px;letter-spacing:-0.01em;padding:4px 2px;outline:none;width:240px;background:none;}
+.gae-search-input.on{display:block;}
+.gae-search-input:focus{border-color:var(--blue);}
+.gae-empty-hint{color:#ccc;font-size:13px;padding:8px 0;}
 .danuh-cols li{padding:2px 0;cursor:pointer;font-size:14.6px;font-weight:400;letter-spacing:-0.01em;line-height:1.5;break-inside:avoid;}
 .danuh-cols li:hover{color:var(--blue);}
 .danuh-cat-title{column-span:all;font-size:22px;font-weight:900;letter-spacing:-0.02em;margin-top:40px;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid #000;cursor:pointer;list-style:none;}
@@ -132,9 +139,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 .lib-expand-author{color:#888;font-size:11px;}
 .lib-edit-btn-sm{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0 4px;text-decoration:underline;}
 .lib-edit-btn-sm:hover{color:#000;}
-.lib-cat-row td{font-size:14px;font-weight:900;letter-spacing:-0.02em;padding:16px 8px 5px;background:#fff;cursor:pointer;border-bottom:2px solid #000;}
-.lib-cat-row.sub td{font-size:12px;font-weight:700;padding:10px 8px 4px 20px;border-bottom:1px solid #ccc;}
-.lib-cat-row .cat-arrow{font-size:10px;color:#888;margin-left:6px;}
+.lib-cat-row td{font-size:14px;font-weight:400;letter-spacing:-0.01em;padding:16px 8px 5px;background:#fff;border-bottom:2px solid #000;}
+.lib-cat-row.sub td{font-size:12px;font-weight:400;padding:10px 8px 4px 20px;border-bottom:1px solid #ccc;}
 .lib-cat-edit-btn{font-size:10px;color:#bbb;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline;margin-left:8px;}
 .lib-cat-edit-btn:hover{color:#000;}
 .cat-btn{border:1px solid #ccc;padding:5px 14px;font-size:13px;cursor:pointer;background:#fff;font-family:inherit;margin-right:6px;margin-bottom:6px;letter-spacing:-0.01em;}
@@ -293,6 +299,12 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
 
 <main class="site-main">
   <div id="pg-개념들" class="pg on">
+    <div class="gae-search-bar">
+      <button class="gae-search-icon" onclick="toggleGaeSearch()" title="검색">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#000" stroke-width="1.4"/><line x1="10.2" y1="10.2" x2="14.5" y2="14.5" stroke="#000" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+      <input type="text" id="gae-search-input" class="gae-search-input" placeholder="검색..." oninput="onGaeSearchInput(this.value)" onkeydown="if(event.key==='Escape')toggleGaeSearch(false)">
+    </div>
     <div id="gallery" class="gallery"></div>
     <ul class="danuh-cols" id="danuh-list"></ul>
   </div>
@@ -306,8 +318,8 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
         </div>
       </div>
       <div class="curr-content" id="curr-content">
-        <div class="curr-body-col" style="display:flex;align-items:center;justify-content:center;">
-          <p class="curr-empty">← 왼쪽에서 게시물을 선택하세요</p>
+        <div class="curr-body-col" id="curr-intro-view">
+          <div id="curr-intro-text" class="curr-section-text" style="white-space:pre-wrap;"></div>
         </div>
         <div class="curr-img-col"></div>
       </div>
@@ -612,7 +624,17 @@ body{font-family:'Inter','Noto Sans KR',sans-serif;background:#fff;color:#000;mi
   <p id="about-ok" class="ok-msg">✓ 저장되었습니다.</p>
 </div>
 
-<!-- 커리큘럼 글쓰기/수정 패널 -->
+<!-- 커리큘럼 인트로 수정 패널 -->
+<div class="panel" id="curr-intro-panel">
+  <div class="resize-handle"></div>
+  <div class="ph"><span>커리큘럼 인트로 수정</span><button class="pc" onclick="closeAllPanels()">✕</button></div>
+  <div class="fl-grow">
+    <label>본문</label>
+    <textarea class="fta-grow" id="curr-intro-ta" placeholder="커리큘럼 탭 첫 화면에 표시될 내용을 입력하세요."></textarea>
+  </div>
+  <button class="fbtn" onclick="saveCurrIntro()">저장</button>
+  <p id="curr-intro-ok" class="ok-msg">✓ 저장되었습니다.</p>
+</div>
 <div class="panel" id="curr-edit-panel">
   <div class="resize-handle"></div>
   <div class="ph"><span id="curr-ep-label">커리큘럼 게시물 작성</span><button class="pc" onclick="closeCurrPanel()">✕</button></div>
@@ -950,7 +972,11 @@ function manageFabs() {
       fbDone.style.display='flex';
       fbWrite.style.display='block';
     } else {
-      if(isAdmin()) fbDonut.style.display='flex';
+      if(isAdmin()){
+        fbDonut.style.display='flex';
+        document.getElementById('fab-about-edit').style.display='flex';
+        document.getElementById('fab-about-edit').onclick=openCurrIntroEdit;
+      }
     }
   }
 }
@@ -1133,16 +1159,44 @@ function onGalCatDrop(e,catName){
 }
 
 /* ── DANUH ── */
+var gaeSearchQuery='';
+function toggleGaeSearch(force){
+  var input=document.getElementById('gae-search-input');
+  var show=(force!==undefined)?force:!input.classList.contains('on');
+  input.classList.toggle('on',show);
+  if(show){input.focus();}
+  else{input.value='';gaeSearchQuery='';renderDanuh();}
+}
+function onGaeSearchInput(val){
+  gaeSearchQuery=val.trim().toLowerCase();
+  renderDanuh();
+}
+
 function renderDanuh() {
   var el=document.getElementById('danuh-list');
   /* 텍스트글 + 이미지 섬네일 게시물 모두 포함 (구분 없이) */
   var items=posts.filter(function(p){return (p.sec==='단어들'||p.sec==='개념들');});
   var html='';
-  var catNames=postCats.map(function(c){return c.name;});
   function itemHtml(p,extraStyle){
     var thumb=p.img?'<img src="'+p.img+'" alt="" style="display:block;max-width:60%;height:auto;margin-bottom:4px;">':'';
     return '<li onclick="showDetail('+p.id+')" style="'+(extraStyle||'')+'">'+thumb+p.title+'</li>';
   }
+  /* 검색 모드: 제목 또는 본문에 검색어 포함된 게시물만 평면 목록으로 표시 */
+  if(gaeSearchQuery){
+    var matched=items.filter(function(p){
+      var inTitle=p.title&&p.title.toLowerCase().indexOf(gaeSearchQuery)>=0;
+      var inBody=p.body&&p.body.toLowerCase().indexOf(gaeSearchQuery)>=0;
+      return inTitle||inBody;
+    });
+    if(!matched.length){
+      el.innerHTML='<li class="gae-empty-hint" style="list-style:none;">검색 결과가 없습니다.</li>';
+      return;
+    }
+    matched.forEach(function(p){html+=itemHtml(p,'');});
+    el.innerHTML=html;
+    return;
+  }
+  var catNames=postCats.map(function(c){return c.name;});
   var uncat=items.filter(function(p){
     /* 카테고리 이름과 같은 제목은 미분류에서 무조건 제외 */
     if(catNames.indexOf(p.title)>=0)return false;
@@ -1373,37 +1427,30 @@ function renderLibrary() {
 }
 
 function renderLibCatRows(cat,isSub,idx,total){
-  var collapsed=collapsedCats[cat.id];
   var cols=(libEditMode&&isAdmin())?'3':'2';
-  var arrow=collapsed?'▶':'▼';
   var editBtns='';
   if(libEditMode&&isAdmin()){
     editBtns+=(idx>0?'<button onclick="moveLibCat(event,\''+cat.id+'\','+(isSub?'true':'false')+',-1)" style="background:none;border:none;cursor:pointer;font-size:12px;color:#bbb;padding:0 2px;">↑</button>':'');
     editBtns+=(idx<total-1?'<button onclick="moveLibCat(event,\''+cat.id+'\','+(isSub?'true':'false')+',1)" style="background:none;border:none;cursor:pointer;font-size:12px;color:#bbb;padding:0 2px;">↓</button>':'');
     editBtns+='<button class="lib-cat-edit-btn" onclick="openLibCatEdit(\''+cat.id+'\')">수정</button>';
   }
-  var h='<tr class="lib-cat-row'+(isSub?' sub':'')+'" onclick="toggleLibCat(\''+cat.id+'\')">';
-  h+='<td colspan="'+cols+'">'+cat.name+'<span class="cat-arrow">'+arrow+'</span>'+editBtns+'</td></tr>';
-  if(collapsed)return h;
+  /* 화살표 없음, 볼드 해제, 클릭 비활성 */
+  var rowStyle=isSub?'sub':'';
+  var h='<tr class="lib-cat-row '+rowStyle+'">';
+  h+='<td colspan="'+cols+'">'+cat.name+editBtns+'</td></tr>';
   var catBooks=books.filter(function(b){return b.category===cat.name;});
   catBooks.sort(function(a,b){return a.order_index-b.order_index;});
   catBooks.forEach(function(b,bidx){
-    var exp=expandedBookId===b.id;
     h+='<tr class="lib-row" style="background:'+(bidx%2===0?'#fff':'#f7f7f7')+';">';
-    h+='<td><span class="lib-book-title" onclick="toggleBook('+b.id+')">';
+    h+='<td><span class="lib-book-title" style="cursor:default;">';
     h+='<span class="lib-book-icon" onclick="cycleBookType(event,'+b.id+')">'+BOOK_SVG+'</span>';
     h+=b.title+'</span></td>';
     h+='<td style="color:#666;font-size:11px;">'+(b.author||'')+'</td>';
     if(libEditMode&&isAdmin())h+='<td><button class="lib-edit-btn-sm" onclick="openBookEdit('+b.id+')">수정</button></td>';
     h+='</tr>';
-    if(exp){
-      h+='<tr class="lib-expand-row"><td colspan="'+cols+'">';
-      if(b.description)h+='<div class="lib-expand-desc">'+b.description+'</div>';
-      if(b.author)h+='<div class="lib-expand-author">'+b.author+'</div>';
-      h+='</td></tr>';
-    }
   });
-  if(!catBooks.length)h+='<tr><td colspan="'+cols+'" style="color:#ccc;font-size:11px;padding:4px 8px;">게시물 없음</td></tr>';
+  /* 소분류면 게시물 없을때만 표시, 대분류면 숨김 */
+  if(isSub&&!catBooks.length)h+='<tr><td colspan="'+cols+'" style="color:#ccc;font-size:11px;padding:4px 8px;">게시물 없음</td></tr>';
   return h;
 }
 
@@ -1740,7 +1787,7 @@ function saveExit(){
 }
 
 /* ── PANELS ── */
-var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel','curr-edit-panel'];
+var PANELS=['login-panel','signup-panel','new-panel','edit-panel','book-panel','book-edit-panel','lib-cat-panel','post-cat-panel','profile-panel','about-panel','curr-edit-panel','curr-intro-panel'];
 function closeAllPanels(){PANELS.forEach(function(id){document.getElementById(id).classList.remove('on');});document.getElementById('ov').classList.remove('on');}
 function showPanel(id){
   closeAllPanels();document.getElementById(id).classList.add('on');document.getElementById('ov').classList.add('on');
@@ -1875,6 +1922,27 @@ var currEditingParentId=null;
 /* 카테고리(그룹)를 Supabase pos_settings에 저장 */
 function saveCurrGroups(){saveSetting('curr_groups',currGroups);}
 
+function loadCurrIntro(){
+  fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.curr_intro',{headers:SH()})
+    .then(function(r){return r.json();})
+    .then(function(rows){
+      if(!rows||!rows[0]||!rows[0].value)return;
+      document.getElementById('curr-intro-text').textContent=rows[0].value;
+    }).catch(function(){});
+}
+function openCurrIntroEdit(){
+  var text=document.getElementById('curr-intro-text').textContent;
+  document.getElementById('curr-intro-ta').value=text;
+  showPanel('curr-intro-panel');
+}
+function saveCurrIntro(){
+  var text=document.getElementById('curr-intro-ta').value;
+  document.getElementById('curr-intro-text').textContent=text;
+  saveSetting('curr_intro',text);
+  document.getElementById('curr-intro-ok').style.display='block';
+  setTimeout(function(){document.getElementById('curr-intro-ok').style.display='none';},2000);
+  closeAllPanels();
+}
 function loadCurrData(){
   fetch(SUPA_URL+'/rest/v1/pos_settings?key=eq.curr_groups',{headers:SH()})
     .then(function(r){return r.json();})
@@ -2253,6 +2321,7 @@ dbLoad();
 dbLoadBooks();
 loadSettings();
 loadCurrData();
+loadCurrIntro();
 manageFabs();
 </script>
 </body>
